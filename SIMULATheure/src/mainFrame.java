@@ -27,7 +27,7 @@ public class mainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jToolBar3 = new javax.swing.JToolBar();
-        jToolBar1 = new javax.swing.JToolBar();
+        jToolbar1 = new javax.swing.JToolBar();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jToolBar2 = new javax.swing.JToolBar();
@@ -38,8 +38,8 @@ public class mainFrame extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         jToolBar3.setRollover(true);
 
@@ -47,25 +47,23 @@ public class mainFrame extends javax.swing.JFrame {
         setTitle("SimulatHEURE");
         setFont(new java.awt.Font("Chaparral Pro", 0, 10)); // NOI18N
         setForeground(java.awt.Color.darkGray);
-        setMaximumSize(null);
-        setPreferredSize(new java.awt.Dimension(800, 600));
 
-        jToolBar1.setBackground(new java.awt.Color(0, 255, 51));
-        jToolBar1.setRollover(true);
-        jToolBar1.setMinimumSize(new java.awt.Dimension(157, 53));
-        jToolBar1.setName(""); // NOI18N
+        jToolbar1.setBackground(new java.awt.Color(0, 255, 51));
+        jToolbar1.setRollover(true);
+        jToolbar1.setMinimumSize(new java.awt.Dimension(157, 53));
+        jToolbar1.setName(""); // NOI18N
 
         jButton1.setText("jButton1");
         jButton1.setFocusable(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton1);
+        jToolbar1.add(jButton1);
 
         jButton2.setText("jButton2");
         jButton2.setFocusable(false);
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton2);
+        jToolbar1.add(jButton2);
 
         jToolBar2.setBackground(new java.awt.Color(102, 102, 255));
         jToolBar2.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -114,12 +112,12 @@ public class mainFrame extends javax.swing.JFrame {
         jButton8.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar4.add(jButton8);
 
-        jPanel1.setName("panel"); // NOI18N
-        jPanel1.setLayout(null);
+        jPanel2.setLayout(null);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Élise\\Documents\\Université\\POO\\SIMULATheure\\SIMULATheure\\Images\\IronMan.jpg")); // NOI18N
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(30, 20, 550, 440);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/image/IronMan.jpg"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        jPanel2.add(jLabel1);
+        jLabel1.setBounds(0, 0, 640, 450);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -127,26 +125,26 @@ public class mainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32083, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 731, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31969, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE, Short.MAX_VALUE)
+                    .addComponent(jToolbar1, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE, Short.MAX_VALUE)
                     .addComponent(jToolBar4, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jToolbar1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)
+                        .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
                         .addGap(2, 2, 2))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jToolBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -202,11 +200,11 @@ public class mainFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JToolBar jToolBar2;
     private javax.swing.JToolBar jToolBar3;
     private javax.swing.JToolBar jToolBar4;
+    private javax.swing.JToolBar jToolbar1;
     // End of variables declaration//GEN-END:variables
 }
