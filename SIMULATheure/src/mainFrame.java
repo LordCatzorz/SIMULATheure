@@ -64,7 +64,6 @@ public class mainFrame extends javax.swing.JFrame {
         setTitle("SimulatHEURE");
         setFont(new java.awt.Font("Chaparral Pro", 0, 10)); // NOI18N
         setForeground(java.awt.Color.darkGray);
-        setPreferredSize(new java.awt.Dimension(1250, 700));
 
         tlbTools.setBackground(new java.awt.Color(102, 102, 255));
         tlbTools.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -197,6 +196,11 @@ public class mainFrame extends javax.swing.JFrame {
 
         menuItemQuit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.CTRL_MASK));
         menuItemQuit.setText("Quitter");
+        menuItemQuit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemQuitActionPerformed(evt);
+            }
+        });
         menuFile.add(menuItemQuit);
 
         menuItemImg.setText("Importer une image");
@@ -225,9 +229,19 @@ public class mainFrame extends javax.swing.JFrame {
 
         menuItemHelp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
         menuItemHelp.setText("Aide");
+        menuItemHelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemHelpActionPerformed(evt);
+            }
+        });
         menuHelp.add(menuItemHelp);
 
         menuItemAbout.setText("À propos");
+        menuItemAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemAboutActionPerformed(evt);
+            }
+        });
         menuHelp.add(menuItemAbout);
 
         menuBar.add(menuHelp);
@@ -284,6 +298,20 @@ public class mainFrame extends javax.swing.JFrame {
     private void menuItemRedoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRedoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_menuItemRedoActionPerformed
+
+    private void menuItemQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemQuitActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_menuItemQuitActionPerformed
+
+    private void menuItemAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAboutActionPerformed
+        About aboutFrame = new About();
+        aboutFrame.setVisible(true);
+    }//GEN-LAST:event_menuItemAboutActionPerformed
+
+    private void menuItemHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemHelpActionPerformed
+        Help helpFrame = new Help();
+        helpFrame.setVisible(true);
+    }//GEN-LAST:event_menuItemHelpActionPerformed
 
     /**
      * @param args the command line arguments
