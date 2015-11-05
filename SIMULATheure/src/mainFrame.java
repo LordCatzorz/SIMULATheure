@@ -26,39 +26,39 @@ public class mainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jToolBar2 = new javax.swing.JToolBar();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jToolBar4 = new javax.swing.JToolBar();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
+        tlbTools = new javax.swing.JToolBar();
+        btnStop = new javax.swing.JButton();
+        btnSegment = new javax.swing.JButton();
+        btnTrip = new javax.swing.JButton();
+        btnVehicule = new javax.swing.JButton();
+        btnClient = new javax.swing.JButton();
+        btnClientGenerator = new javax.swing.JButton();
+        btnVehiculeGenerator = new javax.swing.JButton();
+        btnClientProfile = new javax.swing.JButton();
+        lblCoordinate = new javax.swing.JLabel();
+        tlbSpeed = new javax.swing.JToolBar();
+        btnRestart = new javax.swing.JButton();
+        btnStart = new javax.swing.JButton();
+        btnPause = new javax.swing.JButton();
+        btnAccelerate = new javax.swing.JButton();
+        btnStopSimu = new javax.swing.JButton();
+        pnlBackground = new javax.swing.JPanel();
+        lblImage = new javax.swing.JLabel();
+        pnlTool = new javax.swing.JPanel();
+        menuBar = new javax.swing.JMenuBar();
+        menuFile = new javax.swing.JMenu();
+        menuItemNew = new javax.swing.JMenuItem();
+        menuItemOpen = new javax.swing.JMenuItem();
+        menuItemSave = new javax.swing.JMenuItem();
+        menuItemSaveAs = new javax.swing.JMenuItem();
+        menuItemQuit = new javax.swing.JMenuItem();
+        menuItemImg = new javax.swing.JMenuItem();
+        menuEdit = new javax.swing.JMenu();
+        menuItemCancel = new javax.swing.JMenuItem();
+        menuItemRedo = new javax.swing.JMenuItem();
+        menuHelp = new javax.swing.JMenu();
+        menuItemHelp = new javax.swing.JMenuItem();
+        menuItemAbout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SimulatHEURE");
@@ -66,224 +66,224 @@ public class mainFrame extends javax.swing.JFrame {
         setForeground(java.awt.Color.darkGray);
         setPreferredSize(new java.awt.Dimension(1250, 700));
 
-        jToolBar2.setBackground(new java.awt.Color(102, 102, 255));
-        jToolBar2.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jToolBar2.setRollover(true);
+        tlbTools.setBackground(new java.awt.Color(102, 102, 255));
+        tlbTools.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        tlbTools.setRollover(true);
 
-        jButton3.setText("Arrêt");
-        jButton3.setFocusable(false);
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnStop.setText("Arrêt");
+        btnStop.setFocusable(false);
+        btnStop.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnStop.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnStop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnStopActionPerformed(evt);
             }
         });
-        jToolBar2.add(jButton3);
+        tlbTools.add(btnStop);
 
-        jButton4.setText("Segment");
-        jButton4.setFocusable(false);
-        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar2.add(jButton4);
+        btnSegment.setText("Segment");
+        btnSegment.setFocusable(false);
+        btnSegment.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSegment.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        tlbTools.add(btnSegment);
 
-        jButton5.setText("Trajet");
-        jButton5.setFocusable(false);
-        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar2.add(jButton5);
+        btnTrip.setText("Trajet");
+        btnTrip.setFocusable(false);
+        btnTrip.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnTrip.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        tlbTools.add(btnTrip);
 
-        jButton9.setText("Véhicule");
-        jButton9.setFocusable(false);
-        jButton9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton9.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar2.add(jButton9);
+        btnVehicule.setText("Véhicule");
+        btnVehicule.setFocusable(false);
+        btnVehicule.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnVehicule.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        tlbTools.add(btnVehicule);
 
-        jButton10.setText("Client");
-        jButton10.setFocusable(false);
-        jButton10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton10.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar2.add(jButton10);
+        btnClient.setText("Client");
+        btnClient.setFocusable(false);
+        btnClient.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnClient.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        tlbTools.add(btnClient);
 
-        jButton11.setText("Générateur de clients");
-        jButton11.setFocusable(false);
-        jButton11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton11.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar2.add(jButton11);
+        btnClientGenerator.setText("Générateur de clients");
+        btnClientGenerator.setFocusable(false);
+        btnClientGenerator.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnClientGenerator.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        tlbTools.add(btnClientGenerator);
 
-        jButton12.setText("Générateur de véhicules");
-        jButton12.setFocusable(false);
-        jButton12.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton12.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar2.add(jButton12);
+        btnVehiculeGenerator.setText("Générateur de véhicules");
+        btnVehiculeGenerator.setFocusable(false);
+        btnVehiculeGenerator.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnVehiculeGenerator.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        tlbTools.add(btnVehiculeGenerator);
 
-        jButton13.setText("Profil client");
-        jButton13.setFocusable(false);
-        jButton13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton13.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar2.add(jButton13);
+        btnClientProfile.setText("Profil client");
+        btnClientProfile.setFocusable(false);
+        btnClientProfile.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnClientProfile.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        tlbTools.add(btnClientProfile);
 
-        jLabel2.setText("Coordonnées: Latitdue X Longitude Y");
+        lblCoordinate.setText("Coordonnées: Latitdue X Longitude Y");
 
-        jToolBar4.setRollover(true);
-        jToolBar4.setPreferredSize(new java.awt.Dimension(100, 23));
+        tlbSpeed.setRollover(true);
+        tlbSpeed.setPreferredSize(new java.awt.Dimension(100, 23));
 
-        jButton6.setText("Recommencer");
-        jButton6.setFocusable(false);
-        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar4.add(jButton6);
+        btnRestart.setText("Recommencer");
+        btnRestart.setFocusable(false);
+        btnRestart.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnRestart.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        tlbSpeed.add(btnRestart);
 
-        jButton7.setText("Démarrer");
-        jButton7.setFocusable(false);
-        jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar4.add(jButton7);
+        btnStart.setText("Démarrer");
+        btnStart.setFocusable(false);
+        btnStart.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnStart.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        tlbSpeed.add(btnStart);
 
-        jButton8.setText("Pause");
-        jButton8.setFocusable(false);
-        jButton8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton8.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar4.add(jButton8);
+        btnPause.setText("Pause");
+        btnPause.setFocusable(false);
+        btnPause.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPause.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        tlbSpeed.add(btnPause);
 
-        jButton1.setText("Avancer");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar4.add(jButton1);
+        btnAccelerate.setText("Avancer");
+        btnAccelerate.setFocusable(false);
+        btnAccelerate.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAccelerate.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        tlbSpeed.add(btnAccelerate);
 
-        jButton2.setText("Arrêter");
-        jButton2.setFocusable(false);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar4.add(jButton2);
+        btnStopSimu.setText("Arrêter");
+        btnStopSimu.setFocusable(false);
+        btnStopSimu.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnStopSimu.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        tlbSpeed.add(btnStopSimu);
 
-        jPanel2.setLayout(null);
+        pnlBackground.setLayout(null);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/image/IronMan.jpg"))); // NOI18N
-        jLabel1.setText("jLabel1");
-        jPanel2.add(jLabel1);
-        jLabel1.setBounds(0, 0, 640, 450);
+        lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/image/IronMan.jpg"))); // NOI18N
+        lblImage.setText("jLabel1");
+        pnlBackground.add(lblImage);
+        lblImage.setBounds(0, 0, 640, 450);
 
-        jPanel3.setBackground(new java.awt.Color(255, 51, 153));
+        pnlTool.setBackground(new java.awt.Color(255, 51, 153));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlToolLayout = new javax.swing.GroupLayout(pnlTool);
+        pnlTool.setLayout(pnlToolLayout);
+        pnlToolLayout.setHorizontalGroup(
+            pnlToolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 275, Short.MAX_VALUE)
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pnlToolLayout.setVerticalGroup(
+            pnlToolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jMenu1.setText("Fichier");
+        menuFile.setText("Fichier");
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setText("Nouveau");
-        jMenu1.add(jMenuItem1);
+        menuItemNew.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemNew.setText("Nouveau");
+        menuFile.add(menuItemNew);
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem2.setText("Ouvrir");
-        jMenu1.add(jMenuItem2);
+        menuItemOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemOpen.setText("Ouvrir");
+        menuFile.add(menuItemOpen);
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem3.setText("Sauvegarder");
-        jMenu1.add(jMenuItem3);
+        menuItemSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemSave.setText("Sauvegarder");
+        menuFile.add(menuItemSave);
 
-        jMenuItem4.setText("Sauvegarder en tant que");
-        jMenu1.add(jMenuItem4);
+        menuItemSaveAs.setText("Sauvegarder en tant que");
+        menuFile.add(menuItemSaveAs);
 
-        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem5.setText("Quitter");
-        jMenu1.add(jMenuItem5);
+        menuItemQuit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemQuit.setText("Quitter");
+        menuFile.add(menuItemQuit);
 
-        jMenuItem6.setText("Importer une image");
-        jMenu1.add(jMenuItem6);
+        menuItemImg.setText("Importer une image");
+        menuFile.add(menuItemImg);
 
-        jMenuBar1.add(jMenu1);
+        menuBar.add(menuFile);
 
-        jMenu2.setText("Édition");
+        menuEdit.setText("Édition");
 
-        jMenuItem7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem7.setText("Annuler");
-        jMenu2.add(jMenuItem7);
+        menuItemCancel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemCancel.setText("Annuler");
+        menuEdit.add(menuItemCancel);
 
-        jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem8.setText("Refaire");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+        menuItemRedo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemRedo.setText("Refaire");
+        menuItemRedo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
+                menuItemRedoActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem8);
+        menuEdit.add(menuItemRedo);
 
-        jMenuBar1.add(jMenu2);
+        menuBar.add(menuEdit);
 
-        jMenu3.setText("?");
+        menuHelp.setText("?");
 
-        jMenuItem9.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
-        jMenuItem9.setText("Aide");
-        jMenu3.add(jMenuItem9);
+        menuItemHelp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        menuItemHelp.setText("Aide");
+        menuHelp.add(menuItemHelp);
 
-        jMenuItem10.setText("À propos");
-        jMenu3.add(jMenuItem10);
+        menuItemAbout.setText("À propos");
+        menuHelp.add(menuItemAbout);
 
-        jMenuBar1.add(jMenu3);
+        menuBar.add(menuHelp);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tlbTools, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 731, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pnlBackground, javax.swing.GroupLayout.PREFERRED_SIZE, 731, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(pnlTool, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jToolBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tlbSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(525, 525, 525))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(489, 489, 489)
-                .addComponent(jLabel2)
+                .addComponent(lblCoordinate)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tlbTools, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(38, 38, 38))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(51, 51, 51)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pnlBackground, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
-                        .addComponent(jToolBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tlbSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pnlTool, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(60, 60, 60)))
-                .addComponent(jLabel2))
+                .addComponent(lblCoordinate))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStopActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnStopActionPerformed
 
-    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+    private void menuItemRedoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRedoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem8ActionPerformed
+    }//GEN-LAST:event_menuItemRedoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -321,38 +321,38 @@ public class mainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JToolBar jToolBar2;
-    private javax.swing.JToolBar jToolBar4;
+    private javax.swing.JButton btnAccelerate;
+    private javax.swing.JButton btnClient;
+    private javax.swing.JButton btnClientGenerator;
+    private javax.swing.JButton btnClientProfile;
+    private javax.swing.JButton btnPause;
+    private javax.swing.JButton btnRestart;
+    private javax.swing.JButton btnSegment;
+    private javax.swing.JButton btnStart;
+    private javax.swing.JButton btnStop;
+    private javax.swing.JButton btnStopSimu;
+    private javax.swing.JButton btnTrip;
+    private javax.swing.JButton btnVehicule;
+    private javax.swing.JButton btnVehiculeGenerator;
+    private javax.swing.JLabel lblCoordinate;
+    private javax.swing.JLabel lblImage;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenu menuEdit;
+    private javax.swing.JMenu menuFile;
+    private javax.swing.JMenu menuHelp;
+    private javax.swing.JMenuItem menuItemAbout;
+    private javax.swing.JMenuItem menuItemCancel;
+    private javax.swing.JMenuItem menuItemHelp;
+    private javax.swing.JMenuItem menuItemImg;
+    private javax.swing.JMenuItem menuItemNew;
+    private javax.swing.JMenuItem menuItemOpen;
+    private javax.swing.JMenuItem menuItemQuit;
+    private javax.swing.JMenuItem menuItemRedo;
+    private javax.swing.JMenuItem menuItemSave;
+    private javax.swing.JMenuItem menuItemSaveAs;
+    private javax.swing.JPanel pnlBackground;
+    private javax.swing.JPanel pnlTool;
+    private javax.swing.JToolBar tlbSpeed;
+    private javax.swing.JToolBar tlbTools;
     // End of variables declaration//GEN-END:variables
 }
