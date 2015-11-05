@@ -14,7 +14,7 @@ public class GeographicCoordinate {
     private int minute;
     private float second;
     
-    public GeographicCoordinate(int _degree, int _minute, float second){
+    public GeographicCoordinate(int _degree, int _minute, float _second){
         this.setDegree(_degree);
         this.setMinute(_minute);
         this.setSecond(_second);
@@ -93,14 +93,14 @@ public class GeographicCoordinate {
     }
     
     public GeographicCoordinate substract(GeographicCoordinate _geographicCoordinate){
-        
+        throw new UnsupportedOperationException();
     }
     
     public GeographicCoordinate multiplyByScalar(float _scalar){
-        
+        throw new UnsupportedOperationException();
     }
     
-    public isEqual(GeographicCoordinate _geographicCoordinate){
+    public boolean isEqual(GeographicCoordinate _geographicCoordinate){
         return (this.getDegree() == _geographicCoordinate.getDegree()) &&
                (this.getMinute() == _geographicCoordinate.getMinute()) &&
                (this.getSecond() == _geographicCoordinate.getSecond());
