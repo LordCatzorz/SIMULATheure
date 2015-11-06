@@ -119,9 +119,9 @@ public class GeographicCoordinate {
 
     public GeographicCoordinate add(GeographicCoordinate _geographicCoordinate) {
 
-        GeographicCoordinate addedCoordinate = new GeographicCoordinate(_geographicCoordinate.getDegree(),
-                _geographicCoordinate.getMinute(),
-                _geographicCoordinate.getSecond());
+        GeographicCoordinate addedCoordinate = new GeographicCoordinate(this.getDegree(),
+                this.getMinute(),
+                this.getSecond());
 
         addedCoordinate.addToSecond(_geographicCoordinate.getSecond());
         addedCoordinate.addToMinute(_geographicCoordinate.getMinute());
