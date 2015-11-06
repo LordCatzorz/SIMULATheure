@@ -235,7 +235,7 @@ public class Add {
         GeographicCoordinate gc2 = new GeographicCoordinate(-42, 31, 13.15f);
 
         //Act
-        GeographicCoordinate expected = new GeographicCoordinate(50, 17, 23f);
+        GeographicCoordinate expected = new GeographicCoordinate(50, 17, 23.4f);
         GeographicCoordinate given = gc1.add(gc2);
 
         //Assert
@@ -249,7 +249,7 @@ public class Add {
         GeographicCoordinate gc2 = new GeographicCoordinate(91, 46, 10.25f);
 
         //Act
-        GeographicCoordinate expected = new GeographicCoordinate(50, 17, 23f);
+        GeographicCoordinate expected = new GeographicCoordinate(50, 17, 23.4f);
         GeographicCoordinate given = gc1.add(gc2);
 
         //Assert
