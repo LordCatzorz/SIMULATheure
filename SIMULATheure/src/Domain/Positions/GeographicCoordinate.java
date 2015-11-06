@@ -149,4 +149,15 @@ public class GeographicCoordinate {
         this.setMinute(0);
         this.setSecond(0);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof GeographicCoordinate)) {
+            return false;
+        }
+
+        GeographicCoordinate otherGeographicCoordinate = (GeographicCoordinate) other;
+        
+        return this.isEqual(otherGeographicCoordinate);
+    }
 }
