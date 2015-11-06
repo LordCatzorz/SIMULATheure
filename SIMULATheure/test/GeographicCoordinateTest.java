@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
  * @author Raphael
  */
 public class GeographicCoordinateTest {
-    
+    float deltaFloatAccepted = 0.001f;
     public GeographicCoordinateTest() {
     }
     
@@ -127,6 +127,143 @@ public class GeographicCoordinateTest {
         //Assert
         assertEquals(expected, given);
     }
+    
+    
+    // **************** \\
+    
+    @Test
+    public void GIVEN_getMinute_WHEN_0_59_0_GeographicCoordinate_THEN_59(){
+        //Assign
+        Domain.Positions.GeographicCoordinate gc = new GeographicCoordinate(0, 59, 0);
+        
+        //Act
+        int expected = 59;
+        int given = gc.getMinute();
+        
+        //Assert
+        assertEquals(expected, given);
+    }
+    
+    @Test
+    public void GIVEN_getMinute_WHEN_0_0_0_GeographicCoordinate_THEN_0(){
+        //Assign
+        Domain.Positions.GeographicCoordinate gc = new GeographicCoordinate(0, 0, 0);
+        
+        //Act
+        int expected = 0;
+        int given = gc.getMinute();
+        
+        //Assert
+        assertEquals(expected, given);
+    }
+    
+    @Test
+    public void GIVEN_getMinute_WHEN_0_60_0_GeographicCoordinate_THEN_0(){
+        //Assign
+        Domain.Positions.GeographicCoordinate gc = new GeographicCoordinate(0, 60, 0);
+        
+        //Act
+        int expected = 0;
+        int given = gc.getMinute();
+        
+        //Assert
+        assertEquals(expected, given);
+    }
+    
+    @Test
+    public void GIVEN_getDegree_WHEN_0_60_0_GeographicCoordinate_THEN_1(){
+        //Assign
+        Domain.Positions.GeographicCoordinate gc = new GeographicCoordinate(0, 60, 0);
+        
+        //Act
+        int expected = 1;
+        int given = gc.getDegree();
+        
+        //Assert
+        assertEquals(expected, given);
+    }
+    
+    @Test
+    public void GIVEN_getDegree_WHEN_0_120_0_GeographicCoordinate_THEN_2(){
+        //Assign
+        Domain.Positions.GeographicCoordinate gc = new GeographicCoordinate(0, 120, 0);
+        
+        //Act
+        int expected = 2;
+        int given = gc.getDegree();
+        
+        //Assert
+        assertEquals(expected, given);
+    }
+    
+    
+    // ***************** \\
+    
+    @Test
+    public void GIVEN_getSecond_WHEN_0_0_59_99f_GeographicCoordinate_THEN_59_99f(){
+        //Assign
+        Domain.Positions.GeographicCoordinate gc = new GeographicCoordinate(0, 0, 59.99f);
+        
+        //Act
+        float expected = 59.99f;
+        float given = gc.getSecond();
+        
+        //Assert
+        assertEquals(expected, given, this.deltaFloatAccepted);
+    }
+    
+    @Test
+    public void GIVEN_getSecond_WHEN_0_0_0f_GeographicCoordinate_THEN_0f(){
+        //Assign
+        Domain.Positions.GeographicCoordinate gc = new GeographicCoordinate(0, 0, 0f);
+        
+        //Act
+        float expected = 0f;
+        float given = gc.getSecond();
+        
+        //Assert
+        assertEquals(expected, given, 0f);
+    }
+    
+    @Test
+    public void GIVEN_getSecond_WHEN_0_0_60f_GeographicCoordinate_THEN_0f(){
+        //Assign
+        Domain.Positions.GeographicCoordinate gc = new GeographicCoordinate(0, 0, 60f);
+        
+        //Act
+        float expected = 0f;
+        float given = gc.getSecond();
+        
+        //Assert
+        assertEquals(expected, given, this.deltaFloatAccepted);
+    }
+    
+    @Test
+    public void GIVEN_getMinute_WHEN_0_0_60f_GeographicCoordinate_THEN_1(){
+        //Assign
+        Domain.Positions.GeographicCoordinate gc = new GeographicCoordinate(0, 0, 60f);
+        
+        //Act
+        int expected = 1;
+        int given = gc.getMinute();
+        
+        //Assert
+        assertEquals(expected, given);
+    }
+    
+    @Test
+    public void GIVEN_getMinute_WHEN_0_0_120f_GeographicCoordinate_THEN_2(){
+        //Assign
+        Domain.Positions.GeographicCoordinate gc = new GeographicCoordinate(0, 0, 120f);
+        
+        //Act
+        int expected = 2;
+        int given = gc.getMinute();
+        
+        //Assert
+        assertEquals(expected, given);
+    }
+    
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
