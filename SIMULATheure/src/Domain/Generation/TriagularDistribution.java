@@ -9,6 +9,7 @@ package Domain.Generation;
  *
  * @author Raphael
  */
-public class TriagularDistribution {
+public class TriagularDistribution implements java.io.Serializable
+{
     
 }

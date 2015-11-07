@@ -9,6 +9,7 @@ package Domain.Client;
  *
  * @author Raphael
  */
-public class Client {
+public class Client implements java.io.Serializable 
+{
     
 }

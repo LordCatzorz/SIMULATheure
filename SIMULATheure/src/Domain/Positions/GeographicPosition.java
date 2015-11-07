@@ -9,6 +9,7 @@ package Domain.Positions;
  *
  * @author Raphael
  */
-public class GeographicPosition {
+public class GeographicPosition implements java.io.Serializable
+{
     
 }

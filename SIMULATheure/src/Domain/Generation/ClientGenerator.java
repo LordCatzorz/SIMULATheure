@@ -9,6 +9,7 @@ package Domain.Generation;
  *
  * @author Raphael
  */
-public class ClientGenerator {
+public class ClientGenerator implements java.io.Serializable
+{
     
 }

@@ -9,6 +9,7 @@ package Domain.Vehicule;
  *
  * @author Raphael
  */
-public class FortyFeet {
+public class FortyFeet implements java.io.Serializable
+{
     
 }

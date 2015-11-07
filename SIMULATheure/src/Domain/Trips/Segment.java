@@ -9,6 +9,7 @@ package Domain.Trips;
  *
  * @author Raphael
  */
-public class Segment {
+public class Segment implements java.io.Serializable
+{
     
 }

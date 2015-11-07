@@ -9,6 +9,7 @@ package Domain.Vehicule;
  *
  * @author Raphael
  */
-public class VehiculeKind {
+public class VehiculeKind implements java.io.Serializable
+{
     
 }

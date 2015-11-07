@@ -9,6 +9,7 @@ package Domain.Trips;
  *
  * @author Raphael
  */
-public class CircularTrip {
+public class CircularTrip implements java.io.Serializable
+{
     
 }

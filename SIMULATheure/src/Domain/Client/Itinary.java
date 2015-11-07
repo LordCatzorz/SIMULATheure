@@ -9,6 +9,7 @@ package Domain.Client;
  *
  * @author Raphael
  */
-public class Itinary {
+public class Itinary implements java.io.Serializable
+{
     
 }

@@ -9,6 +9,7 @@ package Domain.Node;
  *
  * @author Raphael
  */
-public class Node {
+public class Node implements java.io.Serializable
+{
     
 }

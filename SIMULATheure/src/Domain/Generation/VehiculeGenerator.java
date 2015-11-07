@@ -9,6 +9,7 @@ package Domain.Generation;
  *
  * @author Raphael
  */
-public class VehiculeGenerator {
+public class VehiculeGenerator implements java.io.Serializable
+{
     
 }

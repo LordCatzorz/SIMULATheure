@@ -9,6 +9,7 @@ package Domain.Node;
  *
  * @author Raphael
  */
-public class Stop {
+public class Stop implements java.io.Serializable
+{
     
 }

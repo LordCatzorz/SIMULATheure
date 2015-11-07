@@ -9,6 +9,7 @@ package Domain.Generation;
  *
  * @author Raphael
  */
-public class Distribution {
+public class Distribution implements java.io.Serializable
+{
     
 }

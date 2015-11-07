@@ -9,7 +9,8 @@ package Domain.Positions;
  *
  * @author Raphael
  */
-public class GeographicCoordinate {
+public class GeographicCoordinate implements java.io.Serializable
+{
 
     private int degree;
     private int minute;

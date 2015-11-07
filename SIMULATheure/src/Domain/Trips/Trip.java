@@ -9,6 +9,7 @@ package Domain.Trips;
  *
  * @author Raphael
  */
-public class Trip {
+public class Trip implements java.io.Serializable
+{
     
 }
