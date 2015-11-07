@@ -1,3 +1,5 @@
+package Tests.Domain.Positions.GeographicCoordinate;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -16,9 +18,9 @@ import static org.junit.Assert.*;
  *
  * @author Raphael
  */
-public class GeographicCoordinateTest {
+public class ConstructorAndGetter {
     float deltaFloatAccepted = 0.001f;
-    public GeographicCoordinateTest() {
+    public ConstructorAndGetter() {
     }
     
     @BeforeClass
@@ -38,7 +40,7 @@ public class GeographicCoordinateTest {
     }
 
     @Test
-    public void GIVEN_getDegree_WHEN_0_0_0_GeographicCoordinate_THEN_0(){
+    public void GIVEN_getDegree_WHEN_0_0_0_THEN_0(){
         //Assign
         Domain.Positions.GeographicCoordinate gc = new GeographicCoordinate(0, 0, 0);
         
@@ -51,7 +53,7 @@ public class GeographicCoordinateTest {
     }
     
     @Test
-    public void GIVEN_getDegree_WHEN_179_0_0_GeographicCoordinate_THEN_179(){
+    public void GIVEN_getDegree_WHEN_179_0_0_THEN_179(){
         //Assign
         Domain.Positions.GeographicCoordinate gc = new GeographicCoordinate(179, 0, 0);
         
@@ -64,7 +66,7 @@ public class GeographicCoordinateTest {
     }
     
     @Test
-    public void GIVEN_getDegree_WHEN_neg179_0_0_GeographicCoordinate_THEN_neg179(){
+    public void GIVEN_getDegree_WHEN_neg179_0_0_THEN_neg179(){
         //Assign
         Domain.Positions.GeographicCoordinate gc = new GeographicCoordinate(-179, 0, 0);
         
@@ -77,7 +79,7 @@ public class GeographicCoordinateTest {
     }
     
     @Test
-    public void GIVEN_getDegree_WHEN_185_0_0_GeographicCoordinate_THEN_neg175(){
+    public void GIVEN_getDegree_WHEN_185_0_0_THEN_neg175(){
         //Assign
         Domain.Positions.GeographicCoordinate gc = new GeographicCoordinate(185, 0, 0);
         
@@ -90,7 +92,7 @@ public class GeographicCoordinateTest {
     }
     
     @Test
-    public void GIVEN_getDegree_WHEN_neg185_0_0_GeographicCoordinate_THEN_175(){
+    public void GIVEN_getDegree_WHEN_neg185_0_0_THEN_175(){
         //Assign
         Domain.Positions.GeographicCoordinate gc = new GeographicCoordinate(-185, 0, 0);
         
@@ -103,7 +105,7 @@ public class GeographicCoordinateTest {
     }
     
     @Test
-    public void GIVEN_getDegree_WHEN_360_0_0_GeographicCoordinate_THEN_0(){
+    public void GIVEN_getDegree_WHEN_360_0_0_THEN_0(){
         //Assign
         Domain.Positions.GeographicCoordinate gc = new GeographicCoordinate(360, 0, 0);
         
@@ -116,7 +118,7 @@ public class GeographicCoordinateTest {
     }
     
     
-    public void GIVEN_getDegree_WHEN_neg360_0_0_GeographicCoordinate_THEN_0(){
+    public void GIVEN_getDegree_WHEN_neg360_0_0_THEN_0(){
         //Assign
         Domain.Positions.GeographicCoordinate gc = new GeographicCoordinate(-360, 0, 0);
         
@@ -132,7 +134,7 @@ public class GeographicCoordinateTest {
     // **************** \\
     
     @Test
-    public void GIVEN_getMinute_WHEN_0_59_0_GeographicCoordinate_THEN_59(){
+    public void GIVEN_getMinute_WHEN_0_59_0_THEN_59(){
         //Assign
         Domain.Positions.GeographicCoordinate gc = new GeographicCoordinate(0, 59, 0);
         
@@ -145,7 +147,7 @@ public class GeographicCoordinateTest {
     }
     
     @Test
-    public void GIVEN_getMinute_WHEN_0_0_0_GeographicCoordinate_THEN_0(){
+    public void GIVEN_getMinute_WHEN_0_0_0_THEN_0(){
         //Assign
         Domain.Positions.GeographicCoordinate gc = new GeographicCoordinate(0, 0, 0);
         
@@ -158,7 +160,7 @@ public class GeographicCoordinateTest {
     }
     
     @Test
-    public void GIVEN_getMinute_WHEN_0_60_0_GeographicCoordinate_THEN_0(){
+    public void GIVEN_getMinute_WHEN_0_60_0_THEN_0(){
         //Assign
         Domain.Positions.GeographicCoordinate gc = new GeographicCoordinate(0, 60, 0);
         
@@ -171,7 +173,7 @@ public class GeographicCoordinateTest {
     }
     
     @Test
-    public void GIVEN_getDegree_WHEN_0_60_0_GeographicCoordinate_THEN_1(){
+    public void GIVEN_getDegree_WHEN_0_60_0_THEN_1(){
         //Assign
         Domain.Positions.GeographicCoordinate gc = new GeographicCoordinate(0, 60, 0);
         
@@ -184,7 +186,7 @@ public class GeographicCoordinateTest {
     }
     
     @Test
-    public void GIVEN_getDegree_WHEN_0_120_0_GeographicCoordinate_THEN_2(){
+    public void GIVEN_getDegree_WHEN_0_120_0_THEN_2(){
         //Assign
         Domain.Positions.GeographicCoordinate gc = new GeographicCoordinate(0, 120, 0);
         
@@ -200,7 +202,7 @@ public class GeographicCoordinateTest {
     // ***************** \\
     
     @Test
-    public void GIVEN_getSecond_WHEN_0_0_59_99f_GeographicCoordinate_THEN_59_99f(){
+    public void GIVEN_getSecond_WHEN_0_0_59_99f_THEN_59_99f(){
         //Assign
         Domain.Positions.GeographicCoordinate gc = new GeographicCoordinate(0, 0, 59.99f);
         
@@ -213,7 +215,7 @@ public class GeographicCoordinateTest {
     }
     
     @Test
-    public void GIVEN_getSecond_WHEN_0_0_0f_GeographicCoordinate_THEN_0f(){
+    public void GIVEN_getSecond_WHEN_0_0_0f_THEN_0f(){
         //Assign
         Domain.Positions.GeographicCoordinate gc = new GeographicCoordinate(0, 0, 0f);
         
@@ -226,7 +228,7 @@ public class GeographicCoordinateTest {
     }
     
     @Test
-    public void GIVEN_getSecond_WHEN_0_0_60f_GeographicCoordinate_THEN_0f(){
+    public void GIVEN_getSecond_WHEN_0_0_60f_THEN_0f(){
         //Assign
         Domain.Positions.GeographicCoordinate gc = new GeographicCoordinate(0, 0, 60f);
         
@@ -239,7 +241,7 @@ public class GeographicCoordinateTest {
     }
     
     @Test
-    public void GIVEN_getMinute_WHEN_0_0_60f_GeographicCoordinate_THEN_1(){
+    public void GIVEN_getMinute_WHEN_0_0_60f_THEN_1(){
         //Assign
         Domain.Positions.GeographicCoordinate gc = new GeographicCoordinate(0, 0, 60f);
         
@@ -252,7 +254,7 @@ public class GeographicCoordinateTest {
     }
     
     @Test
-    public void GIVEN_getMinute_WHEN_0_0_120f_GeographicCoordinate_THEN_2(){
+    public void GIVEN_getMinute_WHEN_0_0_120f_THEN_2(){
         //Assign
         Domain.Positions.GeographicCoordinate gc = new GeographicCoordinate(0, 0, 120f);
         

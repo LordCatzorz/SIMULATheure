@@ -119,9 +119,9 @@ public class GeographicCoordinate {
 
     public GeographicCoordinate add(GeographicCoordinate _geographicCoordinate) {
 
-        GeographicCoordinate addedCoordinate = new GeographicCoordinate(_geographicCoordinate.getDegree(),
-                _geographicCoordinate.getMinute(),
-                _geographicCoordinate.getSecond());
+        GeographicCoordinate addedCoordinate = new GeographicCoordinate(this.getDegree(),
+                this.getMinute(),
+                this.getSecond());
 
         addedCoordinate.addToSecond(_geographicCoordinate.getSecond());
         addedCoordinate.addToMinute(_geographicCoordinate.getMinute());
@@ -148,5 +148,16 @@ public class GeographicCoordinate {
         this.setDegree(0);
         this.setMinute(0);
         this.setSecond(0);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof GeographicCoordinate)) {
+            return false;
+        }
+
+        GeographicCoordinate otherGeographicCoordinate = (GeographicCoordinate) other;
+        
+        return this.isEqual(otherGeographicCoordinate);
     }
 }
