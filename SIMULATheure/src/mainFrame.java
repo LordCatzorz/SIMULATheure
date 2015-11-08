@@ -1,3 +1,5 @@
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -41,7 +43,28 @@ public class mainFrame extends javax.swing.JFrame {
                 System.out.println(scaleFactor);
             }
         });
+        pnlBackground.addMouseListener(new java.awt.event.MouseAdapter() {
+        @Override
+        public void mouseClicked(java.awt.event.MouseEvent e){
+                System.out.println(e.getX());
+                System.out.println(e.getY());
+                if ("Arrêt".equals(lblToolName.getText())){
+                drawCircle(e.getX(), e.getY());
+                }
+            }
+        
+        });
     }
+    
+     public void drawCircle(int x, int y) {
+        java.awt.Graphics g = this.getGraphics();
+        java.awt.Graphics2D g2d = (java.awt.Graphics2D)g;
+        g2d.setColor(java.awt.Color.BLACK);
+        g2d.fillOval(x + pnlBackground.getX(), y + pnlBackground.getY() + 50, 8, 8);
+    }
+     
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
