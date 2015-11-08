@@ -9,6 +9,7 @@ package Application.Controller;
  *
  * @author Raphael
  */
-public enum Tool {
+public enum Tool implements java.io.Serializable 
+{
     
 }
