@@ -8,6 +8,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Fichier"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuFileActionPerformed"/>
+          </Events>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemNew">
               <Properties>
@@ -53,6 +56,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Importer une image"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemImgActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

@@ -292,6 +292,11 @@ public class mainFrame extends javax.swing.JFrame {
         );
 
         menuFile.setText("Fichier");
+        menuFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuFileActionPerformed(evt);
+            }
+        });
 
         menuItemNew.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         menuItemNew.setText("Nouveau");
@@ -318,6 +323,11 @@ public class mainFrame extends javax.swing.JFrame {
         menuFile.add(menuItemQuit);
 
         menuItemImg.setText("Importer une image");
+        menuItemImg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemImgActionPerformed(evt);
+            }
+        });
         menuFile.add(menuItemImg);
 
         menuBar.add(menuFile);
@@ -482,6 +492,31 @@ public class mainFrame extends javax.swing.JFrame {
         lstToolItems.setVisible(true);
         scrollPaneTool.setVisible(true);
     }//GEN-LAST:event_btnVehiculeGeneratorActionPerformed
+
+    private void menuFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFileActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuFileActionPerformed
+
+    private void menuItemImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemImgActionPerformed
+        // TODO add your handling code here:
+        javax.swing.JFileChooser jfc;
+        jfc = new javax.swing.JFileChooser();     
+        //java.io.File f = new java.io.File(System.getProperty("user.dir"));
+        //jfc.setCurrentDirectory(f);
+        //jfc.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
+        int result = jfc.showOpenDialog(this);
+        //java.io.File selFile = jfc.getSelectedFile();
+        if (result == javax.swing.JFileChooser.APPROVE_OPTION) {
+                java.io.File file = jfc.getSelectedFile();
+                 try {
+                lblImage.setIcon(new javax.swing.ImageIcon(javax.imageio.ImageIO.read(file)));
+                 } catch (java.io.IOException e) {
+                     e.printStackTrace();
+                 }
+                pnlBackground.revalidate();
+                pnlBackground.repaint();
+            }
+    }//GEN-LAST:event_menuItemImgActionPerformed
 
     /**
      * @param args the command line arguments
