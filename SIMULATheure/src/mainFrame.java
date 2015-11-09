@@ -248,7 +248,7 @@ public class mainFrame extends javax.swing.JFrame {
 
         pnlBackground.setLayout(null);
 
-        lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/image/IronMan.jpg"))); // NOI18N
+        lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/image/GRID1.png"))); // NOI18N
         pnlBackground.add(lblImage);
         lblImage.setBounds(0, 0, 900, 600);
 
