@@ -9,7 +9,12 @@ package Domain.Trips;
  *
  * @author Raphael
  */
-public class LinearTrip implements java.io.Serializable
+public class LinearTrip extends Trip implements java.io.Serializable
 {
+    private int maxNumberVehicule;
     
+    public void LinearTrip()
+    {
+        
+    }
 }

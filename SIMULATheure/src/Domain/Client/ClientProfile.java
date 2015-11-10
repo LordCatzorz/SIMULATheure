@@ -5,7 +5,6 @@
  */
 package Domain.Client;
 
-import Domain.Client.Itinary;
 import java.util.List;
 import java.sql.Time;
 /**

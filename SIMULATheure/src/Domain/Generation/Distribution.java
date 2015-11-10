@@ -9,7 +9,17 @@ package Domain.Generation;
  *
  * @author Raphael
  */
-public class Distribution implements java.io.Serializable
+public class Distribution<T> implements java.io.Serializable
 {
     
+    
+    public void Distribution()
+    {
+        
+    }
+    
+    public T  calculate()
+    {
+        return null;
+    }
 }

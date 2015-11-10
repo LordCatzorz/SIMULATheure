@@ -9,7 +9,13 @@ package Domain.Trips;
  *
  * @author Raphael
  */
-public class CircularTrip implements java.io.Serializable
+public class CircularTrip extends Trip implements java.io.Serializable
 {
+    private int maxNumberVehicule;
+    
+    public void CircularTrip()
+    {
+        
+    }
     
 }

@@ -9,7 +9,11 @@ package Domain.Vehicule;
  *
  * @author Raphael
  */
-public class SixtyTwoFeet implements java.io.Serializable
+public class SixtyTwoFeet extends VehiculeKind  implements java.io.Serializable
 {
+    private int capacity = 3;
     
+    public void FortyFeet()
+    {
+    }
 }

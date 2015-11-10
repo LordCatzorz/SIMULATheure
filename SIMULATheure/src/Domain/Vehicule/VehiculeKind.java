@@ -11,5 +11,20 @@ package Domain.Vehicule;
  */
 public class VehiculeKind implements java.io.Serializable
 {
+    protected int capacity;
     
+    public void VehiculeKind()
+    {
+        
+    }
+    
+    public int getCapacity()
+    {
+        return this.capacity;
+    }
+    
+    protected void setCapacity(int _capacity)
+    {
+        this.capacity = _capacity;
+    }
 }

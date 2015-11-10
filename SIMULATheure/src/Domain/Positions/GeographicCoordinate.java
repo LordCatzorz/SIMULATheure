@@ -11,7 +11,6 @@ package Domain.Positions;
  */
 public class GeographicCoordinate implements java.io.Serializable
 {
-
     private int degree;
     private int minute;
     private float second;

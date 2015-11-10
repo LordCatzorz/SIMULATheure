@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Domain.Node;
+
 import Domain.Positions.GeographicPosition;
 /**
  *

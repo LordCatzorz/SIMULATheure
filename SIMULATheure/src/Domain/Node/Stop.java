@@ -4,11 +4,12 @@
  * and open the template in the editor.
  */
 package Domain.Node;
+
+import java.util.List;
+
 import Domain.Client.Client;
 import Domain.Positions.GeographicPosition;
 import Domain.Trips.Trip;
-
-import java.util.List;
 /**
  *
  * @author Raphael

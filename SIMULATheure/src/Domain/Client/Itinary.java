@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Domain.Client;
+
 import Domain.Node.*;
 import Domain.Trips.Trip;
 /**

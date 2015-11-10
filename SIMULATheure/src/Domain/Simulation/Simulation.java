@@ -6,7 +6,6 @@
 package Domain.Simulation;
 
 import java.util.List;
-import java.lang.String;
 import java.awt.Image;
 import java.sql.Time;
 import java.io.*;
@@ -39,12 +38,14 @@ public class Simulation
     
     public void Simulation()
     {
+        
     }
             
     public void Play()
     {
         this.saveInitialState();
         //this.setSegmentsDuration //dans le DS démarrer la simulation 
+        //this.speedMultiplier = 1;
         /*while(this.speedMultiplier != 0)
         {
             this.updateSimulation();

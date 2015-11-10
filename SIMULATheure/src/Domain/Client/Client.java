@@ -4,8 +4,7 @@
  * and open the template in the editor.
  */
 package Domain.Client;
-import Domain.Client.ClientProfile;
-import Domain.Client.Itinary;
+
 import java.sql.Time;
 import java.util.Date;
 import java.text.*;
