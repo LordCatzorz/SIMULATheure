@@ -24,6 +24,7 @@ public class Vehicule implements java.io.Serializable
     private List<Client> inboardClients;
     private VehiculePosition position;
     private VehiculeKind vehiculeKind;
+    private float speed = 2;
     
     public void Vehicule(Trip _trip, VehiculeKind _vehiculeKind, Segment _segmentToSpawn)
     {
@@ -36,14 +37,14 @@ public class Vehicule implements java.io.Serializable
         this.inboardClients.addAll(_newPassengers);
     }
     
-    public void disembarkClient(Stop _currentStop)
+    public List<Client> disembarkClient(Stop _currentStop)
     {
-        
+        return null;
     }
     
-    public void disembarkClient(Stop _currentStop, Client _client)
+    public List<Client>  disembarkClient(Stop _currentStop, Client _client)
     {
-        
+        return null;
     }
     
     public GeographicPosition getPosition(Time _time)
@@ -76,5 +77,14 @@ public class Vehicule implements java.io.Serializable
         return null;
     }
     
+    public void setPosition(Time _time)
+    {
+        this.position.update(_time);
+    }
+    
+    public float getSpeed()
+    {
+        return this.speed;
+    }
     
 }

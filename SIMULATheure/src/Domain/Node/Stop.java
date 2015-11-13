@@ -14,7 +14,7 @@ import Domain.Trips.Trip;
  *
  * @author Raphael
  */
-public class Stop implements java.io.Serializable
+public class Stop extends Node implements java.io.Serializable
 {
     private List<Client> waitingClients;
     private String name;
@@ -34,6 +34,7 @@ public class Stop implements java.io.Serializable
         return this.waitingClients.add(_client);
     }
     
+    @Override
     public boolean addClient(List<Client> _clients)
     {
         return this.waitingClients.addAll(this.waitingClients.size() - 1, _clients);
@@ -44,6 +45,7 @@ public class Stop implements java.io.Serializable
         return this.waitingClients.remove(_client);
     }
     
+    @Override
     public List<Client> requestEmbarkmentClient(Trip _vehiculeTrip, int maxClientAmount)
     {
         return null;

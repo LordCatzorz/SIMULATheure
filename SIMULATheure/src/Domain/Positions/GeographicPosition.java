@@ -5,6 +5,7 @@
  */
 package Domain.Positions;
 
+import java.lang.Math;
 /**
  *
  * @author Raphael
@@ -40,9 +41,38 @@ public class GeographicPosition implements java.io.Serializable
         this.latitude = _latitude;
     }
     
-    public float getDistance(GeographicPosition _geographicPosition)
+    public float getDistance(GeographicPosition _destinationGeographicPosition)
     {
-        return 0;
+        float longitudeDistance = _destinationGeographicPosition.getLongitude().getFloatConvertion() - this.longitude.getFloatConvertion();
+        float latitudeDistance = _destinationGeographicPosition.getLatitude().getFloatConvertion() - this.latitude.getFloatConvertion();
+        
+        return (float)Math.sqrt(Math.pow(latitudeDistance, 2) + Math.pow(longitudeDistance,2)); //Pythagore
+    }
+    
+    public float getAngle(GeographicPosition _destinationGeographicPosition)
+    {
+        float longitudeDistance = _destinationGeographicPosition.getLongitude().getFloatConvertion() - this.longitude.getFloatConvertion();
+        float latitudeDistance = _destinationGeographicPosition.getLatitude().getFloatConvertion() - this.latitude.getFloatConvertion();
+        
+        double angle = Math.toDegrees(Math.atan(latitudeDistance/ longitudeDistance));
+        
+        if (longitudeDistance < 0)
+        {
+            if (latitudeDistance < 0)// 3e quadrant
+            {
+                angle = 270 - angle;
+            }
+            else // 2e quandrant
+            {
+                angle = 180 + angle;
+            }
+        }
+        else if(latitudeDistance < 0) //4e quadrant
+        {
+            angle = 360 + angle;
+        }
+        
+        return (float)angle;
     }
 }
 

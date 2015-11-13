@@ -6,11 +6,13 @@
 package Domain.Simulation;
 
 import java.util.List;
+import java.util.Iterator;
 import java.awt.Image;
 import java.sql.Time;
 import java.io.*;
+import java.util.Date;
 
-import Domain.Node.Node;
+import Domain.Node.*;
 import Domain.Vehicule.*;
 import Domain.Client.*;
 import Domain.Trips.*;
@@ -64,6 +66,15 @@ public class Simulation
     
     public void updateSimulation()
     {
+        for(int i = 0; i < this.listClientGenerator.size(); i++)
+        {
+            this.listClientGenerator.get(i).awakeGenerator(this.simulationTime);
+        }
+        
+        for(int i = 0; i < this.listVehiculeGenerator.size(); i++)
+        {
+            this.listVehiculeGenerator.get(i).awakeGenerator(this.simulationTime);
+        }
         this.updatePositions();
     }
     
@@ -293,6 +304,69 @@ public class Simulation
     
     private void updatePositions()
     {
+        for(Vehicule vehicule : this.listVehicule)
+        {
+            this.moveVehicule(vehicule);
+            this.updateSegmentFinished(vehicule);
+        }    
+    }
+    
+    private void moveVehicule(Vehicule _vehicule)
+    {
+        Segment segment = _vehicule.getCurrentPosition().getCurrentSegment();
         
+        GeographicPosition originPosition = segment.getOriginNode().getGeographicPosition();
+        GeographicPosition destinationPosition = segment.getDestinationNode().getGeographicPosition();
+        
+        float angle = originPosition.getAngle(destinationPosition);
+        float xPercentage;
+        float yPercentage;
+        
+        if(angle <=180)
+        {
+            xPercentage = ((90 - angle)/90);
+            yPercentage = 1;//Le véhicule va vers le haut
+        }
+        else //if(angle <= 360)
+        {
+            xPercentage = ((angle - 270)/90);
+            yPercentage = -1; //Le véhicule va vers le bas
+        }
+        yPercentage = (1 - java.lang.Math.abs(xPercentage)) * yPercentage;
+        
+        GeographicCoordinate longitude = _vehicule.getGeographicPosition().getLongitude();
+        GeographicCoordinate latitude = _vehicule.getGeographicPosition().getLatitude();
+        
+        GeographicCoordinate newLatitude = new GeographicCoordinate(latitude.getDegree(), 
+                                                                    latitude.getMinute(), 
+                                                                    latitude.getSecond() + (_vehicule.getSpeed() * yPercentage));
+        
+        GeographicCoordinate newLongitude = new GeographicCoordinate(longitude.getDegree(), 
+                                                                     longitude.getMinute(), 
+                                                                     longitude.getSecond() + (_vehicule.getSpeed() * xPercentage));
+        
+       _vehicule.getCurrentPosition().setGeographicPosition(new GeographicPosition(newLongitude, newLatitude));
+    }
+    
+    private void updateSegmentFinished(Vehicule _vehicule)
+    {
+        Segment segment = _vehicule.getCurrentPosition().getCurrentSegment();
+        Time timeSegmentStart = _vehicule.getCurrentPosition().getTimeSegmentStart();
+        
+        float durationTime = segment.getDurationTime().getTime()/1000; //In seconds
+        float timeSpent = (this.simulationTime.getTime() - timeSegmentStart.getTime()) /1000; //In seconds
+        float completionPercentage = (timeSpent/durationTime)*100;
+        if(completionPercentage >= 100)
+        {
+            Node destinationNode = segment.getDestinationNode();
+            if(destinationNode instanceof Stop)
+            {
+                destinationNode.addClient(_vehicule.disembarkClient((Stop)destinationNode));
+                int capacity = _vehicule.getVehiculeKind().getCapacity();
+                Trip trip = _vehicule.getTrip();
+                _vehicule.embarkClient(destinationNode.requestEmbarkmentClient(trip, capacity));
+                _vehicule.getCurrentPosition().setCurrentSegment(_vehicule.getTrip().getNextSegment(destinationNode));
+            }
+        }
     }
 }

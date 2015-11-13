@@ -15,63 +15,59 @@ public class GeographicCoordinate implements java.io.Serializable
     private int minute;
     private float second;
 
-    public GeographicCoordinate(int _degree, int _minute, float _second) {
+    public GeographicCoordinate(int _degree, int _minute, float _second) 
+    {
         this.resetCoordinate();
         this.addToDegree(_degree);
         this.addToMinute(_minute);
         this.addToSecond(_second);
     }
 
-    public int getDegree() {
+    public int getDegree() 
+    {
         return this.degree;
     }
 
-    public int getMinute() {
+    public int getMinute() 
+    {
         return this.minute;
     }
 
-    public float getSecond() {
+    public float getSecond() 
+    {
 
         return this.second;
     }
 
-    private void setDegree(int _degree) {
-        this.degree = _degree;
-    }
-
-    private void setMinute(int _minute) {
-        this.minute = _minute;
-    }
-
-    private void setSecond(float _second) {
-        this.second = _second;
-    }
-
-    private void addToDegree(int _degree) {
-        int tempDegree = this.getDegree() + _degree;
+    private void addToDegree(int _degree) 
+    {
+        int tempDegree = this.degree + _degree;
 
         tempDegree = adjustDegree(tempDegree);
 
-        this.setDegree(tempDegree);
+        this.degree = tempDegree;
     }
 
-    private void addToMinute(int _minute) {
-        int tempMinute = this.getMinute() + _minute;
+    private void addToMinute(int _minute) 
+    {
+        int tempMinute = this.minute + _minute;
 
         tempMinute = adjustDegreeWithMinutes(tempMinute);
-
-        this.setMinute(tempMinute);
+        
+        this.minute = tempMinute;
     }
 
-    private void addToSecond(float _second) {
-        float tempSecond = Float.sum(this.getSecond(), _second);
+    private void addToSecond(float _second) 
+    {
+        float tempSecond = Float.sum(this.second, _second);
 
         tempSecond = adjustMinuteWithSeconds(tempSecond);
 
-        this.setSecond(tempSecond);
+        this.second = tempSecond;
     }
 
-    private int adjustDegree(int _degree) {
+    private int adjustDegree(int _degree) 
+    {
         if (_degree > 180) {
             _degree -= 360;
         } else if (_degree < -180) {
@@ -80,7 +76,8 @@ public class GeographicCoordinate implements java.io.Serializable
         return _degree;
     }
 
-    private int adjustDegreeWithMinutes(int _minute) {
+    private int adjustDegreeWithMinutes(int _minute) 
+    {
         boolean madeModification;
         do {
             madeModification = false;
@@ -97,7 +94,8 @@ public class GeographicCoordinate implements java.io.Serializable
         return _minute;
     }
 
-    private float adjustMinuteWithSeconds(float _second) {
+    private float adjustMinuteWithSeconds(float _second) 
+    {
 
         boolean madeModification;
         do {
@@ -117,7 +115,13 @@ public class GeographicCoordinate implements java.io.Serializable
         return _second;
     }
 
-    public GeographicCoordinate add(GeographicCoordinate _geographicCoordinate) {
+    public float getFloatConvertion()
+    {
+        return this.degree + (this.minute/60) + (this.second/ 3600);
+    }
+    
+    public GeographicCoordinate add(GeographicCoordinate _geographicCoordinate) 
+    {
 
         GeographicCoordinate addedCoordinate = new GeographicCoordinate(this.getDegree(),
                 this.getMinute(),
@@ -130,34 +134,38 @@ public class GeographicCoordinate implements java.io.Serializable
         return addedCoordinate;
     }
 
-    public GeographicCoordinate substract(GeographicCoordinate _geographicCoordinate) {
+    public GeographicCoordinate substract(GeographicCoordinate _geographicCoordinate) 
+    {
         throw new UnsupportedOperationException();
     }
 
-    public GeographicCoordinate multiplyByScalar(float _scalar) {
+    public GeographicCoordinate multiplyByScalar(float _scalar) 
+    {
         throw new UnsupportedOperationException();
     }
 
-    public boolean isEqual(GeographicCoordinate _geographicCoordinate) {
+    public boolean isEqual(GeographicCoordinate _geographicCoordinate) 
+    {
         return (this.getDegree() == _geographicCoordinate.getDegree())
                 && (this.getMinute() == _geographicCoordinate.getMinute())
                 && (this.getSecond() == _geographicCoordinate.getSecond());
     }
 
-    private void resetCoordinate() {
-        this.setDegree(0);
-        this.setMinute(0);
-        this.setSecond(0);
+    private void resetCoordinate() 
+    {
+        this.degree = 0;
+        this.minute = 0;
+        this.second = 0;
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (!(other instanceof GeographicCoordinate)) {
+    public boolean equals(Object other) 
+    {
+        if (!(other instanceof GeographicCoordinate)) 
+        {
             return false;
         }
-
         GeographicCoordinate otherGeographicCoordinate = (GeographicCoordinate) other;
-        
         return this.isEqual(otherGeographicCoordinate);
     }
 }
