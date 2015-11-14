@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
@@ -660,18 +661,29 @@ public class mainFrame extends javax.swing.JFrame {
     
     public void handleDrag(JPanel panel){
     final JPanel p = panel;
+
         panel.addMouseMotionListener(new MouseMotionAdapter() {
 
             @Override
             public void mouseDragged(MouseEvent me) {
-                me.translatePoint(me.getComponent().getLocation().x, me.getComponent().getLocation().y);
-                p.setLocation(me.getX(), me.getY());
+                me.translatePoint(me.getComponent().getLocation().x-x, me.getComponent().getLocation().y-y);
+                panel.setLocation(me.getX(), me.getY());
             }
 
         });
+        
+        panel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent me)
+            {
+                x = me.getX();
+                y = me.getY();
+            }
+        });
     }
  
-
+    private int x;
+    private int y;
     private ZoomPanel zp;
     private javax.swing.JButton btnAccelerate;
     private javax.swing.JButton btnAdd;
