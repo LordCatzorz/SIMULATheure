@@ -54,7 +54,7 @@ public class mainFrame extends javax.swing.JFrame {
         zp.addMouseMotionListener(new java.awt.event.MouseAdapter() {
         @Override
         public void mouseMoved(java.awt.event.MouseEvent e) {
-                lblCoordinate.setText("Coordonnées: Latitude " + e.getX() + " Longitude " + e.getY());
+                //lblCoordinate.setText("Coordonnées: Latitude " + e.getX() + " Longitude " + e.getY());
             }
         });
         pnlBackground.addMouseWheelListener(new java.awt.event.MouseAdapter() {
@@ -588,7 +588,6 @@ public class mainFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new mainFrame().setVisible(true);
@@ -604,7 +603,7 @@ public class mainFrame extends javax.swing.JFrame {
         } 
         @Override
         public void paint(Graphics g) { 
-            super.paintComponent(g); // clears background 
+            super.paintComponent(g);
             Graphics2D g2 = (Graphics2D) g; 
             AffineTransform backup = g2.getTransform(); 
             g2.scale(zoom, zoom); 
@@ -666,10 +665,7 @@ public class mainFrame extends javax.swing.JFrame {
     } 
     
     public void handleDrag(JPanel panel){
-    final JPanel p = panel;
-
         panel.addMouseMotionListener(new MouseMotionAdapter() {
-
             @Override
             public void mouseDragged(MouseEvent me) {
                 me.translatePoint(me.getComponent().getLocation().x-x, me.getComponent().getLocation().y-y);
@@ -677,7 +673,6 @@ public class mainFrame extends javax.swing.JFrame {
             }
 
         });
-        
         panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent me)
