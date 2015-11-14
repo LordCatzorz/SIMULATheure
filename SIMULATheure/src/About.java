@@ -46,7 +46,7 @@ public class About extends javax.swing.JFrame {
         txtAbout.setColumns(20);
         txtAbout.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         txtAbout.setRows(5);
-        txtAbout.setText("Réalisé dans le cadre du cours: \nGLO-2004 Génie logiciel orienté objet\nPar:\nÉlise Carbonneau-Leclerc\nPierre Marion\nPierre-Antoine Morin\nRaphaël Sylvain\nSous la supervision de:\nJohnathan Gaudreault\nAutomne 2015");
+        txtAbout.setText("Réalisé dans le cadre du cours: \nGLO-2004 Génie logiciel orienté objet\nPar:\nÉlise Carbonneau-Leclerc\nPierre Marion\nPierre-Antoine Morin\n\nSous la supervision de:\nJohnathan Gaudreault\nAutomne 2015");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
