@@ -7,14 +7,14 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseMotionListener;
 import java.awt.geom.AffineTransform;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyVetoException;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -51,8 +51,8 @@ public class mainFrame extends javax.swing.JFrame {
         btnAdd.setVisible(false);
         lstToolItems.setVisible(false);
         scrollPaneTool.setVisible(false);
-        pnlBackground.addMouseMotionListener(new java.awt.event.MouseAdapter() {
-        @Override //I override only one method for presentation
+        zp.addMouseMotionListener(new java.awt.event.MouseAdapter() {
+        @Override
         public void mouseMoved(java.awt.event.MouseEvent e) {
                 lblCoordinate.setText("Coordonnées: Latitude " + e.getX() + " Longitude " + e.getY());
             }
@@ -78,15 +78,20 @@ public class mainFrame extends javax.swing.JFrame {
         } 
         });
         
+        zp.addMouseListener(new java.awt.event.MouseAdapter(){
+        @Override
+            public void mouseClicked(java.awt.event.MouseEvent e){
+                if (lblToolName.getText().equals("Arrêt")){
+                    circles.add(e.getX());
+                    circles.add(e.getY());
+                    zp.repaint();
+                }
+            }
+        });
+        
     }
     
-     public void drawCircle(int x, int y) {
-        java.awt.Graphics g = this.getGraphics();
-        java.awt.Graphics2D g2d = (java.awt.Graphics2D)g;
-        g2d.setColor(java.awt.Color.BLACK);
-        g2d.fillOval(x + pnlBackground.getX(), y + pnlBackground.getY() + 50, 8, 8);
-    }
-     
+    
 
 
 
@@ -291,11 +296,8 @@ public class mainFrame extends javax.swing.JFrame {
         btnStopSimu.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         tlbSpeed.add(btnStopSimu);
 
-        //pnlBackground.setLayout(null);
-
-        //lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/image/GRID1.png"))); // NOI18N
-        //pnlBackground.add(lblImage);
-        //lblImage.setBounds(0, 0, 900, 600);
+        
+        
 
         pnlTool.setBackground(new java.awt.Color(102, 102, 102));
         pnlTool.setMaximumSize(new java.awt.Dimension(275, 150));
@@ -612,8 +614,12 @@ public class mainFrame extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(mainFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
-            g2.setColor(java.awt.Color.BLACK);
-            g2.fillOval(50, 50, 8, 8);
+            for (int i = 0; i < circles.size(); i++) {
+                g2.setColor(java.awt.Color.BLACK);
+                g2.fillOval(circles.get(i), circles.get(i+1), 8, 8);
+                i = i + 1;
+            }
+            
             g2.setTransform(backup);
         } 
         @Override
@@ -684,6 +690,7 @@ public class mainFrame extends javax.swing.JFrame {
  
     private int x;
     private int y;
+    private static List<Integer> circles = new ArrayList<Integer>();
     private ZoomPanel zp;
     private javax.swing.JButton btnAccelerate;
     private javax.swing.JButton btnAdd;
