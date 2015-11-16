@@ -1,6 +1,7 @@
 
 import Application.Controller.Tool;
 import java.awt.BorderLayout;
+import java.awt.BasicStroke;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -23,6 +24,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import Domain.Simulation.Simulation;
+import Domain.Node.*;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -38,6 +40,7 @@ public class mainFrame extends javax.swing.JFrame {
 
     double scaleFactor = 1.0;
     Simulation controller;
+    boolean nodeSelectedForSegment = false;
     
     /**
      * Creates new form mainFrame
@@ -57,6 +60,22 @@ public class mainFrame extends javax.swing.JFrame {
         @Override
         public void mouseMoved(java.awt.event.MouseEvent e) {
                 //lblCoordinate.setText("Coordonnées: Latitude " + e.getX() + " Longitude " + e.getY());
+                if(nodeSelectedForSegment)
+                {
+                    if (lines.size() == 4)
+                    {
+                        lines.remove(3);
+                        lines.remove(2);
+                    }
+                    lines.add(e.getX());
+                    lines.add(e.getY());
+                    zp.repaint();
+                }
+                else
+                {
+                    lines.removeAll(lines);
+                    zp.repaint();
+                }
             }
         });
         pnlBackground.addMouseWheelListener(new java.awt.event.MouseAdapter() {
@@ -94,7 +113,29 @@ public class mainFrame extends javax.swing.JFrame {
                         
                         break;
                     case SEGMENT:
-                        controller.addSegment(null, null);
+                        if(e.getButton() == MouseEvent.BUTTON3) //Efface le segment en cours lorsqu'on appuie sur click droit
+                        {
+                            nodeSelectedForSegment = false;
+                            lines.removeAll(lines);
+                            zp.repaint();
+                        }
+                        else if(nodeSelectedForSegment && /*node != null*/ true)
+                        {
+                            Node node = controller.getNodeAtPostion(controller.convertPixelToGeographicPosition(e.getX(), e.getY()));
+                            nodeSelectedForSegment = false;
+                            controller.addSegment(null, null);
+                            segments.add(lines.get(0));
+                            segments.add(lines.get(1));
+                            segments.add(lines.get(2));
+                            segments.add(lines.get(3));
+                        }
+                        else
+                        {
+                            Node node = controller.getNodeAtPostion(controller.convertPixelToGeographicPosition(e.getX(), e.getY()));
+                            nodeSelectedForSegment = (/*node != null*/true);
+                            lines.add(e.getX());
+                            lines.add(e.getY());
+                        }
                         break;
                     case TRIP:
                         controller.addTrip(null, null, false);
@@ -661,6 +702,19 @@ public class mainFrame extends javax.swing.JFrame {
                 i = i + 1;
             }
             
+            if(lines.size() == 4) 
+            {
+                g2.setColor(java.awt.Color.BLACK);
+                g2.setStroke(new BasicStroke(3));
+                g2.drawLine(lines.get(0), lines.get(1), lines.get(2), lines.get(3));
+            }
+            
+            for (int i = 0; i < segments.size(); i+=4) 
+            {
+                g2.setColor(java.awt.Color.BLACK);
+                g2.setStroke(new BasicStroke(3));
+                g2.drawLine(segments.get(i), segments.get(i+1), segments.get(i+2), segments.get(i+3));
+            }
             g2.setTransform(backup);
         } 
         @Override
@@ -728,6 +782,8 @@ public class mainFrame extends javax.swing.JFrame {
     private int x;
     private int y;
     private static List<Integer> circles = new ArrayList<Integer>();
+    private static List<Integer> lines = new ArrayList<>();
+    private static List<Integer> segments = new ArrayList<>();
     private ZoomPanel zp;
     private javax.swing.JButton btnAccelerate;
     private javax.swing.JButton btnAdd;

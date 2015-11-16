@@ -324,7 +324,7 @@ public class Simulation
     {
         for(Node node : this.listNode)
         {
-            if(node.getGeographicPosition().equals(_position))
+            if(node.getGeographicPosition() == _position)
                 return node;
         }
         return null;
