@@ -13,8 +13,8 @@ public class LinearTrip extends Trip implements java.io.Serializable
 {
     private int maxNumberVehicule;
     
-    public void LinearTrip()
+    public LinearTrip()
     {
-        
+        super();
     }
 }

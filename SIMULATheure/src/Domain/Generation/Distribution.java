@@ -12,14 +12,13 @@ package Domain.Generation;
 public class Distribution<T> implements java.io.Serializable
 {
     
-    
-    public void Distribution()
+    public Distribution()
     {
         
     }
     
-    public T  calculate()
+    public T calculate()
     {
-        return null;
+        return (T)null;
     }
 }

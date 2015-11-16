@@ -11,5 +11,5 @@ package Application.Controller;
  */
 public enum Tool implements java.io.Serializable 
 {
-    
+    STOP,SEGMENT, TRIP, VEHICULE, CLIENT, CLIENT_PROFILE, CLIENT_GENERATOR, VEHICULE_GENERATOR
 }

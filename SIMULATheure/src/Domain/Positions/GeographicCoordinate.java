@@ -122,7 +122,6 @@ public class GeographicCoordinate implements java.io.Serializable
     
     public GeographicCoordinate add(GeographicCoordinate _geographicCoordinate) 
     {
-
         GeographicCoordinate addedCoordinate = new GeographicCoordinate(this.getDegree(),
                 this.getMinute(),
                 this.getSecond());

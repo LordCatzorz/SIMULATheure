@@ -19,7 +19,7 @@ public class VehiculePosition implements java.io.Serializable
     private Time timeSegmentStart;
     private GeographicPosition geographicPosition;
     
-    public void VehiculePosition(Segment _segment, Time _timeStart)
+    public VehiculePosition(Segment _segment, Time _timeStart)
     {
         this.currentSegment = _segment;
         this.timeSegmentStart = _timeStart;

@@ -6,7 +6,9 @@
 package Domain.Simulation;
 
 import java.util.List;
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.awt.Image;
 import java.sql.Time;
 import java.io.*;
@@ -18,6 +20,7 @@ import Domain.Client.*;
 import Domain.Trips.*;
 import Domain.Generation.*;
 import Domain.Positions.*;
+import Application.Controller.Tool;
 /**
  *
  * @author Raphael
@@ -25,6 +28,7 @@ import Domain.Positions.*;
 public class Simulation 
 {
     private String name;
+    private Tool currentTool;
     private Image background;
     private Time simulationTime;
     private float speedMultiplier;
@@ -38,9 +42,17 @@ public class Simulation
     private List<Client> listClient;
     
     
-    public void Simulation()
+    public Simulation()
     {
-        
+        this.listNode = new ArrayList<>();
+        this.listVehicule = new ArrayList<>();
+        this.listSegment = new ArrayList<>();
+        this.listTrip = new ArrayList<>();
+        this.listClientGenerator = new ArrayList<>();
+        this.listVehiculeGenerator = new ArrayList<>();
+        this.listClientProfile = new ArrayList<>();
+        this.listClient = new ArrayList<>();
+        this.speedMultiplier = 0;
     }
             
     public void Play()
@@ -61,7 +73,8 @@ public class Simulation
     
     public void Reset()
     {
-        
+        this.Pause();
+        this.LoadSimulation(name);
     }
     
     public void updateSimulation()
@@ -75,7 +88,12 @@ public class Simulation
         {
             this.listVehiculeGenerator.get(i).awakeGenerator(this.simulationTime);
         }
-        this.updatePositions();
+        this.updateVehiculePositions();
+    }
+    
+    public GeographicPosition convertPixelToGeographicPosition(int _pixelX, int _pixelY)
+    {
+        return null;
     }
     
     public void saveInitialState()
@@ -154,7 +172,6 @@ public class Simulation
     {
         try
         {
-            
             FileInputStream fileIn = new FileInputStream(folderPath + "vehicules");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             this.listVehicule = (List<Vehicule>) in.readObject();
@@ -200,6 +217,16 @@ public class Simulation
         } 
     }
     
+    public Tool getCurrentTool()
+    {
+        return this.currentTool;
+    }
+    
+    public void setCurrentTool(Tool _tool)
+    {
+        this.currentTool = _tool;
+    }
+    
     public void SetSpeedMultiplier(float _speedMultiplier)
     {
          this.speedMultiplier = _speedMultiplier;
@@ -207,42 +234,48 @@ public class Simulation
     
     public boolean addNode(GeographicPosition _geographicPosition)
     {
-        return false;
+        return this.listNode.add(new Node(_geographicPosition));
     }
     
-    public boolean addSegment(Node _origin, Node _destination, Distribution _distributionDuration)
+    public boolean addSegment(Node _origin, Node _destination)
     {
-        return false;
+        return this.listSegment.add(new Segment(_origin, _destination));
     }
     
-    public boolean addVehicule(VehiculeKind _vehiculeKind, Trip _trip, Node _spawnNode)
+    public boolean addVehicule(VehiculeKind _vehiculeKind, Trip _trip, Segment _spawnSegment)
     {
-        return false;
+        return this.listVehicule.add(new Vehicule(_trip, _vehiculeKind, _spawnSegment));
     }
     
     public boolean addTrip(List<Segment> _listSegment, String _name, boolean _circular)
     {
-        return false;
+        Trip trip;
+        if(_circular)
+            trip = new CircularTrip();
+        else
+            trip = new LinearTrip();
+        
+        Queue<Segment> queue = new LinkedList<>(_listSegment);
+        trip.setAllSegments(queue);
+        trip.setName(_name);
+        return this.listTrip.add(trip);
     }
     
-    public boolean addTrip(List<Segment> _listSegment, String _name) // circular = false
+    public boolean addClientGenerator(ClientProfile _clientProfile)
     {
-        return false;
+        return this.listClientGenerator.add(new ClientGenerator(_clientProfile));
     }
     
-    public boolean addClientGenerator(ClientProfile _clientProfile, Node _spawnNode, Distribution _distribution)
+    public boolean addVehiculeGenerator(VehiculeKind _vehiculeKind, Segment _spawnSegment, Trip _trip)
     {
-        return false;
-    }
-    
-    public boolean addVehiculeGenerator(VehiculeKind _vehiculeKind, Node _spawnNode, Distribution _distribution)
-    {
-        return false;
+        return this.listVehiculeGenerator.add(new VehiculeGenerator(_trip, _spawnSegment, _vehiculeKind));
     }
     
     public boolean addClientProfile(List<Itinary> _itinary)
     {
-        return false;
+        ClientProfile profile = new ClientProfile();
+        profile.setItinary(_itinary);
+        return this.listClientProfile.add(profile);
     }
     
     public boolean addClient(Client _client)
@@ -289,25 +322,56 @@ public class Simulation
     
     public Node getNodeAtPostion(GeographicPosition _position)
     {
+        for(Node node : this.listNode)
+        {
+            if(node.getGeographicPosition().equals(_position))
+                return node;
+        }
         return null;
     }
     
     public Vehicule getVehiculeAtPostion(GeographicPosition _position)
     {
+        for(Vehicule vehicule : this.listVehicule)
+        {
+            if(vehicule.getGeographicPosition().equals(_position))
+                return vehicule;
+        }
         return null;
     }
     
     public Segment getSegmentAtPostion(GeographicPosition _position)
     {
+        for(Segment segment : this.listSegment)
+        {
+            if(_position.isBetween(segment.getOriginNode().getGeographicPosition(), segment.getDestinationNode().getGeographicPosition()))
+                return segment;
+        }
         return null;
     }
     
-    private void updatePositions()
+    private void updateVehiculePositions()
     {
         for(Vehicule vehicule : this.listVehicule)
         {
             this.moveVehicule(vehicule);
-            this.updateSegmentFinished(vehicule);
+            if(this.isSegmentCompleted(vehicule))
+            {
+                Node destinationNode = vehicule.getCurrentPosition().getCurrentSegment().getDestinationNode();
+                if(destinationNode instanceof Stop)
+                {
+                    for(Node stop: this.listNode) 
+                    {
+                        if(stop.equals(destinationNode))
+                        {
+                            int capacity = vehicule.getVehiculeKind().getCapacity();
+                            ((Stop)stop).addClient(vehicule.disembarkClient((Stop)stop));
+                            vehicule.embarkClient(((Stop)stop).requestEmbarkmentClient(vehicule.getTrip(), capacity));
+                        }
+                    }
+                }
+                vehicule.getCurrentPosition().setCurrentSegment(vehicule.getTrip().getNextSegment(destinationNode));
+            }
         }    
     }
     
@@ -322,6 +386,7 @@ public class Simulation
         float xPercentage;
         float yPercentage;
         
+        //Initialiser le pourcentage du mouvement horizontale vs verticale
         if(angle <=180)
         {
             xPercentage = ((90 - angle)/90);
@@ -339,16 +404,17 @@ public class Simulation
         
         GeographicCoordinate newLatitude = new GeographicCoordinate(latitude.getDegree(), 
                                                                     latitude.getMinute(), 
-                                                                    latitude.getSecond() + (_vehicule.getSpeed() * yPercentage));
+                                                                    latitude.getSecond() + ((_vehicule.getSpeed() * this.speedMultiplier) * yPercentage));
         
         GeographicCoordinate newLongitude = new GeographicCoordinate(longitude.getDegree(), 
                                                                      longitude.getMinute(), 
-                                                                     longitude.getSecond() + (_vehicule.getSpeed() * xPercentage));
-        
-       _vehicule.getCurrentPosition().setGeographicPosition(new GeographicPosition(newLongitude, newLatitude));
+                                                                     longitude.getSecond() + ((_vehicule.getSpeed() * this.speedMultiplier) * xPercentage));
+        VehiculePosition position = _vehicule.getCurrentPosition();
+        position.setGeographicPosition(new GeographicPosition(newLongitude, newLatitude));
+        _vehicule.setCurrentPosition(position);
     }
     
-    private void updateSegmentFinished(Vehicule _vehicule)
+    private boolean isSegmentCompleted(Vehicule _vehicule)
     {
         Segment segment = _vehicule.getCurrentPosition().getCurrentSegment();
         Time timeSegmentStart = _vehicule.getCurrentPosition().getTimeSegmentStart();
@@ -356,17 +422,6 @@ public class Simulation
         float durationTime = segment.getDurationTime().getTime()/1000; //In seconds
         float timeSpent = (this.simulationTime.getTime() - timeSegmentStart.getTime()) /1000; //In seconds
         float completionPercentage = (timeSpent/durationTime)*100;
-        if(completionPercentage >= 100)
-        {
-            Node destinationNode = segment.getDestinationNode();
-            if(destinationNode instanceof Stop)
-            {
-                destinationNode.addClient(_vehicule.disembarkClient((Stop)destinationNode));
-                int capacity = _vehicule.getVehiculeKind().getCapacity();
-                Trip trip = _vehicule.getTrip();
-                _vehicule.embarkClient(destinationNode.requestEmbarkmentClient(trip, capacity));
-                _vehicule.getCurrentPosition().setCurrentSegment(_vehicule.getTrip().getNextSegment(destinationNode));
-            }
-        }
+        return (completionPercentage >= 100);
     }
 }

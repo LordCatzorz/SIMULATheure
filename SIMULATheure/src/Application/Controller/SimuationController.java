@@ -9,6 +9,7 @@ package Application.Controller;
  *
  * @author Raphael
  */
-public class SimuationController {
+public class SimuationController 
+{
     
 }

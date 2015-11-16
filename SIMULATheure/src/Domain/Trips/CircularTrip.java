@@ -13,9 +13,9 @@ public class CircularTrip extends Trip implements java.io.Serializable
 {
     private int maxNumberVehicule;
     
-    public void CircularTrip()
+    public CircularTrip()
     {
-        
+        super();
     }
     
 }

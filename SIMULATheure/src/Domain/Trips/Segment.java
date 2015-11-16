@@ -21,11 +21,11 @@ public class Segment implements java.io.Serializable
     private Distribution durationDistribution;
     private Time durationTime;
     
-    public void Segment(Node _originNode, Node _destinationNode, Distribution _durationDistribution)
+    public Segment(Node _originNode, Node _destinationNode)
     {
         this.originNode = _originNode;
         this.destinationNode = _destinationNode;
-        this.durationDistribution = _durationDistribution;
+        this.durationDistribution = new Distribution();
     }
     
     public Node getOriginNode()

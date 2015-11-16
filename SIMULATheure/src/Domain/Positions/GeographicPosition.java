@@ -5,7 +5,6 @@
  */
 package Domain.Positions;
 
-import java.lang.Math;
 /**
  *
  * @author Raphael
@@ -47,6 +46,11 @@ public class GeographicPosition implements java.io.Serializable
         float latitudeDistance = _destinationGeographicPosition.getLatitude().getFloatConvertion() - this.latitude.getFloatConvertion();
         
         return (float)Math.sqrt(Math.pow(latitudeDistance, 2) + Math.pow(longitudeDistance,2)); //Pythagore
+    }
+    
+    public boolean isBetween(GeographicPosition _firstPosition, GeographicPosition _secondPosition)
+    {
+        return this.getDistance(_firstPosition) + this.getDistance(_secondPosition) == _firstPosition.getDistance(_secondPosition);
     }
     
     public float getAngle(GeographicPosition _destinationGeographicPosition)

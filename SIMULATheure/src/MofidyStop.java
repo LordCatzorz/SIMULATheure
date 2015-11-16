@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+import Domain.Simulation.Simulation;
 /**
  *
  * @author Élise
@@ -13,7 +13,7 @@ public class MofidyStop extends javax.swing.JFrame {
     /**
      * Creates new form MofidyStop
      */
-    public MofidyStop() {
+    public MofidyStop(/*Simulation _controller*/) {
         initComponents();
     }
 

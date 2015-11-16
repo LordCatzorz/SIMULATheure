@@ -17,7 +17,7 @@ public class Itinary implements java.io.Serializable
     private Stop destinationStop;
     private Trip trip;
     
-    public void Itinary(Stop _originStop, Stop _destinationStop, Trip _trip)
+    public Itinary(Stop _originStop, Stop _destinationStop, Trip _trip)
     {
         this.originStop = _originStop;
         this.destinationStop = _destinationStop;

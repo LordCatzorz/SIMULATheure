@@ -13,8 +13,9 @@ public class FortyFeet extends VehiculeKind implements java.io.Serializable
 {
     private int capacity = 3;
     
-    public void FortyFeet()
+    public FortyFeet()
     {
+        super();
     }
     
 }

@@ -13,7 +13,7 @@ public class VehiculeKind implements java.io.Serializable
 {
     protected int capacity;
     
-    public void VehiculeKind()
+    public VehiculeKind()
     {
         
     }

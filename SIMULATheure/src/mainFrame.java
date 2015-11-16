@@ -1,4 +1,5 @@
 
+import Application.Controller.Tool;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -21,7 +22,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-
+import Domain.Simulation.Simulation;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -36,6 +37,7 @@ import javax.swing.JPanel;
 public class mainFrame extends javax.swing.JFrame {
 
     double scaleFactor = 1.0;
+    Simulation controller;
     
     /**
      * Creates new form mainFrame
@@ -81,19 +83,41 @@ public class mainFrame extends javax.swing.JFrame {
         zp.addMouseListener(new java.awt.event.MouseAdapter(){
         @Override
             public void mouseClicked(java.awt.event.MouseEvent e){
-                if (lblToolName.getText().equals("Arrêt")){
-                    circles.add(e.getX());
-                    circles.add(e.getY());
-                    zp.repaint();
+                
+                switch(controller.getCurrentTool())
+                {
+                    case STOP:
+                        controller.addNode(controller.convertPixelToGeographicPosition(e.getX(), e.getY()));
+                        circles.add(e.getX());
+                        circles.add(e.getY());
+                        zp.repaint();
+                        
+                        break;
+                    case SEGMENT:
+                        controller.addSegment(null, null);
+                        break;
+                    case TRIP:
+                        controller.addTrip(null, null, false);
+                        break;
+                    case VEHICULE:
+                        controller.addVehicule(null, null, null);
+                        break;
+                    case CLIENT:
+                        controller.addClient(null);
+                        break;
+                    case CLIENT_GENERATOR:
+                        controller.addClientGenerator(null);
+                        break;
+                    case VEHICULE_GENERATOR:
+                        controller.addVehiculeGenerator(null, null, null);
+                        break;
+                    case CLIENT_PROFILE:  
+                        controller.addClientProfile(null);
+                        break;
                 }
             }
-        });
-        
+        });   
     }
-    
-    
-
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -102,7 +126,9 @@ public class mainFrame extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     private void initComponents() {
-
+        
+        this.controller = new Simulation();
+        
         tlbTools = new javax.swing.JToolBar();
         btnStop = new javax.swing.JButton();
         btnSegment = new javax.swing.JButton();
@@ -463,6 +489,8 @@ public class mainFrame extends javax.swing.JFrame {
         btnAdd.setVisible(true);
         lstToolItems.setVisible(true);
         scrollPaneTool.setVisible(true);
+        
+        this.controller.setCurrentTool(Tool.STOP);
     }
 
     private void menuItemRedoActionPerformed(java.awt.event.ActionEvent evt) {
@@ -487,6 +515,8 @@ public class mainFrame extends javax.swing.JFrame {
         lblToolName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnAdd.setVisible(true);
         scrollPaneTool.setVisible(true);
+        
+        controller.setCurrentTool(Tool.CLIENT_PROFILE);
     }
 
     private void btnSegmentActionPerformed(java.awt.event.ActionEvent evt) {
@@ -495,6 +525,8 @@ public class mainFrame extends javax.swing.JFrame {
         btnAdd.setVisible(true);
         lstToolItems.setVisible(true);
         scrollPaneTool.setVisible(true);
+        
+        controller.setCurrentTool(Tool.SEGMENT);
     }
 
     private void btnTripActionPerformed(java.awt.event.ActionEvent evt) {
@@ -503,6 +535,8 @@ public class mainFrame extends javax.swing.JFrame {
         btnAdd.setVisible(true);
         lstToolItems.setVisible(true);
         scrollPaneTool.setVisible(true);
+        
+        controller.setCurrentTool(Tool.TRIP);
     }
 
     private void btnVehiculeActionPerformed(java.awt.event.ActionEvent evt) {
@@ -511,6 +545,8 @@ public class mainFrame extends javax.swing.JFrame {
         btnAdd.setVisible(true);
         lstToolItems.setVisible(true);
         scrollPaneTool.setVisible(true);
+        
+        controller.setCurrentTool(Tool.VEHICULE);
     }
 
     private void btnClientActionPerformed(java.awt.event.ActionEvent evt) {
@@ -519,6 +555,8 @@ public class mainFrame extends javax.swing.JFrame {
         btnAdd.setVisible(true);
         lstToolItems.setVisible(true);
         scrollPaneTool.setVisible(true);
+        
+        controller.setCurrentTool(Tool.CLIENT);
     }
 
     private void btnClientGeneratorActionPerformed(java.awt.event.ActionEvent evt) {
@@ -527,6 +565,8 @@ public class mainFrame extends javax.swing.JFrame {
         btnAdd.setVisible(true);
         lstToolItems.setVisible(true);
         scrollPaneTool.setVisible(true);
+        
+        controller.setCurrentTool(Tool.CLIENT_GENERATOR);
     }
 
     private void btnVehiculeGeneratorActionPerformed(java.awt.event.ActionEvent evt) {
@@ -535,6 +575,8 @@ public class mainFrame extends javax.swing.JFrame {
         btnAdd.setVisible(true);
         lstToolItems.setVisible(true);
         scrollPaneTool.setVisible(true);
+        
+        controller.setCurrentTool(Tool.VEHICULE_GENERATOR);
     }
 
     private void menuFileActionPerformed(java.awt.event.ActionEvent evt) {

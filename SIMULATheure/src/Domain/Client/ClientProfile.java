@@ -6,6 +6,7 @@
 package Domain.Client;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.sql.Time;
 /**
  *
@@ -19,9 +20,10 @@ public class ClientProfile implements java.io.Serializable
     private Time averageRecordedPassageDuration;
     private int totalNumberRecords;
     
-    public void CientProfile()
+    public ClientProfile()
     {
-        
+        this.itinary = new ArrayList<>();
+        this.totalNumberRecords = 0;
     }
     
     public List<Itinary> getItinary()

@@ -6,6 +6,7 @@
 package Domain.Trips;
 
 import java.util.Queue;
+import java.util.LinkedList;
 import java.sql.Time;
 
 import Domain.Node.Node;
@@ -19,9 +20,10 @@ public class Trip implements java.io.Serializable
     private Time nextDepartureTime;
     private String name;
     
-    public void Trip()
+    public Trip()
     {
-        
+        this.allSegments = new LinkedList<>();
+        this.name = "Trip";
     }
     
     public Queue<Segment> getAllSegments()

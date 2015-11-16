@@ -15,7 +15,7 @@ public class TriangularDistribution<T> extends Distribution implements java.io.S
     private T maximum;
     private T mode;
     
-    public void TriangularDistribution(T _minimum, T _maximum, T _mode)
+    public TriangularDistribution(T _minimum, T _maximum, T _mode)
     {
         this.maximum = _maximum;
         this.minimum = _minimum;

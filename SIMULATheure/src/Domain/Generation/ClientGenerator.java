@@ -6,7 +6,7 @@
 package Domain.Generation;
 
 import java.sql.Time;
-
+import java.time.LocalTime;
 import Domain.Client.ClientProfile;
 import Domain.Client.Client;
 /**
@@ -15,20 +15,21 @@ import Domain.Client.Client;
  */
 public class ClientGenerator implements java.io.Serializable
 {
-    private Distribution generationTimeDistribution;
+    private Distribution<Time> generationTimeDistribution;
     private Time nextGenerationTime;
     private Time timeBeginGeneration;
     private Time timeEndGeneration;
     private ClientProfile clientProfile;
     
-    public void ClientGenerator(ClientProfile _clientProfile)
+    public ClientGenerator(ClientProfile _clientProfile)
     {
         this.clientProfile = _clientProfile;
+        this.generationTimeDistribution = new Distribution();
     }
     
     public Distribution getGenerationTimeDistribution()
     {
-        return null;
+        return this.generationTimeDistribution;
     }
     
     public Time getNextGenerationTime()
@@ -63,7 +64,13 @@ public class ClientGenerator implements java.io.Serializable
     
     public Client awakeGenerator(Time _currentTime)
     {
-        return null;
+        if(_currentTime.getTime() >= this.nextGenerationTime.getTime())
+        {
+            this.nextGenerationTime.setTime(_currentTime.getTime() + this.generationTimeDistribution.calculate().getTime());
+            return new Client(this.clientProfile);
+        }
+        else
+            return null;
     }
     
     

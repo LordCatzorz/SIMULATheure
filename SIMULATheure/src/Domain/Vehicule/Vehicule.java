@@ -6,10 +6,11 @@
 package Domain.Vehicule;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.sql.Time;
 
-import Domain.Trips.Trip;
 import Domain.Trips.Segment;
+import Domain.Trips.Trip;
 import Domain.Client.Client;
 import Domain.Node.Stop;
 import Domain.Positions.GeographicPosition;
@@ -26,8 +27,10 @@ public class Vehicule implements java.io.Serializable
     private VehiculeKind vehiculeKind;
     private float speed = 2;
     
-    public void Vehicule(Trip _trip, VehiculeKind _vehiculeKind, Segment _segmentToSpawn)
+    public Vehicule(Trip _trip, VehiculeKind _vehiculeKind, Segment _segmentToSpawn)
     {
+        this.position = new VehiculePosition(_segmentToSpawn, Time.valueOf("00:00"));
+        this.inboardClients = new ArrayList<>();
         this.trip = _trip;
         this.vehiculeKind = _vehiculeKind;
     }
@@ -55,6 +58,11 @@ public class Vehicule implements java.io.Serializable
     public VehiculePosition getCurrentPosition()
     {
         return this.position;
+    }
+    
+    public void setCurrentPosition(VehiculePosition _position)
+    {
+        this.position = _position;
     }
     
     public Trip getTrip()

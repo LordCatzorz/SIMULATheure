@@ -18,15 +18,16 @@ public class Client implements java.io.Serializable
     private Itinary itinary;
     private Time creationTime;
     
-    public void Client()
-    {
-        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-        this.creationTime = Time.valueOf(dateFormat.format(new Date()));
-    }
-    
-    public void Client(ClientProfile _profile)
+    public Client(ClientProfile _profile)
     {
         this.profile = _profile;
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        this.creationTime = Time.valueOf(dateFormat.format(new Date()));
+        this.itinary = _profile.getItinary().get(0);
+    }
+    
+    public Client()
+    {
         DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
         this.creationTime = Time.valueOf(dateFormat.format(new Date()));
     }
