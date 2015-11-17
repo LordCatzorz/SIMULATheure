@@ -232,9 +232,9 @@ public class Simulation
          this.speedMultiplier = _speedMultiplier;
     }
     
-    public boolean addNode(GeographicPosition _geographicPosition)
+    public boolean addNode(float _x, float _y)
     {
-        return this.listNode.add(new Node(_geographicPosition));
+        return this.listNode.add(new Node(new GeographicPosition(_x, _y)));
     }
     
     public boolean addSegment(Node _origin, Node _destination)
@@ -320,31 +320,31 @@ public class Simulation
         return this.listClient;
     }
     
-    public Node getNodeAtPostion(GeographicPosition _position)
+    public Node getNodeAtPostion(float _x, float _y)
     {
         for(Node node : this.listNode)
         {
-            if(node.getGeographicPosition() == _position)
+            if(node.getGeographicPosition() == new GeographicPosition(_x, _y))
                 return node;
         }
         return null;
     }
     
-    public Vehicule getVehiculeAtPostion(GeographicPosition _position)
+    public Vehicule getVehiculeAtPostion(float _x, float _y)
     {
         for(Vehicule vehicule : this.listVehicule)
         {
-            if(vehicule.getGeographicPosition().equals(_position))
+            if(vehicule.getGeographicPosition() == new GeographicPosition(_x, _y))
                 return vehicule;
         }
         return null;
     }
     
-    public Segment getSegmentAtPostion(GeographicPosition _position)
+    public Segment getSegmentAtPostion(float _x, float _y)
     {
         for(Segment segment : this.listSegment)
         {
-            if(_position.isBetween(segment.getOriginNode().getGeographicPosition(), segment.getDestinationNode().getGeographicPosition()))
+            if(new GeographicPosition(_x, _y).isBetween(segment.getOriginNode().getGeographicPosition(), segment.getDestinationNode().getGeographicPosition()))
                 return segment;
         }
         return null;
@@ -399,18 +399,11 @@ public class Simulation
         }
         yPercentage = (1 - java.lang.Math.abs(xPercentage)) * yPercentage;
         
-        GeographicCoordinate longitude = _vehicule.getGeographicPosition().getLongitude();
-        GeographicCoordinate latitude = _vehicule.getGeographicPosition().getLatitude();
+        float x = _vehicule.getGeographicPosition().getXPosition() + ((_vehicule.getSpeed() * this.speedMultiplier) * xPercentage);
+        float y = _vehicule.getGeographicPosition().getYPosition() + ((_vehicule.getSpeed() * this.speedMultiplier) * yPercentage);
         
-        GeographicCoordinate newLatitude = new GeographicCoordinate(latitude.getDegree(), 
-                                                                    latitude.getMinute(), 
-                                                                    latitude.getSecond() + ((_vehicule.getSpeed() * this.speedMultiplier) * yPercentage));
-        
-        GeographicCoordinate newLongitude = new GeographicCoordinate(longitude.getDegree(), 
-                                                                     longitude.getMinute(), 
-                                                                     longitude.getSecond() + ((_vehicule.getSpeed() * this.speedMultiplier) * xPercentage));
         VehiculePosition position = _vehicule.getCurrentPosition();
-        position.setGeographicPosition(new GeographicPosition(newLongitude, newLatitude));
+        position.setGeographicPosition(new GeographicPosition(x, y));
         _vehicule.setCurrentPosition(position);
     }
     

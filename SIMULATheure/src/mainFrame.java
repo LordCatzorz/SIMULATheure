@@ -106,22 +106,22 @@ public class mainFrame extends javax.swing.JFrame {
                 switch(controller.getCurrentTool())
                 {
                     case STOP:
-                        controller.addNode(controller.convertPixelToGeographicPosition(e.getX(), e.getY()));
+                        controller.addNode(e.getX(), e.getY());
                         circles.add(e.getX());
                         circles.add(e.getY());
                         zp.repaint();
                         
                         break;
                     case SEGMENT:
+                        Node node = controller.getNodeAtPostion(e.getX(), e.getY());
                         if(e.getButton() == MouseEvent.BUTTON3) //Efface le segment en cours lorsqu'on appuie sur click droit
                         {
                             nodeSelectedForSegment = false;
                             lines.removeAll(lines);
                             zp.repaint();
                         }
-                        else if(nodeSelectedForSegment && /*node != null*/ true)
+                        else if(nodeSelectedForSegment /*&& node != null*/)
                         {
-                            Node node = controller.getNodeAtPostion(controller.convertPixelToGeographicPosition(e.getX(), e.getY()));
                             nodeSelectedForSegment = false;
                             controller.addSegment(null, null);
                             segments.add(lines.get(0));
@@ -131,8 +131,7 @@ public class mainFrame extends javax.swing.JFrame {
                         }
                         else
                         {
-                            Node node = controller.getNodeAtPostion(controller.convertPixelToGeographicPosition(e.getX(), e.getY()));
-                            nodeSelectedForSegment = (/*node != null*/true);
+                            nodeSelectedForSegment = /*node != null*/true;
                             lines.add(e.getX());
                             lines.add(e.getY());
                         }
@@ -696,6 +695,12 @@ public class mainFrame extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(mainFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
+            /*for (int i = 0; i < circles.size(); i++) {
+                g2.setColor(java.awt.Color.BLACK);
+                g2.fillOval(circles.get(i), circles.get(i+1), 8, 8);
+                i = i + 1;
+            }*/
+            
             for (int i = 0; i < circles.size(); i++) {
                 g2.setColor(java.awt.Color.BLACK);
                 g2.fillOval(circles.get(i), circles.get(i+1), 8, 8);

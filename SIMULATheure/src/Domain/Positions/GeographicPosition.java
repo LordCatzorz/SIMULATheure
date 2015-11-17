@@ -11,41 +11,41 @@ package Domain.Positions;
  */
 public class GeographicPosition implements java.io.Serializable
 {
-    private GeographicCoordinate longitude;
-    private GeographicCoordinate latitude;
+    private float xPosition;
+    private float yPosition;
     
-    public GeographicPosition(GeographicCoordinate _longitude, GeographicCoordinate _latitude)
+    public GeographicPosition(float _x, float _y)
     {
-        this.longitude = _longitude;
-        this.latitude = _latitude;
+        this.xPosition = _x;
+        this.yPosition = _y;
     }
     
-    public GeographicCoordinate getLongitude()
+    public float getXPosition()
     {
-        return this.longitude;
+        return this.xPosition;
     }
     
-    public void setLongitude(GeographicCoordinate _longitude)
+    public void setXPosition(float _x)
     {
-        this.longitude = _longitude;
+        this.xPosition = _x;
     }
     
-    public GeographicCoordinate getLatitude()
+    public float getYPosition()
     {
-        return this.latitude;
+        return this.yPosition;
     }
     
-    public void setLatitude(GeographicCoordinate _latitude)
+    public void setYPosition(float _y)
     {
-        this.latitude = _latitude;
+        this.yPosition = _y;
     }
     
     public float getDistance(GeographicPosition _destinationGeographicPosition)
     {
-        float longitudeDistance = _destinationGeographicPosition.getLongitude().getFloatConvertion() - this.longitude.getFloatConvertion();
-        float latitudeDistance = _destinationGeographicPosition.getLatitude().getFloatConvertion() - this.latitude.getFloatConvertion();
+        float xDistance = _destinationGeographicPosition.getXPosition() - this.xPosition;
+        float yDistance = _destinationGeographicPosition.getYPosition() - this.yPosition;
         
-        return (float)Math.sqrt(Math.pow(latitudeDistance, 2) + Math.pow(longitudeDistance,2)); //Pythagore
+        return (float)Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance,2)); //Pythagore
     }
     
     public boolean isBetween(GeographicPosition _firstPosition, GeographicPosition _secondPosition)
@@ -55,14 +55,14 @@ public class GeographicPosition implements java.io.Serializable
     
     public float getAngle(GeographicPosition _destinationGeographicPosition)
     {
-        float longitudeDistance = _destinationGeographicPosition.getLongitude().getFloatConvertion() - this.longitude.getFloatConvertion();
-        float latitudeDistance = _destinationGeographicPosition.getLatitude().getFloatConvertion() - this.latitude.getFloatConvertion();
+        float xDistance = _destinationGeographicPosition.getXPosition() - this.xPosition;
+        float yDistance = _destinationGeographicPosition.getYPosition() - this.yPosition;
         
-        double angle = Math.toDegrees(Math.atan(latitudeDistance/ longitudeDistance));
+        double angle = Math.toDegrees(Math.atan(yDistance/ xDistance));
         
-        if (longitudeDistance < 0)
+        if (xDistance < 0)
         {
-            if (latitudeDistance < 0)// 3e quadrant
+            if (yDistance < 0)// 3e quadrant
             {
                 angle = 270 - angle;
             }
@@ -71,7 +71,7 @@ public class GeographicPosition implements java.io.Serializable
                 angle = 180 + angle;
             }
         }
-        else if(latitudeDistance < 0) //4e quadrant
+        else if(yDistance < 0) //4e quadrant
         {
             angle = 360 + angle;
         }
