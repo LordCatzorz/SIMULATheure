@@ -3,20 +3,38 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package UI;
+
 import Domain.Simulation.Simulation;
 /**
  *
  * @author Élise
  */
-public class MofidyStop extends javax.swing.JFrame {
+public class ModifyStop extends javax.swing.JFrame {
 
+    private Simulation controller;
     /**
      * Creates new form MofidyStop
      */
-    public MofidyStop(/*Simulation _controller*/) {
+    public ModifyStop(Simulation _controller, String _name, float _x, float _y)
+    {
+        controller = _controller;
         initComponents();
+        txtName.setText(_name);
+        txtPositionX.setText(Float.toString(_x));
+        txtPositionY.setText(Float.toString(_y));
+        
+        btnOk.addMouseMotionListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) 
+            {
+                
+            }
+        });
+        
     }
-
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,34 +44,39 @@ public class MofidyStop extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
+        txtName = new javax.swing.JTextField();
         lblName = new javax.swing.JLabel();
         lblCoord = new javax.swing.JLabel();
         lblLatitude = new javax.swing.JLabel();
-        txtLatitude = new javax.swing.JTextField();
+        txtPositionX = new javax.swing.JTextField();
         lblLongitude = new javax.swing.JLabel();
-        txtLongitude = new javax.swing.JTextField();
+        txtPositionY = new javax.swing.JTextField();
         btnOk = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         lblTitle = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextField1.setText("Arrêt1");
-
         lblName.setText("Nom: ");
 
         lblCoord.setText("Coordonées");
 
-        lblLatitude.setText("Latitude:");
+        lblLatitude.setText("X :");
 
-        txtLatitude.setText("47,6°");
+        txtPositionX.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPositionXActionPerformed(evt);
+            }
+        });
 
-        lblLongitude.setText("Longitude: ");
-
-        txtLongitude.setText("122,3 °");
+        lblLongitude.setText("Y :");
 
         btnOk.setText("Ok");
+        btnOk.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnOkMouseClicked(evt);
+            }
+        });
 
         btnDelete.setText("Supprimer");
 
@@ -80,16 +103,16 @@ public class MofidyStop extends javax.swing.JFrame {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(lblLatitude)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtLatitude, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtPositionX, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
                                     .addComponent(lblLongitude)))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtLongitude, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtPositionY, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(lblName)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(41, Short.MAX_VALUE))
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,16 +121,16 @@ public class MofidyStop extends javax.swing.JFrame {
                 .addComponent(lblTitle)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblCoord)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblLatitude)
-                    .addComponent(txtLatitude, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPositionX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblLongitude)
-                    .addComponent(txtLongitude, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPositionY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnOk)
@@ -117,6 +140,15 @@ public class MofidyStop extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtPositionXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPositionXActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPositionXActionPerformed
+
+    private void btnOkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOkMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnOkMouseClicked
 
     /**
      * @param args the command line arguments
@@ -135,20 +167,20 @@ public class MofidyStop extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MofidyStop.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModifyStop.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MofidyStop.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModifyStop.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MofidyStop.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModifyStop.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MofidyStop.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModifyStop.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MofidyStop().setVisible(true);
+            public void run() 
+            {
             }
         });
     }
@@ -156,13 +188,13 @@ public class MofidyStop extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnOk;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblCoord;
     private javax.swing.JLabel lblLatitude;
     private javax.swing.JLabel lblLongitude;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblTitle;
-    private javax.swing.JTextField txtLatitude;
-    private javax.swing.JTextField txtLongitude;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtPositionX;
+    private javax.swing.JTextField txtPositionY;
     // End of variables declaration//GEN-END:variables
 }

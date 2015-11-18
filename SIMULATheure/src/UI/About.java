@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+package UI;
 /**
  *
  * @author Élise
  */
-public class Help extends javax.swing.JFrame {
+public class About extends javax.swing.JFrame {
 
     /**
-     * Creates new form Help
+     * Creates new form About
      */
-    public Help() {
+    public About() {
         initComponents();
     }
 
@@ -28,12 +28,12 @@ public class Help extends javax.swing.JFrame {
 
         lblTitle = new javax.swing.JLabel();
         btnClose = new javax.swing.JButton();
-        txtHelp = new javax.swing.JTextArea();
+        txtAbout = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblTitle.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblTitle.setText("Aide de SimulatHEURE");
+        lblTitle.setText("À propos de SimulatHEURE");
 
         btnClose.setText("Fermer");
         btnClose.addActionListener(new java.awt.event.ActionListener() {
@@ -42,43 +42,43 @@ public class Help extends javax.swing.JFrame {
             }
         });
 
-        txtHelp.setEditable(false);
-        txtHelp.setColumns(20);
-        txtHelp.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
-        txtHelp.setRows(5);
-        txtHelp.setText("Bienvenue dans SimulatHEURE!\nVous pouvez utiliser les outils dans la \nbarre d'outils à gauche pour commencer à\ncréer votre simulation.\nLors de la simulation, vous pouvez gérer \nla vitesse avec la barre de vitesse en bas.\nPour toutes autres questions, vous pouvez\nconsulter la documentation ou écrire à \nl'adresse suivante: timarion13@hotmail.com");
+        txtAbout.setEditable(false);
+        txtAbout.setColumns(20);
+        txtAbout.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        txtAbout.setRows(5);
+        txtAbout.setText("Réalisé dans le cadre du cours: \nGLO-2004 Génie logiciel orienté objet\nPar:\nÉlise Carbonneau-Leclerc\nPierre Marion\nPierre-Antoine Morin\n\nSous la supervision de:\nJohnathan Gaudreault\nAutomne 2015");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(117, Short.MAX_VALUE)
-                .addComponent(lblTitle)
-                .addGap(105, 105, 105))
             .addGroup(layout.createSequentialGroup()
-                .addGap(156, 156, 156)
+                .addContainerGap(95, Short.MAX_VALUE)
+                .addComponent(lblTitle)
+                .addGap(90, 90, 90))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(147, 147, 147)
                 .addComponent(btnClose)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(49, Short.MAX_VALUE)
-                    .addComponent(txtHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(35, Short.MAX_VALUE)))
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(txtAbout, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 233, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 234, Short.MAX_VALUE)
                 .addComponent(btnClose)
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(59, Short.MAX_VALUE)
-                    .addComponent(txtHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(59, Short.MAX_VALUE)))
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(txtAbout, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pack();
@@ -105,20 +105,20 @@ public class Help extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Help.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(About.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Help.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(About.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Help.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(About.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Help.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(About.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Help().setVisible(true);
+                new About().setVisible(true);
             }
         });
     }
@@ -126,6 +126,6 @@ public class Help extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JLabel lblTitle;
-    private javax.swing.JTextArea txtHelp;
+    private javax.swing.JTextArea txtAbout;
     // End of variables declaration//GEN-END:variables
 }

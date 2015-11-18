@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+package UI;
 /**
  *
  * @author Élise
  */
-public class ModifyItinary extends javax.swing.JFrame {
+public class ModifyVehicule extends javax.swing.JFrame {
 
     /**
-     * Creates new form ModifyItinary
+     * Creates new form ModifyVehicule
      */
-    public ModifyItinary() {
+    public ModifyVehicule() {
         initComponents();
     }
 
@@ -27,31 +27,29 @@ public class ModifyItinary extends javax.swing.JFrame {
     private void initComponents() {
 
         lblTitle = new javax.swing.JLabel();
+        lblCapacity = new javax.swing.JLabel();
+        txtCapacity = new javax.swing.JTextField();
         lblTrip = new javax.swing.JLabel();
-        txtTrip = new javax.swing.JTextField();
+        cmbTrip = new javax.swing.JComboBox();
         lblOriginStop = new javax.swing.JLabel();
-        lblDestiStop = new javax.swing.JLabel();
-        txtOriginStop = new javax.swing.JTextField();
-        txtDestiStop = new javax.swing.JTextField();
+        cmbOriginStop = new javax.swing.JComboBox();
         btnOk = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lblTitle.setText("Ajouter, modifier ou supprimer un itinéraire");
+        lblTitle.setText("Ajouter, modifier ou supprimer un véhicule");
+
+        lblCapacity.setText("Capacité: ");
 
         lblTrip.setText("Trajet: ");
 
-        txtTrip.setText("Trajet1");
+        cmbTrip.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        lblOriginStop.setText("Arrêt d'origine: ");
+        lblOriginStop.setText("Arrêt de départ: ");
 
-        lblDestiStop.setText("Arrêt de destination:");
-
-        txtOriginStop.setText("Arrêt1");
-
-        txtDestiStop.setText("Arrêt2");
+        cmbOriginStop.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnOk.setText("Ok");
 
@@ -64,52 +62,52 @@ public class ModifyItinary extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblCapacity)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblTrip)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cmbTrip, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblOriginStop)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbOriginStop, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(116, 116, 116)
                         .addComponent(btnOk)
-                        .addGap(54, 54, 54)
+                        .addGap(29, 29, 29)
                         .addComponent(btnDelete))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(lblTitle))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblDestiStop)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtDestiStop, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblOriginStop)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtOriginStop, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblTrip)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtTrip, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(lblTitle)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(20, 20, 20)
                 .addComponent(lblTitle)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTrip)
-                    .addComponent(txtTrip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblCapacity)
+                    .addComponent(txtCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblOriginStop)
-                    .addComponent(txtOriginStop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblTrip)
+                    .addComponent(cmbTrip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDestiStop)
-                    .addComponent(txtDestiStop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblOriginStop)
+                    .addComponent(cmbOriginStop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnOk)
                     .addComponent(btnDelete))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -132,20 +130,20 @@ public class ModifyItinary extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ModifyItinary.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModifyVehicule.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ModifyItinary.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModifyVehicule.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ModifyItinary.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModifyVehicule.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ModifyItinary.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModifyVehicule.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ModifyItinary().setVisible(true);
+                new ModifyVehicule().setVisible(true);
             }
         });
     }
@@ -153,12 +151,12 @@ public class ModifyItinary extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnOk;
-    private javax.swing.JLabel lblDestiStop;
+    private javax.swing.JComboBox cmbOriginStop;
+    private javax.swing.JComboBox cmbTrip;
+    private javax.swing.JLabel lblCapacity;
     private javax.swing.JLabel lblOriginStop;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblTrip;
-    private javax.swing.JTextField txtDestiStop;
-    private javax.swing.JTextField txtOriginStop;
-    private javax.swing.JTextField txtTrip;
+    private javax.swing.JTextField txtCapacity;
     // End of variables declaration//GEN-END:variables
 }

@@ -18,6 +18,7 @@ public class Node implements java.io.Serializable
 {
     private GeographicPosition geographicPosition;
     private int diameter = 8;
+    private String name;
     
     //abstract public boolean addClient(List<Client> _clients);
     //abstract public List<Client> requestEmbarkmentClient(Trip _vehiculeTrip, int maxClientAmount);
@@ -40,5 +41,15 @@ public class Node implements java.io.Serializable
     public int getDiameter()
     {
         return this.diameter;
+    }
+    
+    public String getName()
+    {
+        return this.name;
+    }
+    
+    public void setName(String _name)
+    {
+        this.name = _name;
     }
 }

@@ -1,5 +1,6 @@
 
-import Application.Controller.Tool;
+package UI;
+
 import java.awt.BorderLayout;
 import java.awt.BasicStroke;
 import java.awt.Component;
@@ -23,7 +24,10 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import Application.Controller.Tool;
 import Domain.Simulation.Simulation;
+
+import UI.ModifyStop;
 /*import Domain.Node.*;
 import Domain.Client.*;
 import Domain.Generation.*;
@@ -111,9 +115,19 @@ public class mainFrame extends javax.swing.JFrame {
                 switch(controller.getCurrentTool())
                 {
                     case STOP:
-                        controller.addNode(e.getX(), e.getY());
-                        zp.repaint();
-                        
+                        if(controller.getNodeAtPostion(e.getX(), e.getY()) != null)
+                        {
+                            ModifyStop form = new ModifyStop(controller, 
+                                                             controller.getNodeAtPostion(e.getX(), e.getY()).getName(),
+                                                             controller.getNodeAtPostion(e.getX(), e.getY()).getGeographicPosition().getXPosition(),
+                                                             controller.getNodeAtPostion(e.getX(), e.getY()).getGeographicPosition().getYPosition());
+                            form.setVisible(true);
+                        }
+                        else
+                        {
+                            controller.addNode(e.getX(), e.getY());
+                            zp.repaint();
+                        }
                         break;
                     case SEGMENT:
                         if(e.getButton() == MouseEvent.BUTTON3) //Efface le segment en cours lorsqu'on appuie sur click droit

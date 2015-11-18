@@ -40,22 +40,22 @@
                               <Group type="102" attributes="0">
                                   <Component id="lblLatitude" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtLatitude" min="-2" pref="82" max="-2" attributes="0"/>
+                                  <Component id="txtPositionX" min="-2" pref="82" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="lblLongitude" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="txtLongitude" min="-2" pref="100" max="-2" attributes="0"/>
+                          <Component id="txtPositionY" min="-2" pref="100" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="lblName" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jTextField1" min="-2" pref="96" max="-2" attributes="0"/>
+                          <Component id="txtName" min="-2" pref="96" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="41" max="32767" attributes="0"/>
+              <EmptySpace pref="70" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -66,7 +66,7 @@
               <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtName" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblName" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -74,9 +74,9 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblLatitude" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtLatitude" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtPositionX" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblLongitude" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtLongitude" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtPositionY" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -89,10 +89,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JTextField" name="jTextField1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Arr&#xea;t1"/>
-      </Properties>
+    <Component class="javax.swing.JTextField" name="txtName">
     </Component>
     <Component class="javax.swing.JLabel" name="lblName">
       <Properties>
@@ -106,28 +103,28 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblLatitude">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Latitude:"/>
+        <Property name="text" type="java.lang.String" value="X :"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtLatitude">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="47,6&#xb0;"/>
-      </Properties>
+    <Component class="javax.swing.JTextField" name="txtPositionX">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPositionXActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblLongitude">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Longitude: "/>
+        <Property name="text" type="java.lang.String" value="Y :"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtLongitude">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="122,3 &#xb0;"/>
-      </Properties>
+    <Component class="javax.swing.JTextField" name="txtPositionY">
     </Component>
     <Component class="javax.swing.JButton" name="btnOk">
       <Properties>
         <Property name="text" type="java.lang.String" value="Ok"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnOkMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnDelete">
       <Properties>
