@@ -17,6 +17,7 @@ import Domain.Trips.Trip;
 public class Node implements java.io.Serializable
 {
     private GeographicPosition geographicPosition;
+    private int diameter = 8;
     
     //abstract public boolean addClient(List<Client> _clients);
     //abstract public List<Client> requestEmbarkmentClient(Trip _vehiculeTrip, int maxClientAmount);
@@ -34,5 +35,10 @@ public class Node implements java.io.Serializable
     public void setGeographicPosition(GeographicPosition _geographicPosition)
     {
         this.geographicPosition = _geographicPosition;
+    }
+    
+    public int getDiameter()
+    {
+        return this.diameter;
     }
 }

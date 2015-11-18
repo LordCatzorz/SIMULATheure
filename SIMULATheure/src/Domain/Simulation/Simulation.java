@@ -41,6 +41,7 @@ public class Simulation
     private List<ClientProfile> listClientProfile;
     private List<Client> listClient;
     
+    private int nodeMargin = 5;
     
     public Simulation()
     {
@@ -324,7 +325,8 @@ public class Simulation
     {
         for(Node node : this.listNode)
         {
-            if(node.getGeographicPosition() == new GeographicPosition(_x, _y))
+            if((node.getGeographicPosition().getXPosition() <= _x + nodeMargin && node.getGeographicPosition().getXPosition() >= _x - nodeMargin) &&
+               (node.getGeographicPosition().getYPosition() <= _y + nodeMargin && node.getGeographicPosition().getYPosition() >= _y - nodeMargin))
                 return node;
         }
         return null;

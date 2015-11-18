@@ -24,7 +24,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import Domain.Simulation.Simulation;
-import Domain.Node.*;
+/*import Domain.Node.*;
+import Domain.Client.*;
+import Domain.Generation.*;
+import Domain.Positions.GeographicPosition;
+import Domain.Trips.*;
+import Domain.Vehicule.*;*/
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -107,33 +112,26 @@ public class mainFrame extends javax.swing.JFrame {
                 {
                     case STOP:
                         controller.addNode(e.getX(), e.getY());
-                        circles.add(e.getX());
-                        circles.add(e.getY());
                         zp.repaint();
                         
                         break;
                     case SEGMENT:
-                        Node node = controller.getNodeAtPostion(e.getX(), e.getY());
                         if(e.getButton() == MouseEvent.BUTTON3) //Efface le segment en cours lorsqu'on appuie sur click droit
                         {
                             nodeSelectedForSegment = false;
                             lines.removeAll(lines);
                             zp.repaint();
                         }
-                        else if(nodeSelectedForSegment /*&& node != null*/)
+                        else if(nodeSelectedForSegment && controller.getNodeAtPostion(e.getX(), e.getY()) != null)
                         {
                             nodeSelectedForSegment = false;
-                            controller.addSegment(null, null);
-                            segments.add(lines.get(0));
-                            segments.add(lines.get(1));
-                            segments.add(lines.get(2));
-                            segments.add(lines.get(3));
+                            controller.addSegment(controller.getNodeAtPostion(lines.get(0), lines.get(1)), controller.getNodeAtPostion(e.getX(), e.getY()));
                         }
                         else
                         {
-                            nodeSelectedForSegment = /*node != null*/true;
-                            lines.add(e.getX());
-                            lines.add(e.getY());
+                            nodeSelectedForSegment = (controller.getNodeAtPostion(e.getX(), e.getY()) != null);
+                            lines.add((int)controller.getNodeAtPostion(e.getX(), e.getY()).getGeographicPosition().getXPosition());
+                            lines.add((int)controller.getNodeAtPostion(e.getX(), e.getY()).getGeographicPosition().getYPosition());
                         }
                         break;
                     case TRIP:
@@ -677,7 +675,7 @@ public class mainFrame extends javax.swing.JFrame {
         });
     }
     
-    public static class ZoomPanel extends JPanel{ 
+    public class ZoomPanel extends JPanel{ 
         protected double zoom; 
         public ZoomPanel(double initialZoom) { 
             super(new FlowLayout()); 
@@ -701,10 +699,12 @@ public class mainFrame extends javax.swing.JFrame {
                 i = i + 1;
             }*/
             
-            for (int i = 0; i < circles.size(); i++) {
+            for (int i = 0; i < controller.getListNode().size(); i++) {
+                int diameter = controller.getListNode().get(i).getDiameter();
                 g2.setColor(java.awt.Color.BLACK);
-                g2.fillOval(circles.get(i), circles.get(i+1), 8, 8);
-                i = i + 1;
+                g2.fillOval((int)controller.getListNode().get(i).getGeographicPosition().getXPosition() - (diameter/2), 
+                            (int)controller.getListNode().get(i).getGeographicPosition().getYPosition() - (diameter/2),
+                            diameter, diameter);
             }
             
             if(lines.size() == 4) 
@@ -714,11 +714,14 @@ public class mainFrame extends javax.swing.JFrame {
                 g2.drawLine(lines.get(0), lines.get(1), lines.get(2), lines.get(3));
             }
             
-            for (int i = 0; i < segments.size(); i+=4) 
+            for (int i = 0; i < controller.getListSegment().size(); i++) 
             {
                 g2.setColor(java.awt.Color.BLACK);
                 g2.setStroke(new BasicStroke(3));
-                g2.drawLine(segments.get(i), segments.get(i+1), segments.get(i+2), segments.get(i+3));
+                g2.drawLine((int)controller.getListSegment().get(i).getOriginNode().getGeographicPosition().getXPosition(), 
+                            (int)controller.getListSegment().get(i).getOriginNode().getGeographicPosition().getYPosition(), 
+                            (int)controller.getListSegment().get(i).getDestinationNode().getGeographicPosition().getXPosition(), 
+                            (int)controller.getListSegment().get(i).getDestinationNode().getGeographicPosition().getYPosition());
             }
             g2.setTransform(backup);
         } 
@@ -786,7 +789,6 @@ public class mainFrame extends javax.swing.JFrame {
  
     private int x;
     private int y;
-    private static List<Integer> circles = new ArrayList<Integer>();
     private static List<Integer> lines = new ArrayList<>();
     private static List<Integer> segments = new ArrayList<>();
     private ZoomPanel zp;
