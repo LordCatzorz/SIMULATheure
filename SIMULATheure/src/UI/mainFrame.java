@@ -28,6 +28,7 @@ import Application.Controller.Tool;
 import Domain.Simulation.Simulation;
 
 import UI.ModifyStop;
+import javax.swing.DefaultListModel;
 /*import Domain.Node.*;
 import Domain.Client.*;
 import Domain.Generation.*;
@@ -131,6 +132,7 @@ public class mainFrame extends javax.swing.JFrame {
                         {
                             controller.addNode(e.getX(), e.getY());
                             zp.repaint();
+                            //backend constructeur de stop
                         }
                         break;
                     case SEGMENT:
@@ -150,6 +152,7 @@ public class mainFrame extends javax.swing.JFrame {
                             nodeSelectedForSegment = (controller.getNodeAtPostion(e.getX(), e.getY()) != null);
                             lines.add((int)controller.getNodeAtPostion(e.getX(), e.getY()).getGeographicPosition().getXPosition());
                             lines.add((int)controller.getNodeAtPostion(e.getX(), e.getY()).getGeographicPosition().getYPosition());
+                            //Backend constructeur de segment
                         }
                         break;
                     case TRIP:
@@ -200,7 +203,6 @@ public class mainFrame extends javax.swing.JFrame {
         btnAccelerate = new javax.swing.JButton();
         btnStopSimu = new javax.swing.JButton();
         pnlBackground = new javax.swing.JPanel(new BorderLayout());
-        lblImage = new javax.swing.JLabel();
         pnlTool = new javax.swing.JPanel();
         lblToolName = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
@@ -542,6 +544,12 @@ public class mainFrame extends javax.swing.JFrame {
         lblToolName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnAdd.setVisible(true);
         lstToolItems.setVisible(true);
+        listModel = new DefaultListModel();
+        for (int i = 0; i < controller.getListNode().size(); i++)
+        {
+            listModel.addElement(controller.getListNode().get(i).getName());
+        }
+        lstToolItems.setModel(listModel);
         scrollPaneTool.setVisible(true);
         
         this.controller.setCurrentTool(Tool.STOP);
@@ -569,7 +577,12 @@ public class mainFrame extends javax.swing.JFrame {
         lblToolName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnAdd.setVisible(true);
         scrollPaneTool.setVisible(true);
-        
+        listModel = new DefaultListModel();
+        for (int i = 0; i < controller.getListClientProfile().size(); i++)
+        {
+            listModel.addElement("Profil client " + i);
+        }
+        lstToolItems.setModel(listModel);
         controller.setCurrentTool(Tool.CLIENT_PROFILE);
     }
 
@@ -578,6 +591,12 @@ public class mainFrame extends javax.swing.JFrame {
         lblToolName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnAdd.setVisible(true);
         lstToolItems.setVisible(true);
+        listModel = new DefaultListModel();
+        for (int i = 0; i < controller.getListSegment().size(); i++)
+        {
+            listModel.addElement(controller.getListSegment().get(i).getOriginNode().getName() + " " + controller.getListSegment().get(i).getDestinationNode().getName());
+        }
+        lstToolItems.setModel(listModel);
         scrollPaneTool.setVisible(true);
         
         controller.setCurrentTool(Tool.SEGMENT);
@@ -588,6 +607,12 @@ public class mainFrame extends javax.swing.JFrame {
         lblToolName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnAdd.setVisible(true);
         lstToolItems.setVisible(true);
+        listModel = new DefaultListModel();
+        for (int i = 0; i < controller.getListTrip().size(); i++)
+        {
+            listModel.addElement(controller.getListTrip().get(i).getName());
+        }
+        lstToolItems.setModel(listModel);
         scrollPaneTool.setVisible(true);
         
         controller.setCurrentTool(Tool.TRIP);
@@ -598,6 +623,12 @@ public class mainFrame extends javax.swing.JFrame {
         lblToolName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnAdd.setVisible(true);
         lstToolItems.setVisible(true);
+        listModel = new DefaultListModel();
+        for (int i = 0; i < controller.getListVehicule().size(); i++)
+        {
+            listModel.addElement("Véhicule " + i);
+        }
+        lstToolItems.setModel(listModel);
         scrollPaneTool.setVisible(true);
         
         controller.setCurrentTool(Tool.VEHICULE);
@@ -608,6 +639,12 @@ public class mainFrame extends javax.swing.JFrame {
         lblToolName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnAdd.setVisible(true);
         lstToolItems.setVisible(true);
+        listModel = new DefaultListModel();
+        for (int i = 0; i < controller.getListClient().size(); i++)
+        {
+            listModel.addElement("Client " + i);
+        }
+        lstToolItems.setModel(listModel);
         scrollPaneTool.setVisible(true);
         
         controller.setCurrentTool(Tool.CLIENT);
@@ -618,6 +655,12 @@ public class mainFrame extends javax.swing.JFrame {
         lblToolName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnAdd.setVisible(true);
         lstToolItems.setVisible(true);
+        listModel = new DefaultListModel();
+        for (int i = 0; i < controller.getListClientGenerator().size(); i++)
+        {
+            listModel.addElement("Générateur de clients " + i);
+        }
+        lstToolItems.setModel(listModel);
         scrollPaneTool.setVisible(true);
         
         controller.setCurrentTool(Tool.CLIENT_GENERATOR);
@@ -628,6 +671,12 @@ public class mainFrame extends javax.swing.JFrame {
         lblToolName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnAdd.setVisible(true);
         lstToolItems.setVisible(true);
+        listModel = new DefaultListModel();
+        for (int i = 0; i < controller.getListVehiculeGenerator().size(); i++)
+        {
+            listModel.addElement("Générateur de véhicules " + i);
+        }
+        lstToolItems.setModel(listModel);
         scrollPaneTool.setVisible(true);
         
         controller.setCurrentTool(Tool.VEHICULE_GENERATOR);
@@ -640,11 +689,7 @@ public class mainFrame extends javax.swing.JFrame {
     private void menuItemImgActionPerformed(java.awt.event.ActionEvent evt) {
         javax.swing.JFileChooser jfc;
         jfc = new javax.swing.JFileChooser();     
-        //java.io.File f = new java.io.File(System.getProperty("user.dir"));
-        //jfc.setCurrentDirectory(f);
-        //jfc.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
         int result = jfc.showOpenDialog(this);
-        //java.io.File selFile = jfc.getSelectedFile();
         if (result == javax.swing.JFileChooser.APPROVE_OPTION) {
                 backgroundFile = jfc.getSelectedFile();
             }
@@ -817,9 +862,9 @@ public class mainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnVehicule;
     private javax.swing.JButton btnVehiculeGenerator;
     private javax.swing.JLabel lblCoordinate;
-    private javax.swing.JLabel lblImage;
     private javax.swing.JLabel lblToolName;
     private javax.swing.JList lstToolItems;
+    private DefaultListModel listModel = new DefaultListModel();
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
