@@ -27,6 +27,7 @@ import Application.Controller.Tool;
  */
 public class Simulation 
 {
+    private static int stopCounter = 1;
     private String name;
     private Tool currentTool;
     private Image background;
@@ -236,7 +237,8 @@ public class Simulation
     public boolean addNode(float _x, float _y)
     {
         Node node  = new Node(new GeographicPosition(_x, _y));
-        node.setName("Arrêt" + (this.listNode.size() + 1));
+        node.setName("Arrêt" + stopCounter);
+        stopCounter++;
         return this.listNode.add(node);
     }
     
