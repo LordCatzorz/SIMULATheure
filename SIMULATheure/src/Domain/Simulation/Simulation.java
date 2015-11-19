@@ -361,7 +361,19 @@ public class Simulation
             if (node.getGeographicPosition().getXPosition() == _oldXPosition && node.getGeographicPosition().getYPosition() == _oldYPosition)
             {
                 node.setGeographicPosition(new GeographicPosition(_newXPosition, _newYPosition));
-                node.setName(_name);
+                boolean nameExists = false;
+                for(Node nodeName: this.listNode)
+                {
+                    if(nodeName.getName().equals(_name))
+                    {
+                        nameExists = true;
+                        break;
+                    }
+                }
+                if(!nameExists)
+                {
+                    node.setName(_name);
+                }
                 break;
             }
         }
