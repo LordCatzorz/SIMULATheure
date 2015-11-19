@@ -233,11 +233,12 @@ public class Simulation
          this.speedMultiplier = _speedMultiplier;
     }
     
-    public boolean addNode(float _x, float _y)
+    public String addNode(float _x, float _y)
     {
         Node node  = new Node(new GeographicPosition(_x, _y));
         node.setName("Arrêt" + (this.listNode.size() + 1));
-        return this.listNode.add(node);
+        this.listNode.add(node);
+        return node.getName();
     }
     
     public boolean addSegment(Node _origin, Node _destination)
@@ -378,14 +379,30 @@ public class Simulation
         }
     }
     
-    public void deleteNode(float _x, float _y)
+    public String deleteNode(float _x, float _y)
     {
+        String name = "";
         for(Node node : this.listNode)
         {
             if (node.getGeographicPosition().getXPosition() == _x && node.getGeographicPosition().getYPosition() == _y)
             {
+                name = node.getName();
                 this.listNode.remove(node);
                 break;
+            }
+        }
+        return name;
+    }
+    
+    //Appelez quand on delete un arret
+    public void deleteSegmentWithNode(String _nodeName)
+    {
+        for(int i = 0; i < this.listSegment.size(); i++)
+        {
+            Segment segment = listSegment.get(i);
+            if(segment.getOriginNode().getName().equalsIgnoreCase(_nodeName) || segment.getDestinationNode().getName().equalsIgnoreCase(_nodeName))
+            {
+                this.listSegment.remove(segment);
             }
         }
     }
