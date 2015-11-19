@@ -13,7 +13,8 @@ import Domain.Simulation.Simulation;
 public class ModifySegment extends javax.swing.JFrame {
 
     private Simulation controller;
-    
+    private String oldOriginName;
+    private String oldDestinationName;
     /**
      * Creates new form ModifySegment
      */
@@ -21,10 +22,13 @@ public class ModifySegment extends javax.swing.JFrame {
     {
         initComponents();
         controller = _controller;
+        oldOriginName = controller.getSegmentAtPostion(_x, _y).getOriginNode().getName();
+        oldDestinationName = controller.getSegmentAtPostion(_x, _y).getDestinationNode().getName();
+        
         txtName.setText(controller.getSegmentAtPostion(_x, _y).getName());
-        txtOriginStop.setText(controller.getSegmentAtPostion(_x, _y).getOriginNode().getName());
-        txtDestiStop.setText(controller.getSegmentAtPostion(_x, _y).getDestinationNode().getName());
-        //txtMinTime.setText(controller.getSegmentAtPostion(_x, _y).getDurationDistribution()); Pourquoi Avoir fait deux classes pour distribution
+        txtOriginStop.setText(oldOriginName);
+        txtDestiStop.setText(oldDestinationName);
+        //txtMinTime.setText(controller.getSegmentAtPostion(_x, _y).getDurationDistribution()); Pourquoi Avoir fait deux classes pour distribution ??
     }
 
     /**
@@ -171,7 +175,7 @@ public class ModifySegment extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-        controller.changeSegmentInfo();
+        controller.changeSegmentInfo(oldOriginName, oldDestinationName, txtOriginStop.getText(), txtDestiStop.getText());
     }//GEN-LAST:event_btnOkActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed

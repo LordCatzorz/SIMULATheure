@@ -144,7 +144,7 @@ public class mainFrame extends javax.swing.JFrame {
                         }
                         else if(controller.getSegmentAtPostion(e.getX(),e.getY()) != null)
                         {
-                            ModifySegment form = new ModifySegment(controller);
+                            ModifySegment form = new ModifySegment(controller, e.getX(),e.getY());
                         }
                         else if(nodeSelectedForSegment && controller.getNodeAtPostion(e.getX(), e.getY()) != null)
                         {
