@@ -233,12 +233,11 @@ public class Simulation
          this.speedMultiplier = _speedMultiplier;
     }
     
-    public String addNode(float _x, float _y)
+    public boolean addNode(float _x, float _y)
     {
         Node node  = new Node(new GeographicPosition(_x, _y));
         node.setName("Arrêt" + (this.listNode.size() + 1));
-        this.listNode.add(node);
-        return node.getName();
+        return this.listNode.add(node);
     }
     
     public boolean addSegment(Node _origin, Node _destination)
