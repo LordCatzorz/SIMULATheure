@@ -646,14 +646,7 @@ public class mainFrame extends javax.swing.JFrame {
         int result = jfc.showOpenDialog(this);
         //java.io.File selFile = jfc.getSelectedFile();
         if (result == javax.swing.JFileChooser.APPROVE_OPTION) {
-                java.io.File file = jfc.getSelectedFile();
-                 try {
-                lblImage.setIcon(new javax.swing.ImageIcon(javax.imageio.ImageIO.read(file)));
-                 } catch (java.io.IOException e) {
-                     e.printStackTrace();
-                 }
-                pnlBackground.revalidate();
-                pnlBackground.repaint();
+                backgroundFile = jfc.getSelectedFile();
             }
     }
 
@@ -705,15 +698,10 @@ public class mainFrame extends javax.swing.JFrame {
             g2.scale(zoom, zoom); 
             super.paint(g); 
             try {
-                g2.drawImage(ImageIO.read(new File("src/Resources/image/GRID1.png")), 0, 0, null);
+                g2.drawImage(ImageIO.read(backgroundFile), 0, 0, null);
             } catch (IOException ex) {
                 Logger.getLogger(mainFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
-            /*for (int i = 0; i < circles.size(); i++) {
-                g2.setColor(java.awt.Color.BLACK);
-                g2.fillOval(circles.get(i), circles.get(i+1), 8, 8);
-                i = i + 1;
-            }*/
             
             for (int i = 0; i < controller.getListNode().size(); i++) {
                 int diameter = controller.getListNode().get(i).getDiameter();
@@ -740,6 +728,7 @@ public class mainFrame extends javax.swing.JFrame {
                             (int)controller.getListSegment().get(i).getDestinationNode().getGeographicPosition().getYPosition());
             }
             g2.setTransform(backup);
+            //this.setLocation(xScroll, yScroll);
         } 
         @Override
         public boolean isOptimizedDrawingEnabled() { 
@@ -790,8 +779,9 @@ public class mainFrame extends javax.swing.JFrame {
             public void mouseDragged(MouseEvent me) {
                 me.translatePoint(me.getComponent().getLocation().x-x, me.getComponent().getLocation().y-y);
                 panel.setLocation(me.getX(), me.getY());
+                xScroll = me.getX();
+                yScroll = me.getY();
             }
-
         });
         panel.addMouseListener(new MouseAdapter() {
             @Override
@@ -801,13 +791,17 @@ public class mainFrame extends javax.swing.JFrame {
                 y = me.getY();
             }
         });
+     
     }
  
     private int x;
     private int y;
+    private int xScroll;
+    private int yScroll;
     private static List<Integer> lines = new ArrayList<>();
     private static List<Integer> segments = new ArrayList<>();
     private ZoomPanel zp;
+    private File backgroundFile = new File("src/Resources/image/GRID1.png");
     private javax.swing.JButton btnAccelerate;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnClient;
