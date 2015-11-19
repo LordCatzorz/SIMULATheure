@@ -155,7 +155,11 @@ public class mainFrame extends javax.swing.JFrame {
                         else if(nodeSelectedForSegment && controller.getNodeAtPostion(e.getX(), e.getY()) != null)
                         {
                             nodeSelectedForSegment = false;
-                            controller.addSegment(controller.getNodeAtPostion(lines.get(0), lines.get(1)), controller.getNodeAtPostion(e.getX(), e.getY()));
+                            boolean result = controller.addSegment(controller.getNodeAtPostion(lines.get(0), lines.get(1)), controller.getNodeAtPostion(e.getX(), e.getY()));
+                            if(!result)
+                            {
+                                JOptionPane.showMessageDialog(mainFrame.this, "Ce segment existe déjà.");
+                            }
                         }
                         else
                         {

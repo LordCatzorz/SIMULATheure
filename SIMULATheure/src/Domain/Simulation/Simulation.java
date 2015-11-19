@@ -244,7 +244,16 @@ public class Simulation
     
     public boolean addSegment(Node _origin, Node _destination)
     {
-        return this.listSegment.add(new Segment(_origin, _destination));
+        for(int i = 0; i < this.listSegment.size(); i++)
+        {
+            Segment segment = this.listSegment.get(i);
+            if((segment.getOriginNode().getName().equalsIgnoreCase(_origin.getName()) && segment.getDestinationNode().getName().equalsIgnoreCase(_destination.getName())))
+            {
+                return false;
+            }
+        }
+        this.listSegment.add(new Segment(_origin, _destination));
+        return true;
     }
     
     public boolean addVehicule(VehiculeKind _vehiculeKind, Trip _trip, Segment _spawnSegment)
