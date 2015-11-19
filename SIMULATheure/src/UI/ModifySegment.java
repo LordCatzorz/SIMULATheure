@@ -5,9 +5,6 @@
  */
 package UI;
 
-import java.sql.Time;
-import java.util.Date;
-
 import Domain.Simulation.Simulation;
 /**
  *
@@ -24,8 +21,6 @@ public class ModifySegment extends javax.swing.JFrame {
     public ModifySegment(Simulation _controller, float _x, float _y) 
     {
         initComponents();
-        setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
-        
         controller = _controller;
         oldOriginName = controller.getSegmentAtPostion(_x, _y).getOriginNode().getName();
         oldDestinationName = controller.getSegmentAtPostion(_x, _y).getDestinationNode().getName();
@@ -33,12 +28,7 @@ public class ModifySegment extends javax.swing.JFrame {
         txtName.setText(controller.getSegmentAtPostion(_x, _y).getName());
         txtOriginStop.setText(oldOriginName);
         txtDestiStop.setText(oldDestinationName);
-        if(controller.getSegmentAtPostion(_x, _y).getDurationDistribution() != null)
-        {
-            txtMinTime.setText(String.valueOf(controller.getSegmentAtPostion(_x, _y).getDurationDistribution().getMinimum())); 
-            txtMaxTime.setText(String.valueOf(controller.getSegmentAtPostion(_x, _y).getDurationDistribution().getMaximum()));
-            txtModeTime.setText(String.valueOf(controller.getSegmentAtPostion(_x, _y).getDurationDistribution().getMode()));
-        }
+        //txtMinTime.setText(controller.getSegmentAtPostion(_x, _y).getDurationDistribution()); Pourquoi Avoir fait deux classes pour distribution ??
     }
 
     /**
@@ -61,10 +51,10 @@ public class ModifySegment extends javax.swing.JFrame {
         btnDelete = new javax.swing.JButton();
         txtOriginStop = new javax.swing.JTextField();
         txtDestiStop = new javax.swing.JTextField();
+        txtMinTime = new javax.swing.JTextField();
+        txtMaxTime = new javax.swing.JTextField();
+        txtModeTime = new javax.swing.JTextField();
         txtName = new javax.swing.JTextField();
-        txtMinTime = new javax.swing.JFormattedTextField();
-        txtMaxTime = new javax.swing.JFormattedTextField();
-        txtModeTime = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -104,14 +94,6 @@ public class ModifySegment extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addComponent(btnOk)
-                        .addGap(44, 44, 44)
-                        .addComponent(btnDelete))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(lblTitle))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,10 +121,18 @@ public class ModifySegment extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtOriginStop)
                             .addComponent(txtDestiStop)
-                            .addComponent(txtName)
                             .addComponent(txtMinTime)
                             .addComponent(txtMaxTime)
-                            .addComponent(txtModeTime, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))))
+                            .addComponent(txtModeTime)
+                            .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(79, 79, 79)
+                        .addComponent(btnOk)
+                        .addGap(44, 44, 44)
+                        .addComponent(btnDelete))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(lblTitle)))
                 .addContainerGap(64, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -163,14 +153,14 @@ public class ModifySegment extends javax.swing.JFrame {
                     .addComponent(lblMinTime)
                     .addComponent(txtMinTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblMaxTime)
                     .addComponent(txtMaxTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblModeTime)
                     .addComponent(txtModeTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblName)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -178,31 +168,18 @@ public class ModifySegment extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnOk)
                     .addComponent(btnDelete))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-        float min = 0;
-        float max = 0;
-        float mode = 0;
-        
-        if(!txtMinTime.getText().equals(""))
-            min = Float.parseFloat(txtMinTime.getText());
-        if(!txtMaxTime.getText().equals(""))
-            max = Float.parseFloat(txtMaxTime.getText());
-        if(!txtModeTime.getText().equals(""))
-            mode = Float.parseFloat(txtModeTime.getText());
-            
-        controller.changeSegmentInfo(oldOriginName, oldDestinationName, txtOriginStop.getText(), txtDestiStop.getText(), txtName.getText(), min, max, mode);
-        dispose();
+        controller.changeSegmentInfo(oldOriginName, oldDestinationName, txtOriginStop.getText(), txtDestiStop.getText());
     }//GEN-LAST:event_btnOkActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        controller.deleteSegmentByNodeName(oldOriginName, oldDestinationName);
-        dispose();
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
@@ -252,9 +229,9 @@ public class ModifySegment extends javax.swing.JFrame {
     private javax.swing.JLabel lblOriginStop;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JTextField txtDestiStop;
-    private javax.swing.JFormattedTextField txtMaxTime;
-    private javax.swing.JFormattedTextField txtMinTime;
-    private javax.swing.JFormattedTextField txtModeTime;
+    private javax.swing.JTextField txtMaxTime;
+    private javax.swing.JTextField txtMinTime;
+    private javax.swing.JTextField txtModeTime;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtOriginStop;
     // End of variables declaration//GEN-END:variables

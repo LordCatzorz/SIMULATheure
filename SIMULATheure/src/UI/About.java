@@ -13,10 +13,8 @@ public class About extends javax.swing.JFrame {
     /**
      * Creates new form About
      */
-    public About() 
-    {
+    public About() {
         initComponents();
-        setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**

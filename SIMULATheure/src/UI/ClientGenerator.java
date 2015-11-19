@@ -13,10 +13,8 @@ public class ClientGenerator extends javax.swing.JFrame {
     /**
      * Creates new form ClientGenerator
      */
-    public ClientGenerator() 
-    {
+    public ClientGenerator() {
         initComponents();
-        setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**

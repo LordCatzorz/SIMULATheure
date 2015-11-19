@@ -13,10 +13,8 @@ public class ModifyClient extends javax.swing.JFrame {
     /**
      * Creates new form ModifyClient
      */
-    public ModifyClient() 
-    {
+    public ModifyClient() {
         initComponents();
-        setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
