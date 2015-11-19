@@ -6,6 +6,8 @@
 package UI;
 
 import Domain.Simulation.Simulation;
+import Domain.Node.Node;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Élise
@@ -15,6 +17,7 @@ public class ModifyStop extends javax.swing.JFrame {
     private Simulation controller;
     private float oldXPosition;
     private float oldYPosition;
+    private String nodeName;
     /**
      * Creates new form MofidyStop
      */
@@ -23,7 +26,7 @@ public class ModifyStop extends javax.swing.JFrame {
         controller = _controller;
         oldXPosition = _x;
         oldYPosition = _y;
-        
+        nodeName = _name;
         initComponents();
         txtName.setText(_name);
         txtPositionX.setText(Float.toString(oldXPosition));
@@ -149,13 +152,35 @@ public class ModifyStop extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPositionXActionPerformed
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-        controller.changeNodeNameAndPosition(oldXPosition, oldYPosition, Float.parseFloat(txtPositionX.getText()), Float.parseFloat(txtPositionY.getText()), txtName.getText());
-        dispose();
+        boolean nameExists = false;
+        if(!this.nodeName.equalsIgnoreCase(txtName.getText()))
+        {
+            for(Node node: controller.getListNode())
+            {
+                if(node.getName().equalsIgnoreCase(txtName.getText()))
+                {  
+                    nameExists = true;
+                    JOptionPane.showMessageDialog(this, "Ce nom d'arrêt existe déjà. Choisissez un nom unique.");
+                    break;
+                }
+            }
+        }       
+        if(!nameExists)
+        {
+            controller.changeNodeNameAndPosition(oldXPosition, oldYPosition, Float.parseFloat(txtPositionX.getText()), Float.parseFloat(txtPositionY.getText()), txtName.getText());
+            dispose();
+        }        
     }//GEN-LAST:event_btnOkActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        controller.deleteNode(oldXPosition, oldYPosition);
-        dispose();
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(this, "La suppression de cet arrêt causera la perte\n de tous les segments lui étant associés.\n Êtes-vous certain de vouloir supprimer l'arrêt ?","Avertissement",dialogButton);
+        if(dialogResult == JOptionPane.YES_OPTION)
+        {
+            String name = controller.deleteNode(oldXPosition, oldYPosition);
+            controller.deleteSegmentWithNode(name);
+            dispose();
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
