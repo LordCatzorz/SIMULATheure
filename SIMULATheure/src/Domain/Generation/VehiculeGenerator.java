@@ -18,7 +18,7 @@ import Domain.Vehicule.VehiculeKind;
 public class VehiculeGenerator implements java.io.Serializable
 {
     private Time nextDepartureTime;
-    private Distribution<Time> distribution;
+    private TriangularDistribution<Time> distribution;
     private Time timeBeginGeneration;
     private Time timeEndGeneration;
     private Segment spawnSegment;
@@ -27,7 +27,7 @@ public class VehiculeGenerator implements java.io.Serializable
     
     public VehiculeGenerator(Trip _trip, Segment _spawnSegment, VehiculeKind _vehiculeKind)
     {
-        this.distribution = new Distribution();
+        //this.distribution = new TriangularDistribution();
         this.trip = _trip;
         this.spawnSegment = _spawnSegment;
         this.vehiculeKind = _vehiculeKind;
@@ -43,7 +43,7 @@ public class VehiculeGenerator implements java.io.Serializable
         this.nextDepartureTime = _nextDepartureTime;
     }
     
-    public Distribution getDistribution()
+    public TriangularDistribution getDistribution()
     {
         return this.distribution;
     }

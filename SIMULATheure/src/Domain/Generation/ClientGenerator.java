@@ -15,7 +15,7 @@ import Domain.Client.Client;
  */
 public class ClientGenerator implements java.io.Serializable
 {
-    private Distribution<Time> generationTimeDistribution;
+    private TriangularDistribution<Time> generationTimeDistribution;
     private Time nextGenerationTime;
     private Time timeBeginGeneration;
     private Time timeEndGeneration;
@@ -24,10 +24,10 @@ public class ClientGenerator implements java.io.Serializable
     public ClientGenerator(ClientProfile _clientProfile)
     {
         this.clientProfile = _clientProfile;
-        this.generationTimeDistribution = new Distribution();
+        //this.generationTimeDistribution = new TriangularDistribution();
     }
     
-    public Distribution getGenerationTimeDistribution()
+    public TriangularDistribution getGenerationTimeDistribution()
     {
         return this.generationTimeDistribution;
     }

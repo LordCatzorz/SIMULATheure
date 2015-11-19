@@ -9,7 +9,7 @@ package Domain.Generation;
  *
  * @author Raphael
  */
-public class TriangularDistribution<T> extends Distribution implements java.io.Serializable
+public class TriangularDistribution<T> implements java.io.Serializable
 {
     private T minimum;
     private T maximum;
@@ -22,7 +22,7 @@ public class TriangularDistribution<T> extends Distribution implements java.io.S
         this.mode = _mode;
     }
     
-    @Override public T calculate()
+    public T calculate()
     {
         return null;
     }

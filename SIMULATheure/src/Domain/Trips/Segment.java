@@ -6,7 +6,7 @@
 package Domain.Trips;
 
 import Domain.Node.Node;
-import Domain.Generation.Distribution;
+import Domain.Generation.TriangularDistribution;
 import Domain.Positions.GeographicPosition;
 
 import java.sql.Time;
@@ -18,7 +18,7 @@ public class Segment implements java.io.Serializable
 {
     private Node originNode;
     private Node destinationNode;
-    private Distribution durationDistribution;
+    private TriangularDistribution durationDistribution;
     private Time durationTime;
     private String name;
     
@@ -26,7 +26,7 @@ public class Segment implements java.io.Serializable
     {
         this.originNode = _originNode;
         this.destinationNode = _destinationNode;
-        this.durationDistribution = new Distribution();
+        //this.durationDistribution = new TriangularDistribution();
     }
     
     public Node getOriginNode()
@@ -59,7 +59,7 @@ public class Segment implements java.io.Serializable
         this.durationTime = _durationTime;
     }
     
-    public Distribution getDurationDistribution()
+    public TriangularDistribution getDurationDistribution()
     {
         return this.durationDistribution;
     }
