@@ -378,13 +378,17 @@ public class Simulation
         }
     }
     
-    public void changeSegmentInfo(String _oldOriginName, String _oldDestinationName, String _newOriginName, String _newDestinationName)
+    public void changeSegmentInfo(String _oldOriginName, String _oldDestinationName, String _newOriginName, String _newDestinationName,
+                                  String _name, float _minTime, float _maxTime, float _modeTime)
     {
         for(Segment segment: this.listSegment)
         {
-            if(segment.getOriginNode().getName() == _oldOriginName && segment.getDestinationNode().getName() == _oldDestinationName)
+            if(segment.getOriginNode().getName().equals(_oldOriginName) && segment.getDestinationNode().getName().equals(_oldDestinationName))
             {
-                
+                segment.setName(_name);
+                segment.setOriginNode(this.getNodeByName(_newOriginName));
+                segment.setDestinationNode(this.getNodeByName(_newDestinationName));
+                segment.setDurationDistribution(_minTime, _maxTime, _modeTime);
             }
         }
     }
@@ -417,9 +421,32 @@ public class Simulation
         }
     }
     
-    /*
-    * Private functions below
-    */
+    
+    public void deleteSegmentByNodeName(String _originName, String _destinationName)
+    {
+        for(Segment segment: this.listSegment)
+        {
+            if(segment.getOriginNode().getName().equals(_originName) && segment.getDestinationNode().getName().equals(_destinationName))
+            {
+                this.listSegment.remove(segment);
+                break;
+            }
+        }
+    }
+    
+    /******************************************
+    ****** Private functions below ************
+    *******************************************/
+    
+    private Node getNodeByName(String _name)
+    {
+        for(Node node : this.listNode)
+        {
+            if(node.getName().equals(_name))
+                return node;
+        }
+        return null;
+    }
     
     private void updateVehiculePositions()
     {
@@ -483,7 +510,7 @@ public class Simulation
         Segment segment = _vehicule.getCurrentPosition().getCurrentSegment();
         Time timeSegmentStart = _vehicule.getCurrentPosition().getTimeSegmentStart();
         
-        float durationTime = segment.getDurationTime().getTime()/1000; //In seconds
+        float durationTime = segment.getDurationTime()/1000; //In seconds
         float timeSpent = (this.simulationTime.getTime() - timeSegmentStart.getTime()) /1000; //In seconds
         float completionPercentage = (timeSpent/durationTime)*100;
         return (completionPercentage >= 100);

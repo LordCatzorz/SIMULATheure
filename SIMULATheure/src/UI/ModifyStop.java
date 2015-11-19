@@ -23,11 +23,18 @@ public class ModifyStop extends javax.swing.JFrame {
      */
     public ModifyStop(Simulation _controller, String _name, float _x, float _y)
     {
+        initComponents();
+        setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
+        
         controller = _controller;
         oldXPosition = _x;
         oldYPosition = _y;
+<<<<<<< HEAD
+        
+=======
         nodeName = _name;
         initComponents();
+>>>>>>> origin/master
         txtName.setText(_name);
         txtPositionX.setText(Float.toString(oldXPosition));
         txtPositionY.setText(Float.toString(oldYPosition));
