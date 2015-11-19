@@ -142,21 +142,22 @@ public class mainFrame extends javax.swing.JFrame {
                             lines.removeAll(lines);
                             zp.repaint();
                         }
-                        else if(controller.getSegmentAtPostion(e.getX(),e.getY()) != null)
-                        {
-                            ModifySegment form = new ModifySegment(controller, e.getX(),e.getY());
-                        }
                         else if(nodeSelectedForSegment && controller.getNodeAtPostion(e.getX(), e.getY()) != null)
                         {
                             nodeSelectedForSegment = false;
                             controller.addSegment(controller.getNodeAtPostion(lines.get(0), lines.get(1)), controller.getNodeAtPostion(e.getX(), e.getY()));
                         }
-                        else
+                        else if (controller.getNodeAtPostion(e.getX(), e.getY()) != null)
                         {
                             nodeSelectedForSegment = (controller.getNodeAtPostion(e.getX(), e.getY()) != null);
                             lines.add((int)controller.getNodeAtPostion(e.getX(), e.getY()).getGeographicPosition().getXPosition());
                             lines.add((int)controller.getNodeAtPostion(e.getX(), e.getY()).getGeographicPosition().getYPosition());
                             //Backend constructeur de segment
+                        }
+                        else if(controller.getSegmentAtPostion(e.getX(),e.getY()) != null)
+                        {
+                            ModifySegment form = new ModifySegment(controller, e.getX(),e.getY());
+                            form.setVisible(true);
                         }
                         break;
                     case TRIP:

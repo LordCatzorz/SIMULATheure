@@ -13,8 +13,10 @@ public class VehciuleGenerator extends javax.swing.JFrame {
     /**
      * Creates new form VehciuleGenerator
      */
-    public VehciuleGenerator() {
+    public VehciuleGenerator() 
+    {
         initComponents();
+        setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**

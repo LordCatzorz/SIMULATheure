@@ -13,8 +13,10 @@ public class ModifyVehicule extends javax.swing.JFrame {
     /**
      * Creates new form ModifyVehicule
      */
-    public ModifyVehicule() {
+    public ModifyVehicule() 
+    {
         initComponents();
+        setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**

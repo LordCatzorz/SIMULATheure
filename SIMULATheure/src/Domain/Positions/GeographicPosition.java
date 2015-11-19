@@ -50,7 +50,8 @@ public class GeographicPosition implements java.io.Serializable
     
     public boolean isBetween(GeographicPosition _firstPosition, GeographicPosition _secondPosition)
     {
-        return this.getDistance(_firstPosition) + this.getDistance(_secondPosition) == _firstPosition.getDistance(_secondPosition);
+        return ((this.getDistance(_firstPosition) + this.getDistance(_secondPosition) <= _firstPosition.getDistance(_secondPosition) + 3)
+                &&(this.getDistance(_firstPosition) + this.getDistance(_secondPosition) >= _firstPosition.getDistance(_secondPosition) - 3));
     }
     
     public float getAngle(GeographicPosition _destinationGeographicPosition)

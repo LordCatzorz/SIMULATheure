@@ -13,8 +13,10 @@ public class ModifyItinary extends javax.swing.JFrame {
     /**
      * Creates new form ModifyItinary
      */
-    public ModifyItinary() {
+    public ModifyItinary() 
+    {
         initComponents();
+        setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**

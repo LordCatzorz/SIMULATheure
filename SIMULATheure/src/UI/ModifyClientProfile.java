@@ -13,8 +13,10 @@ public class ModifyClientProfile extends javax.swing.JFrame {
     /**
      * Creates new form ModifyClientProfile
      */
-    public ModifyClientProfile() {
+    public ModifyClientProfile() 
+    {
         initComponents();
+        setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**

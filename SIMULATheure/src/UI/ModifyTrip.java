@@ -13,8 +13,10 @@ public class ModifyTrip extends javax.swing.JFrame {
     /**
      * Creates new form ModifyTrip
      */
-    public ModifyTrip() {
+    public ModifyTrip() 
+    {
         initComponents();
+        setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**

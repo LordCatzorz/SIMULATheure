@@ -13,8 +13,10 @@ public class Help extends javax.swing.JFrame {
     /**
      * Creates new form Help
      */
-    public Help() {
+    public Help() 
+    {
         initComponents();
+        setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
