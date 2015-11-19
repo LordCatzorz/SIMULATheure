@@ -65,6 +65,9 @@ public class mainFrame extends javax.swing.JFrame {
         btnAdd.setVisible(false);
         lstToolItems.setVisible(false);
         scrollPaneTool.setVisible(false);
+        
+        this.controller = new Simulation();
+        
         zp.addMouseMotionListener(new java.awt.event.MouseAdapter() {
         @Override
         public void mouseMoved(java.awt.event.MouseEvent e) {
@@ -122,6 +125,7 @@ public class mainFrame extends javax.swing.JFrame {
                                                              controller.getNodeAtPostion(e.getX(), e.getY()).getGeographicPosition().getXPosition(),
                                                              controller.getNodeAtPostion(e.getX(), e.getY()).getGeographicPosition().getYPosition());
                             form.setVisible(true);
+                            //zp.repaint();
                         }
                         else
                         {
@@ -178,8 +182,6 @@ public class mainFrame extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     private void initComponents() {
-        
-        this.controller = new Simulation();
         
         tlbTools = new javax.swing.JToolBar();
         btnStop = new javax.swing.JButton();

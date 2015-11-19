@@ -352,6 +352,35 @@ public class Simulation
         return null;
     }
     
+    public void changeNodeNameAndPosition(float _oldXPosition, float _oldYPosition, float _newXPosition, float _newYPosition, String _name)
+    {
+        for(Node node : this.listNode)
+        {
+            if (node.getGeographicPosition().getXPosition() == _oldXPosition && node.getGeographicPosition().getYPosition() == _oldYPosition)
+            {
+                node.setGeographicPosition(new GeographicPosition(_newXPosition, _newYPosition));
+                node.setName(_name);
+                break;
+            }
+        }
+    }
+    
+    public void deleteNode(float _x, float _y)
+    {
+        for(Node node : this.listNode)
+        {
+            if (node.getGeographicPosition().getXPosition() == _x && node.getGeographicPosition().getYPosition() == _y)
+            {
+                this.listNode.remove(node);
+                break;
+            }
+        }
+    }
+    
+    /*
+    * Private functions below
+    */
+    
     private void updateVehiculePositions()
     {
         for(Vehicule vehicule : this.listVehicule)
