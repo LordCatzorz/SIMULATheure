@@ -131,12 +131,6 @@ public class mainFrame extends javax.swing.JFrame {
                         else
                         {
                             controller.addNode(e.getX(), e.getY());
-                            listModel = new DefaultListModel();
-                            for (int i = 0; i < controller.getListNode().size(); i++)
-                            {
-                                listModel.addElement(controller.getListNode().get(i).getName());
-                            }
-                            lstToolItems.setModel(listModel);
                             zp.repaint();
                             //backend constructeur de stop
                         }
@@ -151,11 +145,7 @@ public class mainFrame extends javax.swing.JFrame {
                         else if(nodeSelectedForSegment && controller.getNodeAtPostion(e.getX(), e.getY()) != null)
                         {
                             nodeSelectedForSegment = false;
-                            boolean result = controller.addSegment(controller.getNodeAtPostion(lines.get(0), lines.get(1)), controller.getNodeAtPostion(e.getX(), e.getY()));
-                            if(!result)
-                            {
-                                JOptionPane.showMessageDialog(mainFrame.this, "Ce segment existe déjà.");
-                            }
+                            controller.addSegment(controller.getNodeAtPostion(lines.get(0), lines.get(1)), controller.getNodeAtPostion(e.getX(), e.getY()));
                         }
                         else if (controller.getNodeAtPostion(e.getX(), e.getY()) != null)
                         {
