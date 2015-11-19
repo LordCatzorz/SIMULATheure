@@ -20,6 +20,7 @@ public class Segment implements java.io.Serializable
     private Node destinationNode;
     private Distribution durationDistribution;
     private Time durationTime;
+    private String name;
     
     public Segment(Node _originNode, Node _destinationNode)
     {
@@ -61,6 +62,16 @@ public class Segment implements java.io.Serializable
     public Distribution getDurationDistribution()
     {
         return this.durationDistribution;
+    }
+    
+    public String getName()
+    {
+        return this.name;
+    }
+    
+    public void setName(String _name)
+    {
+        this.name =_name;
     }
    
     public boolean isPartOfSegment(GeographicPosition _position)

@@ -235,7 +235,9 @@ public class Simulation
     
     public boolean addNode(float _x, float _y)
     {
-        return this.listNode.add(new Node(new GeographicPosition(_x, _y)));
+        Node node  = new Node(new GeographicPosition(_x, _y));
+        node.setName("Arrêt" + (this.listNode.size() + 1));
+        return this.listNode.add(node);
     }
     
     public boolean addSegment(Node _origin, Node _destination)
@@ -361,6 +363,17 @@ public class Simulation
                 node.setGeographicPosition(new GeographicPosition(_newXPosition, _newYPosition));
                 node.setName(_name);
                 break;
+            }
+        }
+    }
+    
+    public void changeSegmentInfo(String _oldOriginName, String _oldDestinationName, String _newOriginName, String _newDestinationName)
+    {
+        for(Segment segment: this.listSegment)
+        {
+            if(segment.getOriginNode().getName() == _oldOriginName && segment.getDestinationNode().getName() == _oldDestinationName)
+            {
+                
             }
         }
     }

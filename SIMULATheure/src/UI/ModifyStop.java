@@ -6,8 +6,6 @@
 package UI;
 
 import Domain.Simulation.Simulation;
-import Domain.Node.Node;
-import static java.awt.Component.TOP_ALIGNMENT;
 /**
  *
  * @author Élise

@@ -4,17 +4,27 @@
  * and open the template in the editor.
  */
 package UI;
+
+import Domain.Simulation.Simulation;
 /**
  *
  * @author Élise
  */
 public class ModifySegment extends javax.swing.JFrame {
 
+    private Simulation controller;
+    
     /**
      * Creates new form ModifySegment
      */
-    public ModifySegment() {
+    public ModifySegment(Simulation _controller, float _x, float _y) 
+    {
         initComponents();
+        controller = _controller;
+        txtName.setText(controller.getSegmentAtPostion(_x, _y).getName());
+        txtOriginStop.setText(controller.getSegmentAtPostion(_x, _y).getOriginNode().getName());
+        txtDestiStop.setText(controller.getSegmentAtPostion(_x, _y).getDestinationNode().getName());
+        //txtMinTime.setText(controller.getSegmentAtPostion(_x, _y).getDurationDistribution()); Pourquoi Avoir fait deux classes pour distribution
     }
 
     /**
@@ -45,7 +55,7 @@ public class ModifySegment extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lblTitle.setText("Ajouter, modifier ou supprimer un segment");
+        lblTitle.setText("Modifier ou supprimer un segment");
 
         lblOriginStop.setText("Arrêt de départ: ");
 
@@ -60,14 +70,18 @@ public class ModifySegment extends javax.swing.JFrame {
         lblName.setText("Nom: ");
 
         btnOk.setText("Ok");
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOkActionPerformed(evt);
+            }
+        });
 
         btnDelete.setText("Supprimer");
-
-        txtOriginStop.setText("Arrêt1");
-
-        txtDestiStop.setText("Arrêt 2");
-
-        txtName.setText("Segment1");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -78,44 +92,44 @@ public class ModifySegment extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                        .addComponent(lblDestiStop)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addComponent(lblOriginStop)
-                                                        .addGap(31, 31, 31)))
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addComponent(lblMinTime)
-                                                    .addGap(38, 38, 38)))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(lblDestiStop)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(lblMaxTime)
-                                                .addGap(34, 34, 34)))
+                                                .addComponent(lblOriginStop)
+                                                .addGap(31, 31, 31)))
                                         .addGroup(layout.createSequentialGroup()
-                                            .addComponent(lblModeTime)
-                                            .addGap(46, 46, 46)))
+                                            .addComponent(lblMinTime)
+                                            .addGap(38, 38, 38)))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblName)
-                                        .addGap(85, 85, 85)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtOriginStop)
-                                    .addComponent(txtDestiStop)
-                                    .addComponent(txtMinTime)
-                                    .addComponent(txtMaxTime)
-                                    .addComponent(txtModeTime)
-                                    .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)))
-                            .addComponent(lblTitle)))
+                                        .addComponent(lblMaxTime)
+                                        .addGap(34, 34, 34)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(lblModeTime)
+                                    .addGap(46, 46, 46)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblName)
+                                .addGap(85, 85, 85)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtOriginStop)
+                            .addComponent(txtDestiStop)
+                            .addComponent(txtMinTime)
+                            .addComponent(txtMaxTime)
+                            .addComponent(txtModeTime)
+                            .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(79, 79, 79)
                         .addComponent(btnOk)
                         .addGap(44, 44, 44)
-                        .addComponent(btnDelete)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                        .addComponent(btnDelete))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(lblTitle)))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,6 +170,14 @@ public class ModifySegment extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
+        controller.changeSegmentInfo();
+    }//GEN-LAST:event_btnOkActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -185,8 +207,9 @@ public class ModifySegment extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ModifySegment().setVisible(true);
+            public void run() 
+            {
+                //new ModifySegment().setVisible(true);
             }
         });
     }
