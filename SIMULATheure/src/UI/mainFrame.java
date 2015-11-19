@@ -71,7 +71,7 @@ public class mainFrame extends javax.swing.JFrame {
         zp.addMouseMotionListener(new java.awt.event.MouseAdapter() {
         @Override
         public void mouseMoved(java.awt.event.MouseEvent e) {
-                //lblCoordinate.setText("Coordonnées: Latitude " + e.getX() + " Longitude " + e.getY());
+                lblCoordinate.setText("Coordonnées: Latitude " + e.getX() + " Longitude " + e.getY());
                 if(nodeSelectedForSegment)
                 {
                     if (lines.size() == 4)
@@ -96,9 +96,9 @@ public class mainFrame extends javax.swing.JFrame {
                int rotation = e.getWheelRotation();
 
                 if (rotation < 0) {
-                    scaleFactor = 0.3;
+                    scaleFactor = 0.2;
                 } else {
-                    scaleFactor = -0.3;
+                    scaleFactor = -0.2;
                 }  
                 
                 try { 
@@ -696,7 +696,7 @@ public class mainFrame extends javax.swing.JFrame {
             Graphics2D g2 = (Graphics2D) g; 
             AffineTransform backup = g2.getTransform(); 
             g2.scale(zoom, zoom); 
-            super.paint(g); 
+            //super.paint(g); 
             try {
                 g2.drawImage(ImageIO.read(backgroundFile), 0, 0, null);
             } catch (IOException ex) {
@@ -733,7 +733,7 @@ public class mainFrame extends javax.swing.JFrame {
         @Override
         public boolean isOptimizedDrawingEnabled() { 
             return false; 
-        } 
+        }
         @Override
         public Dimension getPreferredSize() { 
             Dimension unzoomed 
@@ -742,7 +742,7 @@ public class mainFrame extends javax.swing.JFrame {
               = new Dimension((int) ((double) unzoomed.width*zoom), 
                               (int) ((double) unzoomed.height*zoom)); 
             return zoomed; 
-        } 
+        }
          
         public void setZoom(double newZoom)
             throws PropertyVetoException { 
