@@ -419,13 +419,18 @@ public class Simulation
     //Appelez quand on delete un arret
     public void deleteSegmentWithNode(String _nodeName)
     {
+        List<Segment> lstSegmentToDelete = new ArrayList<Segment>();
         for(int i = 0; i < this.listSegment.size(); i++)
         {
             Segment segment = listSegment.get(i);
             if(segment.getOriginNode().getName().equalsIgnoreCase(_nodeName) || segment.getDestinationNode().getName().equalsIgnoreCase(_nodeName))
             {
-                this.listSegment.remove(segment);
+               lstSegmentToDelete.add(segment);
             }
+        }
+        for(int i = 0; i < lstSegmentToDelete.size(); i++)
+        {
+            this.listSegment.remove(lstSegmentToDelete.get(i));
         }
     }
     
