@@ -210,6 +210,18 @@ public class mainFrame extends javax.swing.JFrame {
                 switch(controller.getCurrentTool())
                 {
                     case STOP:
+                        float x = 0;
+                        float y = 0;
+                        for (int i = 0; i < controller.getListNode().size(); i++)
+                        {
+                            if (controller.getListNode().get(i).getName().equals(lstToolItems.getSelectedValue().toString()))
+                            {
+                                x = controller.getListNode().get(i).getGeographicPosition().getXPosition();
+                                y = controller.getListNode().get(i).getGeographicPosition().getYPosition();
+                            }
+                        }
+                        ModifyStop form = new ModifyStop(controller, lstToolItems.getSelectedValue().toString(), x, y);
+                        form.setVisible(true);
                         break;
                     case SEGMENT:
                         break;
@@ -226,8 +238,6 @@ public class mainFrame extends javax.swing.JFrame {
                     case CLIENT_PROFILE:
                         break;
                 }
-                // Double-click detected
-                int index = list.locationToIndex(evt.getPoint());
                 } 
             }
         });
