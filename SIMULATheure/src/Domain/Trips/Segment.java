@@ -8,8 +8,6 @@ package Domain.Trips;
 import Domain.Node.Node;
 import Domain.Generation.TriangularDistribution;
 import Domain.Positions.GeographicPosition;
-
-import java.sql.Time;
 /**
  *
  * @author Raphael
@@ -26,7 +24,7 @@ public class Segment implements java.io.Serializable
     {
         this.originNode = _originNode;
         this.destinationNode = _destinationNode;
-        //this.durationDistribution = new TriangularDistribution();
+        this.durationDistribution = new TriangularDistribution(5,5,5);
     }
     
     public Node getOriginNode()
@@ -66,7 +64,9 @@ public class Segment implements java.io.Serializable
     
     public void setDurationDistribution(float _min, float _max, float _mode)
     {
-        this.durationDistribution = new TriangularDistribution(_min, _max, _mode);
+        this.durationDistribution.setMinimum(_min);
+        this.durationDistribution.setMaximum(_max);
+        this.durationDistribution.setMode(_mode);
     }
     
     public String getName()

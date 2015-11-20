@@ -354,6 +354,17 @@ public class Simulation
         return null;
     }
     
+    public VehiculeGenerator getVehiculeGeneratorAtPosition(float _x, float _y)
+    {
+        for(VehiculeGenerator generator: this.listVehiculeGenerator)
+        {
+            if(generator.getSpawnSegment().getOriginNode().getGeographicPosition().getXPosition() == _x &&
+               generator.getSpawnSegment().getOriginNode().getGeographicPosition().getYPosition() == _y)
+                return generator;
+        }
+        return null;
+    }
+    
     public void changeNodeNameAndPosition(float _oldXPosition, float _oldYPosition, float _newXPosition, float _newYPosition, String _name)
     {
         for(Node node : this.listNode)
@@ -367,19 +378,27 @@ public class Simulation
         }
     }
     
-    public void changeSegmentInfo(String _oldOriginName, String _oldDestinationName, String _newOriginName, String _newDestinationName,
+    public boolean changeSegmentInfo(String _oldOriginName, String _oldDestinationName, String _newOriginName, String _newDestinationName,
                                   String _name, float _minTime, float _maxTime, float _modeTime)
     {
         for(Segment segment: this.listSegment)
         {
             if(segment.getOriginNode().getName().equals(_oldOriginName) && segment.getDestinationNode().getName().equals(_oldDestinationName))
             {
+                Node nodeOrigin = this.getNodeByName(_newOriginName);
+                Node nodeDestination = this.getNodeByName(_newDestinationName);
                 segment.setName(_name);
+                
+                if (nodeOrigin == null || nodeDestination == null)
+                    return false;
+                
                 segment.setOriginNode(this.getNodeByName(_newOriginName));
                 segment.setDestinationNode(this.getNodeByName(_newDestinationName));
                 segment.setDurationDistribution(_minTime, _maxTime, _modeTime);
+                return true;
             }
         }
+        return false;
     }
     
     public void deleteNode(float _x, float _y)

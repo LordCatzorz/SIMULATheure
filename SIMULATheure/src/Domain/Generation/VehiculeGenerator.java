@@ -69,6 +69,11 @@ public class VehiculeGenerator implements java.io.Serializable
         this.timeEndGeneration = _timeEndGeneration;
     }
     
+    public Segment getSpawnSegment()
+    {
+        return this.spawnSegment;
+    }
+    
     public Vehicule awakeGenerator(Time _currentTime)
     {
         return null;
