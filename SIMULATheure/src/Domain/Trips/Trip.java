@@ -5,18 +5,18 @@
  */
 package Domain.Trips;
 
-import java.util.Queue;
 import java.util.LinkedList;
 import java.sql.Time;
 
 import Domain.Node.Node;
+import java.util.List;
 /**
  *
  * @author Raphael
  */
 public class Trip implements java.io.Serializable
 {
-    private Queue<Segment> allSegments;
+    private List<Segment> allSegments;
     private Time nextDepartureTime;
     private String name;
     
@@ -26,12 +26,12 @@ public class Trip implements java.io.Serializable
         this.name = "Trip";
     }
     
-    public Queue<Segment> getAllSegments()
+    public List<Segment> getAllSegments()
     {
         return this.allSegments;
     }
     
-    public void setAllSegments(Queue<Segment> _allSegments)
+    public void setAllSegments(List<Segment> _allSegments)
     {
         this.allSegments = _allSegments;
     }

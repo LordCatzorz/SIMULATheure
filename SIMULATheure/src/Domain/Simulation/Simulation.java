@@ -258,8 +258,8 @@ public class Simulation
         else
             trip = new LinearTrip();
         
-        Queue<Segment> queue = new LinkedList<>(_listSegment);
-        trip.setAllSegments(queue);
+        List<Segment> list = new LinkedList<>(_listSegment);
+        trip.setAllSegments(list);
         trip.setName(_name);
         return this.listTrip.add(trip);
     }

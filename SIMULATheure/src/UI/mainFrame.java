@@ -161,7 +161,7 @@ public class mainFrame extends javax.swing.JFrame {
                         }
                         break;
                     case TRIP:
-                        controller.addTrip(null, null, false);
+                        //controller.addTrip(null, null, false);
                         break;
                     case VEHICULE:
                         controller.addVehicule(null, null, null);
@@ -177,6 +177,8 @@ public class mainFrame extends javax.swing.JFrame {
                         break;
                     case CLIENT_PROFILE:  
                         controller.addClientProfile(null);
+                        break;
+                    default:
                         break;
                 }
             }
@@ -227,6 +229,7 @@ public class mainFrame extends javax.swing.JFrame {
         menuHelp = new javax.swing.JMenu();
         menuItemHelp = new javax.swing.JMenuItem();
         menuItemAbout = new javax.swing.JMenuItem();
+        
 
         
         
@@ -541,6 +544,12 @@ public class mainFrame extends javax.swing.JFrame {
             .addComponent(tlbTools, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE)
         );
         
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
+        
         pack();
     }
 
@@ -699,6 +708,33 @@ public class mainFrame extends javax.swing.JFrame {
                 backgroundFile = jfc.getSelectedFile();
             }
     }
+    
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {
+        switch(controller.getCurrentTool())
+        {
+            case STOP:
+                break;
+            case SEGMENT:
+                break;
+            case TRIP:               
+                ModifyTrip form = new ModifyTrip(this.controller);
+                form.setVisible(true);                               
+                break;
+            case VEHICULE:
+                break;
+            case CLIENT:
+                break;
+            case CLIENT_GENERATOR:
+                break;
+            case VEHICULE_GENERATOR:
+                break;
+            case CLIENT_PROFILE:  
+                break;
+            default:
+                break;
+        }
+    }
+    
 
     /**
      * @param args the command line arguments
