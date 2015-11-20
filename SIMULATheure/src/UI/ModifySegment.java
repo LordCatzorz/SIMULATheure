@@ -5,8 +5,8 @@
  */
 package UI;
 
-import java.sql.Time;
-import java.util.Date;
+import Domain.Node.Node;
+
 
 import Domain.Simulation.Simulation;
 /**
@@ -39,6 +39,35 @@ public class ModifySegment extends javax.swing.JFrame {
             txtMaxTime.setText(String.valueOf(controller.getSegmentAtPostion(_x, _y).getDurationDistribution().getMaximum()));
             txtModeTime.setText(String.valueOf(controller.getSegmentAtPostion(_x, _y).getDurationDistribution().getMode()));
         }
+    }
+    
+    public ModifySegment(Simulation _controller, Node _originNode, Node _destinationNode) 
+    {
+        initComponents();
+        setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
+        
+        controller = _controller;
+        oldOriginName = _originNode.getName();
+        oldDestinationName = _destinationNode.getName();
+        
+        for (int i = 0; i < controller.getListSegment().size(); i++)
+        {
+            if (controller.getListSegment().get(i).getDestinationNode() == _destinationNode && controller.getListSegment().get(i).getOriginNode() == _originNode)
+            {
+                txtName.setText(controller.getListSegment().get(i).getName());
+                if(controller.getListSegment().get(i).getDurationDistribution() != null)
+                {
+                    txtMinTime.setText(String.valueOf(controller.getListSegment().get(i).getDurationDistribution().getMinimum())); 
+                    txtMaxTime.setText(String.valueOf(controller.getListSegment().get(i).getDurationDistribution().getMaximum()));
+                    txtModeTime.setText(String.valueOf(controller.getListSegment().get(i).getDurationDistribution().getMode()));
+                }
+            }
+            break;
+        }
+        
+        txtOriginStop.setText(oldOriginName);
+        txtDestiStop.setText(oldDestinationName);
+        
     }
 
     /**

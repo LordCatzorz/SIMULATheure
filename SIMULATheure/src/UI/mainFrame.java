@@ -25,6 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import Application.Controller.Tool;
+import Domain.Node.Node;
 import Domain.Simulation.Simulation;
 
 import UI.ModifyStop;
@@ -218,12 +219,27 @@ public class mainFrame extends javax.swing.JFrame {
                             {
                                 x = controller.getListNode().get(i).getGeographicPosition().getXPosition();
                                 y = controller.getListNode().get(i).getGeographicPosition().getYPosition();
+                                break;
                             }
                         }
-                        ModifyStop form = new ModifyStop(controller, lstToolItems.getSelectedValue().toString(), x, y);
-                        form.setVisible(true);
+                        ModifyStop formStop = new ModifyStop(controller, lstToolItems.getSelectedValue().toString(), x, y);
+                        formStop.setVisible(true);
                         break;
                     case SEGMENT:
+                        Node originNode = null;
+                        Node destinationNode = null;
+                        for (int i = 0; i < controller.getListSegment().size(); i++)
+                        {
+                            String nameSegment = controller.getListSegment().get(i).getOriginNode().getName() + " " + controller.getListSegment().get(i).getDestinationNode().getName();
+                            if (nameSegment.equals(lstToolItems.getSelectedValue().toString()))
+                            {
+                                originNode = controller.getListSegment().get(i).getOriginNode();
+                                destinationNode = controller.getListSegment().get(i).getDestinationNode();
+                                break;
+                            }
+                        }
+                        ModifySegment formSegment = new ModifySegment(controller, originNode, destinationNode);
+                        formSegment.setVisible(true);
                         break;
                     case TRIP:
                         break;
