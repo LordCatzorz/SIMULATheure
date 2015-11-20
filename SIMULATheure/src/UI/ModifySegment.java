@@ -33,12 +33,9 @@ public class ModifySegment extends javax.swing.JFrame {
         txtName.setText(controller.getSegmentAtPostion(_x, _y).getName());
         txtOriginStop.setText(oldOriginName);
         txtDestiStop.setText(oldDestinationName);
-        if(controller.getSegmentAtPostion(_x, _y).getDurationDistribution() != null)
-        {
-            txtMinTime.setText(String.valueOf(controller.getSegmentAtPostion(_x, _y).getDurationDistribution().getMinimum())); 
-            txtMaxTime.setText(String.valueOf(controller.getSegmentAtPostion(_x, _y).getDurationDistribution().getMaximum()));
-            txtModeTime.setText(String.valueOf(controller.getSegmentAtPostion(_x, _y).getDurationDistribution().getMode()));
-        }
+        txtMinTime.setText(String.valueOf(controller.getSegmentAtPostion(_x, _y).getDurationDistribution().getMinimum())); 
+        txtMaxTime.setText(String.valueOf(controller.getSegmentAtPostion(_x, _y).getDurationDistribution().getMaximum()));
+        txtModeTime.setText(String.valueOf(controller.getSegmentAtPostion(_x, _y).getDurationDistribution().getMode()));
     }
     
     public ModifySegment(Simulation _controller, Node _originNode, Node _destinationNode) 
@@ -225,8 +222,12 @@ public class ModifySegment extends javax.swing.JFrame {
         if(!txtModeTime.getText().equals(""))
             mode = Float.parseFloat(txtModeTime.getText());
             
-        controller.changeSegmentInfo(oldOriginName, oldDestinationName, txtOriginStop.getText(), txtDestiStop.getText(), txtName.getText(), min, max, mode);
-        dispose();
+        if(!controller.changeSegmentInfo(oldOriginName, oldDestinationName, txtOriginStop.getText(), txtDestiStop.getText(), txtName.getText(), min, max, mode))
+        {
+            javax.swing.JOptionPane.showMessageDialog(null,"Un des arrêts est inexistant"); 
+        }
+        else
+            dispose();
     }//GEN-LAST:event_btnOkActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed

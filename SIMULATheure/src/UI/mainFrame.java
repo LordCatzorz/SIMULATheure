@@ -29,6 +29,7 @@ import Domain.Node.Node;
 import Domain.Simulation.Simulation;
 
 import UI.ModifyStop;
+import java.awt.Color;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 /*import Domain.Node.*;
@@ -192,6 +193,25 @@ public class mainFrame extends javax.swing.JFrame {
                         updateListClientGenerator();
                         break;
                     case VEHICULE_GENERATOR:
+                        
+                        if(controller.getVehiculeGeneratorAtPosition(e.getX(),e.getY()) != null)
+                        {
+                            
+                        }
+                        else
+                        {
+                            if(controller.getNodeAtPostion(e.getX(), e.getY()) != null)
+                            {
+
+                            }
+                            else if(controller.getSegmentAtPostion(e.getX(),e.getY()) != null)
+                            {
+                                ModifySegment form = new ModifySegment(controller, e.getX(),e.getY());
+                                form.setVisible(true);
+                            }
+                        }
+                        
+                        
                         controller.addVehiculeGenerator(null, null, null);
                         updateListVehiculeGenerator();
                         break;
@@ -813,6 +833,17 @@ public class mainFrame extends javax.swing.JFrame {
                             (int)controller.getListSegment().get(i).getDestinationNode().getGeographicPosition().getXPosition(), 
                             (int)controller.getListSegment().get(i).getDestinationNode().getGeographicPosition().getYPosition());
             }
+            
+            for(int i = 0; i < controller.getListVehiculeGenerator().size(); i++)
+            {
+                int diameter = controller.getListNode().get(i).getDiameter();
+                g2.setColor(Color.GRAY);
+                g2.fillOval((int)controller.getListVehiculeGenerator().get(i).getSpawnSegment().getOriginNode().getGeographicPosition().getXPosition() - (diameter / 2),
+                            (int)controller.getListVehiculeGenerator().get(i).getSpawnSegment().getOriginNode().getGeographicPosition().getYPosition() - (diameter / 2), 
+                            diameter, diameter);
+                
+            }
+            
             g2.setTransform(backup);
             //this.setLocation(xScroll, yScroll);
         } 
