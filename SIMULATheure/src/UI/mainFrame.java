@@ -29,6 +29,7 @@ import Domain.Simulation.Simulation;
 
 import UI.ModifyStop;
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
 /*import Domain.Node.*;
 import Domain.Client.*;
 import Domain.Generation.*;
@@ -125,12 +126,19 @@ public class mainFrame extends javax.swing.JFrame {
                                                              controller.getNodeAtPostion(e.getX(), e.getY()).getName(),
                                                              controller.getNodeAtPostion(e.getX(), e.getY()).getGeographicPosition().getXPosition(),
                                                              controller.getNodeAtPostion(e.getX(), e.getY()).getGeographicPosition().getYPosition());
+                            form.addWindowListener(new java.awt.event.WindowAdapter (){
+                                @Override
+                                public void windowClosed(java.awt.event.WindowEvent e){
+                                    updateListStop();
+                                }
+                            });
                             form.setVisible(true);
                             //zp.repaint();
                         }
                         else
                         {
                             controller.addNode(e.getX(), e.getY());
+                            updateListStop();
                             zp.repaint();
                             //backend constructeur de stop
                         }
@@ -146,41 +154,83 @@ public class mainFrame extends javax.swing.JFrame {
                         {
                             nodeSelectedForSegment = false;
                             controller.addSegment(controller.getNodeAtPostion(lines.get(0), lines.get(1)), controller.getNodeAtPostion(e.getX(), e.getY()));
+                            updateListSegment();
                         }
                         else if (controller.getNodeAtPostion(e.getX(), e.getY()) != null)
                         {
                             nodeSelectedForSegment = (controller.getNodeAtPostion(e.getX(), e.getY()) != null);
                             lines.add((int)controller.getNodeAtPostion(e.getX(), e.getY()).getGeographicPosition().getXPosition());
                             lines.add((int)controller.getNodeAtPostion(e.getX(), e.getY()).getGeographicPosition().getYPosition());
-                            //Backend constructeur de segment
                         }
                         else if(controller.getSegmentAtPostion(e.getX(),e.getY()) != null)
                         {
                             ModifySegment form = new ModifySegment(controller, e.getX(),e.getY());
+                            form.addWindowListener(new java.awt.event.WindowAdapter (){
+                                @Override
+                                public void windowClosed(java.awt.event.WindowEvent e){
+                                    updateListSegment();
+                                }
+                            });
                             form.setVisible(true);
                         }
                         break;
                     case TRIP:
                         controller.addTrip(null, null, false);
+                        updateListTrip();
                         break;
                     case VEHICULE:
                         controller.addVehicule(null, null, null);
+                        updateListVehicule();
                         break;
                     case CLIENT:
                         controller.addClient(null);
+                        updateListClient();
                         break;
                     case CLIENT_GENERATOR:
                         controller.addClientGenerator(null);
+                        updateListClientGenerator();
                         break;
                     case VEHICULE_GENERATOR:
                         controller.addVehiculeGenerator(null, null, null);
+                        updateListVehiculeGenerator();
                         break;
                     case CLIENT_PROFILE:  
                         controller.addClientProfile(null);
+                        updateListClientProfile();
                         break;
                 }
             }
-        });   
+        });
+        
+        lstToolItems.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent evt) {
+            JList list = (JList)evt.getSource();
+            if (evt.getClickCount() == 2) {
+                switch(controller.getCurrentTool())
+                {
+                    case STOP:
+                        break;
+                    case SEGMENT:
+                        break;
+                    case TRIP:
+                        break;
+                    case VEHICULE:
+                        break;
+                    case CLIENT:
+                        break;
+                    case CLIENT_GENERATOR:
+                        break;
+                    case VEHICULE_GENERATOR:
+                        break;
+                    case CLIENT_PROFILE:
+                        break;
+                }
+                // Double-click detected
+                int index = list.locationToIndex(evt.getPoint());
+                } 
+            }
+        });
     }
 
     /**
@@ -549,12 +599,7 @@ public class mainFrame extends javax.swing.JFrame {
         lblToolName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnAdd.setVisible(true);
         lstToolItems.setVisible(true);
-        listModel = new DefaultListModel();
-        for (int i = 0; i < controller.getListNode().size(); i++)
-        {
-            listModel.addElement(controller.getListNode().get(i).getName());
-        }
-        lstToolItems.setModel(listModel);
+        updateListStop();
         scrollPaneTool.setVisible(true);
         
         this.controller.setCurrentTool(Tool.STOP);
@@ -582,12 +627,7 @@ public class mainFrame extends javax.swing.JFrame {
         lblToolName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnAdd.setVisible(true);
         scrollPaneTool.setVisible(true);
-        listModel = new DefaultListModel();
-        for (int i = 0; i < controller.getListClientProfile().size(); i++)
-        {
-            listModel.addElement("Profil client " + i);
-        }
-        lstToolItems.setModel(listModel);
+        updateListClientProfile();
         controller.setCurrentTool(Tool.CLIENT_PROFILE);
     }
 
@@ -596,12 +636,7 @@ public class mainFrame extends javax.swing.JFrame {
         lblToolName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnAdd.setVisible(true);
         lstToolItems.setVisible(true);
-        listModel = new DefaultListModel();
-        for (int i = 0; i < controller.getListSegment().size(); i++)
-        {
-            listModel.addElement(controller.getListSegment().get(i).getOriginNode().getName() + " " + controller.getListSegment().get(i).getDestinationNode().getName());
-        }
-        lstToolItems.setModel(listModel);
+        updateListSegment();
         scrollPaneTool.setVisible(true);
         
         controller.setCurrentTool(Tool.SEGMENT);
@@ -612,12 +647,7 @@ public class mainFrame extends javax.swing.JFrame {
         lblToolName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnAdd.setVisible(true);
         lstToolItems.setVisible(true);
-        listModel = new DefaultListModel();
-        for (int i = 0; i < controller.getListTrip().size(); i++)
-        {
-            listModel.addElement(controller.getListTrip().get(i).getName());
-        }
-        lstToolItems.setModel(listModel);
+        updateListTrip();
         scrollPaneTool.setVisible(true);
         
         controller.setCurrentTool(Tool.TRIP);
@@ -628,12 +658,7 @@ public class mainFrame extends javax.swing.JFrame {
         lblToolName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnAdd.setVisible(true);
         lstToolItems.setVisible(true);
-        listModel = new DefaultListModel();
-        for (int i = 0; i < controller.getListVehicule().size(); i++)
-        {
-            listModel.addElement("Véhicule " + i);
-        }
-        lstToolItems.setModel(listModel);
+        updateListVehicule();
         scrollPaneTool.setVisible(true);
         
         controller.setCurrentTool(Tool.VEHICULE);
@@ -644,12 +669,7 @@ public class mainFrame extends javax.swing.JFrame {
         lblToolName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnAdd.setVisible(true);
         lstToolItems.setVisible(true);
-        listModel = new DefaultListModel();
-        for (int i = 0; i < controller.getListClient().size(); i++)
-        {
-            listModel.addElement("Client " + i);
-        }
-        lstToolItems.setModel(listModel);
+        updateListClient();
         scrollPaneTool.setVisible(true);
         
         controller.setCurrentTool(Tool.CLIENT);
@@ -660,12 +680,7 @@ public class mainFrame extends javax.swing.JFrame {
         lblToolName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnAdd.setVisible(true);
         lstToolItems.setVisible(true);
-        listModel = new DefaultListModel();
-        for (int i = 0; i < controller.getListClientGenerator().size(); i++)
-        {
-            listModel.addElement("Générateur de clients " + i);
-        }
-        lstToolItems.setModel(listModel);
+        updateListClientGenerator();
         scrollPaneTool.setVisible(true);
         
         controller.setCurrentTool(Tool.CLIENT_GENERATOR);
@@ -676,12 +691,7 @@ public class mainFrame extends javax.swing.JFrame {
         lblToolName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnAdd.setVisible(true);
         lstToolItems.setVisible(true);
-        listModel = new DefaultListModel();
-        for (int i = 0; i < controller.getListVehiculeGenerator().size(); i++)
-        {
-            listModel.addElement("Générateur de véhicules " + i);
-        }
-        lstToolItems.setModel(listModel);
+        updateListVehiculeGenerator();
         scrollPaneTool.setVisible(true);
         
         controller.setCurrentTool(Tool.VEHICULE_GENERATOR);
@@ -842,6 +852,86 @@ public class mainFrame extends javax.swing.JFrame {
             }
         });
      
+    }
+    
+    public void updateListStop()
+    {
+        listModel = new DefaultListModel();
+        for (int i = 0; i < controller.getListNode().size(); i++)
+        {
+            listModel.addElement(controller.getListNode().get(i).getName());
+        }
+        lstToolItems.setModel(listModel);
+    }
+    
+    public void updateListClientProfile()
+    {
+        listModel = new DefaultListModel();
+        for (int i = 0; i < controller.getListClientProfile().size(); i++)
+        {
+            listModel.addElement("Profil client " + i);
+        }
+        lstToolItems.setModel(listModel);
+    }
+    
+    public void updateListSegment()
+    {
+        listModel = new DefaultListModel();
+        for (int i = 0; i < controller.getListSegment().size(); i++)
+        {
+            listModel.addElement(controller.getListSegment().get(i).getOriginNode().getName() + " " + controller.getListSegment().get(i).getDestinationNode().getName());
+        }
+        lstToolItems.setModel(listModel);
+    }
+    
+    public void updateListVehicule()
+    {
+        listModel = new DefaultListModel();
+        for (int i = 0; i < controller.getListVehicule().size(); i++)
+        {
+            listModel.addElement("Véhicule " + i);
+        }
+        lstToolItems.setModel(listModel);
+    }
+    
+    public void updateListTrip()
+    {
+        listModel = new DefaultListModel();
+        for (int i = 0; i < controller.getListTrip().size(); i++)
+        {
+            listModel.addElement(controller.getListTrip().get(i).getName());
+        }
+        lstToolItems.setModel(listModel);
+    }
+    
+    public void updateListClient()
+    {
+        listModel = new DefaultListModel();
+        for (int i = 0; i < controller.getListClient().size(); i++)
+        {
+            listModel.addElement("Client " + i);
+        }
+        lstToolItems.setModel(listModel);
+    }
+    
+    public void updateListVehiculeGenerator()
+    {
+        listModel = new DefaultListModel();
+        for (int i = 0; i < controller.getListVehiculeGenerator().size(); i++)
+        {
+            listModel.addElement("Générateur de véhicules " + i);
+        }
+        lstToolItems.setModel(listModel);
+    }
+    
+    public void updateListClientGenerator()
+    {
+        listModel = new DefaultListModel();
+        for (int i = 0; i < controller.getListClientGenerator().size(); i++)
+        {
+            listModel.addElement("Générateur de clients " + i);
+        }
+        lstToolItems.setModel(listModel);
     }
  
     private int x;
