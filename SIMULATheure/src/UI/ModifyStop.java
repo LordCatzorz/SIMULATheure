@@ -6,6 +6,7 @@
 package UI;
 
 import Domain.Simulation.Simulation;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Élise
@@ -156,8 +157,14 @@ public class ModifyStop extends javax.swing.JFrame {
     }//GEN-LAST:event_btnOkActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        controller.deleteNode(oldXPosition, oldYPosition);
-        dispose();
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(this, "La suppression de cet arrêt causera la perte\n de tous les segments lui étant associés.\n Êtes-vous certain de vouloir supprimer l'arrêt ?","Avertissement",dialogButton);
+        if(dialogResult == JOptionPane.YES_OPTION)
+        {
+            String name = controller.deleteNode(oldXPosition, oldYPosition);
+            controller.deleteSegmentWithNode(name);
+            dispose();
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
