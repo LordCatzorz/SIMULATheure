@@ -8,6 +8,7 @@ package UI;
 import javax.swing.DefaultListModel;
 import Domain.Simulation.Simulation;
 import Domain.Trips.Trip;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -56,6 +57,9 @@ public class ModifyTrip extends javax.swing.JFrame {
         txtNbMaxVehicule = new javax.swing.JTextField();
         btnOk = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
+        if(this.trip == null){
+            btnDelete.setVisible(false);
+        }
         jScrollPane1 = new javax.swing.JScrollPane();
         lstAllSegment = new javax.swing.JList();
         jLabel1 = new javax.swing.JLabel();
@@ -85,7 +89,6 @@ public class ModifyTrip extends javax.swing.JFrame {
         btnDelete.setText("Supprimer");
 
         lstAllSegment.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstAllSegment.setToolTipText("");
         jScrollPane1.setViewportView(lstAllSegment);
         lstAllSegment.getAccessibleContext().setAccessibleParent(scrollPaneSegment);
 
@@ -99,6 +102,16 @@ public class ModifyTrip extends javax.swing.JFrame {
         });
 
         btnRemoveSegmentFromTrip.setText(">>");
+        btnRemoveSegmentFromTrip.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveSegmentFromTripActionPerformed(evt);
+            }
+        });
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOKActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -183,29 +196,63 @@ public class ModifyTrip extends javax.swing.JFrame {
                 .addContainerGap(13, Short.MAX_VALUE))
         );
         
-        listModel = new DefaultListModel();
+        listAllSegmentModel = new DefaultListModel();
         for(int i = 0; i < this.controller.getListSegment().size(); i++)
         {
-            listModel.addElement(this.controller.getListSegment().get(i).getOriginNode().getName() + ", " + this.controller.getListSegment().get(i).getDestinationNode().getName());
+            listAllSegmentModel.addElement(this.controller.getListSegment().get(i).getOriginNode().getName() + " | " + this.controller.getListSegment().get(i).getDestinationNode().getName());
         }
-        lstAllSegment.setModel(listModel);
+        lstAllSegment.setModel(listAllSegmentModel);
         if(this.trip != null)
         {
-            listModel = new DefaultListModel();
+            listSegmentTripModel = new DefaultListModel();
             for(int i = 0; i < this.trip.getAllSegments().size(); i++)
             {
-                listModel.addElement(this.trip.getAllSegments().get(i).getOriginNode().getName() + ", " + this.trip.getAllSegments().get(i).getDestinationNode().getName());
+                listSegmentTripModel.addElement(this.trip.getAllSegments().get(i).getOriginNode().getName() + " | " + this.trip.getAllSegments().get(i).getDestinationNode().getName());
             }
-            lstSegmentTrip.setModel(listModel);
+            lstSegmentTrip.setModel(listSegmentTripModel);
         }
         pack();
     }
    
     private void btnAddSegmentToTripActionPerformed(java.awt.event.ActionEvent evt) {
-        //lstToolItems.getSelectedValue().toString()
+        String selectedValue = lstAllSegment.getSelectedValue().toString();
+        String originName = selectedValue.substring(0, selectedValue.indexOf('|') - 1);
+        boolean isValidTrip = false;
+        
+        if(lstSegmentTrip.getModel().getSize() > 0)
+        {
+            String lastSegmentFromTrip = lstSegmentTrip.getModel().getElementAt(lstSegmentTrip.getModel().getSize() -1).toString();
+            String lastDestinationName = lastSegmentFromTrip.substring(lastSegmentFromTrip.indexOf('|') + 2, lastSegmentFromTrip.length());
+                       
+            if(lastDestinationName.equalsIgnoreCase(originName))
+            {
+                isValidTrip = true;
+            }
+        }else{
+            isValidTrip = true;
+        }
+        if(isValidTrip)
+        {
+            listSegmentTripModel.addElement(selectedValue);
+            lstSegmentTrip.setModel(listSegmentTripModel);
+        }else
+        {
+            JOptionPane.showMessageDialog(this, "Assurez-vous d'ajouter un segment qui continue\n le circuit à partir du dernier arrêt courant.");
+        }
+        
+        
     }
-    private void btnRemoveSegmentFromTripActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+    private void btnRemoveSegmentFromTripActionPerformed(java.awt.event.ActionEvent evt) 
+    {
+        if(lstSegmentTrip.getModel().getSize() > 0)
+        {
+            listSegmentTripModel.remove(listSegmentTripModel.size() - 1);
+            lstSegmentTrip.setModel(listSegmentTripModel);
+        }
+    }
+    private void btnOKActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        
     }
 
     private javax.swing.JButton btnDelete;
@@ -225,7 +272,8 @@ public class ModifyTrip extends javax.swing.JFrame {
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtNbMaxVehicule;
     private javax.swing.JLabel txtSegment;
-    private DefaultListModel listModel = new DefaultListModel(); 
+    private DefaultListModel listAllSegmentModel = new DefaultListModel(); 
+    private DefaultListModel listSegmentTripModel = new DefaultListModel(); 
 
     
 }
