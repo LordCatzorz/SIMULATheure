@@ -75,7 +75,7 @@ public class mainFrame extends javax.swing.JFrame {
         zp.addMouseMotionListener(new java.awt.event.MouseAdapter() {
         @Override
         public void mouseMoved(java.awt.event.MouseEvent e) {
-                lblCoordinate.setText("Coordonnées: Latitude " + e.getX() + " Longitude " + e.getY());
+                lblCoordinate.setText("Coordonnées: Latitude " + (int)(e.getX() / zp.getZoom()) + " Longitude " + (int)(e.getY()/zp.getZoom()));
                 if(nodeSelectedForSegment)
                 {
                     if (lines.size() == 4)
