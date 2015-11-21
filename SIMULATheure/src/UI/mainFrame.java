@@ -83,8 +83,8 @@ public class mainFrame extends javax.swing.JFrame {
                         lines.remove(3);
                         lines.remove(2);
                     }
-                    lines.add(e.getX());
-                    lines.add(e.getY());
+                    lines.add((int)(e.getX() / zp.getZoom()));
+                    lines.add((int)(e.getY() / zp.getZoom()));
                     zp.repaint();
                 }
                 else
@@ -99,14 +99,14 @@ public class mainFrame extends javax.swing.JFrame {
         public void mouseWheelMoved(java.awt.event.MouseWheelEvent e){
                int rotation = e.getWheelRotation();
 
-                if (rotation < 0) {
-                    scaleFactor = 0.2;
+               if (rotation < 0) {
+                    scaleFactor = zp.getZoom() * 1.1;
                 } else {
-                    scaleFactor = -0.2;
+                    scaleFactor = zp.getZoom() / 1.1;
                 }  
                 
                 try { 
-                    zp.setZoom(zp.getZoom() + scaleFactor); 
+                    zp.setZoom(scaleFactor); 
                 } catch (PropertyVetoException ex) { 
                     JOptionPane.showMessageDialog 
                         ((Component) e.getSource(), 
@@ -122,12 +122,12 @@ public class mainFrame extends javax.swing.JFrame {
                 switch(controller.getCurrentTool())
                 {
                     case STOP:
-                        if(controller.getNodeAtPostion(e.getX(), e.getY()) != null)
+                        if(controller.getNodeAtPostion((float)(e.getX()/zp.getZoom()), (float)(e.getY()/zp.getZoom())) != null)
                         {
                             ModifyStop form = new ModifyStop(controller, 
-                                                             controller.getNodeAtPostion(e.getX(), e.getY()).getName(),
-                                                             controller.getNodeAtPostion(e.getX(), e.getY()).getGeographicPosition().getXPosition(),
-                                                             controller.getNodeAtPostion(e.getX(), e.getY()).getGeographicPosition().getYPosition());
+                                                             controller.getNodeAtPostion((float)(e.getX()/zp.getZoom()), (float)(e.getY()/zp.getZoom())).getName(),
+                                                             controller.getNodeAtPostion((float)(e.getX()/zp.getZoom()), (float)(e.getY()/zp.getZoom())).getGeographicPosition().getXPosition(),
+                                                             controller.getNodeAtPostion((float)(e.getX()/zp.getZoom()), (float)(e.getY()/zp.getZoom())).getGeographicPosition().getYPosition());
                             form.addWindowListener(new java.awt.event.WindowAdapter (){
                                 @Override
                                 public void windowClosed(java.awt.event.WindowEvent e){
@@ -139,10 +139,10 @@ public class mainFrame extends javax.swing.JFrame {
                         }
                         else
                         {
-                            controller.addNode(e.getX(), e.getY());
+                            double zoom = zp.getZoom();
+                            controller.addNode((float)(e.getX() / zoom), (float)(e.getY() / zoom));
                             updateListStop();
                             zp.repaint();
-                            //backend constructeur de stop
                         }
                         break;
                     case SEGMENT:
@@ -152,21 +152,21 @@ public class mainFrame extends javax.swing.JFrame {
                             lines.removeAll(lines);
                             zp.repaint();
                         }
-                        else if(nodeSelectedForSegment && controller.getNodeAtPostion(e.getX(), e.getY()) != null)
+                        else if(nodeSelectedForSegment && controller.getNodeAtPostion((float)(e.getX() / zp.getZoom()), (float)(e.getY()/zp.getZoom())) != null)
                         {
                             nodeSelectedForSegment = false;
-                            controller.addSegment(controller.getNodeAtPostion(lines.get(0), lines.get(1)), controller.getNodeAtPostion(e.getX(), e.getY()));
+                            controller.addSegment(controller.getNodeAtPostion(lines.get(0), lines.get(1)), controller.getNodeAtPostion((float)(e.getX()/zp.getZoom()), (float)(e.getY()/zp.getZoom())));
                             updateListSegment();
                         }
-                        else if (controller.getNodeAtPostion(e.getX(), e.getY()) != null)
+                        else if (controller.getNodeAtPostion((float)(e.getX() / zp.getZoom()), (float)(e.getY() / zp.getZoom())) != null)
                         {
-                            nodeSelectedForSegment = (controller.getNodeAtPostion(e.getX(), e.getY()) != null);
-                            lines.add((int)controller.getNodeAtPostion(e.getX(), e.getY()).getGeographicPosition().getXPosition());
-                            lines.add((int)controller.getNodeAtPostion(e.getX(), e.getY()).getGeographicPosition().getYPosition());
+                            nodeSelectedForSegment = (controller.getNodeAtPostion((float)(e.getX()/zp.getZoom()), (float)(e.getY()/zp.getZoom())) != null);
+                            lines.add((int)controller.getNodeAtPostion((float)(e.getX()/zp.getZoom()), (float)(e.getY()/zp.getZoom())).getGeographicPosition().getXPosition());
+                            lines.add((int)controller.getNodeAtPostion((float)(e.getX()/zp.getZoom()), (float)(e.getY()/zp.getZoom())).getGeographicPosition().getYPosition());
                         }
-                        else if(controller.getSegmentAtPostion(e.getX(),e.getY()) != null)
+                        else if(controller.getSegmentAtPostion((float)(e.getX()/zp.getZoom()),(float)(e.getY()/zp.getZoom())) != null)
                         {
-                            ModifySegment form = new ModifySegment(controller, e.getX(),e.getY());
+                            ModifySegment form = new ModifySegment(controller, (float)(e.getX()/zp.getZoom()),(float)(e.getY()/zp.getZoom()));
                             form.addWindowListener(new java.awt.event.WindowAdapter (){
                                 @Override
                                 public void windowClosed(java.awt.event.WindowEvent e){
@@ -891,7 +891,7 @@ public class mainFrame extends javax.swing.JFrame {
               = getLayout().preferredLayoutSize(this); 
             Dimension zoomed 
               = new Dimension((int) ((double) unzoomed.width*zoom), 
-                              (int) ((double) unzoomed.height*zoom)); 
+                              (int) ((double) unzoomed.height*zoom));
             return zoomed; 
         }
          
@@ -1032,7 +1032,7 @@ public class mainFrame extends javax.swing.JFrame {
     private static List<Integer> lines = new ArrayList<>();
     private static List<Integer> segments = new ArrayList<>();
     private ZoomPanel zp;
-    private File backgroundFile = new File("src/Resources/image/GRID1.png");
+    private File backgroundFile = new File("src/Resources/image/grid.jpg");
     private javax.swing.JButton btnAccelerate;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnClient;
