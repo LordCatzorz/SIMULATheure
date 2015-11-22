@@ -470,6 +470,7 @@ public class Simulation
         {
             if(segment.getOriginNode().getName().equals(_originName) && segment.getDestinationNode().getName().equals(_destinationName))
             {
+                deleteTripsWithSegment(segment);
                 this.listSegment.remove(segment);
                 break;
             }
@@ -489,7 +490,31 @@ public class Simulation
             }
         }
     }
-    
+    public void deleteTripsWithSegment(Segment _segment)
+    {
+        List<Trip> listTripToDelete = new ArrayList<>();
+        for(int i = 0; i < this.listTrip.size(); i++)
+        {
+            Trip trip = listTrip.get(i);
+            int j;
+            for( j = 0; j < trip.getAllSegments().size(); j++)
+            {
+                Segment segment = trip.getAllSegments().get(j);
+                if(segment.getOriginNode() == _segment.getOriginNode() && segment.getDestinationNode() == _segment.getDestinationNode())
+                {
+                    if(!listTripToDelete.contains(trip))
+                    {
+                        listTripToDelete.add(trip);
+                        break;
+                    }
+                }
+            }
+        }
+        for(int i = 0; i < listTripToDelete.size(); i++)
+        {
+            this.listTrip.remove(listTripToDelete.get(i));
+        }
+    }
     public void deleteTripsWithNode(String _nodeName)
     {
         List<Trip> listTripToDelete = new ArrayList<>();
