@@ -29,9 +29,9 @@ public class Itinary implements java.io.Serializable
         return this.originStop;
     }
     
-    public void setOriginStop(Stop _stop)
+    public void setOriginStop(Stop _originStop)
     {
-        this.originStop = _stop;
+        this.originStop = _originStop;
     }
     
     public Stop getDestinationStop()
@@ -39,9 +39,9 @@ public class Itinary implements java.io.Serializable
         return this.destinationStop;
     }
     
-    public void setDestinationStop(Stop _stop)
+    public void setDestinationStop(Stop _destinationStop)
     {
-        this.destinationStop = _stop;
+        this.destinationStop = _destinationStop;
     }
     
     public Trip getTrip()

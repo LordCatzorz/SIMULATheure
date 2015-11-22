@@ -27,7 +27,7 @@ public class Stop extends Node implements java.io.Serializable
        this.waitingClients = new ArrayList<>();
     }
     
-    public List<Client> getClients()//ou private?? (Diagramme de classe)
+    public List<Client> getClients()
     {
         return this.waitingClients;
     }

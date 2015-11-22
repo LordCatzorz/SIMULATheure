@@ -14,12 +14,8 @@ import Domain.Positions.GeographicPosition;
 public class Node implements java.io.Serializable
 {
     private GeographicPosition geographicPosition;
-    private int diameter = 11;
     private String name;
-    
-    //abstract public boolean addClient(List<Client> _clients);
-    //abstract public List<Client> requestEmbarkmentClient(Trip _vehiculeTrip, int maxClientAmount);
-    
+
     public Node(GeographicPosition _geographicPosition)
     {
         this.geographicPosition = _geographicPosition;
@@ -34,12 +30,7 @@ public class Node implements java.io.Serializable
     {
         this.geographicPosition = _geographicPosition;
     }
-    
-    public int getDiameter()
-    {
-        return this.diameter;
-    }
-    
+
     public String getName()
     {
         return this.name;
