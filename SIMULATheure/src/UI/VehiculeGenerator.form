@@ -35,45 +35,39 @@
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lblTrip" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="cmbTrip" min="-2" pref="79" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lblMinTime" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblMaxTime" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblModeTime" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblStartTime" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblEndTime" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblName" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lblOriginStop" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="cmbOriginStop" min="-2" pref="85" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lblCapacity" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtCapacity" min="-2" pref="97" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lblMinTime" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblMaxTime" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblModeTime" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblStartTime" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblEndTime" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblName" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="txtMinTime" max="32767" attributes="0"/>
-                                      <Component id="txtMaxTime" max="32767" attributes="0"/>
-                                      <Component id="txtModeTime" max="32767" attributes="0"/>
-                                      <Component id="txtStartTime" max="32767" attributes="0"/>
-                                      <Component id="txtEndTime" max="32767" attributes="0"/>
-                                      <Component id="txtName" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="txtMaxTime" pref="140" max="32767" attributes="0"/>
+                                  <Component id="txtModeTime" max="32767" attributes="0"/>
+                                  <Component id="txtStartTime" max="32767" attributes="0"/>
+                                  <Component id="txtEndTime" max="32767" attributes="0"/>
+                                  <Component id="txtName" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtMinTime" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                               <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lblOriginStop" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblTrip" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="cmbOriginStop" pref="137" max="32767" attributes="0"/>
+                                  <Component id="cmbTrip" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <EmptySpace pref="49" max="32767" attributes="0"/>
@@ -97,12 +91,7 @@
                   <Component id="lblOriginStop" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cmbOriginStop" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblCapacity" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtCapacity" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblMinTime" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtMinTime" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -132,7 +121,7 @@
                   <Component id="txtName" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblName" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="17" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnOk" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnDelete" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -169,13 +158,6 @@
           <StringArray count="0"/>
         </Property>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblCapacity">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Capacit&#xe9;: "/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtCapacity">
     </Component>
     <Component class="javax.swing.JLabel" name="lblMinTime">
       <Properties>
