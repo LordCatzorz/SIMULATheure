@@ -72,7 +72,6 @@ public class ModifyVehicule extends javax.swing.JFrame {
 
         cmbOriginStop.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-
         btnOk.setText("Ok");
         btnOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,8 +212,6 @@ public class ModifyVehicule extends javax.swing.JFrame {
                             break;
                         }
                     }
-                    
-
                     controller.addVehicule(trip ,spawnSegment, txtName.getText());
                 }
             }
@@ -243,7 +240,9 @@ public class ModifyVehicule extends javax.swing.JFrame {
                     vehicule.setName(txtName.getText());
                     vehicule.setTrip(trip);
                     vehicule.setCurrentPosition(new VehiculePosition(spawnSegment, this.controller.getCurrentTime()));
-                }else{
+                }
+                else
+                {
                     JOptionPane.showMessageDialog(this, "Une erreur est survenu, désolé de l'inconvénient.");
                 }
             }

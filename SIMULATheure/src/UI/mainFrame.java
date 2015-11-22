@@ -966,8 +966,16 @@ public class mainFrame extends javax.swing.JFrame {
                 g2.setColor(Color.GRAY);
                 g2.fillOval((int)controller.getListVehiculeGenerator().get(i).getSpawnSegment().getOriginNode().getGeographicPosition().getXPosition() - (diameter / 2),
                             (int)controller.getListVehiculeGenerator().get(i).getSpawnSegment().getOriginNode().getGeographicPosition().getYPosition() - (diameter / 2), 
-                            diameter, diameter);
-                
+                            diameter, diameter);   
+            }
+            
+            for(int i = 0; i < controller.getListVehicule().size(); i++)
+            {
+                int width = controller.getListVehicule().get(i).getWidth();
+                g2.setColor(Color.BLUE);
+                g2.fillOval((int)controller.getListVehicule().get(i).getCurrentPosition().getGeographicPosition().getXPosition() - (width /2), 
+                            (int)controller.getListVehicule().get(i).getCurrentPosition().getGeographicPosition().getYPosition() - (width /2), 
+                            width, width);
             }
             
             //A PIERRE!!!

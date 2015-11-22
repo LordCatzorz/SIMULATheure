@@ -22,6 +22,8 @@ public class Vehicule implements java.io.Serializable
     private VehiculePosition position;
     private float speed = 2;
     private String name;
+    private int width = 8;
+    
     
     public Vehicule(Trip _trip, Segment _segmentToSpawn, String _name)
     {
@@ -91,5 +93,13 @@ public class Vehicule implements java.io.Serializable
         this.name = _name;
     }
     
+    public int getWidth()
+    {
+        return this.width;
+    }
     
+    public void setWidth(int _width)
+    {
+        this.width = _width;
+    }
 }
