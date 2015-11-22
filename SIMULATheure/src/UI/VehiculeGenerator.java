@@ -167,30 +167,29 @@ public class VehiculeGenerator extends javax.swing.JFrame
               }
             }
           });
-
-        lblName.setText("Nom:");
         
-        this.cmbTrip.removeAllItems();
-        this.cmbOriginStop.removeAllItems();
+        cmbTrip.addActionListener (new ActionListener () 
+        {
+            public void actionPerformed(ActionEvent e) 
+            {
+                cmbOriginStop.removeAllItems();
+                for(int i = 0; i < controller.getListNodeByTrip(controller.getTripByName(cmbTrip.getSelectedItem().toString())).size(); i++)
+                {
+                    cmbOriginStop.addItem(controller.getListNodeByTrip(controller.getTripByName(cmbTrip.getSelectedItem().toString())).get(i).getName());
+                }
+            }
+        });
+        lblName.setText("Nom:");
         
         if(generator == null)
         {
             for(int i = 0; i < controller.getListTrip().size(); i++)
             {
                 this.cmbTrip.addItem(controller.getListTrip().get(i).getName());
-            }       
-
-            for(int i = 0; i < controller.getListTrip().size(); i++)
-            {
-                if (cmbTrip.getSelectedItem().toString().equalsIgnoreCase(controller.getListTrip().get(i).getName()))
-                {
-                    for (int j = 0; j < controller.getListTrip().get(i).getAllSegments().size(); j++)
-                    {
-                        this.cmbOriginStop.addItem(controller.getListTrip().get(i).getAllSegments().get(j).getOriginNode().getName());
-                    }
-                }
             }
-        }else{
+        }
+        else
+        {
             this.txtName.setText(generator.getName());
             for(int i = 0; i < controller.getListTrip().size(); i++)
             {
@@ -198,16 +197,6 @@ public class VehiculeGenerator extends javax.swing.JFrame
             }
             this.cmbTrip.setSelectedItem(generator.getTrip().getName());       
 
-            for(int i = 0; i < controller.getListTrip().size(); i++)
-            {
-                if (cmbTrip.getSelectedItem().toString().equalsIgnoreCase(controller.getListTrip().get(i).getName()))
-                {
-                    for (int j = 0; j < controller.getListTrip().get(i).getAllSegments().size(); j++)
-                    {
-                        this.cmbOriginStop.addItem(controller.getListTrip().get(i).getAllSegments().get(j).getOriginNode().getName());
-                    }
-                }
-            }            
             this.cmbOriginStop.setSelectedItem(generator.getSpawnSegment().getOriginNode().getName());
         }
         if (generator != null)

@@ -326,8 +326,11 @@ public class Simulation
         List<Node> listNode = new ArrayList<Node>();
         for(int i = 0; i < _trip.getAllSegments().size(); i++)
         {
-            listNode.add(_trip.getAllSegments().get(i).getDestinationNode());
-            listNode.add(_trip.getAllSegments().get(i).getOriginNode());
+            if(!listNode.contains(_trip.getAllSegments().get(i).getOriginNode()))
+                listNode.add(_trip.getAllSegments().get(i).getOriginNode());
+            if(!listNode.contains(_trip.getAllSegments().get(i).getDestinationNode()))
+                listNode.add(_trip.getAllSegments().get(i).getDestinationNode());
+            
         }
         return listNode;
     }
@@ -359,6 +362,16 @@ public class Simulation
         {
             if(new GeographicPosition(_x, _y).isBetween(segment.getOriginNode().getGeographicPosition(), segment.getDestinationNode().getGeographicPosition()))
                 return segment;
+        }
+        return null;
+    }
+    
+    public Trip getTripByName(String _tripName)
+    {
+        for(Trip trip: this.listTrip)
+        {
+            if(trip.getName().equals(_tripName))
+                return trip;
         }
         return null;
     }
