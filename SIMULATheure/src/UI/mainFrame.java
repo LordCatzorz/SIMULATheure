@@ -801,39 +801,54 @@ public class mainFrame extends javax.swing.JFrame {
                 break;
             case SEGMENT:
                 break;
-            case TRIP:               
-                ModifyTrip form = new ModifyTrip(this.controller);
-                form.addWindowListener(new java.awt.event.WindowAdapter (){
-                    @Override
-                    public void windowClosed(java.awt.event.WindowEvent e){
-                        updateListTrip();
-                    }
-                });
-                form.setVisible(true);                               
+            case TRIP:
+                if(this.controller.getListSegment().size() > 0)
+                {
+                    ModifyTrip form = new ModifyTrip(this.controller);
+                    form.addWindowListener(new java.awt.event.WindowAdapter (){
+                        @Override
+                        public void windowClosed(java.awt.event.WindowEvent e){
+                            updateListTrip();
+                        }
+                    });
+                    form.setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(this, "Il n'y a pas de segments existant pour créer un trajet.");
+                }
                 break;
             case VEHICULE:
-                ModifyVehicule formVehicule = new ModifyVehicule(this.controller);
-                formVehicule.addWindowListener(new java.awt.event.WindowAdapter (){
-                    @Override
-                    public void windowClosed(java.awt.event.WindowEvent e){
-                        updateListVehiculeGenerator();
-                    }
-                });
-                formVehicule.setVisible(true);
+                if(this.controller.getListTrip().size() > 0)
+                {
+                    ModifyVehicule formVehicule = new ModifyVehicule(this.controller);
+                    formVehicule.addWindowListener(new java.awt.event.WindowAdapter (){
+                        @Override
+                        public void windowClosed(java.awt.event.WindowEvent e){
+                            updateListVehiculeGenerator();
+                        }
+                    });
+                    formVehicule.setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(this, "Il n'y a pas de trajets existant pour créer un vehicule.");
+                }
                 break;
             case CLIENT:
                 break;
             case CLIENT_GENERATOR:
                 break;
             case VEHICULE_GENERATOR:
-                VehiculeGenerator formVehiculeGenerator = new VehiculeGenerator(this.controller);
-                formVehiculeGenerator.addWindowListener(new java.awt.event.WindowAdapter (){
-                    @Override
-                    public void windowClosed(java.awt.event.WindowEvent e){
-                        updateListVehiculeGenerator();
-                    }
-                });
-                formVehiculeGenerator.setVisible(true);
+                if(this.controller.getListTrip().size() > 0)
+                {
+                    VehiculeGenerator formVehiculeGenerator = new VehiculeGenerator(this.controller);
+                    formVehiculeGenerator.addWindowListener(new java.awt.event.WindowAdapter (){
+                        @Override
+                        public void windowClosed(java.awt.event.WindowEvent e){
+                            updateListVehiculeGenerator();
+                        }
+                    });
+                    formVehiculeGenerator.setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(this, "Il n'y a pas de trajets existant pour créer un générateur de vehicule.");
+                }
                 break;
             case CLIENT_PROFILE:  
                 break;
@@ -1066,7 +1081,7 @@ public class mainFrame extends javax.swing.JFrame {
         listModel = new DefaultListModel();
         for (int i = 0; i < controller.getListVehiculeGenerator().size(); i++)
         {
-            listModel.addElement("Générateur de véhicules " + i);
+            listModel.addElement(controller.getListVehiculeGenerator().get(i).getName());
         }
         lstToolItems.setModel(listModel);
     }

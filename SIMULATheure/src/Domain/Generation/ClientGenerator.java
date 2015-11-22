@@ -5,9 +5,9 @@
  */
 package Domain.Generation;
 
-import java.sql.Time;
 import Domain.Client.ClientProfile;
 import Domain.Client.Client;
+import Domain.Simulation.Time;
 /**
  *
  * @author Raphael

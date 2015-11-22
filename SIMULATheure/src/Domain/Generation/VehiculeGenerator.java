@@ -5,8 +5,8 @@
  */
 package Domain.Generation;
 
-import java.sql.Time;
 
+import Domain.Simulation.Time;
 import Domain.Trips.Segment;
 import Domain.Trips.Trip;
 import Domain.Vehicule.Vehicule;
@@ -30,13 +30,14 @@ public class VehiculeGenerator implements java.io.Serializable
     {
     }
     
-    public VehiculeGenerator(Time _timeBeginGeneration, Time _timeEndGeneration, Segment _spawnSegment, Trip trip, String name)
+    public VehiculeGenerator(Segment _spawnSegment, Trip _trip, double _min, double _max, double _mode, Time _startTime, Time _endTime, String _name)
     {
         this.spawnSegment = _spawnSegment;
-        this.timeBeginGeneration = _timeBeginGeneration;
-        this.timeEndGeneration = _timeEndGeneration;
-        this.trip = trip;
-        this.name = name;
+        this.timeBeginGeneration = _startTime;
+        this.timeEndGeneration = _endTime;
+        this.trip = _trip;
+        this.name = _name;
+        distribution = new TriangularDistribution(_min,_max,_mode);
     }
     
     public String getName()
@@ -64,7 +65,7 @@ public class VehiculeGenerator implements java.io.Serializable
         return this.distribution;
     }
     
-    public void setDistribution(float _min, float _max, float _mode)
+    public void setDistribution(double _min, double _max, double _mode)
     {
         this.distribution = new TriangularDistribution(_min, _max, _mode);
     }

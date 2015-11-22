@@ -5,10 +5,16 @@
  */
 package UI;
 
+import Domain.Node.Node;
 import Domain.Simulation.Simulation;
+import Domain.Simulation.Time;
+import Domain.Trips.Segment;
 import Domain.Trips.Trip;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Élise
@@ -16,16 +22,16 @@ import java.awt.event.ActionListener;
 public class VehiculeGenerator extends javax.swing.JFrame 
 {
     private Simulation controller;
-    private Domain.Generation.VehiculeGenerator oldGenerator;
+    private Domain.Generation.VehiculeGenerator generator;
 
     
     /**
      * Creates new form VehciuleGenerator
      */
-    public VehiculeGenerator(Simulation _controller, Domain.Generation.VehiculeGenerator _oldGenerator) 
+    public VehiculeGenerator(Simulation _controller, Domain.Generation.VehiculeGenerator _generator) 
     {
         this.controller = _controller;
-        this.oldGenerator = _oldGenerator;
+        this.generator = _generator;
         
         initComponents();
  
@@ -104,6 +110,68 @@ public class VehiculeGenerator extends javax.swing.JFrame
                 btnDeleteActionPerformed(evt);
             }
         });
+        
+        txtEndTime.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+              char c = e.getKeyChar();
+              if (!((c >= '0') && (c <= '9') ||
+                 (c == KeyEvent.VK_BACK_SPACE) ||
+                 (c == KeyEvent.VK_DELETE) || c == ':')) {
+                getToolkit().beep();
+                e.consume();
+              }
+            }
+          });
+        txtStartTime.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+              char c = e.getKeyChar();
+              if (!((c >= '0') && (c <= '9') ||
+                 (c == KeyEvent.VK_BACK_SPACE) ||
+                 (c == KeyEvent.VK_DELETE) || c == ':')) {
+                getToolkit().beep();
+                e.consume();
+              }
+            }
+          });
+        
+        txtMaxTime.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+              char c = e.getKeyChar();
+              if (!((c >= '0') && (c <= '9') ||
+                 (c == KeyEvent.VK_BACK_SPACE) ||
+                 (c == KeyEvent.VK_DELETE))) {
+                getToolkit().beep();
+                e.consume();
+              }
+            }
+          });
+        txtMinTime.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+              char c = e.getKeyChar();
+              if (!((c >= '0') && (c <= '9') ||
+                 (c == KeyEvent.VK_BACK_SPACE) ||
+                 (c == KeyEvent.VK_DELETE))) {
+                getToolkit().beep();
+                e.consume();
+              }
+            }
+          });
+        txtModeTime.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+              char c = e.getKeyChar();
+              if (!((c >= '0') && (c <= '9') ||
+                 (c == KeyEvent.VK_BACK_SPACE) ||
+                 (c == KeyEvent.VK_DELETE))) {
+                getToolkit().beep();
+                e.consume();
+              }
+            }
+          });
 
         lblName.setText("Nom:");
         
@@ -126,14 +194,11 @@ public class VehiculeGenerator extends javax.swing.JFrame
             }
         }
         
-        if (oldGenerator != null)
-            this.txtCapacity.setText(String.valueOf(oldGenerator.getVehiculeKind().getCapacity()));
-        
-        if (oldGenerator != null)
+        if (generator != null)
         {
-            this.txtMinTime.setText(String.valueOf(oldGenerator.getDistribution().getMinimum()));
-            this.txtMaxTime.setText(String.valueOf(oldGenerator.getDistribution().getMaximum()));
-            this.txtModeTime.setText(String.valueOf(oldGenerator.getDistribution().getMode()));
+            this.txtMinTime.setText(String.valueOf(generator.getDistribution().getMinimum()));
+            this.txtMaxTime.setText(String.valueOf(generator.getDistribution().getMaximum()));
+            this.txtModeTime.setText(String.valueOf(generator.getDistribution().getMode()));
         }
         else
         {
@@ -142,14 +207,15 @@ public class VehiculeGenerator extends javax.swing.JFrame
             this.txtModeTime.setText(String.valueOf(15)); 
         }
         
-        if (oldGenerator != null)
-            this.txtStartTime.setText(String.valueOf(oldGenerator.getTimeBeginGeneration()));
+        if (generator != null)
+            this.txtStartTime.setText(String.valueOf(generator.getTimeBeginGeneration().getTimeStringNoSecond()));
 
-        if (oldGenerator != null)
-            this.txtStartTime.setText(String.valueOf(oldGenerator.getTimeEndGeneration()));
-        
-        if (oldGenerator != null)
-            this.txtStartTime.setText(String.valueOf(oldGenerator.getTimeEndGeneration()));
+        if (generator != null)
+            this.txtEndTime.setText(String.valueOf(generator.getTimeEndGeneration().getTimeStringNoSecond()));
+        if(generator != null)
+            this.txtName.setText(generator.getName());
+        if(generator == null)
+            this.btnDelete.setVisible(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -252,13 +318,55 @@ public class VehiculeGenerator extends javax.swing.JFrame
     }
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-            if (oldGenerator == null)
+        if(!(txtMaxTime.getText().isEmpty()|| txtMinTime.getText().isEmpty() || txtModeTime.getText().isEmpty()
+                || txtEndTime.getText().isEmpty() || txtStartTime.getText().isEmpty() || txtName.getText().isEmpty()))
+        {
+            if (generator == null)
             {
-                //controller.addVehiculeGenerator(null, null, null, null, null, null)
+                double max = Float.parseFloat(txtMaxTime.getText());
+                double mode = Float.parseFloat(txtModeTime.getText());
+                double min = Float.parseFloat(txtMinTime.getText());
+                String strTimeStart = txtStartTime.getText();
+                String strHourTimeStart = strTimeStart.substring(0, strTimeStart.indexOf(':'));
+                String strMinuteTimeStart = strTimeStart.substring(strTimeStart.indexOf(':') + 1, strTimeStart.length());
+                double hourTimeStart = Float.parseFloat(strHourTimeStart);
+                double minuteTimeStart = Float.parseFloat(strMinuteTimeStart);
+                Time timeStart = new Time(hourTimeStart, minuteTimeStart, 0);
+                String strTimeEnd = txtEndTime.getText();
+                String strHourTimeEnd = strTimeEnd.substring(0, strTimeEnd.indexOf(':'));
+                String strMinuteTimeEnd = strTimeEnd.substring(strTimeEnd.indexOf(':') + 1, strTimeEnd.length());
+                double hourTimeEnd = Float.parseFloat(strHourTimeEnd);
+                double minuteTimeEnd = Float.parseFloat(strMinuteTimeEnd);
+                Time timeEnd = new Time(hourTimeEnd, minuteTimeEnd, 0);
+                String selectedTripName = cmbTrip.getSelectedItem().toString();
+                Trip trip = null;
+                for(int i=0; i < controller.getListTrip().size(); i++)
+                {
+                    if(controller.getListTrip().get(i).getName().equalsIgnoreCase(selectedTripName))
+                    {
+                        trip = controller.getListTrip().get(i);
+                        break;
+                    }
+                }
+                if(trip != null)
+                {
+                    String selectedNodeName = cmbOriginStop.getSelectedItem().toString();
+                    Segment spawnSegment = null;
+                    for(int i=0; i < trip.getAllSegments().size(); i++)
+                    {
+                        if(trip.getAllSegments().get(i).getOriginNode().getName().equalsIgnoreCase(selectedNodeName))
+                        {
+                            spawnSegment = trip.getAllSegments().get(i);
+                            break;
+                        }
+                    }
+                    
+
+                    controller.addVehiculeGenerator(spawnSegment, trip, min , max, mode,timeStart,timeEnd, txtName.getText());
+                }
             }
             else
             {
-                //Faire les vérifications
                 Trip trip = null;
                 for (int i = 0; i < controller.getListTrip().size(); i++)
                 {
@@ -269,16 +377,42 @@ public class VehiculeGenerator extends javax.swing.JFrame
                 }
                 if (trip != null)
                 {
-                    controller.changeVehiculeGeneratorInfo(oldGenerator, trip, Integer.parseInt(txtCapacity.getText()), Float.parseFloat(txtMinTime.getText()), Float.parseFloat(txtMaxTime.getText()), Float.parseFloat(txtModeTime.getText()), java.sql.Time.valueOf(txtStartTime.getText()), java.sql.Time.valueOf(txtEndTime.getText()), txtName.getText());               
+                    double max = Float.parseFloat(txtMaxTime.getText());
+                    double mode = Float.parseFloat(txtModeTime.getText());
+                    double min = Float.parseFloat(txtMinTime.getText());
+                    String strTimeStart = txtStartTime.getText();
+                    String strHourTimeStart = strTimeStart.substring(0, strTimeStart.indexOf(':'));
+                    String strMinuteTimeStart = strTimeStart.substring(strTimeStart.indexOf(':') + 1, strTimeStart.length());
+                    double hourTimeStart = Float.parseFloat(strHourTimeStart);
+                    double minuteTimeStart = Float.parseFloat(strMinuteTimeStart);
+                    Time timeStart = new Time(hourTimeStart, minuteTimeStart, 0);
+                    String strTimeEnd = txtEndTime.getText();
+                    String strHourTimeEnd = strTimeEnd.substring(0, strTimeEnd.indexOf(':'));
+                    String strMinuteTimeEnd = strTimeEnd.substring(strTimeEnd.indexOf(':') + 1, strTimeEnd.length());
+                    double hourTimeEnd = Float.parseFloat(strHourTimeEnd);
+                    double minuteTimeEnd = Float.parseFloat(strMinuteTimeEnd);
+                    Time timeEnd = new Time(hourTimeEnd, minuteTimeEnd, 0);
+                    
+                    controller.changeVehiculeGeneratorInfo(generator, trip, min , max, mode,timeStart,timeEnd, txtName.getText());               
+                }else{
+                    JOptionPane.showMessageDialog(this, "Une erreur est survenu, désolé de l'inconvénient.");
                 }
             }
+            dispose();
+        }else{
+            JOptionPane.showMessageDialog(this, "Assurez-vous d'avoir rempli tous les champs avant \nla création ou la modification du générateur de véhicule.");
+        }
     }//GEN-LAST:event_btnOkActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        if (oldGenerator != null)
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(this, "Êtes-vous certain de vouloir supprimer ce générateur de véhicule ?","Avertissement",dialogButton);
+        if(dialogResult == JOptionPane.YES_OPTION)
         {
-                controller.deleteVehiculeGenerator(oldGenerator);
+            controller.deleteVehiculeGenerator(generator);
+            dispose();
         }
+        
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**

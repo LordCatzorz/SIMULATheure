@@ -8,11 +8,8 @@ package Domain.Simulation;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.Queue;
 import java.awt.Image;
-import java.sql.Time;
 import java.io.*;
-import java.util.Date;
 
 import Domain.Node.*;
 import Domain.Vehicule.*;
@@ -54,6 +51,7 @@ public class Simulation
         this.listClientProfile = new ArrayList<>();
         this.listClient = new ArrayList<>();
         this.speedMultiplier = 0;
+        this.simulationTime = new Time();
     }
             
     public void Play()
@@ -266,14 +264,9 @@ public class Simulation
         return this.listClientGenerator.add(new ClientGenerator(_clientProfile));
     }
     
-    public boolean addVehiculeGenerator(Node _spawnNode, Time _timeBeginGeneration, Time _timeEndGeneration, Trip _trip, String _name, VehiculeKind _vehiculeKind)//VehiculeKind _vehiculeKind, Segment _spawnSegment, Trip _trip)
+    public boolean addVehiculeGenerator(Segment _spawnSegment, Trip _trip, double _min, double _max, double _mode, Time _startTime, Time _endTime, String _name)
     {
-        for(Segment segment: this.listSegment)
-        {
-            if(segment.getOriginNode() == _spawnNode)
-                return this.listVehiculeGenerator.add(new VehiculeGenerator(_timeBeginGeneration, _timeEndGeneration, segment, _trip, _name));
-        }
-        return this.listVehiculeGenerator.add(new VehiculeGenerator());
+        return this.listVehiculeGenerator.add(new VehiculeGenerator(_spawnSegment, _trip, _min, _max, _mode, _startTime, _endTime,_name));
     }
     
     /*public boolean addVehiculeGenerator(Segment _spawnSegment, Time _timeBeginGeneration, Time _timeEndGeneration, Trip _trip, String _name, VehiculeKind _vehiculeKind)//VehiculeKind _vehiculeKind, Segment _spawnSegment, Trip _trip)
@@ -408,8 +401,8 @@ public class Simulation
         return false;
     }
     
-    public void changeVehiculeGeneratorInfo(VehiculeGenerator _generator, Trip _trip, int _capacity, 
-                                            float _min, float _max, float _mode, Time _startTime, Time _endTime, String name)
+    public void changeVehiculeGeneratorInfo(VehiculeGenerator _generator, Trip _trip,
+                                            double _min, double _max, double _mode, Time _startTime, Time _endTime, String name)
     {
         for(VehiculeGenerator generator : this.listVehiculeGenerator)
         {
@@ -635,9 +628,9 @@ public class Simulation
         Segment segment = _vehicule.getCurrentPosition().getCurrentSegment();
         Time timeSegmentStart = _vehicule.getCurrentPosition().getTimeSegmentStart();
         
-        float durationTime = segment.getDurationTime()/1000; //In seconds
-        float timeSpent = (this.simulationTime.getTime() - timeSegmentStart.getTime()) /1000; //In seconds
-        float completionPercentage = (timeSpent/durationTime)*100;
+        double durationTime = segment.getDurationTime()/60;
+        double timeSpent = (this.simulationTime.getTime() - timeSegmentStart.getTime());
+        double completionPercentage = (timeSpent/durationTime)*100;
         return (completionPercentage >= 100);
     }
 }

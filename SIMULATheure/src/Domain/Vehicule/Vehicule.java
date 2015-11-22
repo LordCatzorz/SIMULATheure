@@ -7,13 +7,13 @@ package Domain.Vehicule;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.sql.Time;
 
 import Domain.Trips.Segment;
 import Domain.Trips.Trip;
 import Domain.Client.Client;
 import Domain.Node.Stop;
 import Domain.Positions.GeographicPosition;
+import Domain.Simulation.Time;
 
 /**
  *
@@ -30,7 +30,7 @@ public class Vehicule implements java.io.Serializable
     
     public Vehicule(Trip _trip, VehiculeKind _vehiculeKind, Segment _segmentToSpawn, String _name)
     {
-        this.position = new VehiculePosition(_segmentToSpawn, Time.valueOf("00:00"));
+        this.position = new VehiculePosition(_segmentToSpawn, new Time());
         this.inboardClients = new ArrayList<>();
         this.trip = _trip;
         this.vehiculeKind = _vehiculeKind;

@@ -5,10 +5,9 @@
  */
 package Domain.Vehicule;
 
-import java.sql.Time;
-
 import Domain.Trips.Segment;
 import Domain.Positions.GeographicPosition;
+import Domain.Simulation.Time;
 /**
  *
  * @author Raphael
