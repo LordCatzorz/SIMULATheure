@@ -32,6 +32,7 @@ import UI.ModifyStop;
 import java.awt.Color;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.JScrollPane;
 /*import Domain.Node.*;
 import Domain.Client.*;
 import Domain.Generation.*;
@@ -94,7 +95,7 @@ public class mainFrame extends javax.swing.JFrame {
                 }
             }
         });
-        pnlBackground.addMouseWheelListener(new java.awt.event.MouseAdapter() {
+        zp.addMouseWheelListener(new java.awt.event.MouseAdapter() {
         @Override
         public void mouseWheelMoved(java.awt.event.MouseWheelEvent e){
                int rotation = e.getWheelRotation();
@@ -324,13 +325,13 @@ public class mainFrame extends javax.swing.JFrame {
         menuItemHelp = new javax.swing.JMenuItem();
         menuItemAbout = new javax.swing.JMenuItem();
         
-
-        
         
         //TEST ELISE
         zp = new ZoomPanel(1.0);
-        handleDrag(zp);
-        pnlBackground.add(zp,BorderLayout.CENTER);
+        //handleDrag(zp);
+        //pnlBackground.add(new JScrollPane(zp), BorderLayout.CENTER);
+        //pnlScroll = new JScrollPane(zp);
+        pnlBackground.add(zp, BorderLayout.CENTER);
         
         
         
@@ -836,7 +837,7 @@ public class mainFrame extends javax.swing.JFrame {
             Graphics2D g2 = (Graphics2D) g; 
             AffineTransform backup = g2.getTransform(); 
             g2.scale(zoom, zoom); 
-            //super.paint(g); 
+            super.paint(g); 
             try {
                 g2.drawImage(ImageIO.read(backgroundFile), 0, 0, null);
             } catch (IOException ex) {
@@ -879,7 +880,6 @@ public class mainFrame extends javax.swing.JFrame {
             }
             
             g2.setTransform(backup);
-            //this.setLocation(xScroll, yScroll);
         } 
         @Override
         public boolean isOptimizedDrawingEnabled() { 
@@ -930,8 +930,6 @@ public class mainFrame extends javax.swing.JFrame {
             public void mouseDragged(MouseEvent me) {
                 me.translatePoint(me.getComponent().getLocation().x-x, me.getComponent().getLocation().y-y);
                 panel.setLocation(me.getX(), me.getY());
-                xScroll = me.getX();
-                yScroll = me.getY();
             }
         });
         panel.addMouseListener(new MouseAdapter() {
@@ -940,6 +938,12 @@ public class mainFrame extends javax.swing.JFrame {
             {
                 x = me.getX();
                 y = me.getY();
+            }
+            @Override
+            public void mouseReleased(MouseEvent me) {
+                xDrag = xDrag + zp.getX();
+                yDrag = yDrag + zp.getY();
+                zp.setLocation(xDrag, yDrag);
             }
         });
      
@@ -1027,8 +1031,9 @@ public class mainFrame extends javax.swing.JFrame {
  
     private int x;
     private int y;
-    private int xScroll;
-    private int yScroll;
+    private int xDrag = 0;
+    private int yDrag = 0;
+    private JScrollPane pnlScroll;
     private static List<Integer> lines = new ArrayList<>();
     private static List<Integer> segments = new ArrayList<>();
     private ZoomPanel zp;
