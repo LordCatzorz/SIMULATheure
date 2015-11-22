@@ -9,6 +9,7 @@ import javax.swing.DefaultListModel;
 import Application.Controller.Simulation;
 import Domain.Trips.Segment;
 import Domain.Trips.Trip;
+import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.LinkedList;
@@ -53,6 +54,8 @@ public class ModifyTrip extends javax.swing.JFrame {
         lblTitle = new javax.swing.JLabel();
         lblName = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
+        txtCircular = new javax.swing.JLabel();
+        chbCircular = new javax.swing.JCheckBox();
         txtSegment = new javax.swing.JLabel();
         scrollPaneSegment = new javax.swing.JScrollPane();
         lstSegmentTrip = new javax.swing.JList();
@@ -82,7 +85,9 @@ public class ModifyTrip extends javax.swing.JFrame {
         }else{
             txtName.setText("Trajet");
         }
-        
+
+        txtCircular.setText("Circulaire: ");
+
         txtSegment.setText("Segments du trajet: ");
 
         lstSegmentTrip.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -95,6 +100,7 @@ public class ModifyTrip extends javax.swing.JFrame {
         btnDelete.setText("Supprimer");
 
         lstAllSegment.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        lstAllSegment.setToolTipText("");
         jScrollPane1.setViewportView(lstAllSegment);
         lstAllSegment.getAccessibleContext().setAccessibleParent(scrollPaneSegment);
 
@@ -102,12 +108,10 @@ public class ModifyTrip extends javax.swing.JFrame {
 
         btnAddSegmentToTrip.setText("<<");
         btnAddSegmentToTrip.addActionListener(new java.awt.event.ActionListener() {
-            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddSegmentToTripActionPerformed(evt);
             }
         });
-
         btnRemoveSegmentFromTrip.setText(">>");
         btnRemoveSegmentFromTrip.addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -139,6 +143,7 @@ public class ModifyTrip extends javax.swing.JFrame {
                 btnDeleteActionPerformed(evt);
             }
         });
+        
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -152,7 +157,10 @@ public class ModifyTrip extends javax.swing.JFrame {
                                 .addComponent(lblName)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtCircular)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(chbCircular))
                             .addComponent(lblTitle))
                         .addGap(0, 162, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -195,7 +203,9 @@ public class ModifyTrip extends javax.swing.JFrame {
                     .addComponent(lblName)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtCircular)
+                    .addComponent(chbCircular))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSegment)
@@ -216,7 +226,7 @@ public class ModifyTrip extends javax.swing.JFrame {
                     .addComponent(btnDelete))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
-        
+
         listAllSegmentModel = new DefaultListModel();
         for(int i = 0; i < this.controller.getListSegment().size(); i++)
         {
@@ -233,6 +243,8 @@ public class ModifyTrip extends javax.swing.JFrame {
             }
             lstSegmentTrip.setModel(listSegmentTripModel);
         }
+        lstAllSegment.setPreferredSize(new Dimension(216,116));
+        
         pack();
     }
    
@@ -350,21 +362,21 @@ public class ModifyTrip extends javax.swing.JFrame {
 
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnOk;
+    private javax.swing.JCheckBox chbCircular;
     private javax.swing.JButton btnAddSegmentToTrip;
     private javax.swing.JButton btnRemoveSegmentFromTrip;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JList lstAllSegment;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblNbMaxVehicule;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JList lstAllSegment;
     private javax.swing.JList lstSegmentTrip;
     private javax.swing.JScrollPane scrollPaneSegment;
+    private javax.swing.JLabel txtCircular;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtNbMaxVehicule;
     private javax.swing.JLabel txtSegment;
     private DefaultListModel listAllSegmentModel = new DefaultListModel(); 
     private DefaultListModel listSegmentTripModel = new DefaultListModel(); 
-
-    
 }

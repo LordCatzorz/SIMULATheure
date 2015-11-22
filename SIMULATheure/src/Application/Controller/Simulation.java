@@ -26,7 +26,6 @@ public class Simulation
 {
     private String name;
     private Tool currentTool;
-    private Image background;
     private Time simulationTime;
     private float speedMultiplier;
     private List<Node> listNode;
@@ -54,7 +53,7 @@ public class Simulation
         this.simulationTime = new Time();
     }
             
-    public void Play()
+    public void play()
     {
         this.saveInitialState();
         //this.setSegmentsDuration //dans le DS démarrer la simulation 
@@ -65,14 +64,14 @@ public class Simulation
         }*/
     }
     
-    public void Pause()
+    public void pause()
     {
         this.speedMultiplier = 0;
     }
     
-    public void Reset()
+    public void reset()
     {
-        this.Pause();
+        this.pause();
         this.LoadSimulation(name);
     }
     
@@ -162,39 +161,39 @@ public class Simulation
         }  
     }
     
-    public void LoadSimulation(String folderPath)
+    public void LoadSimulation(String _folderPath)
     {
         try
         {
-            FileInputStream fileIn = new FileInputStream(folderPath + "vehicules");
+            FileInputStream fileIn = new FileInputStream(_folderPath + "vehicules");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             this.listVehicule = (List<Vehicule>) in.readObject();
             
-            fileIn = new FileInputStream(folderPath + "segments.ser");
+            fileIn = new FileInputStream(_folderPath + "segments.ser");
             in = new ObjectInputStream(fileIn);
             this.listSegment = (List<Segment>) in.readObject();
             
-            fileIn = new FileInputStream(folderPath + "clents.ser");
+            fileIn = new FileInputStream(_folderPath + "clents.ser");
             in = new ObjectInputStream(fileIn);
             this.listClient = (List<Client>) in.readObject();
             
-            fileIn = new FileInputStream(folderPath + "clientGenerators.ser");
+            fileIn = new FileInputStream(_folderPath + "clientGenerators.ser");
             in = new ObjectInputStream(fileIn);
             this.listClientGenerator = (List<ClientGenerator>) in.readObject();                        
             
-            fileIn = new FileInputStream(folderPath + "clientProfiles.ser");
+            fileIn = new FileInputStream(_folderPath + "clientProfiles.ser");
             in = new ObjectInputStream(fileIn);
             this.listClientProfile = (List<ClientProfile>) in.readObject();
             
-            fileIn = new FileInputStream(folderPath + "nodes.ser");
+            fileIn = new FileInputStream(_folderPath + "nodes.ser");
             in = new ObjectInputStream(fileIn);
             this.listNode = (List<Node>) in.readObject();
             
-            fileIn = new FileInputStream(folderPath + "trips.ser");
+            fileIn = new FileInputStream(_folderPath + "trips.ser");
             in = new ObjectInputStream(fileIn);
             this.listTrip = (List<Trip>) in.readObject();                        
             
-            fileIn = new FileInputStream(folderPath + "vehiculeGenerators.ser");
+            fileIn = new FileInputStream(_folderPath + "vehiculeGenerators.ser");
             in = new ObjectInputStream(fileIn);
             this.listVehiculeGenerator = (List<VehiculeGenerator>) in.readObject();
            
@@ -400,7 +399,7 @@ public class Simulation
     }
     
     public void changeVehiculeGeneratorInfo(VehiculeGenerator _generator, Segment _spawnSegment, Trip _trip,
-                                            double _min, double _max, double _mode, Time _startTime, Time _endTime, String name)
+                                            double _min, double _max, double _mode, Time _startTime, Time _endTime, String _name)
     {
         for(VehiculeGenerator generator : this.listVehiculeGenerator)
         {

@@ -15,6 +15,7 @@ public class Node implements java.io.Serializable
 {
     private GeographicPosition geographicPosition;
     private String name;
+    private int diameter = 16;
 
     public Node(GeographicPosition _geographicPosition)
     {
@@ -39,5 +40,10 @@ public class Node implements java.io.Serializable
     public void setName(String _name)
     {
         this.name = _name;
+    }
+    
+    public int getDiameter()
+    {
+        return this.diameter;
     }
 }
