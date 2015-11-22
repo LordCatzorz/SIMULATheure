@@ -412,6 +412,7 @@ public class VehiculeGenerator extends javax.swing.JFrame
                             break;
                         }
                     }
+                    
                     controller.changeVehiculeGeneratorInfo(generator, spawnSegment, trip, min , max, mode,timeStart,timeEnd, txtName.getText());               
                 }else{
                     JOptionPane.showMessageDialog(this, "Une erreur est survenu, désolé de l'inconvénient.");

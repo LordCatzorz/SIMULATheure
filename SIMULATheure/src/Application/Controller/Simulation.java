@@ -411,7 +411,7 @@ public class Simulation
     }
     
     public void changeVehiculeGeneratorInfo(VehiculeGenerator _generator, Segment _spawnSegment, Trip _trip,
-                                            double _min, double _max, double _mode, Time _startTime, Time _endTime, String name)
+                                            double _min, double _max, double _mode, Time _startTime, Time _endTime, String _name)
     {
         for(VehiculeGenerator generator : this.listVehiculeGenerator)
         {
@@ -422,8 +422,7 @@ public class Simulation
                 generator.setTrip(_trip);
                 generator.setDistribution(_min, _max, _mode);
                 generator.setSpawnSegment(_spawnSegment);
-                //setter le vehiculeKind selon la capacity
-                
+                generator.setName(_name);                
                 break;
             }
         }
