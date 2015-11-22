@@ -27,6 +27,7 @@ import javax.swing.JPanel;
 import Application.Controller.Tool;
 import Domain.Node.Node;
 import Domain.Simulation.Simulation;
+import Domain.Trips.Trip;
 
 import java.awt.Color;
 import javax.swing.DefaultListModel;
@@ -257,6 +258,23 @@ public class mainFrame extends javax.swing.JFrame {
                         formSegment.setVisible(true);
                         break;
                     case TRIP:
+                        String selectedTrip = lstToolItems.getSelectedValue().toString();
+                        Trip trip = new Trip();
+                        for (int i = 0; i < controller.getListTrip().size(); i++)
+                        {
+                            if (controller.getListTrip().get(i).getName().equalsIgnoreCase(selectedTrip))
+                            {
+                                trip = controller.getListTrip().get(i);
+                            }
+                        }
+                        ModifyTrip formTrip = new ModifyTrip(controller,trip);
+                        formTrip.addWindowListener(new java.awt.event.WindowAdapter (){
+                                @Override
+                                public void windowClosed(java.awt.event.WindowEvent e){
+                                    updateListTrip();
+                                }
+                            });
+                        formTrip.setVisible(true);
                         break;
                     case VEHICULE:
                         break;
@@ -769,6 +787,12 @@ public class mainFrame extends javax.swing.JFrame {
                 break;
             case TRIP:               
                 ModifyTrip form = new ModifyTrip(this.controller);
+                form.addWindowListener(new java.awt.event.WindowAdapter (){
+                    @Override
+                    public void windowClosed(java.awt.event.WindowEvent e){
+                        updateListTrip();
+                    }
+                });
                 form.setVisible(true);                               
                 break;
             case VEHICULE:

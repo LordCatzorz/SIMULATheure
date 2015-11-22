@@ -161,8 +161,7 @@ public class ModifyStop extends javax.swing.JFrame {
         int dialogResult = JOptionPane.showConfirmDialog(this, "La suppression de cet arrêt causera la perte\n de tous les segments lui étant associés.\n Êtes-vous certain de vouloir supprimer l'arrêt ?","Avertissement",dialogButton);
         if(dialogResult == JOptionPane.YES_OPTION)
         {
-            String name = controller.deleteNode(oldXPosition, oldYPosition);
-            controller.deleteSegmentWithNode(name);
+            controller.deleteNode(oldXPosition, oldYPosition);
             dispose();
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
