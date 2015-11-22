@@ -27,6 +27,10 @@ public class Simulation
     private String name;
     private Tool currentTool;
     private Time simulationTime;
+    private Image background;
+    private Time currentTime;
+    private Time startTime;
+    private Time endTime;
     private float speedMultiplier;
     private List<Node> listNode;
     private List<Vehicule> listVehicule;
@@ -36,6 +40,8 @@ public class Simulation
     private List<VehiculeGenerator> listVehiculeGenerator;
     private List<ClientProfile> listClientProfile;
     private List<Client> listClient;
+    private boolean isSimulationStarted;
+    private boolean isSimulationPaused;
     
     private int nodeMargin = 5;
     
@@ -50,10 +56,52 @@ public class Simulation
         this.listClientProfile = new ArrayList<>();
         this.listClient = new ArrayList<>();
         this.speedMultiplier = 0;
-        this.simulationTime = new Time();
+        this.currentTime = new Time();
+        this.startTime = new Time();
+        this.endTime = new Time();
+        this.isSimulationStarted = false;
+        this.isSimulationPaused = false;
     }
             
-    public void play()
+    
+    public boolean getIsSimuationStarted()
+    {
+        return this.isSimulationStarted;
+    }
+    public void setIsSimulationStarted(boolean _isSimulationStarted)
+    {
+        this.isSimulationStarted = _isSimulationStarted;
+    }
+    public boolean getIsSimuationPaused()
+    {
+        return this.isSimulationPaused;
+    }
+    public void setIsSimulationPaused(boolean _isSimulationPaused)
+    {
+        this.isSimulationPaused = _isSimulationPaused;
+    }
+    public Time getCurrentTime()
+    {
+        return this.currentTime;
+    }
+    public Time getStartTime()
+    {
+        return this.startTime;
+    }
+    public void setStartTime(Time _startTime)
+    {
+        this.startTime =_startTime;
+    }
+    public Time getEndTime()
+    {
+        return this.endTime;
+    }
+    public void setEndTime(Time _endTime)
+    {
+        this.endTime =_endTime;
+    }
+    
+    public void Play()
     {
         this.saveInitialState();
         //this.setSegmentsDuration //dans le DS démarrer la simulation 
@@ -79,12 +127,12 @@ public class Simulation
     {
         for(int i = 0; i < this.listClientGenerator.size(); i++)
         {
-            this.listClientGenerator.get(i).awakeGenerator(this.simulationTime);
+            this.listClientGenerator.get(i).awakeGenerator(this.currentTime);
         }
         
         for(int i = 0; i < this.listVehiculeGenerator.size(); i++)
         {
-            this.listVehiculeGenerator.get(i).awakeGenerator(this.simulationTime);
+            this.listVehiculeGenerator.get(i).awakeGenerator(this.currentTime);
         }
         this.updateVehiculePositions();
     }
@@ -213,10 +261,6 @@ public class Simulation
     public Tool getCurrentTool()
     {
         return this.currentTool;
-    }
-    public Time getCurrentTime()
-    {
-       return this.simulationTime;
     }
     public void setCurrentTool(Tool _tool)
     {
@@ -669,7 +713,7 @@ public class Simulation
         Time timeSegmentStart = _vehicule.getCurrentPosition().getTimeSegmentStart();
         
         double durationTime = segment.getDurationTime()/60;
-        double timeSpent = (this.simulationTime.getTime() - timeSegmentStart.getTime());
+        double timeSpent = (this.currentTime.getTime() - timeSegmentStart.getTime());
         double completionPercentage = (timeSpent/durationTime)*100;
         return (completionPercentage >= 100);
     }

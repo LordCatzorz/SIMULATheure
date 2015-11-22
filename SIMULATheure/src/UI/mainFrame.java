@@ -633,6 +633,12 @@ public class mainFrame extends javax.swing.JFrame {
         menuBar.add(menuHelp);
 
         setJMenuBar(menuBar);
+        
+        btnStart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStartActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -705,7 +711,22 @@ public class mainFrame extends javax.swing.JFrame {
         Help helpFrame = new Help();
         helpFrame.setVisible(true);
     }
-
+    
+    private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {
+        if(this.controller.getListVehicule().size() > 0)
+        {
+            StartSimulation form = new StartSimulation(this.controller);
+            form.addWindowListener(new java.awt.event.WindowAdapter (){
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent e){
+                    
+                }
+            });
+            form.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(this, "Il n'y a pas de véhicules existants à simuler.");
+        }
+    }
     private void btnClientProfileActionPerformed(java.awt.event.ActionEvent evt) {
         lblToolName.setText("Profil client");
         lblToolName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

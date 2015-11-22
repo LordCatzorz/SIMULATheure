@@ -54,8 +54,6 @@ public class ModifyTrip extends javax.swing.JFrame {
         lblTitle = new javax.swing.JLabel();
         lblName = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
-        txtCircular = new javax.swing.JLabel();
-        chbCircular = new javax.swing.JCheckBox();
         txtSegment = new javax.swing.JLabel();
         scrollPaneSegment = new javax.swing.JScrollPane();
         lstSegmentTrip = new javax.swing.JList();
@@ -85,8 +83,6 @@ public class ModifyTrip extends javax.swing.JFrame {
         }else{
             txtName.setText("Trajet");
         }
-
-        txtCircular.setText("Circulaire: ");
 
         txtSegment.setText("Segments du trajet: ");
 
@@ -157,10 +153,7 @@ public class ModifyTrip extends javax.swing.JFrame {
                                 .addComponent(lblName)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtCircular)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(chbCircular))
+
                             .addComponent(lblTitle))
                         .addGap(0, 162, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -202,10 +195,7 @@ public class ModifyTrip extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblName)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtCircular)
-                    .addComponent(chbCircular))
+                
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSegment)
@@ -362,7 +352,6 @@ public class ModifyTrip extends javax.swing.JFrame {
 
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnOk;
-    private javax.swing.JCheckBox chbCircular;
     private javax.swing.JButton btnAddSegmentToTrip;
     private javax.swing.JButton btnRemoveSegmentFromTrip;
     private javax.swing.JLabel jLabel1;
@@ -373,7 +362,6 @@ public class ModifyTrip extends javax.swing.JFrame {
     private javax.swing.JList lstAllSegment;
     private javax.swing.JList lstSegmentTrip;
     private javax.swing.JScrollPane scrollPaneSegment;
-    private javax.swing.JLabel txtCircular;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtNbMaxVehicule;
     private javax.swing.JLabel txtSegment;
