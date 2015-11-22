@@ -779,6 +779,8 @@ public class mainFrame extends javax.swing.JFrame {
             case CLIENT_GENERATOR:
                 break;
             case VEHICULE_GENERATOR:
+                VehiculeGenerator formVehiculeGenerator = new VehiculeGenerator(this.controller);
+                formVehiculeGenerator.setVisible(true);
                 break;
             case CLIENT_PROFILE:  
                 break;

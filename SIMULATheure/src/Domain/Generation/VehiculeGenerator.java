@@ -24,6 +24,7 @@ public class VehiculeGenerator implements java.io.Serializable
     private Segment spawnSegment;
     private VehiculeKind vehiculeKind;
     private Trip trip;
+    private String name;
     
     public VehiculeGenerator()
     {
@@ -32,6 +33,16 @@ public class VehiculeGenerator implements java.io.Serializable
     public VehiculeGenerator(Segment _spawnSegment)
     {
         this.spawnSegment = _spawnSegment;
+    }
+    
+    public String getName()
+    {
+        return this.name;
+    }
+    
+    public void setName(String _name)
+    {
+        this.name = _name;
     }
     
     public Time getNextDepartureTime()

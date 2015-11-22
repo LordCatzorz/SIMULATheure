@@ -409,7 +409,7 @@ public class Simulation
     }
     
     public void changeVehiculeGeneratorInfo(VehiculeGenerator _generator, Trip _trip, int _capacity, 
-                                            float _min, float _max, float _mode, Time _startTime, Time _endTime)
+                                            float _min, float _max, float _mode, Time _startTime, Time _endTime, String name)
     {
         for(VehiculeGenerator generator : this.listVehiculeGenerator)
         {
@@ -420,6 +420,7 @@ public class Simulation
                 generator.setVehiculeKind(new VehiculeKind());
                 generator.setTrip(_trip);
                 generator.setDistribution(_min, _max, _mode);
+                generator.setName(name);
                 //setter le vehiculeKind selon la capacity
                 
                 break;
@@ -473,6 +474,20 @@ public class Simulation
             }
         }
     }
+    
+    
+    public void deleteVehiculeGenerator(String _name)
+    {
+        for(VehiculeGenerator vehiculeGenerator: this.listVehiculeGenerator)
+        {
+            if(vehiculeGenerator.getName().equals(_name))
+            {
+                this.listVehiculeGenerator.remove(vehiculeGenerator);
+                break;
+            }
+        }
+    }
+    
     
     public boolean modifyTrip()
     {

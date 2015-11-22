@@ -6,6 +6,8 @@
 package UI;
 
 import Domain.Simulation.Simulation;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 /**
  *
  * @author Élise
@@ -34,10 +36,17 @@ public class VehiculeGenerator extends javax.swing.JFrame
             this.cmbTrip.addItem(controller.getListTrip().get(i).getName());
         }
         
-        for(int i =0; i < controller.getListNode().size(); i++)
+        for(int i = 0; i < controller.getListTrip().size(); i++)
         {
-            this.cmbOriginStop.addItem(controller.getListNode().get(i).getName());
+            if (cmbTrip.getSelectedItem().toString().equalsIgnoreCase(controller.getListTrip().get(i).getName()))
+            {
+                for (int j = 0; j < controller.getListTrip().get(i).getAllSegments().size(); j++)
+                {
+                    this.cmbOriginStop.addItem(controller.getListTrip().get(i).getAllSegments().get(j).getOriginNode().getName());
+                }
+            }
         }
+        
         if(controller.getVehiculeGeneratorAtPosition(_x, _y).getVehiculeKind() != null)
             this.txtCapacity.setText(String.valueOf(controller.getVehiculeGeneratorAtPosition(_x, _y).getVehiculeKind().getCapacity()));
         
@@ -52,6 +61,22 @@ public class VehiculeGenerator extends javax.swing.JFrame
         
         if(controller.getVehiculeGeneratorAtPosition(_x, _y).getTimeEndGeneration() != null)
             this.txtStartTime.setText(String.valueOf(controller.getVehiculeGeneratorAtPosition(_x, _y).getTimeEndGeneration()));
+        
+        
+    }
+    
+    public VehiculeGenerator(Simulation _controller) 
+    {
+        initComponents();
+        setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
+        
+        this.controller = _controller;
+        
+        for(int i = 0; i < controller.getListTrip().size(); i++)
+        {
+            this.cmbTrip.addItem(controller.getListTrip().get(i).getName());
+        }
+        
     }
     
     /**
@@ -82,6 +107,8 @@ public class VehiculeGenerator extends javax.swing.JFrame
         txtModeTime = new javax.swing.JTextField();
         txtStartTime = new javax.swing.JTextField();
         txtEndTime = new javax.swing.JTextField();
+        lblName = new javax.swing.JLabel();
+        txtName = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,11 +117,7 @@ public class VehiculeGenerator extends javax.swing.JFrame
 
         lblTrip.setText("Trajet: ");
 
-        cmbTrip.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         lblOriginStop.setText("Arrêt de départ: ");
-
-        cmbOriginStop.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         lblCapacity.setText("Capacité: ");
 
@@ -121,6 +144,8 @@ public class VehiculeGenerator extends javax.swing.JFrame
                 btnDeleteActionPerformed(evt);
             }
         });
+
+        lblName.setText("Nom:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -156,14 +181,16 @@ public class VehiculeGenerator extends javax.swing.JFrame
                                         .addComponent(lblMaxTime)
                                         .addComponent(lblModeTime)
                                         .addComponent(lblStartTime)
-                                        .addComponent(lblEndTime))
+                                        .addComponent(lblEndTime)
+                                        .addComponent(lblName))
                                     .addGap(18, 18, 18)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(txtMinTime)
                                         .addComponent(txtMaxTime)
                                         .addComponent(txtModeTime)
                                         .addComponent(txtStartTime)
-                                        .addComponent(txtEndTime))))
+                                        .addComponent(txtEndTime)
+                                        .addComponent(txtName))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(46, 46, 46)
                                 .addComponent(lblTitle)))
@@ -206,7 +233,11 @@ public class VehiculeGenerator extends javax.swing.JFrame
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEndTime)
                     .addComponent(txtEndTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblName))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnOk)
                     .addComponent(btnDelete))
@@ -221,7 +252,13 @@ public class VehiculeGenerator extends javax.swing.JFrame
     }//GEN-LAST:event_btnOkActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        
+        for (int i = 0; i < controller.getListVehiculeGenerator().size(); i++)
+        {
+            if (controller.getListVehiculeGenerator().get(i).getName().equalsIgnoreCase(txtName.getText()))
+            {
+                controller.deleteVehiculeGenerator(txtName.getText());
+            }
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
@@ -269,6 +306,7 @@ public class VehiculeGenerator extends javax.swing.JFrame
     private javax.swing.JLabel lblMaxTime;
     private javax.swing.JLabel lblMinTime;
     private javax.swing.JLabel lblModeTime;
+    private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblOriginStop;
     private javax.swing.JLabel lblStartTime;
     private javax.swing.JLabel lblTitle;
@@ -278,6 +316,7 @@ public class VehiculeGenerator extends javax.swing.JFrame
     private javax.swing.JTextField txtMaxTime;
     private javax.swing.JTextField txtMinTime;
     private javax.swing.JTextField txtModeTime;
+    private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtStartTime;
     // End of variables declaration//GEN-END:variables
 }
