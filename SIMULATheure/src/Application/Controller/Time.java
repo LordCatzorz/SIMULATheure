@@ -70,11 +70,17 @@ public class Time {
         System.out.println(hour);
         System.out.println(Math.round(hour));
         System.out.println((int) Math.round(hour));
+        
+        int hourAmount = (int) Math.round(hour);
+        if(hourAmount >= 24)
+        {
+            hourAmount = hourAmount - 24;
+        }
         if(!(hour < 10))
         {
-            timeString+=(int) Math.round(hour) + ":";
+            timeString+= hourAmount+ ":";
         }else{
-            timeString+="0" +(int) Math.round(hour)+ ":";
+            timeString+="0" +hourAmount+ ":";
         }
         if(minute <10)
         {
