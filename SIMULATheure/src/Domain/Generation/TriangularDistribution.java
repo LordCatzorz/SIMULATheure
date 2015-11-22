@@ -4,54 +4,66 @@
  * and open the template in the editor.
  */
 package Domain.Generation;
+import java.util.Random;
+import static java.lang.Math.sqrt;
 
 /**
  *
  * @author Raphael
  */
-public class TriangularDistribution<T> implements java.io.Serializable
+public class TriangularDistribution implements java.io.Serializable
 {
-    private T minimum;
-    private T maximum;
-    private T mode;
+    private int minimum;
+    private int maximum;
+    private int mode;
     
-    public TriangularDistribution(T _minimum, T _maximum, T _mode)
+    public TriangularDistribution(int _minimum, int _maximum, int _mode)
     {
         this.maximum = _maximum;
         this.minimum = _minimum;
         this.mode = _mode;
     }
     
-    public T calculate()
+    public double calculate()
     {
-        return null;
+        double proportion = (mode - minimum)/(maximum - minimum);
+        Random randomGenerator = new Random();
+        double randomInt = randomGenerator.nextInt(100);
+        double randomizedProportion;
+        if(randomInt <= proportion)
+        {
+            randomizedProportion = sqrt(randomInt/100 * proportion);
+        }else{
+            randomizedProportion = 1 - (sqrt((1-(randomInt/100)) * (1-proportion)));
+        }
+        return (minimum + (maximum - minimum)*randomizedProportion); 
     }
     
-    public T getMinimum()
+    public int getMinimum()
     {
         return this.minimum;
     }
     
-    public T getMaximum()
+    public int getMaximum()
     {
         return this.maximum;
     }
-    public T getMode()
+    public int getMode()
     {
         return this.mode;
     }
     
-    public void setMinimum(T _minimum)
+    public void setMinimum(int _minimum)
     {
         this.minimum = _minimum;
     }
     
-    public void setMaximum(T _maximum)
+    public void setMaximum(int _maximum)
     {
         this.maximum = _maximum;
     }
     
-    public void setMode(T _mode)
+    public void setMode(int _mode)
     {
         this.mode = _mode;
     }
