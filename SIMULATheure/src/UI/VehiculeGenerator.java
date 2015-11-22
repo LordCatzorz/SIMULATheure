@@ -24,7 +24,6 @@ public class VehiculeGenerator extends javax.swing.JFrame
     private Simulation controller;
     private Domain.Generation.VehiculeGenerator generator;
 
-    
     /**
      * Creates new form VehciuleGenerator
      */
@@ -59,8 +58,6 @@ public class VehiculeGenerator extends javax.swing.JFrame
         cmbTrip = new javax.swing.JComboBox();
         lblOriginStop = new javax.swing.JLabel();
         cmbOriginStop = new javax.swing.JComboBox();
-        lblCapacity = new javax.swing.JLabel();
-        txtCapacity = new javax.swing.JTextField();
         lblMinTime = new javax.swing.JLabel();
         lblMaxTime = new javax.swing.JLabel();
         lblModeTime = new javax.swing.JLabel();
@@ -84,8 +81,6 @@ public class VehiculeGenerator extends javax.swing.JFrame
         lblTrip.setText("Trajet: ");
 
         lblOriginStop.setText("Arrêt de départ: ");
-
-        lblCapacity.setText("Capacité: ");
 
         lblMinTime.setText("Temps minimal: ");
 
@@ -172,28 +167,38 @@ public class VehiculeGenerator extends javax.swing.JFrame
               }
             }
           });
-
-        lblName.setText("Nom:");
         
-        this.cmbTrip.removeAllItems();
-        this.cmbOriginStop.removeAllItems();
-        
-        for(int i = 0; i < controller.getListTrip().size(); i++)
+        cmbTrip.addActionListener (new ActionListener () 
         {
-            this.cmbTrip.addItem(controller.getListTrip().get(i).getName());
-        }
-        
-        for(int i = 0; i < controller.getListTrip().size(); i++)
-        {
-            if (cmbTrip.getSelectedItem().toString().equalsIgnoreCase(controller.getListTrip().get(i).getName()))
+            public void actionPerformed(ActionEvent e) 
             {
-                for (int j = 0; j < controller.getListTrip().get(i).getAllSegments().size(); j++)
+                cmbOriginStop.removeAllItems();
+                for(int i = 0; i < controller.getListNodeByTrip(controller.getTripByName(cmbTrip.getSelectedItem().toString())).size(); i++)
                 {
-                    this.cmbOriginStop.addItem(controller.getListTrip().get(i).getAllSegments().get(j).getOriginNode().getName());
+                    cmbOriginStop.addItem(controller.getListNodeByTrip(controller.getTripByName(cmbTrip.getSelectedItem().toString())).get(i).getName());
                 }
             }
-        }
+        });
+        lblName.setText("Nom:");
         
+        if(generator == null)
+        {
+            for(int i = 0; i < controller.getListTrip().size(); i++)
+            {
+                this.cmbTrip.addItem(controller.getListTrip().get(i).getName());
+            }
+        }
+        else
+        {
+            this.txtName.setText(generator.getName());
+            for(int i = 0; i < controller.getListTrip().size(); i++)
+            {
+                this.cmbTrip.addItem(controller.getListTrip().get(i).getName());
+            }
+            this.cmbTrip.setSelectedItem(generator.getTrip().getName());       
+
+            this.cmbOriginStop.setSelectedItem(generator.getSpawnSegment().getOriginNode().getName());
+        }
         if (generator != null)
         {
             this.txtMinTime.setText(String.valueOf(generator.getDistribution().getMinimum()));
@@ -232,38 +237,33 @@ public class VehiculeGenerator extends javax.swing.JFrame
                         .addGap(69, 69, 69))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(lblTrip)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(cmbTrip, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(lblOriginStop)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(cmbOriginStop, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(lblCapacity)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblMinTime)
-                                        .addComponent(lblMaxTime)
-                                        .addComponent(lblModeTime)
-                                        .addComponent(lblStartTime)
-                                        .addComponent(lblEndTime)
-                                        .addComponent(lblName))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtMinTime)
-                                        .addComponent(txtMaxTime)
-                                        .addComponent(txtModeTime)
-                                        .addComponent(txtStartTime)
-                                        .addComponent(txtEndTime)
-                                        .addComponent(txtName))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblMinTime)
+                                    .addComponent(lblMaxTime)
+                                    .addComponent(lblModeTime)
+                                    .addComponent(lblStartTime)
+                                    .addComponent(lblEndTime)
+                                    .addComponent(lblName))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtMaxTime, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                                    .addComponent(txtModeTime)
+                                    .addComponent(txtStartTime)
+                                    .addComponent(txtEndTime)
+                                    .addComponent(txtName)
+                                    .addComponent(txtMinTime)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(46, 46, 46)
-                                .addComponent(lblTitle)))
+                                .addComponent(lblTitle))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblOriginStop)
+                                    .addComponent(lblTrip))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cmbOriginStop, 0, 137, Short.MAX_VALUE)
+                                    .addComponent(cmbTrip, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addContainerGap(49, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -279,10 +279,6 @@ public class VehiculeGenerator extends javax.swing.JFrame
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblOriginStop)
                     .addComponent(cmbOriginStop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCapacity)
-                    .addComponent(txtCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblMinTime)
@@ -307,7 +303,7 @@ public class VehiculeGenerator extends javax.swing.JFrame
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblName))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnOk)
                     .addComponent(btnDelete))
@@ -405,6 +401,7 @@ public class VehiculeGenerator extends javax.swing.JFrame
                             break;
                         }
                     }
+                    
                     controller.changeVehiculeGeneratorInfo(generator, spawnSegment, trip, min , max, mode,timeStart,timeEnd, txtName.getText());               
                 }else{
                     JOptionPane.showMessageDialog(this, "Une erreur est survenu, désolé de l'inconvénient.");
@@ -424,9 +421,8 @@ public class VehiculeGenerator extends javax.swing.JFrame
             controller.deleteVehiculeGenerator(generator);
             dispose();
         }
-        
     }//GEN-LAST:event_btnDeleteActionPerformed
-
+ 
     /**
      * @param args the command line arguments
      */
@@ -461,12 +457,11 @@ public class VehiculeGenerator extends javax.swing.JFrame
             }
         });
     }
-
+	
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnOk;
     private javax.swing.JComboBox cmbOriginStop;
     private javax.swing.JComboBox cmbTrip;
-    private javax.swing.JLabel lblCapacity;
     private javax.swing.JLabel lblEndTime;
     private javax.swing.JLabel lblMaxTime;
     private javax.swing.JLabel lblMinTime;
@@ -476,11 +471,11 @@ public class VehiculeGenerator extends javax.swing.JFrame
     private javax.swing.JLabel lblStartTime;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblTrip;
-    private javax.swing.JTextField txtCapacity;
     private javax.swing.JTextField txtEndTime;
     private javax.swing.JTextField txtMaxTime;
     private javax.swing.JTextField txtMinTime;
     private javax.swing.JTextField txtModeTime;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtStartTime;
+
 }

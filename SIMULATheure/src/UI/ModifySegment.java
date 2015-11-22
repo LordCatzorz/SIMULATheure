@@ -33,9 +33,9 @@ public class ModifySegment extends javax.swing.JFrame {
         txtName.setText(controller.getSegmentAtPostion(_x, _y).getName());
         txtOriginStop.setText(oldOriginName);
         txtDestiStop.setText(oldDestinationName);
-        txtMinTime.setText(String.valueOf(controller.getSegmentAtPostion(_x, _y).getDurationDistribution().getMinimum())); 
-        txtMaxTime.setText(String.valueOf(controller.getSegmentAtPostion(_x, _y).getDurationDistribution().getMaximum()));
-        txtModeTime.setText(String.valueOf(controller.getSegmentAtPostion(_x, _y).getDurationDistribution().getMode()));
+        txtMinTime.setText(String.valueOf((int)Math.round(controller.getSegmentAtPostion(_x, _y).getDurationDistribution().getMinimum()))); 
+        txtMaxTime.setText(String.valueOf((int)Math.round(controller.getSegmentAtPostion(_x, _y).getDurationDistribution().getMaximum())));
+        txtModeTime.setText(String.valueOf((int)Math.round(controller.getSegmentAtPostion(_x, _y).getDurationDistribution().getMode())));
     }
     
     public ModifySegment(Simulation _controller, Node _originNode, Node _destinationNode) 
