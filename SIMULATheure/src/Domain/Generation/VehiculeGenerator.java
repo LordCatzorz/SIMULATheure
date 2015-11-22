@@ -18,19 +18,20 @@ import Domain.Vehicule.VehiculeKind;
 public class VehiculeGenerator implements java.io.Serializable
 {
     private Time nextDepartureTime;
-    private TriangularDistribution<Time> distribution;
+    private TriangularDistribution distribution;
     private Time timeBeginGeneration;
     private Time timeEndGeneration;
     private Segment spawnSegment;
     private VehiculeKind vehiculeKind;
     private Trip trip;
     
-    public VehiculeGenerator(Trip _trip, Segment _spawnSegment, VehiculeKind _vehiculeKind)
+    public VehiculeGenerator()
     {
-        //this.distribution = new TriangularDistribution();
-        this.trip = _trip;
+    }
+    
+    public VehiculeGenerator(Segment _spawnSegment)
+    {
         this.spawnSegment = _spawnSegment;
-        this.vehiculeKind = _vehiculeKind;
     }
     
     public Time getNextDepartureTime()
@@ -48,6 +49,10 @@ public class VehiculeGenerator implements java.io.Serializable
         return this.distribution;
     }
     
+    public void setDistribution(float _min, float _max, float _mode)
+    {
+        this.distribution = new TriangularDistribution(_min, _max, _mode);
+    }
     
     public Time getTimeBeginGeneration()
     {
@@ -72,6 +77,26 @@ public class VehiculeGenerator implements java.io.Serializable
     public Segment getSpawnSegment()
     {
         return this.spawnSegment;
+    }
+    
+    public VehiculeKind getVehiculeKind()
+    {
+        return this.vehiculeKind;
+    }
+    
+    public Trip getTrip()
+    {
+        return this.trip;
+    }
+    
+    public void setTrip(Trip _trip)
+    {
+        this.trip = _trip;
+    }
+    
+    public void setVehiculeKind(VehiculeKind _kind)
+    {
+        this.vehiculeKind = _kind;
     }
     
     public Vehicule awakeGenerator(Time _currentTime)

@@ -4,21 +4,56 @@
  * and open the template in the editor.
  */
 package UI;
+
+import Domain.Simulation.Simulation;
 /**
  *
  * @author Élise
  */
-public class VehciuleGenerator extends javax.swing.JFrame {
-
+public class VehiculeGenerator extends javax.swing.JFrame 
+{
+    private Simulation controller;
+    private float xPosition;
+    private float yPosition;
+    
     /**
      * Creates new form VehciuleGenerator
      */
-    public VehciuleGenerator() 
+    public VehiculeGenerator(Simulation _controller, float _x, float _y) 
     {
         initComponents();
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
+        
+        this.controller = _controller;
+        
+        this.cmbTrip.removeAllItems();
+        this.cmbOriginStop.removeAllItems();
+        
+        for(int i = 0; i < controller.getListTrip().size(); i++)
+        {
+            this.cmbTrip.addItem(controller.getListTrip().get(i).getName());
+        }
+        
+        for(int i =0; i < controller.getListNode().size(); i++)
+        {
+            this.cmbOriginStop.addItem(controller.getListNode().get(i).getName());
+        }
+        if(controller.getVehiculeGeneratorAtPosition(_x, _y).getVehiculeKind() != null)
+            this.txtCapacity.setText(String.valueOf(controller.getVehiculeGeneratorAtPosition(_x, _y).getVehiculeKind().getCapacity()));
+        
+        if(controller.getVehiculeGeneratorAtPosition(_x, _y).getDistribution() != null)
+        {
+            this.txtMinTime.setText(String.valueOf(controller.getVehiculeGeneratorAtPosition(_x, _y).getDistribution().getMinimum()));
+            this.txtMaxTime.setText(String.valueOf(controller.getVehiculeGeneratorAtPosition(_x, _y).getDistribution().getMaximum()));
+            this.txtModeTime.setText(String.valueOf(controller.getVehiculeGeneratorAtPosition(_x, _y).getDistribution().getMode()));
+        }
+        if(controller.getVehiculeGeneratorAtPosition(_x, _y).getTimeBeginGeneration() != null)
+            this.txtStartTime.setText(String.valueOf(controller.getVehiculeGeneratorAtPosition(_x, _y).getTimeBeginGeneration()));
+        
+        if(controller.getVehiculeGeneratorAtPosition(_x, _y).getTimeEndGeneration() != null)
+            this.txtStartTime.setText(String.valueOf(controller.getVehiculeGeneratorAtPosition(_x, _y).getTimeEndGeneration()));
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -74,8 +109,18 @@ public class VehciuleGenerator extends javax.swing.JFrame {
         lblEndTime.setText("Heure fin: ");
 
         btnOk.setText("Ok");
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOkActionPerformed(evt);
+            }
+        });
 
         btnDelete.setText("Supprimer");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -171,6 +216,14 @@ public class VehciuleGenerator extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
+        //controller.changeVehiculeGeneratorInfo(new VehiculeGenerator(), null, null, WIDTH, TOP_ALIGNMENT, TOP_ALIGNMENT, TOP_ALIGNMENT, null, null);
+    }//GEN-LAST:event_btnOkActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -188,20 +241,20 @@ public class VehciuleGenerator extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VehciuleGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VehiculeGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VehciuleGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VehiculeGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VehciuleGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VehiculeGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VehciuleGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VehiculeGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VehciuleGenerator().setVisible(true);
+                //new VehiculeGenerator().setVisible(true);
             }
         });
     }

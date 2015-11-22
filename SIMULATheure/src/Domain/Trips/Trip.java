@@ -19,6 +19,8 @@ public class Trip implements java.io.Serializable
     private List<Segment> allSegments;
     private Time nextDepartureTime;
     private String name;
+    private int maxNumberVehicule;
+    private boolean isCircular;
     
     public Trip()
     {
@@ -66,5 +68,21 @@ public class Trip implements java.io.Serializable
             }
         }
         return null;
+    }
+    public void setMaxNumberVehicule(int _number)
+    {
+        this.maxNumberVehicule = _number;
+    }
+    public int getMaxNumberVehicule()
+    {
+        return this.maxNumberVehicule;
+    }
+    public boolean getIsCircular()
+    {
+        return isCircular;
+    }
+    public void setIsCircular(boolean _isCircular)
+    {
+        isCircular = _isCircular;
     }
 }
