@@ -27,6 +27,7 @@ import javax.swing.JPanel;
 import Application.Controller.Tool;
 import Domain.Node.Node;
 import Domain.Simulation.Simulation;
+import Domain.Trips.Trip;
 
 import java.awt.Color;
 import javax.swing.DefaultListModel;
@@ -191,25 +192,6 @@ public class mainFrame extends javax.swing.JFrame {
                         updateListClientGenerator();
                         break;
                     case VEHICULE_GENERATOR:
-                        if(controller.getVehiculeGeneratorAtPosition(e.getX(),e.getY()) != null)
-                        {
-                            VehiculeGenerator form = new VehiculeGenerator(controller,
-                                                                           controller.getNodeAtPostion(e.getX(), e.getY()).getGeographicPosition().getXPosition(),
-                                                                           controller.getNodeAtPostion(e.getX(), e.getY()).getGeographicPosition().getYPosition());
-                            form.setVisible(true);
-                        }
-                        else
-                        {
-                            if(controller.getNodeAtPostion(e.getX(), e.getY()) != null)
-                            {
-                                controller.addVehiculeGenerator(controller.getNodeAtPostion(e.getX(), e.getY()));
-                                VehiculeGenerator form = new VehiculeGenerator(controller, 
-                                                                               controller.getNodeAtPostion(e.getX(), e.getY()).getGeographicPosition().getXPosition(),
-                                                                               controller.getNodeAtPostion(e.getX(), e.getY()).getGeographicPosition().getYPosition());
-                                form.setVisible(true);
-                            }
-                        }
-                        updateListVehiculeGenerator();
                         break;
                     case CLIENT_PROFILE:  
                         controller.addClientProfile(null);
@@ -258,6 +240,23 @@ public class mainFrame extends javax.swing.JFrame {
                         formSegment.setVisible(true);
                         break;
                     case TRIP:
+                        String selectedTrip = lstToolItems.getSelectedValue().toString();
+                        Trip trip = new Trip();
+                        for (int i = 0; i < controller.getListTrip().size(); i++)
+                        {
+                            if (controller.getListTrip().get(i).getName().equalsIgnoreCase(selectedTrip))
+                            {
+                                trip = controller.getListTrip().get(i);
+                            }
+                        }
+                        ModifyTrip formTrip = new ModifyTrip(controller,trip);
+                        formTrip.addWindowListener(new java.awt.event.WindowAdapter (){
+                                @Override
+                                public void windowClosed(java.awt.event.WindowEvent e){
+                                    updateListTrip();
+                                }
+                            });
+                        formTrip.setVisible(true);
                         break;
                     case VEHICULE:
                         break;
@@ -266,6 +265,23 @@ public class mainFrame extends javax.swing.JFrame {
                     case CLIENT_GENERATOR:
                         break;
                     case VEHICULE_GENERATOR:
+                        String selectedGenerator = lstToolItems.getSelectedValue().toString();
+                        Domain.Generation.VehiculeGenerator vehiculeGenerator;
+                        for (int i = 0; i < controller.getListVehiculeGenerator().size(); i++)
+                        {
+                            if (controller.getListVehiculeGenerator().get(i).getName().equalsIgnoreCase(selectedGenerator))
+                            {
+                                vehiculeGenerator = controller.getListVehiculeGenerator().get(i);
+                                VehiculeGenerator formVehiculeGenerator = new VehiculeGenerator(mainFrame.this.controller, vehiculeGenerator);
+                                formVehiculeGenerator.addWindowListener(new java.awt.event.WindowAdapter (){
+                                    @Override
+                                    public void windowClosed(java.awt.event.WindowEvent e){
+                                        updateListVehiculeGenerator();
+                                    }
+                                });
+                                formVehiculeGenerator.setVisible(true);
+                            }
+                        }
                         break;
                     case CLIENT_PROFILE:
                         break;
@@ -770,6 +786,12 @@ public class mainFrame extends javax.swing.JFrame {
                 break;
             case TRIP:               
                 ModifyTrip form = new ModifyTrip(this.controller);
+                form.addWindowListener(new java.awt.event.WindowAdapter (){
+                    @Override
+                    public void windowClosed(java.awt.event.WindowEvent e){
+                        updateListTrip();
+                    }
+                });
                 form.setVisible(true);                               
                 break;
             case VEHICULE:
@@ -780,6 +802,12 @@ public class mainFrame extends javax.swing.JFrame {
                 break;
             case VEHICULE_GENERATOR:
                 VehiculeGenerator formVehiculeGenerator = new VehiculeGenerator(this.controller);
+                formVehiculeGenerator.addWindowListener(new java.awt.event.WindowAdapter (){
+                    @Override
+                    public void windowClosed(java.awt.event.WindowEvent e){
+                        updateListVehiculeGenerator();
+                    }
+                });
                 formVehiculeGenerator.setVisible(true);
                 break;
             case CLIENT_PROFILE:  

@@ -133,7 +133,12 @@ public class ModifyTrip extends javax.swing.JFrame {
               }
             }
           });
-
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -269,50 +274,75 @@ public class ModifyTrip extends javax.swing.JFrame {
             lstSegmentTrip.setModel(listSegmentTripModel);
         }
     }
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) 
+    {
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(this, "La suppression de ce trajet causera la perte\n de tous les véhicules et générateur de véhicules lui étant associés.\n Êtes-vous certain de vouloir supprimer le trajet ?","Avertissement",dialogButton);
+        if(dialogResult == JOptionPane.YES_OPTION)
+        {
+            controller.deleteTrip(this.trip);
+            dispose();
+        }
+    }
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt)
     {
         String name = txtName.getText();
         String strNbVehicule = txtNbMaxVehicule.getText();
         if(lstSegmentTrip.getModel().getSize() > 0 && !name.isEmpty() && !strNbVehicule.isEmpty())
         {
-            Boolean isCircular = false;   
-            List<Segment> list = new LinkedList();
-            for(int i = 0; i < lstSegmentTrip.getModel().getSize(); i++)
+            boolean nameExists = false;
+            for(int k = 0; k < controller.getListTrip().size(); k++)
             {
-                String segmentFromList = lstSegmentTrip.getModel().getElementAt(i).toString();
-                String origin = segmentFromList.substring(0, segmentFromList.indexOf('|') - 1);
-                String destination = segmentFromList.substring(segmentFromList.indexOf('|') + 2, segmentFromList.length());
-                for(int j = 0; j < this.controller.getListSegment().size(); j++){
-                    if(this.controller.getListSegment().get(j).getOriginNode().getName().equalsIgnoreCase(origin) && this.controller.getListSegment().get(j).getDestinationNode().getName().equalsIgnoreCase(destination))
-                    {
-                        
-                        Segment segment = this.controller.getListSegment().get(j);
-                        list.add(segment);
-                        break;
-                    }
+                if(controller.getListTrip().get(k).getName().equalsIgnoreCase(name))
+                {
+                    nameExists = true;
+                    break;
                 }
             }
-            String lastSegment = lstSegmentTrip.getModel().getElementAt(lstSegmentTrip.getModel().getSize() -1).toString();
-            String lastDestination = lastSegment.substring(lastSegment.indexOf('|') + 2, lastSegment.length());
-            String firstSegment = lstSegmentTrip.getModel().getElementAt(0).toString();
-            String firstOrigin = firstSegment.substring(0, firstSegment.indexOf('|') - 1);
-            
-            if(firstOrigin.equalsIgnoreCase(lastDestination))
+            if(!nameExists)
             {
-                isCircular = true;
-            }
-            int nbVehicule = Integer.parseInt(strNbVehicule);
-            if(this.trip == null)
-            {
-                this.controller.addTrip(list, name,nbVehicule,isCircular);
+                Boolean isCircular = false;   
+                List<Segment> list = new LinkedList();
+                for(int i = 0; i < lstSegmentTrip.getModel().getSize(); i++)
+                {
+                    String segmentFromList = lstSegmentTrip.getModel().getElementAt(i).toString();
+                    String origin = segmentFromList.substring(0, segmentFromList.indexOf('|') - 1);
+                    String destination = segmentFromList.substring(segmentFromList.indexOf('|') + 2, segmentFromList.length());
+                    for(int j = 0; j < this.controller.getListSegment().size(); j++){
+                        if(this.controller.getListSegment().get(j).getOriginNode().getName().equalsIgnoreCase(origin) && this.controller.getListSegment().get(j).getDestinationNode().getName().equalsIgnoreCase(destination))
+                        {
+
+                            Segment segment = this.controller.getListSegment().get(j);
+                            list.add(segment);
+                            break;
+                        }
+                    }
+                }
+                String lastSegment = lstSegmentTrip.getModel().getElementAt(lstSegmentTrip.getModel().getSize() -1).toString();
+                String lastDestination = lastSegment.substring(lastSegment.indexOf('|') + 2, lastSegment.length());
+                String firstSegment = lstSegmentTrip.getModel().getElementAt(0).toString();
+                String firstOrigin = firstSegment.substring(0, firstSegment.indexOf('|') - 1);
+
+                if(firstOrigin.equalsIgnoreCase(lastDestination))
+                {
+                    isCircular = true;
+                }
+                int nbVehicule = Integer.parseInt(strNbVehicule);
+                if(this.trip == null)
+                {
+                    this.controller.addTrip(list, name,nbVehicule,isCircular);
+                }else
+                {
+                    trip.setName(name);
+                    trip.setAllSegments(list);
+                    trip.setMaxNumberVehicule(nbVehicule);
+                    trip.setIsCircular(isCircular);
+                }
+                dispose();
             }else
             {
-                trip.setName(name);
-                trip.setAllSegments(list);
-                trip.setMaxNumberVehicule(nbVehicule);
-                trip.setIsCircular(isCircular);
+                JOptionPane.showMessageDialog(this, "Ce nom de trajet existe déjà, veuillez en sélectionner un nouveau.");
             }
-            dispose();
         }else{
             JOptionPane.showMessageDialog(this, "Assurez-vous d'avoir rempli tous les champs avant \nla création ou la modification du trajet.");
         }
