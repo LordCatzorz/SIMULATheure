@@ -170,6 +170,7 @@ public class StartSimulation extends javax.swing.JFrame {
             controller.setStartTime(timeStart);
             controller.setEndTime(timeEnd);
             controller.setIsSimulationStarted(true);
+            dispose();
         }     
     }
     

@@ -77,6 +77,7 @@ public class mainFrame extends javax.swing.JFrame {
         @Override
         public void mouseMoved(java.awt.event.MouseEvent e) {
                 lblCoordinate.setText("Coordonnées: Latitude " + (int)(e.getX() / zp.getZoom()) + " Longitude " + (int)(e.getY()/zp.getZoom()));
+                
                 if(nodeSelectedForSegment)
                 {
                     if (lines.size() == 4)
@@ -546,7 +547,7 @@ public class mainFrame extends javax.swing.JFrame {
                 .addComponent(scrollPaneTool, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        lblTime.setText("Heure: -");
+        //lblTime.setText("Heure: -");
 
         menuFile.setText("Fichier");
         menuFile.addActionListener(new java.awt.event.ActionListener() {
@@ -718,7 +719,10 @@ public class mainFrame extends javax.swing.JFrame {
             form.addWindowListener(new java.awt.event.WindowAdapter (){
                 @Override
                 public void windowClosed(java.awt.event.WindowEvent e){
-                    
+                    if (controller.getIsSimuationStarted())
+                    {
+                        lblTime.setText("Heure: " + controller.getStartTime().getTimeStringNoSecond());
+                    }
                 }
             });
             form.setVisible(true);
@@ -965,6 +969,12 @@ public class mainFrame extends javax.swing.JFrame {
                             diameter, diameter);
                 
             }
+            
+            //A PIERRE!!!
+            /*if (controller.getIsSimuationStarted())
+            {
+                lblTime.setText("Heure: " + controller.getCurrentTime().getTimeStringNoSecond());
+            }*/
             
             g2.setTransform(backup);
         } 
