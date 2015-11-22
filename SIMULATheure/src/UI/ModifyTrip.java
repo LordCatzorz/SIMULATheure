@@ -7,7 +7,12 @@ package UI;
 
 import javax.swing.DefaultListModel;
 import Domain.Simulation.Simulation;
+import Domain.Trips.Segment;
 import Domain.Trips.Trip;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.LinkedList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -48,8 +53,6 @@ public class ModifyTrip extends javax.swing.JFrame {
         lblTitle = new javax.swing.JLabel();
         lblName = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
-        txtCircular = new javax.swing.JLabel();
-        chbCircular = new javax.swing.JCheckBox();
         txtSegment = new javax.swing.JLabel();
         scrollPaneSegment = new javax.swing.JScrollPane();
         lstSegmentTrip = new javax.swing.JList();
@@ -72,11 +75,14 @@ public class ModifyTrip extends javax.swing.JFrame {
         lblTitle.setText("Ajouter, modifier ou supprimer un trajet");
 
         lblName.setText("Nom: ");
-
-        txtName.setText("Trajet1");
-
-        txtCircular.setText("Circulaire: ");
-
+        if(this.trip != null)
+        {
+            txtName.setText(trip.getName());
+            txtNbMaxVehicule.setText(""+trip.getMaxNumberVehicule());
+        }else{
+            txtName.setText("Trajet");
+        }
+        
         txtSegment.setText("Segments du trajet: ");
 
         lstSegmentTrip.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -96,6 +102,7 @@ public class ModifyTrip extends javax.swing.JFrame {
 
         btnAddSegmentToTrip.setText("<<");
         btnAddSegmentToTrip.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddSegmentToTripActionPerformed(evt);
             }
@@ -103,15 +110,29 @@ public class ModifyTrip extends javax.swing.JFrame {
 
         btnRemoveSegmentFromTrip.setText(">>");
         btnRemoveSegmentFromTrip.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemoveSegmentFromTripActionPerformed(evt);
             }
         });
         btnOk.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOKActionPerformed(evt);
             }
         });
+        txtNbMaxVehicule.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+              char c = e.getKeyChar();
+              if (!((c >= '0') && (c <= '9') ||
+                 (c == KeyEvent.VK_BACK_SPACE) ||
+                 (c == KeyEvent.VK_DELETE))) {
+                getToolkit().beep();
+                e.consume();
+              }
+            }
+          });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -126,10 +147,7 @@ public class ModifyTrip extends javax.swing.JFrame {
                                 .addComponent(lblName)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtCircular)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(chbCircular))
+                            
                             .addComponent(lblTitle))
                         .addGap(0, 162, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -172,9 +190,7 @@ public class ModifyTrip extends javax.swing.JFrame {
                     .addComponent(lblName)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtCircular)
-                    .addComponent(chbCircular))
+                
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSegment)
@@ -204,6 +220,7 @@ public class ModifyTrip extends javax.swing.JFrame {
         lstAllSegment.setModel(listAllSegmentModel);
         if(this.trip != null)
         {
+            
             listSegmentTripModel = new DefaultListModel();
             for(int i = 0; i < this.trip.getAllSegments().size(); i++)
             {
@@ -215,31 +232,33 @@ public class ModifyTrip extends javax.swing.JFrame {
     }
    
     private void btnAddSegmentToTripActionPerformed(java.awt.event.ActionEvent evt) {
-        String selectedValue = lstAllSegment.getSelectedValue().toString();
-        String originName = selectedValue.substring(0, selectedValue.indexOf('|') - 1);
-        boolean isValidTrip = false;
-        
-        if(lstSegmentTrip.getModel().getSize() > 0)
+        if(!lstAllSegment.isSelectionEmpty())
         {
-            String lastSegmentFromTrip = lstSegmentTrip.getModel().getElementAt(lstSegmentTrip.getModel().getSize() -1).toString();
-            String lastDestinationName = lastSegmentFromTrip.substring(lastSegmentFromTrip.indexOf('|') + 2, lastSegmentFromTrip.length());
-                       
-            if(lastDestinationName.equalsIgnoreCase(originName))
+            String selectedValue = lstAllSegment.getSelectedValue().toString();
+            String originName = selectedValue.substring(0, selectedValue.indexOf('|') - 1);
+            boolean isValidTrip = false;
+
+            if(lstSegmentTrip.getModel().getSize() > 0)
             {
+                String lastSegmentFromTrip = lstSegmentTrip.getModel().getElementAt(lstSegmentTrip.getModel().getSize() -1).toString();
+                String lastDestinationName = lastSegmentFromTrip.substring(lastSegmentFromTrip.indexOf('|') + 2, lastSegmentFromTrip.length());
+
+                if(lastDestinationName.equalsIgnoreCase(originName))
+                {
+                    isValidTrip = true;
+                }
+            }else{
                 isValidTrip = true;
             }
-        }else{
-            isValidTrip = true;
+            if(isValidTrip)
+            {
+                listSegmentTripModel.addElement(selectedValue);
+                lstSegmentTrip.setModel(listSegmentTripModel);
+            }else
+            {
+                JOptionPane.showMessageDialog(this, "Assurez-vous d'ajouter un segment qui continue\n le circuit à partir du dernier arrêt courant.");
+            }
         }
-        if(isValidTrip)
-        {
-            listSegmentTripModel.addElement(selectedValue);
-            lstSegmentTrip.setModel(listSegmentTripModel);
-        }else
-        {
-            JOptionPane.showMessageDialog(this, "Assurez-vous d'ajouter un segment qui continue\n le circuit à partir du dernier arrêt courant.");
-        }
-        
         
     }
     private void btnRemoveSegmentFromTripActionPerformed(java.awt.event.ActionEvent evt) 
@@ -252,12 +271,55 @@ public class ModifyTrip extends javax.swing.JFrame {
     }
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt)
     {
-        
+        String name = txtName.getText();
+        String strNbVehicule = txtNbMaxVehicule.getText();
+        if(lstSegmentTrip.getModel().getSize() > 0 && !name.isEmpty() && !strNbVehicule.isEmpty())
+        {
+            Boolean isCircular = false;   
+            List<Segment> list = new LinkedList();
+            for(int i = 0; i < lstSegmentTrip.getModel().getSize(); i++)
+            {
+                String segmentFromList = lstSegmentTrip.getModel().getElementAt(i).toString();
+                String origin = segmentFromList.substring(0, segmentFromList.indexOf('|') - 1);
+                String destination = segmentFromList.substring(segmentFromList.indexOf('|') + 2, segmentFromList.length());
+                for(int j = 0; j < this.controller.getListSegment().size(); j++){
+                    if(this.controller.getListSegment().get(j).getOriginNode().getName().equalsIgnoreCase(origin) && this.controller.getListSegment().get(j).getDestinationNode().getName().equalsIgnoreCase(destination))
+                    {
+                        
+                        Segment segment = this.controller.getListSegment().get(j);
+                        list.add(segment);
+                        break;
+                    }
+                }
+            }
+            String lastSegment = lstSegmentTrip.getModel().getElementAt(lstSegmentTrip.getModel().getSize() -1).toString();
+            String lastDestination = lastSegment.substring(lastSegment.indexOf('|') + 2, lastSegment.length());
+            String firstSegment = lstSegmentTrip.getModel().getElementAt(0).toString();
+            String firstOrigin = firstSegment.substring(0, firstSegment.indexOf('|') - 1);
+            
+            if(firstOrigin.equalsIgnoreCase(lastDestination))
+            {
+                isCircular = true;
+            }
+            int nbVehicule = Integer.parseInt(strNbVehicule);
+            if(this.trip == null)
+            {
+                this.controller.addTrip(list, name,nbVehicule,isCircular);
+            }else
+            {
+                trip.setName(name);
+                trip.setAllSegments(list);
+                trip.setMaxNumberVehicule(nbVehicule);
+                trip.setIsCircular(isCircular);
+            }
+            dispose();
+        }else{
+            JOptionPane.showMessageDialog(this, "Assurez-vous d'avoir rempli tous les champs avant \nla création ou la modification du trajet.");
+        }
     }
 
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnOk;
-    private javax.swing.JCheckBox chbCircular;
     private javax.swing.JButton btnAddSegmentToTrip;
     private javax.swing.JButton btnRemoveSegmentFromTrip;
     private javax.swing.JLabel jLabel1;
@@ -268,7 +330,6 @@ public class ModifyTrip extends javax.swing.JFrame {
     private javax.swing.JLabel lblTitle;
     private javax.swing.JList lstSegmentTrip;
     private javax.swing.JScrollPane scrollPaneSegment;
-    private javax.swing.JLabel txtCircular;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtNbMaxVehicule;
     private javax.swing.JLabel txtSegment;

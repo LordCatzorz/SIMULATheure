@@ -250,17 +250,14 @@ public class Simulation
         return this.listVehicule.add(new Vehicule(_trip, _vehiculeKind, _spawnSegment));
     }
     
-    public boolean addTrip(List<Segment> _listSegment, String _name, boolean _circular)
+    public boolean addTrip(List<Segment> _listSegment, String _name, int _number, boolean _isCircular)
     {
-        Trip trip;
-        if(_circular)
-            trip = new CircularTrip();
-        else
-            trip = new LinearTrip();
-        
+        Trip trip = new Trip();
         List<Segment> list = new LinkedList<>(_listSegment);
         trip.setAllSegments(list);
         trip.setName(_name);
+        trip.setMaxNumberVehicule(_number);
+        trip.setIsCircular(_isCircular);
         return this.listTrip.add(trip);
     }
     
@@ -475,6 +472,11 @@ public class Simulation
                 break;
             }
         }
+    }
+    
+    public boolean modifyTrip()
+    {
+        return true;
     }
     
     /******************************************
