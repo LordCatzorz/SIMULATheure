@@ -4,9 +4,6 @@
  * and open the template in the editor.
  */
 package Application.Controller;
-
-import java.math.BigDecimal;
-
 /**
  *
  * @author Pierre
@@ -42,7 +39,7 @@ public class Time {
     {
         return hour;
     }
-    public void setHour(Double _hour)
+    public void setHour(double _hour)
     {
         this.hour = _hour;
     }
@@ -50,14 +47,14 @@ public class Time {
     {
         return minute;
     }
-    public void setMinute(Double _minute)
+    public void setMinute(double _minute)
     {
         this.minute = _minute;
     }public double getSecond()
     {
         return second;
     }
-    public void setSecond(Double _second)
+    public void setSecond(double _second)
     {
         this.hour = _second;
     }
