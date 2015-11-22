@@ -26,13 +26,15 @@ public class Vehicule implements java.io.Serializable
     private VehiculePosition position;
     private VehiculeKind vehiculeKind;
     private float speed = 2;
+    private String name;
     
-    public Vehicule(Trip _trip, VehiculeKind _vehiculeKind, Segment _segmentToSpawn)
+    public Vehicule(Trip _trip, VehiculeKind _vehiculeKind, Segment _segmentToSpawn, String _name)
     {
         this.position = new VehiculePosition(_segmentToSpawn, Time.valueOf("00:00"));
         this.inboardClients = new ArrayList<>();
         this.trip = _trip;
         this.vehiculeKind = _vehiculeKind;
+        this.name = _name;
     }
     
     public void embarkClient(List<Client> _newPassengers)
@@ -94,5 +96,16 @@ public class Vehicule implements java.io.Serializable
     {
         return this.speed;
     }
+    
+    public String getName()
+    {
+        return this.name;
+    }
+    
+    public void setName(String _name)
+    {
+        this.name = _name;
+    }
+    
     
 }

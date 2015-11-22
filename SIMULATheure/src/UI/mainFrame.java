@@ -180,7 +180,7 @@ public class mainFrame extends javax.swing.JFrame {
                     case TRIP:
                         break;
                     case VEHICULE:
-                        controller.addVehicule(null, null, null);
+                        //controller.addVehicule(null, null, null);
                         updateListVehicule();
                         break;
                     case CLIENT:
@@ -259,6 +259,23 @@ public class mainFrame extends javax.swing.JFrame {
                         formTrip.setVisible(true);
                         break;
                     case VEHICULE:
+                        String selectedVehicule = lstToolItems.getSelectedValue().toString();
+                        Domain.Vehicule.Vehicule vehicule;
+                        for (int i = 0; i < controller.getListVehicule().size(); i++)
+                        {
+                            if (controller.getListVehicule().get(i).getName().equalsIgnoreCase(selectedVehicule))
+                            {
+                                vehicule = controller.getListVehicule().get(i);
+                                ModifyVehicule formVehicule = new ModifyVehicule(mainFrame.this.controller, vehicule);
+                                formVehicule.addWindowListener(new java.awt.event.WindowAdapter (){
+                                    @Override
+                                    public void windowClosed(java.awt.event.WindowEvent e){
+                                        updateListVehiculeGenerator();
+                                    }
+                                });
+                                formVehicule.setVisible(true);
+                            }
+                        }
                         break;
                     case CLIENT:
                         break;
@@ -795,6 +812,14 @@ public class mainFrame extends javax.swing.JFrame {
                 form.setVisible(true);                               
                 break;
             case VEHICULE:
+                ModifyVehicule formVehicule = new ModifyVehicule(this.controller);
+                formVehicule.addWindowListener(new java.awt.event.WindowAdapter (){
+                    @Override
+                    public void windowClosed(java.awt.event.WindowEvent e){
+                        updateListVehiculeGenerator();
+                    }
+                });
+                formVehicule.setVisible(true);
                 break;
             case CLIENT:
                 break;

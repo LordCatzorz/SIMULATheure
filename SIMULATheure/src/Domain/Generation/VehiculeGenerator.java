@@ -30,9 +30,13 @@ public class VehiculeGenerator implements java.io.Serializable
     {
     }
     
-    public VehiculeGenerator(Segment _spawnSegment)
+    public VehiculeGenerator(Time _timeBeginGeneration, Time _timeEndGeneration, Segment _spawnSegment, Trip trip, String name)
     {
         this.spawnSegment = _spawnSegment;
+        this.timeBeginGeneration = _timeBeginGeneration;
+        this.timeEndGeneration = _timeEndGeneration;
+        this.trip = trip;
+        this.name = name;
     }
     
     public String getName()

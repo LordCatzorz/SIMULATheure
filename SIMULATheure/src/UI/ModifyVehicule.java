@@ -4,17 +4,33 @@
  * and open the template in the editor.
  */
 package UI;
+
+import Domain.Simulation.Simulation;
+import Domain.Trips.Trip;
+import Domain.Vehicule.Vehicule;
+
 /**
  *
  * @author Élise
  */
 public class ModifyVehicule extends javax.swing.JFrame {
 
+    private Simulation controller;
+    private Vehicule vehicule = null;
     /**
      * Creates new form ModifyVehicule
      */
-    public ModifyVehicule() 
+    public ModifyVehicule(Simulation _controller) 
     {
+        controller = _controller;
+        initComponents();
+        setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
+    }
+    
+    public ModifyVehicule(Simulation _controller, Vehicule _vehicule) 
+    {
+        controller = _controller;
+        vehicule = _vehicule;
         initComponents();
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
     }
@@ -46,15 +62,45 @@ public class ModifyVehicule extends javax.swing.JFrame {
 
         lblTrip.setText("Trajet: ");
 
-        cmbTrip.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         lblOriginStop.setText("Arrêt de départ: ");
 
-        cmbOriginStop.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         btnOk.setText("Ok");
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOkActionPerformed(evt);
+            }
+        });
 
         btnDelete.setText("Supprimer");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+        
+        this.cmbTrip.removeAllItems();
+        this.cmbOriginStop.removeAllItems();
+        
+        for(int i = 0; i < controller.getListTrip().size(); i++)
+        {
+            this.cmbTrip.addItem(controller.getListTrip().get(i).getName());
+        }
+        
+        if (vehicule != null)
+        {
+            this.cmbTrip.setSelectedItem(vehicule.getTrip().getName());
+        }
+        
+        for(int i = 0; i < controller.getListTrip().size(); i++)
+        {
+            if (cmbTrip.getSelectedItem().toString().equalsIgnoreCase(controller.getListTrip().get(i).getName()))
+            {
+                for (int j = 0; j < controller.getListTrip().get(i).getAllSegments().size(); j++)
+                {
+                    this.cmbOriginStop.addItem(controller.getListTrip().get(i).getAllSegments().get(j).getOriginNode().getName());
+                }
+            }
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -113,40 +159,35 @@ public class ModifyVehicule extends javax.swing.JFrame {
 
         pack();
     }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+    
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {                                      
+            /*if (oldGenerator == null)
+            {
+                //controller.addVehiculeGenerator(null, null, null, null, null, null)
+            }
+            else
+            {
+                //Faire les vérifications
+                Trip trip = null;
+                for (int i = 0; i < controller.getListTrip().size(); i++)
+                {
+                    if (controller.getListTrip().get(i).getName().equalsIgnoreCase(cmbTrip.getSelectedItem().toString()))
+                    {
+                        trip = controller.getListTrip().get(i);
+                    }
                 }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ModifyVehicule.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ModifyVehicule.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ModifyVehicule.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ModifyVehicule.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                if (trip != null)
+                {
+                    controller.changeVehiculeGeneratorInfo(oldGenerator, trip, Integer.parseInt(txtCapacity.getText()), Float.parseFloat(txtMinTime.getText()), Float.parseFloat(txtMaxTime.getText()), Float.parseFloat(txtModeTime.getText()), java.sql.Time.valueOf(txtStartTime.getText()), java.sql.Time.valueOf(txtEndTime.getText()), txtName.getText());               
+                }
+            }*/
+    }
+    
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {
+        if (vehicule != null)
+        {
+            controller.deleteVehicule(vehicule);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ModifyVehicule().setVisible(true);
-            }
-        });
     }
 
     private javax.swing.JButton btnDelete;

@@ -245,9 +245,9 @@ public class Simulation
         return this.listSegment.add(new Segment(_origin, _destination));
     }
     
-    public boolean addVehicule(VehiculeKind _vehiculeKind, Trip _trip, Segment _spawnSegment)
+    public boolean addVehicule(VehiculeKind _vehiculeKind, Trip _trip, Segment _spawnSegment, String _name)
     {
-        return this.listVehicule.add(new Vehicule(_trip, _vehiculeKind, _spawnSegment));
+        return this.listVehicule.add(new Vehicule(_trip, _vehiculeKind, _spawnSegment, _name));
     }
     
     public boolean addTrip(List<Segment> _listSegment, String _name, int _number, boolean _isCircular)
@@ -266,20 +266,20 @@ public class Simulation
         return this.listClientGenerator.add(new ClientGenerator(_clientProfile));
     }
     
-    public boolean addVehiculeGenerator(Node _spawnNode)//VehiculeKind _vehiculeKind, Segment _spawnSegment, Trip _trip)
+    public boolean addVehiculeGenerator(Node _spawnNode, Time _timeBeginGeneration, Time _timeEndGeneration, Trip _trip, String _name, VehiculeKind _vehiculeKind)//VehiculeKind _vehiculeKind, Segment _spawnSegment, Trip _trip)
     {
         for(Segment segment: this.listSegment)
         {
             if(segment.getOriginNode() == _spawnNode)
-                return this.listVehiculeGenerator.add(new VehiculeGenerator(segment));
+                return this.listVehiculeGenerator.add(new VehiculeGenerator(_timeBeginGeneration, _timeEndGeneration, segment, _trip, _name));
         }
         return this.listVehiculeGenerator.add(new VehiculeGenerator());
     }
     
-    public boolean addVehiculeGenerator(Segment _spawnSegment)//VehiculeKind _vehiculeKind, Segment _spawnSegment, Trip _trip)
+    /*public boolean addVehiculeGenerator(Segment _spawnSegment, Time _timeBeginGeneration, Time _timeEndGeneration, Trip _trip, String _name, VehiculeKind _vehiculeKind)//VehiculeKind _vehiculeKind, Segment _spawnSegment, Trip _trip)
     {
-        return this.listVehiculeGenerator.add(new VehiculeGenerator(_spawnSegment));
-    }
+        return this.listVehiculeGenerator.add(new VehiculeGenerator(_timeBeginGeneration, _timeEndGeneration, _spawnSegment, _trip, _name, _vehiculeKind));
+    }*/
     
     public boolean addClientProfile(List<Itinary> _itinary)
     {
@@ -372,16 +372,6 @@ public class Simulation
         return null;
     }*/
     
-    public VehiculeGenerator getVehiculeGeneratorByName(String _name)
-    {
-        for(VehiculeGenerator generator: this.listVehiculeGenerator)
-        {
-            if(generator.getName().equalsIgnoreCase(_name))
-                return generator;
-        }
-        return null;
-    }
-    
     public void changeNodeNameAndPosition(float _oldXPosition, float _oldYPosition, float _newXPosition, float _newYPosition, String _name)
     {
         for(Node node : this.listNode)
@@ -430,7 +420,6 @@ public class Simulation
                 generator.setVehiculeKind(new VehiculeKind());
                 generator.setTrip(_trip);
                 generator.setDistribution(_min, _max, _mode);
-                generator.setName(name);
                 //setter le vehiculeKind selon la capacity
                 
                 break;
@@ -474,6 +463,10 @@ public class Simulation
         }
     }
     
+    public void deleteVehicule(Vehicule _vehicule)
+    {
+        this.listSegment.remove(_vehicule);
+    }
     
     public void deleteSegmentByNodeName(String _originName, String _destinationName)
     {
@@ -489,16 +482,9 @@ public class Simulation
     }
     
     
-    public void deleteVehiculeGenerator(String _name)
+    public void deleteVehiculeGenerator(VehiculeGenerator _vehiculeGenerator)
     {
-        for(VehiculeGenerator vehiculeGenerator: this.listVehiculeGenerator)
-        {
-            if(vehiculeGenerator.getName().equals(_name))
-            {
-                this.listVehiculeGenerator.remove(vehiculeGenerator);
-                break;
-            }
-        }
+        this.listVehiculeGenerator.remove(_vehiculeGenerator);
     }
     
 

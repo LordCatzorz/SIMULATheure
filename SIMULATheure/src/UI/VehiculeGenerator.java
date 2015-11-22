@@ -6,6 +6,7 @@
 package UI;
 
 import Domain.Simulation.Simulation;
+import Domain.Trips.Trip;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 /**
@@ -126,17 +127,13 @@ public class VehiculeGenerator extends javax.swing.JFrame
         }
         
         if (oldGenerator != null)
-            if(controller.getVehiculeGeneratorByName(oldGenerator.getName()).getVehiculeKind() != null)
-                this.txtCapacity.setText(String.valueOf(controller.getVehiculeGeneratorByName(oldGenerator.getName()).getVehiculeKind().getCapacity()));
+            this.txtCapacity.setText(String.valueOf(oldGenerator.getVehiculeKind().getCapacity()));
         
         if (oldGenerator != null)
         {
-            if(controller.getVehiculeGeneratorByName(oldGenerator.getName()).getDistribution() != null)
-            {
-                this.txtMinTime.setText(String.valueOf(controller.getVehiculeGeneratorByName(oldGenerator.getName()).getDistribution().getMinimum()));
-                this.txtMaxTime.setText(String.valueOf(controller.getVehiculeGeneratorByName(oldGenerator.getName()).getDistribution().getMaximum()));
-                this.txtModeTime.setText(String.valueOf(controller.getVehiculeGeneratorByName(oldGenerator.getName()).getDistribution().getMode()));
-            }
+            this.txtMinTime.setText(String.valueOf(oldGenerator.getDistribution().getMinimum()));
+            this.txtMaxTime.setText(String.valueOf(oldGenerator.getDistribution().getMaximum()));
+            this.txtModeTime.setText(String.valueOf(oldGenerator.getDistribution().getMode()));
         }
         else
         {
@@ -146,21 +143,13 @@ public class VehiculeGenerator extends javax.swing.JFrame
         }
         
         if (oldGenerator != null)
-            if(controller.getVehiculeGeneratorByName(oldGenerator.getName()).getTimeBeginGeneration() != null)
-                this.txtStartTime.setText(String.valueOf(controller.getVehiculeGeneratorByName(oldGenerator.getName()).getTimeBeginGeneration()));
+            this.txtStartTime.setText(String.valueOf(oldGenerator.getTimeBeginGeneration()));
 
         if (oldGenerator != null)
-            if(controller.getVehiculeGeneratorByName(oldGenerator.getName()).getTimeEndGeneration() != null)
-                this.txtStartTime.setText(String.valueOf(controller.getVehiculeGeneratorByName(oldGenerator.getName()).getTimeEndGeneration()));
+            this.txtStartTime.setText(String.valueOf(oldGenerator.getTimeEndGeneration()));
         
         if (oldGenerator != null)
-            if(controller.getVehiculeGeneratorByName(oldGenerator.getName()).getTimeEndGeneration() != null)
-                this.txtStartTime.setText(String.valueOf(controller.getVehiculeGeneratorByName(oldGenerator.getName()).getTimeEndGeneration()));
-
-        if (oldGenerator != null)
-            if(controller.getVehiculeGeneratorByName(oldGenerator.getName()).getName() != null)
-                this.txtName.setText(String.valueOf(controller.getVehiculeGeneratorByName(oldGenerator.getName()).getName()));
-
+            this.txtStartTime.setText(String.valueOf(oldGenerator.getTimeEndGeneration()));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -265,21 +254,30 @@ public class VehiculeGenerator extends javax.swing.JFrame
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
             if (oldGenerator == null)
             {
-                //controller.add
+                //controller.addVehiculeGenerator(null, null, null, null, null, null)
             }
             else
             {
-                //controller.changeVehiculeGeneratorInfo(new VehiculeGenerator(), null, null, WIDTH, TOP_ALIGNMENT, TOP_ALIGNMENT, TOP_ALIGNMENT, null, null);               
+                //Faire les vérifications
+                Trip trip = null;
+                for (int i = 0; i < controller.getListTrip().size(); i++)
+                {
+                    if (controller.getListTrip().get(i).getName().equalsIgnoreCase(cmbTrip.getSelectedItem().toString()))
+                    {
+                        trip = controller.getListTrip().get(i);
+                    }
+                }
+                if (trip != null)
+                {
+                    controller.changeVehiculeGeneratorInfo(oldGenerator, trip, Integer.parseInt(txtCapacity.getText()), Float.parseFloat(txtMinTime.getText()), Float.parseFloat(txtMaxTime.getText()), Float.parseFloat(txtModeTime.getText()), java.sql.Time.valueOf(txtStartTime.getText()), java.sql.Time.valueOf(txtEndTime.getText()), txtName.getText());               
+                }
             }
     }//GEN-LAST:event_btnOkActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        for (int i = 0; i < controller.getListVehiculeGenerator().size(); i++)
+        if (oldGenerator != null)
         {
-            if (controller.getListVehiculeGenerator().get(i).getName().equalsIgnoreCase(txtName.getText()))
-            {
-                controller.deleteVehiculeGenerator(txtName.getText());
-            }
+                controller.deleteVehiculeGenerator(oldGenerator);
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
