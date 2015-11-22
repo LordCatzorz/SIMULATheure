@@ -6,7 +6,6 @@
 package Domain.Generation;
 
 import java.sql.Time;
-import java.time.LocalTime;
 import Domain.Client.ClientProfile;
 import Domain.Client.Client;
 /**
@@ -15,7 +14,7 @@ import Domain.Client.Client;
  */
 public class ClientGenerator implements java.io.Serializable
 {
-    private TriangularDistribution<Time> generationTimeDistribution;
+    private TriangularDistribution generationTimeDistribution;
     private Time nextGenerationTime;
     private Time timeBeginGeneration;
     private Time timeEndGeneration;
@@ -66,7 +65,9 @@ public class ClientGenerator implements java.io.Serializable
     {
         if(_currentTime.getTime() >= this.nextGenerationTime.getTime())
         {
-            this.nextGenerationTime.setTime(_currentTime.getTime() + this.generationTimeDistribution.calculate().getTime());
+            double triangular = this.generationTimeDistribution.calculate();
+            long time = Math.round(triangular);
+            this.nextGenerationTime.setTime(_currentTime.getTime() + time);
             return new Client(this.clientProfile);
         }
         else

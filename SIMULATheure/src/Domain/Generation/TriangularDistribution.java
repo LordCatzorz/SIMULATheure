@@ -13,11 +13,11 @@ import static java.lang.Math.sqrt;
  */
 public class TriangularDistribution implements java.io.Serializable
 {
-    private int minimum;
-    private int maximum;
-    private int mode;
+    private float minimum;
+    private float maximum;
+    private float mode;
     
-    public TriangularDistribution(int _minimum, int _maximum, int _mode)
+    public TriangularDistribution(float _minimum, float _maximum, float _mode)
     {
         this.maximum = _maximum;
         this.minimum = _minimum;
@@ -39,31 +39,31 @@ public class TriangularDistribution implements java.io.Serializable
         return (minimum + (maximum - minimum)*randomizedProportion); 
     }
     
-    public int getMinimum()
+    public float getMinimum()
     {
         return this.minimum;
     }
     
-    public int getMaximum()
+    public float getMaximum()
     {
         return this.maximum;
     }
-    public int getMode()
+    public float getMode()
     {
         return this.mode;
     }
     
-    public void setMinimum(int _minimum)
+    public void setMinimum(float _minimum)
     {
         this.minimum = _minimum;
     }
     
-    public void setMaximum(int _maximum)
+    public void setMaximum(float _maximum)
     {
         this.maximum = _maximum;
     }
     
-    public void setMode(int _mode)
+    public void setMode(float _mode)
     {
         this.mode = _mode;
     }
