@@ -5,13 +5,9 @@
  */
 package Domain.Vehicule;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import Domain.Trips.Segment;
 import Domain.Trips.Trip;
-import Domain.Client.Client;
-import Domain.Node.Stop;
+//import Domain.Client.Client;
 import Domain.Positions.GeographicPosition;
 import Domain.Simulation.Time;
 
@@ -22,22 +18,20 @@ import Domain.Simulation.Time;
 public class Vehicule implements java.io.Serializable
 {
     private Trip trip;
-    private List<Client> inboardClients;
+    //private List<Client> inboardClients;
     private VehiculePosition position;
-    private VehiculeKind vehiculeKind;
     private float speed = 2;
     private String name;
     
-    public Vehicule(Trip _trip, VehiculeKind _vehiculeKind, Segment _segmentToSpawn, String _name)
+    public Vehicule(Trip _trip, Segment _segmentToSpawn, String _name)
     {
         this.position = new VehiculePosition(_segmentToSpawn, new Time());
-        this.inboardClients = new ArrayList<>();
+        //this.inboardClients = new ArrayList<>();
         this.trip = _trip;
-        this.vehiculeKind = _vehiculeKind;
         this.name = _name;
     }
     
-    public void embarkClient(List<Client> _newPassengers)
+    /*public void embarkClient(List<Client> _newPassengers)
     {
         this.inboardClients.addAll(_newPassengers);
     }
@@ -51,12 +45,7 @@ public class Vehicule implements java.io.Serializable
     {
         return null;
     }
-    
-    public GeographicPosition getPosition(Time _time)
-    {
-        return null;
-    }
-    
+    */    
     public VehiculePosition getCurrentPosition()
     {
         return this.position;
@@ -75,11 +64,6 @@ public class Vehicule implements java.io.Serializable
     public void setTrip(Trip _trip)
     {
         this.trip = _trip;
-    }
-    
-    public VehiculeKind getVehiculeKind()
-    {
-        return this.vehiculeKind;
     }
     
     public GeographicPosition getGeographicPosition()

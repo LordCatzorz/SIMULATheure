@@ -220,7 +220,10 @@ public class Simulation
     {
         return this.currentTool;
     }
-    
+    public Time getCurrentTime()
+    {
+       return this.simulationTime;
+    }
     public void setCurrentTool(Tool _tool)
     {
         this.currentTool = _tool;
@@ -243,9 +246,9 @@ public class Simulation
         return this.listSegment.add(new Segment(_origin, _destination));
     }
     
-    public boolean addVehicule(VehiculeKind _vehiculeKind, Trip _trip, Segment _spawnSegment, String _name)
+    public boolean addVehicule(Trip _trip, Segment _spawnSegment, String _name)
     {
-        return this.listVehicule.add(new Vehicule(_trip, _vehiculeKind, _spawnSegment, _name));
+        return this.listVehicule.add(new Vehicule(_trip, _spawnSegment, _name));
     }
     
     public boolean addTrip(List<Segment> _listSegment, String _name, int _number, boolean _isCircular)
@@ -401,7 +404,7 @@ public class Simulation
         return false;
     }
     
-    public void changeVehiculeGeneratorInfo(VehiculeGenerator _generator, Trip _trip,
+    public void changeVehiculeGeneratorInfo(VehiculeGenerator _generator, Segment _spawnSegment, Trip _trip,
                                             double _min, double _max, double _mode, Time _startTime, Time _endTime, String name)
     {
         for(VehiculeGenerator generator : this.listVehiculeGenerator)
@@ -410,16 +413,15 @@ public class Simulation
             {
                 generator.setTimeBeginGeneration(_startTime);
                 generator.setTimeEndGeneration(_endTime);
-                generator.setVehiculeKind(new VehiculeKind());
                 generator.setTrip(_trip);
                 generator.setDistribution(_min, _max, _mode);
+                generator.setSpawnSegment(_spawnSegment);
                 //setter le vehiculeKind selon la capacity
                 
                 break;
             }
         }
     }
-    
     
     public void deleteNode(float _x, float _y)
     {
@@ -458,7 +460,7 @@ public class Simulation
     
     public void deleteVehicule(Vehicule _vehicule)
     {
-        this.listSegment.remove(_vehicule);
+        this.listVehicule.remove(_vehicule);
     }
     
     public void deleteSegmentByNodeName(String _originName, String _destinationName)
@@ -548,7 +550,29 @@ public class Simulation
         }
         for(int i = 0; i < listTripToDelete.size(); i++)
         {
+            deleteVehiculeGeneratorsWithTrip(listTripToDelete.get(i));
+            deleteVehiculeWithTrip(listTripToDelete.get(i));
             this.listTrip.remove(listTripToDelete.get(i));
+        }
+    }
+    private void deleteVehiculeGeneratorsWithTrip(Trip _trip)
+    {
+        for(int i = 0; i < this.getListVehiculeGenerator().size(); i++)
+        {
+            if(this.getListVehiculeGenerator().get(i).getTrip().getName().equalsIgnoreCase( _trip.getName()))
+            {
+                this.listVehiculeGenerator.remove(this.getListVehiculeGenerator().get(i));
+            }
+        }
+    }
+    private void deleteVehiculeWithTrip(Trip _trip)
+    {
+        for(int i = 0; i < this.getListVehicule().size(); i++)
+        {
+            if(this.getListVehicule().get(i).getTrip().getName().equalsIgnoreCase( _trip.getName()))
+            {
+                this.listVehicule.remove(this.getListVehicule().get(i));
+            }
         }
     }
     
@@ -580,9 +604,8 @@ public class Simulation
                     {
                         if(stop.equals(destinationNode))
                         {
-                            int capacity = vehicule.getVehiculeKind().getCapacity();
-                            ((Stop)stop).addClient(vehicule.disembarkClient((Stop)stop));
-                            vehicule.embarkClient(((Stop)stop).requestEmbarkmentClient(vehicule.getTrip(), capacity));
+                            //((Stop)stop).addClient(vehicule.disembarkClient((Stop)stop));
+                            //vehicule.embarkClient(((Stop)stop).requestEmbarkmentClient(vehicule.getTrip(), capacity));
                         }
                     }
                 }

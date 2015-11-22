@@ -10,7 +10,6 @@ import Domain.Simulation.Time;
 import Domain.Trips.Segment;
 import Domain.Trips.Trip;
 import Domain.Vehicule.Vehicule;
-import Domain.Vehicule.VehiculeKind;
 /**
  *
  * @author Raphael
@@ -22,7 +21,6 @@ public class VehiculeGenerator implements java.io.Serializable
     private Time timeBeginGeneration;
     private Time timeEndGeneration;
     private Segment spawnSegment;
-    private VehiculeKind vehiculeKind;
     private Trip trip;
     private String name;
     
@@ -94,12 +92,10 @@ public class VehiculeGenerator implements java.io.Serializable
     {
         return this.spawnSegment;
     }
-    
-    public VehiculeKind getVehiculeKind()
+    public void setSpawnSegment(Segment _spawnSegment)
     {
-        return this.vehiculeKind;
+        this.spawnSegment = _spawnSegment;
     }
-    
     public Trip getTrip()
     {
         return this.trip;
@@ -109,12 +105,6 @@ public class VehiculeGenerator implements java.io.Serializable
     {
         this.trip = _trip;
     }
-    
-    public void setVehiculeKind(VehiculeKind _kind)
-    {
-        this.vehiculeKind = _kind;
-    }
-    
     public Vehicule awakeGenerator(Time _currentTime)
     {
         return null;

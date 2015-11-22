@@ -6,8 +6,12 @@
 package UI;
 
 import Domain.Simulation.Simulation;
+import Domain.Simulation.Time;
+import Domain.Trips.Segment;
 import Domain.Trips.Trip;
 import Domain.Vehicule.Vehicule;
+import Domain.Vehicule.VehiculePosition;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -44,8 +48,8 @@ public class ModifyVehicule extends javax.swing.JFrame {
     private void initComponents() {
 
         lblTitle = new javax.swing.JLabel();
-        lblCapacity = new javax.swing.JLabel();
-        txtCapacity = new javax.swing.JTextField();
+        lblName = new javax.swing.JLabel();
+        txtName = new javax.swing.JTextField();
         lblTrip = new javax.swing.JLabel();
         cmbTrip = new javax.swing.JComboBox();
         lblOriginStop = new javax.swing.JLabel();
@@ -58,11 +62,16 @@ public class ModifyVehicule extends javax.swing.JFrame {
         lblTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblTitle.setText("Ajouter, modifier ou supprimer un véhicule");
 
-        lblCapacity.setText("Capacité: ");
+        lblName.setText("Nom :");
 
         lblTrip.setText("Trajet: ");
 
+        cmbTrip.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         lblOriginStop.setText("Arrêt de départ: ");
+
+        cmbOriginStop.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
 
         btnOk.setText("Ok");
         btnOk.addActionListener(new java.awt.event.ActionListener() {
@@ -81,27 +90,43 @@ public class ModifyVehicule extends javax.swing.JFrame {
         this.cmbTrip.removeAllItems();
         this.cmbOriginStop.removeAllItems();
         
-        for(int i = 0; i < controller.getListTrip().size(); i++)
+        if(vehicule == null)
         {
-            this.cmbTrip.addItem(controller.getListTrip().get(i).getName());
-        }
-        
-        if (vehicule != null)
-        {
-            this.cmbTrip.setSelectedItem(vehicule.getTrip().getName());
-        }
-        
-        for(int i = 0; i < controller.getListTrip().size(); i++)
-        {
-            if (cmbTrip.getSelectedItem().toString().equalsIgnoreCase(controller.getListTrip().get(i).getName()))
+            for(int i = 0; i < controller.getListTrip().size(); i++)
             {
-                for (int j = 0; j < controller.getListTrip().get(i).getAllSegments().size(); j++)
+                this.cmbTrip.addItem(controller.getListTrip().get(i).getName());
+            }       
+
+            for(int i = 0; i < controller.getListTrip().size(); i++)
+            {
+                if (cmbTrip.getSelectedItem().toString().equalsIgnoreCase(controller.getListTrip().get(i).getName()))
                 {
-                    this.cmbOriginStop.addItem(controller.getListTrip().get(i).getAllSegments().get(j).getOriginNode().getName());
+                    for (int j = 0; j < controller.getListTrip().get(i).getAllSegments().size(); j++)
+                    {
+                        this.cmbOriginStop.addItem(controller.getListTrip().get(i).getAllSegments().get(j).getOriginNode().getName());
+                    }
                 }
             }
-        }
+        }else{
+            this.txtName.setText(vehicule.getName());
+            for(int i = 0; i < controller.getListTrip().size(); i++)
+            {
+                this.cmbTrip.addItem(controller.getListTrip().get(i).getName());
+            }
+            this.cmbTrip.setSelectedItem(vehicule.getTrip().getName());       
 
+            for(int i = 0; i < controller.getListTrip().size(); i++)
+            {
+                if (cmbTrip.getSelectedItem().toString().equalsIgnoreCase(controller.getListTrip().get(i).getName()))
+                {
+                    for (int j = 0; j < controller.getListTrip().get(i).getAllSegments().size(); j++)
+                    {
+                        this.cmbOriginStop.addItem(controller.getListTrip().get(i).getAllSegments().get(j).getOriginNode().getName());
+                    }
+                }
+            }            
+            this.cmbOriginStop.setSelectedItem(vehicule.getCurrentPosition().getCurrentSegment().getOriginNode().getName());
+        }
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -112,17 +137,18 @@ public class ModifyVehicule extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblCapacity)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblTrip)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cmbTrip, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblOriginStop)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbOriginStop, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(cmbOriginStop, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(lblName)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(txtName))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(lblTrip)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(cmbTrip, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(116, 116, 116)
                         .addComponent(btnOk)
@@ -140,8 +166,8 @@ public class ModifyVehicule extends javax.swing.JFrame {
                 .addComponent(lblTitle)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCapacity)
-                    .addComponent(txtCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblName)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTrip)
@@ -158,16 +184,42 @@ public class ModifyVehicule extends javax.swing.JFrame {
         );
 
         pack();
-    }
-    
+	}
+	
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {                                      
-            /*if (oldGenerator == null)
+        if(!(txtName.getText().isEmpty()))
+        {
+            if (vehicule == null)
             {
-                //controller.addVehiculeGenerator(null, null, null, null, null, null)
+                String selectedTripName = cmbTrip.getSelectedItem().toString();
+                Trip trip = null;
+                for(int i=0; i < controller.getListTrip().size(); i++)
+                {
+                    if(controller.getListTrip().get(i).getName().equalsIgnoreCase(selectedTripName))
+                    {
+                        trip = controller.getListTrip().get(i);
+                        break;
+                    }
+                }
+                if(trip != null)
+                {
+                    String selectedNodeName = cmbOriginStop.getSelectedItem().toString();
+                    Segment spawnSegment = null;
+                    for(int i=0; i < trip.getAllSegments().size(); i++)
+                    {
+                        if(trip.getAllSegments().get(i).getOriginNode().getName().equalsIgnoreCase(selectedNodeName))
+                        {
+                            spawnSegment = trip.getAllSegments().get(i);
+                            break;
+                        }
+                    }
+                    
+
+                    controller.addVehicule(trip ,spawnSegment, txtName.getText());
+                }
             }
             else
             {
-                //Faire les vérifications
                 Trip trip = null;
                 for (int i = 0; i < controller.getListTrip().size(); i++)
                 {
@@ -176,27 +228,49 @@ public class ModifyVehicule extends javax.swing.JFrame {
                         trip = controller.getListTrip().get(i);
                     }
                 }
-                if (trip != null)
+                if(trip != null)
                 {
-                    controller.changeVehiculeGeneratorInfo(oldGenerator, trip, Integer.parseInt(txtCapacity.getText()), Float.parseFloat(txtMinTime.getText()), Float.parseFloat(txtMaxTime.getText()), Float.parseFloat(txtModeTime.getText()), java.sql.Time.valueOf(txtStartTime.getText()), java.sql.Time.valueOf(txtEndTime.getText()), txtName.getText());               
+                    String selectedNodeName = cmbOriginStop.getSelectedItem().toString();
+                    Segment spawnSegment = null;
+                    for(int i=0; i < trip.getAllSegments().size(); i++)
+                    {
+                        if(trip.getAllSegments().get(i).getOriginNode().getName().equalsIgnoreCase(selectedNodeName))
+                        {
+                            spawnSegment = trip.getAllSegments().get(i);
+                            break;
+                        }
+                    }
+                    vehicule.setName(txtName.getText());
+                    vehicule.setTrip(trip);
+                    vehicule.setCurrentPosition(new VehiculePosition(spawnSegment, this.controller.getCurrentTime()));
+                }else{
+                    JOptionPane.showMessageDialog(this, "Une erreur est survenu, désolé de l'inconvénient.");
                 }
-            }*/
-    }
-    
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {
-        if (vehicule != null)
-        {
-            controller.deleteVehicule(vehicule);
+            }
+            dispose();
+        }else{
+            JOptionPane.showMessageDialog(this, "Assurez-vous d'avoir rempli tous les champs avant \nla création ou la modification du générateur de véhicule.");
         }
     }
-
+    
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) 
+    {
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(this, "Êtes-vous certain de vouloir supprimer ce véhicule ?","Avertissement",dialogButton);
+        if(dialogResult == JOptionPane.YES_OPTION)
+        {
+            controller.deleteVehicule(vehicule);
+            dispose();
+        }
+    }
+    
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnOk;
     private javax.swing.JComboBox cmbOriginStop;
     private javax.swing.JComboBox cmbTrip;
-    private javax.swing.JLabel lblCapacity;
+    private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblOriginStop;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblTrip;
-    private javax.swing.JTextField txtCapacity;
+    private javax.swing.JTextField txtName;
 }

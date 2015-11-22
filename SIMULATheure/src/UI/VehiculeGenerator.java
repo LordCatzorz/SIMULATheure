@@ -363,6 +363,8 @@ public class VehiculeGenerator extends javax.swing.JFrame
                     
 
                     controller.addVehiculeGenerator(spawnSegment, trip, min , max, mode,timeStart,timeEnd, txtName.getText());
+                }else{
+                    JOptionPane.showMessageDialog(this, "Une erreur est survenu, désolé de l'inconvénient.");
                 }
             }
             else
@@ -392,8 +394,18 @@ public class VehiculeGenerator extends javax.swing.JFrame
                     double hourTimeEnd = Float.parseFloat(strHourTimeEnd);
                     double minuteTimeEnd = Float.parseFloat(strMinuteTimeEnd);
                     Time timeEnd = new Time(hourTimeEnd, minuteTimeEnd, 0);
+                    String selectedNodeName = cmbOriginStop.getSelectedItem().toString();
                     
-                    controller.changeVehiculeGeneratorInfo(generator, trip, min , max, mode,timeStart,timeEnd, txtName.getText());               
+                    Segment spawnSegment = null;
+                    for(int i=0; i < trip.getAllSegments().size(); i++)
+                    {
+                        if(trip.getAllSegments().get(i).getOriginNode().getName().equalsIgnoreCase(selectedNodeName))
+                        {
+                            spawnSegment = trip.getAllSegments().get(i);
+                            break;
+                        }
+                    }
+                    controller.changeVehiculeGeneratorInfo(generator, spawnSegment, trip, min , max, mode,timeStart,timeEnd, txtName.getText());               
                 }else{
                     JOptionPane.showMessageDialog(this, "Une erreur est survenu, désolé de l'inconvénient.");
                 }

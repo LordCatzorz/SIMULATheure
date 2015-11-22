@@ -260,22 +260,22 @@ public class mainFrame extends javax.swing.JFrame {
                         break;
                     case VEHICULE:
                         String selectedVehicule = lstToolItems.getSelectedValue().toString();
-                        Domain.Vehicule.Vehicule vehicule;
+                        Domain.Vehicule.Vehicule vehicule = null;
                         for (int i = 0; i < controller.getListVehicule().size(); i++)
                         {
                             if (controller.getListVehicule().get(i).getName().equalsIgnoreCase(selectedVehicule))
                             {
                                 vehicule = controller.getListVehicule().get(i);
-                                ModifyVehicule formVehicule = new ModifyVehicule(mainFrame.this.controller, vehicule);
-                                formVehicule.addWindowListener(new java.awt.event.WindowAdapter (){
-                                    @Override
-                                    public void windowClosed(java.awt.event.WindowEvent e){
-                                        updateListVehiculeGenerator();
-                                    }
-                                });
-                                formVehicule.setVisible(true);
                             }
                         }
+                        ModifyVehicule formVehicule = new ModifyVehicule(mainFrame.this.controller, vehicule);
+                        formVehicule.addWindowListener(new java.awt.event.WindowAdapter (){
+                            @Override
+                            public void windowClosed(java.awt.event.WindowEvent e){
+                                updateListVehicule();
+                            }
+                        });
+                        formVehicule.setVisible(true);
                         break;
                     case CLIENT:
                         break;
@@ -823,7 +823,7 @@ public class mainFrame extends javax.swing.JFrame {
                     formVehicule.addWindowListener(new java.awt.event.WindowAdapter (){
                         @Override
                         public void windowClosed(java.awt.event.WindowEvent e){
-                            updateListVehiculeGenerator();
+                            updateListVehicule();
                         }
                     });
                     formVehicule.setVisible(true);
@@ -1051,7 +1051,7 @@ public class mainFrame extends javax.swing.JFrame {
         listModel = new DefaultListModel();
         for (int i = 0; i < controller.getListVehicule().size(); i++)
         {
-            listModel.addElement("Véhicule " + i);
+            listModel.addElement(controller.getListVehicule().get(i).getName());
         }
         lstToolItems.setModel(listModel);
     }
