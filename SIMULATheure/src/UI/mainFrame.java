@@ -28,7 +28,6 @@ import Application.Controller.Tool;
 import Domain.Node.Node;
 import Domain.Simulation.Simulation;
 
-import UI.ModifyStop;
 import java.awt.Color;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
@@ -191,26 +190,24 @@ public class mainFrame extends javax.swing.JFrame {
                         updateListClientGenerator();
                         break;
                     case VEHICULE_GENERATOR:
-                        
                         if(controller.getVehiculeGeneratorAtPosition(e.getX(),e.getY()) != null)
                         {
-                            
+                            VehiculeGenerator form = new VehiculeGenerator(controller,
+                                                                           controller.getNodeAtPostion(e.getX(), e.getY()).getGeographicPosition().getXPosition(),
+                                                                           controller.getNodeAtPostion(e.getX(), e.getY()).getGeographicPosition().getYPosition());
+                            form.setVisible(true);
                         }
                         else
                         {
                             if(controller.getNodeAtPostion(e.getX(), e.getY()) != null)
                             {
-
-                            }
-                            else if(controller.getSegmentAtPostion(e.getX(),e.getY()) != null)
-                            {
-                                ModifySegment form = new ModifySegment(controller, e.getX(),e.getY());
+                                controller.addVehiculeGenerator(controller.getNodeAtPostion(e.getX(), e.getY()));
+                                VehiculeGenerator form = new VehiculeGenerator(controller, 
+                                                                               controller.getNodeAtPostion(e.getX(), e.getY()).getGeographicPosition().getXPosition(),
+                                                                               controller.getNodeAtPostion(e.getX(), e.getY()).getGeographicPosition().getYPosition());
                                 form.setVisible(true);
                             }
                         }
-                        
-                        
-                        controller.addVehiculeGenerator(null, null, null);
                         updateListVehiculeGenerator();
                         break;
                     case CLIENT_PROFILE:  

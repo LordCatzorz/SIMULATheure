@@ -269,9 +269,19 @@ public class Simulation
         return this.listClientGenerator.add(new ClientGenerator(_clientProfile));
     }
     
-    public boolean addVehiculeGenerator(VehiculeKind _vehiculeKind, Segment _spawnSegment, Trip _trip)
+    public boolean addVehiculeGenerator(Node _spawnNode)//VehiculeKind _vehiculeKind, Segment _spawnSegment, Trip _trip)
     {
-        return this.listVehiculeGenerator.add(new VehiculeGenerator(_trip, _spawnSegment, _vehiculeKind));
+        for(Segment segment: this.listSegment)
+        {
+            if(segment.getOriginNode() == _spawnNode)
+                return this.listVehiculeGenerator.add(new VehiculeGenerator(segment));
+        }
+        return this.listVehiculeGenerator.add(new VehiculeGenerator());
+    }
+    
+    public boolean addVehiculeGenerator(Segment _spawnSegment)//VehiculeKind _vehiculeKind, Segment _spawnSegment, Trip _trip)
+    {
+        return this.listVehiculeGenerator.add(new VehiculeGenerator(_spawnSegment));
     }
     
     public boolean addClientProfile(List<Itinary> _itinary)
@@ -400,6 +410,26 @@ public class Simulation
         }
         return false;
     }
+    
+    public void changeVehiculeGeneratorInfo(VehiculeGenerator _generator, Trip _trip, int _capacity, 
+                                            float _min, float _max, float _mode, Time _startTime, Time _endTime)
+    {
+        for(VehiculeGenerator generator : this.listVehiculeGenerator)
+        {
+            if(generator == _generator)
+            {
+                generator.setTimeBeginGeneration(_startTime);
+                generator.setTimeEndGeneration(_endTime);
+                generator.setVehiculeKind(new VehiculeKind());
+                generator.setTrip(_trip);
+                generator.setDistribution(_min, _max, _mode);
+                //setter le vehiculeKind selon la capacity
+                
+                break;
+            }
+        }
+    }
+    
     
     public String deleteNode(float _x, float _y)
     {

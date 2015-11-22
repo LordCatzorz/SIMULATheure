@@ -214,11 +214,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Ok"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOkActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnDelete">
       <Properties>
         <Property name="text" type="java.lang.String" value="Supprimer"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtMinTime">
     </Component>
