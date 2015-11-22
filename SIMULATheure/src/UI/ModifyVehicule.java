@@ -5,8 +5,8 @@
  */
 package UI;
 
-import Domain.Simulation.Simulation;
-import Domain.Simulation.Time;
+import Application.Controller.Simulation;
+import Application.Controller.Time;
 import Domain.Trips.Segment;
 import Domain.Trips.Trip;
 import Domain.Vehicule.Vehicule;

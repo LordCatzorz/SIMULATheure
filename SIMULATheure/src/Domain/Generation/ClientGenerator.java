@@ -7,7 +7,7 @@ package Domain.Generation;
 
 import Domain.Client.ClientProfile;
 import Domain.Client.Client;
-import Domain.Simulation.Time;
+import Application.Controller.Time;
 /**
  *
  * @author Raphael

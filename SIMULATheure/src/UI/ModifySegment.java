@@ -8,7 +8,7 @@ package UI;
 import Domain.Node.Node;
 
 
-import Domain.Simulation.Simulation;
+import Application.Controller.Simulation;
 /**
  *
  * @author Élise

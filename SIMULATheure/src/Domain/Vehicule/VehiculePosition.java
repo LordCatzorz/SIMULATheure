@@ -7,7 +7,7 @@ package Domain.Vehicule;
 
 import Domain.Trips.Segment;
 import Domain.Positions.GeographicPosition;
-import Domain.Simulation.Time;
+import Application.Controller.Time;
 /**
  *
  * @author Raphael

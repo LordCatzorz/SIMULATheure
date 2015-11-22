@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Domain.Simulation;
+package Application.Controller;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -88,11 +88,6 @@ public class Simulation
             this.listVehiculeGenerator.get(i).awakeGenerator(this.simulationTime);
         }
         this.updateVehiculePositions();
-    }
-    
-    public GeographicPosition convertPixelToGeographicPosition(int _pixelX, int _pixelY)
-    {
-        return null;
     }
     
     public void saveInitialState()

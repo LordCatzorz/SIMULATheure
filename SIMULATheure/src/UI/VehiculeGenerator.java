@@ -6,8 +6,8 @@
 package UI;
 
 import Domain.Node.Node;
-import Domain.Simulation.Simulation;
-import Domain.Simulation.Time;
+import Application.Controller.Simulation;
+import Application.Controller.Time;
 import Domain.Trips.Segment;
 import Domain.Trips.Trip;
 import java.awt.event.ActionEvent;

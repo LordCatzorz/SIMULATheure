@@ -26,7 +26,7 @@ import javax.swing.JPanel;
 
 import Application.Controller.Tool;
 import Domain.Node.Node;
-import Domain.Simulation.Simulation;
+import Application.Controller.Simulation;
 import Domain.Trips.Trip;
 
 import java.awt.Color;

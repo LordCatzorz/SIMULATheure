@@ -6,7 +6,7 @@
 package Domain.Generation;
 
 
-import Domain.Simulation.Time;
+import Application.Controller.Time;
 import Domain.Trips.Segment;
 import Domain.Trips.Trip;
 import Domain.Vehicule.Vehicule;

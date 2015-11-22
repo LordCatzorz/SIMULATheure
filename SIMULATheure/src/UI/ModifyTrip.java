@@ -6,7 +6,7 @@
 package UI;
 
 import javax.swing.DefaultListModel;
-import Domain.Simulation.Simulation;
+import Application.Controller.Simulation;
 import Domain.Trips.Segment;
 import Domain.Trips.Trip;
 import java.awt.event.KeyAdapter;

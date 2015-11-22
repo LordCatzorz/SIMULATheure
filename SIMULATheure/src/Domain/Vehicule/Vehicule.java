@@ -9,7 +9,7 @@ import Domain.Trips.Segment;
 import Domain.Trips.Trip;
 //import Domain.Client.Client;
 import Domain.Positions.GeographicPosition;
-import Domain.Simulation.Time;
+import Application.Controller.Time;
 
 /**
  *

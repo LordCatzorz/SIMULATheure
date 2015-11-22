@@ -5,7 +5,7 @@
  */
 package UI;
 
-import Domain.Simulation.Simulation;
+import Application.Controller.Simulation;
 import javax.swing.JOptionPane;
 /**
  *
