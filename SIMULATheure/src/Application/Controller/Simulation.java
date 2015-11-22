@@ -321,6 +321,17 @@ public class Simulation
         return this.listClient;
     }
     
+    public List<Node> getListNodeByTrip(Trip _trip)
+    {
+        List<Node> listNode = new ArrayList<Node>();
+        for(int i = 0; i < _trip.getAllSegments().size(); i++)
+        {
+            listNode.add(_trip.getAllSegments().get(i).getDestinationNode());
+            listNode.add(_trip.getAllSegments().get(i).getOriginNode());
+        }
+        return listNode;
+    }
+    
     public Node getNodeAtPostion(float _x, float _y)
     {
         for(Node node : this.listNode)

@@ -24,7 +24,6 @@ public class VehiculeGenerator extends javax.swing.JFrame
     private Simulation controller;
     private Domain.Generation.VehiculeGenerator generator;
 
-    
     /**
      * Creates new form VehciuleGenerator
      */
@@ -432,9 +431,8 @@ public class VehiculeGenerator extends javax.swing.JFrame
             controller.deleteVehiculeGenerator(generator);
             dispose();
         }
-        
     }//GEN-LAST:event_btnDeleteActionPerformed
-
+ 
     /**
      * @param args the command line arguments
      */
