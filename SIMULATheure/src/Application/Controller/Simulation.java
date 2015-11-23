@@ -62,6 +62,10 @@ public class Simulation
         this.isSimulationPaused = false;
     }
             
+    public float getSpeedMultiplier()
+    {
+        return this.speedMultiplier;
+    }
     
     public boolean getIsSimuationStarted()
     {
