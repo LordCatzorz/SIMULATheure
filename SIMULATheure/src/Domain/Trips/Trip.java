@@ -62,7 +62,7 @@ public class Trip implements java.io.Serializable
     {
         for(Segment segment: this.allSegments)
         {
-            if(segment.getOriginNode() == _node)
+            if(segment.getOriginNode().getName().equalsIgnoreCase(_node.getName()))
             {
                 return segment;
             }

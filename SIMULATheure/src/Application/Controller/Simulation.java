@@ -141,9 +141,8 @@ public class Simulation
         for(int i = 0; i < this.listVehiculeGenerator.size(); i++)
         {
             this.listVehiculeGenerator.get(i).awakeGenerator(this.currentTime);
-        }
-        this.updateVehiculePositions();
         }*/
+        this.updateVehiculePositions();
     }
     public void saveInitialState()
     {
@@ -678,26 +677,43 @@ public class Simulation
     
     private void updateVehiculePositions()
     {
-        for(Vehicule vehicule : this.listVehicule)
+        if(this.getListVehicule().size()>0)
         {
-            this.moveVehicule(vehicule);
-            if(this.isSegmentCompleted(vehicule))
+            for(int i = 0; i < this.getListVehicule().size(); i++)
             {
-                Node destinationNode = vehicule.getCurrentPosition().getCurrentSegment().getDestinationNode();
-                if(destinationNode instanceof Stop)
+                Vehicule vehicule = this.getListVehicule().get(i);
+                if(this.isSegmentCompleted(vehicule))
                 {
-                    for(Node stop: this.listNode) 
+                    Node destinationNode = vehicule.getCurrentPosition().getCurrentSegment().getDestinationNode();
+                    if(destinationNode instanceof Stop)
                     {
-                        if(stop.equals(destinationNode))
+                        for(Node stop: this.listNode) 
                         {
-                            //((Stop)stop).addClient(vehicule.disembarkClient((Stop)stop));
-                            //vehicule.embarkClient(((Stop)stop).requestEmbarkmentClient(vehicule.getTrip(), capacity));
+                            if(stop.equals(destinationNode))
+                            {
+                                //((Stop)stop).addClient(vehicule.disembarkClient((Stop)stop));
+                                //vehicule.embarkClient(((Stop)stop).requestEmbarkmentClient(vehicule.getTrip(), capacity));
+                            }
                         }
                     }
+                    if(vehicule.getTrip().getNextSegment(destinationNode) != null)
+                    {
+                        vehicule.getCurrentPosition().setCurrentSegment(vehicule.getTrip().getNextSegment(destinationNode));
+                        vehicule.getCurrentPosition().setTimeStartSegment(new Time(this.currentTime.getHour(), this.currentTime.getMinute(), this.currentTime.getSecond()));
+                    }else{
+                        if(vehicule.getTrip().getIsCircular())
+                        {
+                            vehicule.getCurrentPosition().setCurrentSegment(vehicule.getTrip().getAllSegments().get(0));
+                            vehicule.getCurrentPosition().setTimeStartSegment(new Time(this.currentTime.getHour(), this.currentTime.getMinute(), this.currentTime.getSecond()));
+                        }else{
+                            this.listVehicule.remove(vehicule);
+                        }
+                    }
+                }else{
+                    this.moveVehicule(vehicule);
                 }
-                vehicule.getCurrentPosition().setCurrentSegment(vehicule.getTrip().getNextSegment(destinationNode));
             }
-        }    
+        }
     }
     
     private void moveVehicule(Vehicule _vehicule)
@@ -739,6 +755,6 @@ public class Simulation
         double ellapsedTime = currentTime.getTime() - timeSegmentStarted;
         double totalTime = (_vehicule.getCurrentPosition().getCurrentSegment().getDurationTime())*60;
         double percentageCompleted =  (100 - ((totalTime - ellapsedTime)/totalTime)*100)/100;
-        return (percentageCompleted >= 100);
+        return (percentageCompleted >= 1);
     }
 }

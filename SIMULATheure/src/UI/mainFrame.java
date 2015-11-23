@@ -565,6 +565,7 @@ public class mainFrame extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent evt) {
                 mainFrame.this.controller.updateSimulation();
                 lblTime.setText("Heure: " + controller.getCurrentTime().getTimeStringNoSecond());
+                mainFrame.this.zp.repaint();
             }
         };
         //lblTime.setText("Heure: -");

@@ -22,7 +22,7 @@ public class VehiculePosition implements java.io.Serializable
     {
         this.currentSegment = _segment;
         this.timeSegmentStart = _timeStart;
-        this.geographicPosition = this.currentSegment.getOriginNode().getGeographicPosition();
+        this.geographicPosition = new GeographicPosition(this.currentSegment.getOriginNode().getGeographicPosition().getXPosition(), this.currentSegment.getOriginNode().getGeographicPosition().getYPosition() );
     }
     
     public float getCompletionPercentage()
