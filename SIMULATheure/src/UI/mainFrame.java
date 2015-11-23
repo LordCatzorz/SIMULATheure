@@ -498,7 +498,13 @@ public class mainFrame extends javax.swing.JFrame {
         btnPause.setFocusable(false);
         btnPause.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnPause.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPause.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPauseActionPerformed(evt);
+            }
+        });
         tlbSpeed.add(btnPause);
+
 
         btnAccelerate.setText("Avancer");
         btnAccelerate.setFocusable(false);
@@ -563,9 +569,13 @@ public class mainFrame extends javax.swing.JFrame {
         
         tickEvent = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                mainFrame.this.controller.updateSimulation();
-                lblTime.setText("Heure: " + controller.getCurrentTime().getTimeStringNoSecond());
-                mainFrame.this.zp.repaint();
+                if(!mainFrame.this.controller.getIsSimuationPaused())
+                {
+                    mainFrame.this.controller.updateSimulation();
+                    lblTime.setText("Heure: " + controller.getCurrentTime().getTimeStringNoSecond());
+                    mainFrame.this.updateListVehicule();
+                    mainFrame.this.zp.repaint();
+                }
             }
         };
         //lblTime.setText("Heure: -");
@@ -734,31 +744,45 @@ public class mainFrame extends javax.swing.JFrame {
     }
     
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {
-        if(this.controller.getListVehicule().size() > 0 || this.controller.getListVehiculeGenerator().size()>0)
-        {
-            StartSimulation form = new StartSimulation(this.controller);
-            form.addWindowListener(new java.awt.event.WindowAdapter (){
-                @Override
-                public void windowClosed(java.awt.event.WindowEvent e){
-                    if (controller.getIsSimuationStarted())
-                    {
-                        ticker = new javax.swing.Timer(1000/30 ,tickEvent);
-                        ticker.setRepeats(true);
-                        ticker.start();
-                    }
-                }
-            });
-            form.setVisible(true);
+        if(this.controller.getIsSimuationPaused()){
+            if (controller.getIsSimuationStarted())
+            {
+                this.controller.setIsSimulationPaused(false);
+                ticker.start();
+            }
         }else{
-            JOptionPane.showMessageDialog(this, "Il n'y a pas de véhicules existants à simuler.");
+            if(!controller.getIsSimuationStarted())
+            {
+                if(this.controller.getListVehicule().size() > 0 || this.controller.getListVehiculeGenerator().size()>0)
+                {
+                    StartSimulation form = new StartSimulation(this.controller);
+                    form.addWindowListener(new java.awt.event.WindowAdapter (){
+                        @Override
+                        public void windowClosed(java.awt.event.WindowEvent e){
+                            if (controller.getIsSimuationStarted())
+                            {
+                                ticker = new javax.swing.Timer(1000/30 ,tickEvent);
+                                ticker.setRepeats(true);
+                                ticker.start();
+                            }
+                        }
+                    });
+                    form.setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(this, "Il n'y a pas de véhicules existants à simuler.");
+                }
+            }
         }
     }
-    
+    private void btnPauseActionPerformed(java.awt.event.ActionEvent evt) {
+        controller.pause();
+    }
     private void btnAccelerateActionPerformed(java.awt.event.ActionEvent evt) {
         controller.SetSpeedMultiplier(controller.getSpeedMultiplier() * 2);
     }
     
     private void btnStopSimuActionPerformed(java.awt.event.ActionEvent evt) {
+        ticker.stop();
         controller.reset();
     }
     

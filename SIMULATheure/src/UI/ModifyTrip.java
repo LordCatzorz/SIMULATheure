@@ -301,7 +301,7 @@ public class ModifyTrip extends javax.swing.JFrame {
                     break;
                 }
             }
-            if(!nameExists)
+            if(!nameExists || name.equalsIgnoreCase(this.trip.getName()))
             {
                 Boolean isCircular = false;   
                 List<Segment> list = new LinkedList();

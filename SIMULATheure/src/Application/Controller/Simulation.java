@@ -121,12 +121,13 @@ public class Simulation
     
     public void pause()
     {
-        this.speedMultiplier = 0;
+        this.setIsSimulationPaused(true);
     }
     
     public void reset()
     {
-        this.pause();
+        this.setIsSimulationPaused(false);
+        this.setIsSimulationStarted(false);
         //this.LoadSimulation(name);
     }
     
