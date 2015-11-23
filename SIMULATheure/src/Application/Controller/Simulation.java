@@ -54,7 +54,7 @@ public class Simulation
         this.listVehiculeGenerator = new ArrayList<>();
         this.listClientProfile = new ArrayList<>();
         this.listClient = new ArrayList<>();
-        this.speedMultiplier = 0;
+        this.speedMultiplier = 1;
         this.currentTime = new Time();
         this.startTime = new Time();
         this.endTime = new Time();
@@ -137,15 +137,9 @@ public class Simulation
         for(int i = 0; i < this.listVehiculeGenerator.size(); i++)
         {
             this.listVehiculeGenerator.get(i).awakeGenerator(this.currentTime);
-        }
-<<<<<<< HEAD
-        this.updateVehiculePositions();*/
-    }
-    
-=======
+        }*/
         this.updateVehiculePositions();
-    }    
->>>>>>> origin/master
+    }
     public void saveInitialState()
     {
         try
@@ -686,8 +680,9 @@ public class Simulation
     
     private void moveVehicule(Vehicule _vehicule)
     {
-        Segment segment = _vehicule.getCurrentPosition().getCurrentSegment();
+        _vehicule.getCurrentPosition().update(currentTime);
         
+        /*Segment segment = _vehicule.getCurrentPosition().getCurrentSegment();
         GeographicPosition originPosition = segment.getOriginNode().getGeographicPosition();
         GeographicPosition destinationPosition = segment.getDestinationNode().getGeographicPosition();
         
@@ -713,17 +708,15 @@ public class Simulation
         
         VehiculePosition position = _vehicule.getCurrentPosition();
         position.setGeographicPosition(new GeographicPosition(x, y));
-        _vehicule.setCurrentPosition(position);
+        _vehicule.setCurrentPosition(position);*/
     }
     
     private boolean isSegmentCompleted(Vehicule _vehicule)
     {
-        Segment segment = _vehicule.getCurrentPosition().getCurrentSegment();
-        Time timeSegmentStart = _vehicule.getCurrentPosition().getTimeSegmentStart();
-        
-        double durationTime = segment.getDurationTime()/60;
-        double timeSpent = (this.currentTime.getTime() - timeSegmentStart.getTime());
-        double completionPercentage = (timeSpent/durationTime)*100;
-        return (completionPercentage >= 100);
+        double timeSegmentStarted = _vehicule.getCurrentPosition().getTimeSegmentStart().getTime();
+        double ellapsedTime = currentTime.getTime() - timeSegmentStarted;
+        double totalTime = (_vehicule.getCurrentPosition().getCurrentSegment().getDurationTime())*60;
+        double percentageCompleted =  (100 - ((totalTime - ellapsedTime)/totalTime)*100)/100;
+        return (percentageCompleted >= 100);
     }
 }

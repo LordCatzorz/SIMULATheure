@@ -70,7 +70,7 @@ public class Vehicule implements java.io.Serializable
     
     public GeographicPosition getGeographicPosition()
     {
-        return null;
+        return position.getGeographicPosition();
     }
     
     public void setPosition(Time _time)
