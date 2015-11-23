@@ -359,10 +359,10 @@ public class mainFrame extends javax.swing.JFrame {
         menuItemHelp = new javax.swing.JMenuItem();
         menuItemAbout = new javax.swing.JMenuItem();
 
-        zp = new ZoomPanel(1.0);
-        //handleDrag(zp);
-        //pnlBackground.add(new JScrollPane(zp), BorderLayout.CENTER);
-        //pnlScroll = new JScrollPane(zp);
+        zp = new ZoomPanel(1.0);		
+        //handleDrag(zp);		
+        //pnlBackground.add(new JScrollPane(zp), BorderLayout.CENTER);		
+        //pnlScroll = new JScrollPane(zp);		
         pnlBackground.add(zp, BorderLayout.CENTER);
         
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -373,7 +373,8 @@ public class mainFrame extends javax.swing.JFrame {
         tlbTools.setBackground(new java.awt.Color(102, 102, 255));
         tlbTools.setOrientation(javax.swing.SwingConstants.VERTICAL);
         tlbTools.setRollover(true);
-        tlbTools.setFloatable(false);
+        tlbTools.setFloatable(false);		
+        tlbSpeed.setPreferredSize(new java.awt.Dimension(150, 23));		
         tlbSpeed.setFloatable(false);
 
         btnStop.setText("Arrêt");
@@ -486,10 +487,10 @@ public class mainFrame extends javax.swing.JFrame {
         btnRestart.setFocusable(false);
         btnRestart.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnRestart.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnRestart.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRestartActionPerformed(evt);
-            }
+        btnRestart.addActionListener(new java.awt.event.ActionListener() {		
+            public void actionPerformed(java.awt.event.ActionEvent evt) {		
+                btnRestartActionPerformed(evt);		
+            }		
         });
         tlbSpeed.add(btnRestart);
 
@@ -503,36 +504,36 @@ public class mainFrame extends javax.swing.JFrame {
         btnPause.setFocusable(false);
         btnPause.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnPause.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnPause.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPauseActionPerformed(evt);
-            }
+        btnPause.addActionListener(new java.awt.event.ActionListener() {		
+            public void actionPerformed(java.awt.event.ActionEvent evt) {		
+                btnPauseActionPerformed(evt);		
+            }		
         });
         tlbSpeed.add(btnPause);
-
 
         btnAccelerate.setText("Accélérer");
         btnAccelerate.setFocusable(false);
         btnAccelerate.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnAccelerate.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        tlbSpeed.add(btnAccelerate);
-        btnAccelerate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAccelerateActionPerformed(evt);
-            }
+        btnAccelerate.addActionListener(new java.awt.event.ActionListener() {		
+            public void actionPerformed(java.awt.event.ActionEvent evt) {		
+                btnAccelerateActionPerformed(evt);		
+            }		
         });
+        tlbSpeed.add(btnAccelerate);
 
         btnStopSimu.setText("Arrêter");
         btnStopSimu.setFocusable(false);
         btnStopSimu.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnStopSimu.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         tlbSpeed.add(btnStopSimu);
-        btnStopSimu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnStopSimuActionPerformed(evt);
-            }
+
+        btnStopSimu.addActionListener(new java.awt.event.ActionListener() {		
+            public void actionPerformed(java.awt.event.ActionEvent evt) {		     
+                btnStopSimuActionPerformed(evt);		
+            }		       
         });
-        
+
         pnlTool.setBackground(new java.awt.Color(102, 102, 102));
         pnlTool.setMaximumSize(new java.awt.Dimension(275, 150));
         pnlTool.setMinimumSize(new java.awt.Dimension(275, 150));
@@ -571,20 +572,22 @@ public class mainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(scrollPaneTool, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        
-        tickEvent = new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                if(!mainFrame.this.controller.getIsSimuationPaused())
-                {
-                    mainFrame.this.controller.updateSimulation();
-                    lblTime.setText("Heure: " + controller.getCurrentTime().getTimeStringNoSecond());
-                    mainFrame.this.updateListVehicule();
-                    mainFrame.this.zp.repaint();
-                }
-            }
-        };
-        //lblTime.setText("Heure: -");
 
+        //jLabel1.setText("Heure: -");
+
+        tickEvent = new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {		
+                if(!mainFrame.this.controller.getIsSimuationPaused())		
+                {		
+                    mainFrame.this.controller.updateSimulation();		
+                    lblTime.setText("Heure: " + controller.getCurrentTime().getTimeStringNoSecond());		
+                    mainFrame.this.updateListVehicule();		
+                    mainFrame.this.zp.repaint();		
+                }		
+            }		
+        };		
+        //lblTime.setText("Heure: -");
+        
         menuFile.setText("Fichier");
         menuFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -666,10 +669,10 @@ public class mainFrame extends javax.swing.JFrame {
 
         setJMenuBar(menuBar);
         
-        btnStart.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnStartActionPerformed(evt);
-            }
+        btnStart.addActionListener(new java.awt.event.ActionListener() {		
+            public void actionPerformed(java.awt.event.ActionEvent evt) {		
+                btnStartActionPerformed(evt);		
+            }		
         });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -680,28 +683,29 @@ public class mainFrame extends javax.swing.JFrame {
                 .addComponent(tlbTools, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 357, Short.MAX_VALUE)
-                        .addComponent(tlbSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(537, 537, 537))
-                    .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pnlBackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(pnlTool, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(402, 402, 402)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTime)
-                            .addComponent(lblCoordinate))
-                        .addContainerGap())))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(402, 402, 402)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblTime)
+                                    .addComponent(lblCoordinate)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(315, 315, 315)
+                                .addComponent(tlbSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(546, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlBackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tlbSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(lblTime)
                 .addGap(9, 9, 9)
                 .addComponent(lblCoordinate))
@@ -711,10 +715,10 @@ public class mainFrame extends javax.swing.JFrame {
             .addComponent(tlbTools, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE)
         );
 
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {		
+            public void actionPerformed(java.awt.event.ActionEvent evt) {		
+                btnAddActionPerformed(evt);		
+            }		
         });
         
         pack();
@@ -1060,12 +1064,7 @@ public class mainFrame extends javax.swing.JFrame {
                             width, width);
             }
             
-            //A PIERRE!!!
-            /*if (controller.getIsSimuationStarted())
-            {
-                lblTime.setText("Heure: " + controller.getCurrentTime().getTimeStringNoSecond());
-            }*/
-            
+
             g2.setTransform(backup);
         } 
         @Override
@@ -1241,6 +1240,7 @@ public class mainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnVehiculeGenerator;
     private javax.swing.JLabel lblTime;
     private javax.swing.JLabel lblCoordinate;
+    private javax.swing.JLabel lblImage;
     private javax.swing.JLabel lblToolName;
     private javax.swing.JList lstToolItems;
     private DefaultListModel listModel = new DefaultListModel();
