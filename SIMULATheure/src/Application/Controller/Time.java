@@ -26,14 +26,14 @@ public class Time {
     }
     public double getTime()
     {
-        return second+(60*minute)+(3600*hour);
+        return (int)second+(60*(int)minute)+(3600*(int)hour);
     }
     public void setTime(double _time)
     {
         hour =  _time / 3600;
-        double remainder = _time - hour * 3600;
-        minute = remainder / 60;
-        second = remainder - minute * 60;
+        double remainder = _time - ((int)hour * 3600);
+        minute = (int)remainder / 60;
+        second = remainder - ((int)minute * 60);
     }
     public double getHour()
     {
@@ -60,15 +60,8 @@ public class Time {
     }
     public String getTimeStringNoSecond()
     {
-        String timeString="";
-        System.out.println(minute);
-        System.out.println(Math.round(minute));
-        System.out.println((int) Math.round(minute));
-        System.out.println(hour);
-        System.out.println(Math.round(hour));
-        System.out.println((int) Math.round(hour));
-        
-        int hourAmount = (int) Math.round(hour);
+        String timeString="";       
+        int hourAmount = (int) Math.floor(hour);
         if(hourAmount >= 24)
         {
             hourAmount = hourAmount - 24;
@@ -81,10 +74,10 @@ public class Time {
         }
         if(minute <10)
         {
-             timeString+="0" +(int) Math.round(minute);
+             timeString+="0" +(int) Math.floor(minute);
         }else{
-             timeString+=(int) Math.round(minute);
-        }        
+             timeString+=(int) Math.floor(minute);
+        }
         return timeString;
     }
     

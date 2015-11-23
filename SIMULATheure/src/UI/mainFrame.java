@@ -30,6 +30,8 @@ import Application.Controller.Simulation;
 import Domain.Trips.Trip;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
@@ -546,7 +548,13 @@ public class mainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(scrollPaneTool, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-
+        
+        tickEvent = new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                mainFrame.this.controller.updateSimulation();
+                lblTime.setText("Heure: " + controller.getCurrentTime().getTimeStringNoSecond());
+            }
+        };
         //lblTime.setText("Heure: -");
 
         menuFile.setText("Fichier");
@@ -683,7 +691,7 @@ public class mainFrame extends javax.swing.JFrame {
         
         pack();
     }
-
+    
     private void btnStopActionPerformed(java.awt.event.ActionEvent evt) {
         lblToolName.setText("Arrêt");
         lblToolName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -721,7 +729,9 @@ public class mainFrame extends javax.swing.JFrame {
                 public void windowClosed(java.awt.event.WindowEvent e){
                     if (controller.getIsSimuationStarted())
                     {
-                        lblTime.setText("Heure: " + controller.getStartTime().getTimeStringNoSecond());
+                        ticker = new javax.swing.Timer(1000/30 ,tickEvent);
+                        ticker.setRepeats(true);
+                        ticker.start();
                     }
                 }
             });
@@ -1181,6 +1191,8 @@ public class mainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollPaneTool;
     private javax.swing.JToolBar tlbSpeed;
     private javax.swing.JToolBar tlbTools;
+    private ActionListener tickEvent;
+    javax.swing.Timer ticker;
 }
 
 

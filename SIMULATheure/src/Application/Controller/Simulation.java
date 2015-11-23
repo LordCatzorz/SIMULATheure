@@ -26,7 +26,6 @@ public class Simulation
 {
     private String name;
     private Tool currentTool;
-    private Time simulationTime;
     private Image background;
     private Time currentTime;
     private Time startTime;
@@ -84,6 +83,10 @@ public class Simulation
     {
         return this.currentTime;
     }
+    public void setCurrentTime(Time _currentTime)
+    {
+        this.currentTime = _currentTime;
+    }
     public Time getStartTime()
     {
         return this.startTime;
@@ -125,7 +128,8 @@ public class Simulation
     
     public void updateSimulation()
     {
-        for(int i = 0; i < this.listClientGenerator.size(); i++)
+        this.currentTime.setTime(this.currentTime.getTime() + 2);
+        /*for(int i = 0; i < this.listClientGenerator.size(); i++)
         {
             this.listClientGenerator.get(i).awakeGenerator(this.currentTime);
         }
@@ -134,7 +138,7 @@ public class Simulation
         {
             this.listVehiculeGenerator.get(i).awakeGenerator(this.currentTime);
         }
-        this.updateVehiculePositions();
+        this.updateVehiculePositions();*/
     }
     
     public void saveInitialState()

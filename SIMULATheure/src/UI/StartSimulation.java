@@ -168,6 +168,7 @@ public class StartSimulation extends javax.swing.JFrame {
             Time timeEnd = new Time(hourTimeEnd, minuteTimeEnd, 0);
             
             controller.setStartTime(timeStart);
+            controller.setCurrentTime(timeStart);
             controller.setEndTime(timeEnd);
             controller.setIsSimulationStarted(true);
             dispose();
