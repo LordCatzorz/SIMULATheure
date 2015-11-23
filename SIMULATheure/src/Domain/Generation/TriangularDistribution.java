@@ -26,17 +26,24 @@ public class TriangularDistribution implements java.io.Serializable
     
     public double calculate()
     {
-        double proportion = (mode - minimum)/(maximum - minimum);
-        Random randomGenerator = new Random();
-        double randomInt = randomGenerator.nextInt(100);
-        double randomizedProportion;
-        if(randomInt <= proportion)
+        if(maximum > minimum)
         {
-            randomizedProportion = sqrt(randomInt/100 * proportion);
+            double modeMinusMin =  (mode - minimum);
+            double maxMinusMin = (maximum - minimum);
+            double proportion = modeMinusMin / maxMinusMin;
+            Random randomGenerator = new Random();
+            double randomInt = randomGenerator.nextInt(100);
+            double randomizedProportion;
+            if(randomInt <= proportion)
+            {
+                randomizedProportion = sqrt(randomInt/100 * proportion);
+            }else{
+                randomizedProportion = 1 - (sqrt((1-(randomInt/100)) * (1-proportion)));
+            }
+            return (minimum + (maximum - minimum)*randomizedProportion);
         }else{
-            randomizedProportion = 1 - (sqrt((1-(randomInt/100)) * (1-proportion)));
+            return maximum;
         }
-        return (minimum + (maximum - minimum)*randomizedProportion); 
     }
     
     public double getMinimum()

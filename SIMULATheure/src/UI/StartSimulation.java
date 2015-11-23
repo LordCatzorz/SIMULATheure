@@ -171,6 +171,13 @@ public class StartSimulation extends javax.swing.JFrame {
             controller.setCurrentTime(timeStart);
             controller.setEndTime(timeEnd);
             controller.setIsSimulationStarted(true);
+            for(int i = 0; i < controller.getListVehicule().size(); i++)
+            {
+                if(controller.getListVehicule().get(i).getCurrentPosition().getTimeSegmentStart().getTime() == new Time().getTime())
+                {
+                    controller.getListVehicule().get(i).getCurrentPosition().setTimeStartSegment(new Time(timeStart.getHour(), timeStart.getMinute(), timeStart.getSecond()));
+                }
+            }
             dispose();
         }     
     }

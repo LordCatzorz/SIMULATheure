@@ -17,7 +17,7 @@ public class Segment implements java.io.Serializable
     private Node originNode;
     private Node destinationNode;
     private TriangularDistribution durationDistribution;
-    private double durationTime; // in seconds
+    private double durationTime; //in minutes
     private String name;
     
     public Segment(Node _originNode, Node _destinationNode)
@@ -25,6 +25,7 @@ public class Segment implements java.io.Serializable
         this.originNode = _originNode;
         this.destinationNode = _destinationNode;
         this.durationDistribution = new TriangularDistribution(5.0,5.0,5.0);
+        this.durationTime = this.durationDistribution.calculate();
     }
     
     public Node getOriginNode()
