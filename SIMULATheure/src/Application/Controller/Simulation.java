@@ -20,7 +20,7 @@ import Domain.Positions.*;
 import Application.Controller.Tool;
 /**
  *
- * @author Raphael
+ * @author N-Team
  */
 public class Simulation 
 {
@@ -163,7 +163,7 @@ public class Simulation
         {
             FileOutputStream outFile = new FileOutputStream("saves/" + this.name + "vehicules.ser");
             ObjectOutputStream out = new ObjectOutputStream(outFile);
-            for(int i =0; i < this.listVehicule.size(); i++)
+            /*for(int i =0; i < this.listVehicule.size(); i++)
             {
                 out.writeObject(this.listVehicule.get(i));
             }
@@ -215,8 +215,8 @@ public class Simulation
             for(int i =0; i < this.listVehiculeGenerator.size(); i++)
             {
                 out.writeObject(this.listVehiculeGenerator.get(i));
-            }
-            outFile = new FileOutputStream("saves/" + this.name + "vehiculeGenerators.ser");
+            }*/
+            outFile = new FileOutputStream("saves/" + this.name + "Simulation.ser");
             out = new ObjectOutputStream(outFile);
             out.writeObject(this); //À essayer
             
@@ -391,8 +391,8 @@ public class Simulation
         {
             if(!listNode.contains(_trip.getAllSegments().get(i).getOriginNode()))
                 listNode.add(_trip.getAllSegments().get(i).getOriginNode());
-            if(!listNode.contains(_trip.getAllSegments().get(i).getDestinationNode()))
-                listNode.add(_trip.getAllSegments().get(i).getDestinationNode());
+            //if(!listNode.contains(_trip.getAllSegments().get(i).getDestinationNode()))
+            //    listNode.add(_trip.getAllSegments().get(i).getDestinationNode());
             
         }
         return listNode;
