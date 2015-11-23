@@ -107,7 +107,7 @@ public class Simulation
     public void Play()
     {
         this.saveInitialState();
-        //this.setSegmentsDuration //dans le DS démarrer la simulation 
+        this.setSegmentsDuration(); 
         //this.speedMultiplier = 1;
         /*while(this.speedMultiplier != 0)
         {
@@ -432,6 +432,14 @@ public class Simulation
         }
         return null;
     }*/
+    
+    public void setSegmentsDuration()
+    {
+        for(Segment segment: this.listSegment)
+        {
+            segment.setDurationTime(segment.getDurationDistribution().calculate());
+        }
+    }
     
     public void updateVehiculePositionsByNode(Node _nodeUpdated)
     {
