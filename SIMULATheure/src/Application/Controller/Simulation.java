@@ -135,8 +135,7 @@ public class Simulation
             this.listVehiculeGenerator.get(i).awakeGenerator(this.currentTime);
         }
         this.updateVehiculePositions();
-    }
-    
+    }    
     public void saveInitialState()
     {
         try

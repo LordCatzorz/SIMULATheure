@@ -106,14 +106,9 @@ public class mainFrame extends javax.swing.JFrame {
                 } else {
                     scaleFactor = zp.getZoom() / 1.1;
                 }  
+
+                zp.setZoom(scaleFactor); 
                 
-                try { 
-                    zp.setZoom(scaleFactor); 
-                } catch (PropertyVetoException ex) { 
-                    JOptionPane.showMessageDialog 
-                        ((Component) e.getSource(), 
-                        "Zoom minimal atteint"); 
-                }
         } 
         });
         
@@ -918,15 +913,15 @@ public class mainFrame extends javax.swing.JFrame {
     
     public class ZoomPanel extends JPanel{ 
         protected double zoom; 
-        public ZoomPanel(double initialZoom) { 
+        public ZoomPanel(double initZoom) { 
             super(new FlowLayout()); 
-            zoom = initialZoom; 
+            zoom = initZoom; 
         } 
         @Override
         public void paint(Graphics g) { 
             super.paintComponent(g);
             Graphics2D g2 = (Graphics2D) g; 
-            AffineTransform backup = g2.getTransform(); 
+            AffineTransform transform = g2.getTransform(); 
             g2.scale(zoom, zoom); 
             super.paint(g); 
             try {
@@ -984,12 +979,8 @@ public class mainFrame extends javax.swing.JFrame {
                 lblTime.setText("Heure: " + controller.getCurrentTime().getTimeStringNoSecond());
             }*/
             
-            g2.setTransform(backup);
+            g2.setTransform(transform);
         } 
-        @Override
-        public boolean isOptimizedDrawingEnabled() { 
-            return false; 
-        }
         @Override
         public Dimension getPreferredSize() { 
             Dimension unzoomed 
@@ -1001,23 +992,10 @@ public class mainFrame extends javax.swing.JFrame {
         }
          
         public void setZoom(double newZoom)
-            throws PropertyVetoException { 
-            if (newZoom <= 0.0) { 
-                throw new PropertyVetoException 
-                    ("Zoom minimal atteint", 
-                     new PropertyChangeEvent(this, 
-                                             "zoom", 
-                                             new Double(zoom), 
-                                             new Double(newZoom))); 
-            } 
+        {
             double oldZoom = zoom; 
             if (newZoom != oldZoom) { 
-                Dimension oldSize = getPreferredSize(); 
                 zoom = newZoom; 
-                Dimension newSize = getPreferredSize(); 
-                firePropertyChange("zoom", oldZoom, newZoom); 
-                firePropertyChange("preferredSize", 
-                                   oldSize, newSize); 
                 revalidate(); 
                 repaint(); 
             } 
@@ -1029,7 +1007,8 @@ public class mainFrame extends javax.swing.JFrame {
         
     } 
     
-    public void handleDrag(JPanel panel){
+    //Non implémenté
+    /*public void handleDrag(JPanel panel){
         panel.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent me) {
@@ -1052,7 +1031,7 @@ public class mainFrame extends javax.swing.JFrame {
             }
         });
      
-    }
+    }*/
     
     public void updateListStop()
     {
