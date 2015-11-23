@@ -23,6 +23,7 @@ public class VehiculeGenerator implements java.io.Serializable
     private Segment spawnSegment;
     private Trip trip;
     private String name;
+    private static int generatedCounter = 0;
     
     public VehiculeGenerator()
     {
@@ -31,11 +32,16 @@ public class VehiculeGenerator implements java.io.Serializable
     public VehiculeGenerator(Segment _spawnSegment, Trip _trip, double _min, double _max, double _mode, Time _startTime, Time _endTime, String _name)
     {
         this.spawnSegment = _spawnSegment;
-        this.timeBeginGeneration = _startTime;
-        this.timeEndGeneration = _endTime;
+        this.timeBeginGeneration = new Time(_startTime.getHour(), _startTime.getMinute(), _startTime.getSecond());
+        this.timeEndGeneration =new Time(_endTime.getHour(), _endTime.getMinute(), _endTime.getSecond());
         this.trip = _trip;
         this.name = _name;
-        distribution = new TriangularDistribution(_min,_max,_mode);
+        this.distribution = new TriangularDistribution(_min,_max,_mode);
+        double triangle = this.distribution.calculate();
+        double nextTime = _startTime.getTime() + (triangle*60);
+        this.nextDepartureTime = new Time();
+        this.nextDepartureTime.setTime(nextTime);
+
     }
     
     public String getName()
@@ -107,6 +113,19 @@ public class VehiculeGenerator implements java.io.Serializable
     }
     public Vehicule awakeGenerator(Time _currentTime)
     {
+        if(this.nextDepartureTime.getTime() == _currentTime.getTime())
+        {
+            double triangle = this.distribution.calculate();
+            double nextTime = this.nextDepartureTime.getTime() + (triangle*60);
+            this.nextDepartureTime = new Time();
+            this.nextDepartureTime.setTime(nextTime);
+            generatedCounter++;
+            Vehicule newVehicule = new Vehicule(this.trip, this.spawnSegment, this.name + " " + generatedCounter);
+            Time newTime = new Time();
+            newTime.setTime(_currentTime.getTime());
+            newVehicule.getCurrentPosition().setTimeStartSegment(newTime);
+            return newVehicule;
+        }
         return null;
     }
     

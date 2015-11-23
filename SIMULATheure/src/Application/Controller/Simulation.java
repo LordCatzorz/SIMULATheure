@@ -136,12 +136,28 @@ public class Simulation
         /*for(int i = 0; i < this.listClientGenerator.size(); i++)
         {
             this.listClientGenerator.get(i).awakeGenerator(this.currentTime);
-        }
+        }*/
         
         for(int i = 0; i < this.listVehiculeGenerator.size(); i++)
         {
-            this.listVehiculeGenerator.get(i).awakeGenerator(this.currentTime);
-        }*/
+            int amountVehicule = 0;
+            Trip vehiculeTrip = this.listVehiculeGenerator.get(i).getTrip();
+            for(int j= 0; j < this.listVehicule.size();j++)
+            {
+                if(this.listVehicule.get(j).getTrip() == vehiculeTrip)
+                {
+                    amountVehicule++;
+                }
+            }
+            if(amountVehicule < this.listVehiculeGenerator.get(i).getTrip().getMaxNumberVehicule())
+            {
+                Vehicule newVehicule = this.listVehiculeGenerator.get(i).awakeGenerator(this.currentTime);
+                if(newVehicule != null)
+                {
+                    this.listVehicule.add(newVehicule);
+                }
+            }
+        }
         this.updateVehiculePositions();
     }
     public void saveInitialState()

@@ -734,7 +734,7 @@ public class mainFrame extends javax.swing.JFrame {
     }
     
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {
-        if(this.controller.getListVehicule().size() > 0)
+        if(this.controller.getListVehicule().size() > 0 || this.controller.getListVehiculeGenerator().size()>0)
         {
             StartSimulation form = new StartSimulation(this.controller);
             form.addWindowListener(new java.awt.event.WindowAdapter (){

@@ -17,7 +17,6 @@ import java.util.List;
 public class Trip implements java.io.Serializable
 {
     private List<Segment> allSegments;
-    private Time nextDepartureTime;
     private String name;
     private int maxNumberVehicule;
     private boolean isCircular;
