@@ -516,6 +516,11 @@ public class mainFrame extends javax.swing.JFrame {
         btnStopSimu.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnStopSimu.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         tlbSpeed.add(btnStopSimu);
+        btnStopSimu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStopSimuActionPerformed(evt);
+            }
+        });
         
         pnlTool.setBackground(new java.awt.Color(102, 102, 102));
         pnlTool.setMaximumSize(new java.awt.Dimension(275, 150));
@@ -750,6 +755,10 @@ public class mainFrame extends javax.swing.JFrame {
     
     private void btnAccelerateActionPerformed(java.awt.event.ActionEvent evt) {
         controller.SetSpeedMultiplier(controller.getSpeedMultiplier() * 2);
+    }
+    
+    private void btnStopSimuActionPerformed(java.awt.event.ActionEvent evt) {
+        controller.reset();
     }
     
     private void btnClientProfileActionPerformed(java.awt.event.ActionEvent evt) {
