@@ -138,14 +138,8 @@ public class Simulation
         {
             this.listVehiculeGenerator.get(i).awakeGenerator(this.currentTime);
         }
-<<<<<<< HEAD
         this.updateVehiculePositions();*/
     }
-    
-=======
-        this.updateVehiculePositions();
-    }    
->>>>>>> origin/master
     public void saveInitialState()
     {
         try
