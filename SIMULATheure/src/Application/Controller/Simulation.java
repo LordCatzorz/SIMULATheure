@@ -54,7 +54,7 @@ public class Simulation
         this.listVehiculeGenerator = new ArrayList<>();
         this.listClientProfile = new ArrayList<>();
         this.listClient = new ArrayList<>();
-        this.speedMultiplier = 0;
+        this.speedMultiplier = 1;
         this.currentTime = new Time();
         this.startTime = new Time();
         this.endTime = new Time();
@@ -62,6 +62,10 @@ public class Simulation
         this.isSimulationPaused = false;
     }
             
+    public float getSpeedMultiplier()
+    {
+        return this.speedMultiplier;
+    }
     
     public boolean getIsSimuationStarted()
     {
@@ -106,8 +110,8 @@ public class Simulation
     
     public void Play()
     {
-        this.saveInitialState();
-        this.setSegmentsDuration(); 
+        //this.saveInitialState();
+        //this.setSegmentsDuration //dans le DS démarrer la simulation 
         //this.speedMultiplier = 1;
         /*while(this.speedMultiplier != 0)
         {
@@ -123,7 +127,7 @@ public class Simulation
     public void reset()
     {
         this.pause();
-        this.LoadSimulation(name);
+        //this.LoadSimulation(name);
     }
     
     public void updateSimulation()
@@ -138,7 +142,8 @@ public class Simulation
         {
             this.listVehiculeGenerator.get(i).awakeGenerator(this.currentTime);
         }
-        this.updateVehiculePositions();*/
+        this.updateVehiculePositions();
+        }*/
     }
     public void saveInitialState()
     {
@@ -697,8 +702,9 @@ public class Simulation
     
     private void moveVehicule(Vehicule _vehicule)
     {
-        Segment segment = _vehicule.getCurrentPosition().getCurrentSegment();
+        _vehicule.getCurrentPosition().update(currentTime);
         
+        /*Segment segment = _vehicule.getCurrentPosition().getCurrentSegment();
         GeographicPosition originPosition = segment.getOriginNode().getGeographicPosition();
         GeographicPosition destinationPosition = segment.getDestinationNode().getGeographicPosition();
         
@@ -724,17 +730,15 @@ public class Simulation
         
         VehiculePosition position = _vehicule.getCurrentPosition();
         position.setGeographicPosition(new GeographicPosition(x, y));
-        _vehicule.setCurrentPosition(position);
+        _vehicule.setCurrentPosition(position);*/
     }
     
     private boolean isSegmentCompleted(Vehicule _vehicule)
     {
-        Segment segment = _vehicule.getCurrentPosition().getCurrentSegment();
-        Time timeSegmentStart = _vehicule.getCurrentPosition().getTimeSegmentStart();
-        
-        double durationTime = segment.getDurationTime()/60;
-        double timeSpent = (this.currentTime.getTime() - timeSegmentStart.getTime());
-        double completionPercentage = (timeSpent/durationTime)*100;
-        return (completionPercentage >= 100);
+        double timeSegmentStarted = _vehicule.getCurrentPosition().getTimeSegmentStart().getTime();
+        double ellapsedTime = currentTime.getTime() - timeSegmentStarted;
+        double totalTime = (_vehicule.getCurrentPosition().getCurrentSegment().getDurationTime())*60;
+        double percentageCompleted =  (100 - ((totalTime - ellapsedTime)/totalTime)*100)/100;
+        return (percentageCompleted >= 100);
     }
 }
