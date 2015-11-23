@@ -437,6 +437,15 @@ public class Simulation
         return null;
     }*/
     
+    public void updateVehiculePositionsByNode(Node _nodeUpdated)
+    {
+        for(Vehicule vehicule : this.listVehicule)
+        {
+            if(vehicule.getCurrentPosition().getCurrentSegment().getOriginNode() == _nodeUpdated)
+                vehicule.setCurrentPosition(new VehiculePosition(vehicule.getCurrentPosition().getCurrentSegment(), new Time()));
+        }
+    }
+    
     public void changeNodeNameAndPosition(float _oldXPosition, float _oldYPosition, float _newXPosition, float _newYPosition, String _name)
     {
         for(Node node : this.listNode)

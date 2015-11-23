@@ -995,18 +995,9 @@ public class mainFrame extends javax.swing.JFrame {
             {
                 int width = controller.getListVehicule().get(i).getWidth();
                 g2.setColor(Color.BLUE);
-                if(controller.getIsSimuationStarted())
-                {
-                    g2.fillOval((int)controller.getListVehicule().get(i).getCurrentPosition().getGeographicPosition().getXPosition() - (width /2), 
-                                (int)controller.getListVehicule().get(i).getCurrentPosition().getGeographicPosition().getYPosition() - (width /2), 
-                                width, width);
-                }
-                else if((!controller.getIsSimuationStarted()))
-                {
-                    g2.fillOval((int)controller.getListVehicule().get(i).getCurrentPosition().getCurrentSegment().getOriginNode().getGeographicPosition().getXPosition() - (width /2), 
-                                (int)controller.getListVehicule().get(i).getCurrentPosition().getCurrentSegment().getOriginNode().getGeographicPosition().getYPosition() - (width /2), 
-                                width, width);
-                }
+                g2.fillOval((int)controller.getListVehicule().get(i).getCurrentPosition().getGeographicPosition().getXPosition() - (width /2), 
+                            (int)controller.getListVehicule().get(i).getCurrentPosition().getGeographicPosition().getYPosition() - (width /2), 
+                            width, width);
             }
             
             //A PIERRE!!!
