@@ -38,7 +38,7 @@ public class VehiculeGenerator implements java.io.Serializable
         this.name = _name;
         this.distribution = new TriangularDistribution(_min,_max,_mode);
         double triangle = this.distribution.calculate();
-        double nextTime = _startTime.getTime() + (triangle*60);
+        double nextTime = _startTime.getTime() + Math.round(triangle)*60;
         this.nextDepartureTime = new Time();
         this.nextDepartureTime.setTime(nextTime);
 
@@ -116,7 +116,11 @@ public class VehiculeGenerator implements java.io.Serializable
         if(this.nextDepartureTime.getTime() == _currentTime.getTime())
         {
             double triangle = this.distribution.calculate();
-            double nextTime = this.nextDepartureTime.getTime() + (triangle*60);
+            double nextTime = _currentTime.getTime() + Math.round(triangle)*60;
+            if(nextTime >= this.timeEndGeneration.getTime())
+            {
+                nextTime = this.timeBeginGeneration.getTime() + Math.round(triangle)*60;
+            }
             this.nextDepartureTime = new Time();
             this.nextDepartureTime.setTime(nextTime);
             generatedCounter++;
