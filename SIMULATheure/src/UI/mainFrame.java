@@ -373,6 +373,8 @@ public class mainFrame extends javax.swing.JFrame {
         tlbTools.setBackground(new java.awt.Color(102, 102, 255));
         tlbTools.setOrientation(javax.swing.SwingConstants.VERTICAL);
         tlbTools.setRollover(true);
+        tlbTools.setFloatable(false);
+        tlbSpeed.setFloatable(false);
 
         btnStop.setText("Arrêt");
         btnStop.setFocusable(false);
@@ -503,12 +505,22 @@ public class mainFrame extends javax.swing.JFrame {
         btnAccelerate.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnAccelerate.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         tlbSpeed.add(btnAccelerate);
+        btnAccelerate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAccelerateActionPerformed(evt);
+            }
+        });
 
         btnStopSimu.setText("Arrêter");
         btnStopSimu.setFocusable(false);
         btnStopSimu.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnStopSimu.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         tlbSpeed.add(btnStopSimu);
+        btnStopSimu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStopSimuActionPerformed(evt);
+            }
+        });
         
         pnlTool.setBackground(new java.awt.Color(102, 102, 102));
         pnlTool.setMaximumSize(new java.awt.Dimension(275, 150));
@@ -740,6 +752,15 @@ public class mainFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Il n'y a pas de véhicules existants à simuler.");
         }
     }
+    
+    private void btnAccelerateActionPerformed(java.awt.event.ActionEvent evt) {
+        controller.SetSpeedMultiplier(controller.getSpeedMultiplier() * 2);
+    }
+    
+    private void btnStopSimuActionPerformed(java.awt.event.ActionEvent evt) {
+        controller.reset();
+    }
+    
     private void btnClientProfileActionPerformed(java.awt.event.ActionEvent evt) {
         lblToolName.setText("Profil client");
         lblToolName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

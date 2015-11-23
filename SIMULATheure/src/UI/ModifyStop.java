@@ -152,7 +152,10 @@ public class ModifyStop extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPositionXActionPerformed
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-        controller.changeNodeNameAndPosition(oldXPosition, oldYPosition, Float.parseFloat(txtPositionX.getText()), Float.parseFloat(txtPositionY.getText()), txtName.getText());
+        float newXPosition = Float.parseFloat(txtPositionX.getText());
+        float newYPosition = Float.parseFloat(txtPositionY.getText());
+        controller.changeNodeNameAndPosition(oldXPosition, oldYPosition, newXPosition, newYPosition, txtName.getText());
+        controller.updateVehiculePositionsByNode(controller.getNodeAtPostion(newXPosition, newYPosition));
         dispose();
     }//GEN-LAST:event_btnOkActionPerformed
 

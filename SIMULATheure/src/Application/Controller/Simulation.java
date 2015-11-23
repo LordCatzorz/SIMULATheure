@@ -62,6 +62,10 @@ public class Simulation
         this.isSimulationPaused = false;
     }
             
+    public float getSpeedMultiplier()
+    {
+        return this.speedMultiplier;
+    }
     
     public boolean getIsSimuationStarted()
     {
@@ -106,7 +110,7 @@ public class Simulation
     
     public void Play()
     {
-        this.saveInitialState();
+        //this.saveInitialState();
         //this.setSegmentsDuration //dans le DS démarrer la simulation 
         //this.speedMultiplier = 1;
         /*while(this.speedMultiplier != 0)
@@ -123,7 +127,7 @@ public class Simulation
     public void reset()
     {
         this.pause();
-        this.LoadSimulation(name);
+        //this.LoadSimulation(name);
     }
     
     public void updateSimulation()
@@ -137,8 +141,9 @@ public class Simulation
         for(int i = 0; i < this.listVehiculeGenerator.size(); i++)
         {
             this.listVehiculeGenerator.get(i).awakeGenerator(this.currentTime);
-        }*/
+        }
         this.updateVehiculePositions();
+        }*/
     }
     public void saveInitialState()
     {
@@ -432,6 +437,15 @@ public class Simulation
         }
         return null;
     }*/
+    
+    public void updateVehiculePositionsByNode(Node _nodeUpdated)
+    {
+        for(Vehicule vehicule : this.listVehicule)
+        {
+            if(vehicule.getCurrentPosition().getCurrentSegment().getOriginNode() == _nodeUpdated)
+                vehicule.setCurrentPosition(new VehiculePosition(vehicule.getCurrentPosition().getCurrentSegment(), new Time()));
+        }
+    }
     
     public void changeNodeNameAndPosition(float _oldXPosition, float _oldYPosition, float _newXPosition, float _newYPosition, String _name)
     {
