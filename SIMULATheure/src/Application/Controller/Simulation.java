@@ -108,15 +108,11 @@ public class Simulation
         this.endTime =_endTime;
     }
     
-    public void Play()
+    public void play()
     {
         //this.saveInitialState();
-        //this.setSegmentsDuration //dans le DS démarrer la simulation 
-        //this.speedMultiplier = 1;
-        /*while(this.speedMultiplier != 0)
-        {
-            this.updateSimulation();
-        }*/
+        this.setSegmentsDuration();
+        //this.speedMultiplier = 1;        
     }
     
     public void pause()
@@ -133,7 +129,7 @@ public class Simulation
     
     public void updateSimulation()
     {
-        this.currentTime.setTime(this.currentTime.getTime() + 2);
+        this.currentTime.setTime(this.currentTime.getTime() + (2 * this.speedMultiplier));
         /*for(int i = 0; i < this.listClientGenerator.size(); i++)
         {
             this.listClientGenerator.get(i).awakeGenerator(this.currentTime);
@@ -456,10 +452,13 @@ public class Simulation
     
     public void setSegmentsDuration()
     {
-        for(Segment segment: this.listSegment)
+        for(int i = 0; i < this.getListSegment().size(); i++)
         {
-            segment.setDurationTime(segment.getDurationDistribution().calculate());
-        }
+            Segment segment = this.getListSegment().get(i);
+            double triangle = segment.getDurationDistribution().calculate();
+            int duration =(int) Math.round(triangle);
+            segment.setDurationTime(duration);
+        }       
     }
     
     public void updateVehiculePositionsByNode(Node _nodeUpdated)

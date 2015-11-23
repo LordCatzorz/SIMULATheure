@@ -486,6 +486,11 @@ public class mainFrame extends javax.swing.JFrame {
         btnRestart.setFocusable(false);
         btnRestart.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnRestart.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnRestart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRestartActionPerformed(evt);
+            }
+        });
         tlbSpeed.add(btnRestart);
 
         btnStart.setText("Démarrer");
@@ -506,7 +511,7 @@ public class mainFrame extends javax.swing.JFrame {
         tlbSpeed.add(btnPause);
 
 
-        btnAccelerate.setText("Avancer");
+        btnAccelerate.setText("Accélérer");
         btnAccelerate.setFocusable(false);
         btnAccelerate.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnAccelerate.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -748,6 +753,7 @@ public class mainFrame extends javax.swing.JFrame {
             if (controller.getIsSimuationStarted())
             {
                 this.controller.setIsSimulationPaused(false);
+                this.controller.SetSpeedMultiplier(1);
                 ticker.start();
             }
         }else{
@@ -761,6 +767,7 @@ public class mainFrame extends javax.swing.JFrame {
                         public void windowClosed(java.awt.event.WindowEvent e){
                             if (controller.getIsSimuationStarted())
                             {
+                                mainFrame.this.controller.play();
                                 ticker = new javax.swing.Timer(1000/30 ,tickEvent);
                                 ticker.setRepeats(true);
                                 ticker.start();
@@ -771,19 +778,38 @@ public class mainFrame extends javax.swing.JFrame {
                 }else{
                     JOptionPane.showMessageDialog(this, "Il n'y a pas de véhicules existants à simuler.");
                 }
+            }else
+            {
+                this.controller.SetSpeedMultiplier(1);
             }
         }
     }
     private void btnPauseActionPerformed(java.awt.event.ActionEvent evt) {
-        controller.pause();
+        if(this.controller.getIsSimuationStarted())
+        {
+            controller.pause();
+        }
     }
     private void btnAccelerateActionPerformed(java.awt.event.ActionEvent evt) {
-        controller.SetSpeedMultiplier(controller.getSpeedMultiplier() * 2);
+        if(this.controller.getIsSimuationStarted())
+        {
+            controller.SetSpeedMultiplier(controller.getSpeedMultiplier() * 2);
+        }
+    }
+    private void btnRestartActionPerformed(java.awt.event.ActionEvent evt) {
+        if(this.controller.getIsSimuationStarted())
+        {
+            ticker.stop();
+            controller.reset();
+        }
     }
     
     private void btnStopSimuActionPerformed(java.awt.event.ActionEvent evt) {
-        ticker.stop();
-        controller.reset();
+        if(this.controller.getIsSimuationStarted())
+        {
+            ticker.stop();
+            controller.reset();
+        }
     }
     
     private void btnClientProfileActionPerformed(java.awt.event.ActionEvent evt) {
