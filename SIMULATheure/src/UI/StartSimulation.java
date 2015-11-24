@@ -9,6 +9,8 @@ import Application.Controller.Simulation;
 import Application.Controller.Time;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 /**
@@ -150,9 +152,9 @@ public class StartSimulation extends javax.swing.JFrame {
     
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) 
     {   
-        if(txtEndTime.getText().isEmpty() || txtStartTime.getText().isEmpty())
+        if(txtEndTime.getText().isEmpty() || txtStartTime.getText().isEmpty() || !validateTimeFormat())
         {
-            JOptionPane.showMessageDialog(this, "Assurez-vous d'avoir rempli tous les champs avant \nla création ou la modification du générateur de véhicule.");
+            JOptionPane.showMessageDialog(this, "Assurez-vous d'avoir rempli tous les champs dans le bon format \navant la création ou la modification du générateur de véhicule.");
         }else{
             String strTimeStart = txtStartTime.getText();
             String strHourTimeStart = strTimeStart.substring(0, strTimeStart.indexOf(':'));
@@ -191,6 +193,16 @@ public class StartSimulation extends javax.swing.JFrame {
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) 
     {   
         dispose();
+    }
+    
+    private boolean validateTimeFormat()
+    { 
+        String timePattern = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
+        Pattern pattern = Pattern.compile(timePattern);
+        Matcher matcherStartTime = pattern.matcher(txtStartTime.getText());
+        Matcher matcherEndTime = pattern.matcher(txtEndTime.getText());
+        
+        return matcherStartTime.matches() && matcherEndTime.matches();
     }
     
 

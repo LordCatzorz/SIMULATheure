@@ -91,6 +91,7 @@ public class ModifyVehicule extends javax.swing.JFrame {
         
         if(vehicule == null)
         {
+            this.btnDelete.setVisible(false);
             for(int i = 0; i < controller.getListTrip().size(); i++)
             {
                 this.cmbTrip.addItem(controller.getListTrip().get(i).getName());
@@ -107,6 +108,7 @@ public class ModifyVehicule extends javax.swing.JFrame {
                 }
             }
         }else{
+            this.btnDelete.setVisible(true);
             this.txtName.setText(vehicule.getName());
             for(int i = 0; i < controller.getListTrip().size(); i++)
             {

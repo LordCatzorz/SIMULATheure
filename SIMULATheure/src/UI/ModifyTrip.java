@@ -82,6 +82,7 @@ public class ModifyTrip extends javax.swing.JFrame {
             txtNbMaxVehicule.setText(""+trip.getMaxNumberVehicule());
         }else{
             txtName.setText("Trajet");
+            btnDelete.setVisible(false);
         }
 
         txtSegment.setText("Segments du trajet: ");

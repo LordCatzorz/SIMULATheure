@@ -745,7 +745,7 @@ public class mainFrame extends javax.swing.JFrame {
     private void btnStopActionPerformed(java.awt.event.ActionEvent evt) {
         lblToolName.setText("Arrêt");
         lblToolName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnAdd.setVisible(true);
+        btnAdd.setVisible(false);
         lstToolItems.setVisible(true);
         updateListStop();
         scrollPaneTool.setVisible(true);
@@ -838,7 +838,7 @@ public class mainFrame extends javax.swing.JFrame {
     private void btnClientProfileActionPerformed(java.awt.event.ActionEvent evt) {
         lblToolName.setText("Profil client");
         lblToolName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnAdd.setVisible(true);
+        btnAdd.setVisible(false);
         scrollPaneTool.setVisible(true);
         updateListClientProfile();
         controller.setCurrentTool(Tool.CLIENT_PROFILE);
@@ -847,7 +847,7 @@ public class mainFrame extends javax.swing.JFrame {
     private void btnSegmentActionPerformed(java.awt.event.ActionEvent evt) {
         lblToolName.setText("Segment");
         lblToolName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnAdd.setVisible(true);
+        btnAdd.setVisible(false);
         lstToolItems.setVisible(true);
         updateListSegment();
         scrollPaneTool.setVisible(true);
@@ -999,7 +999,7 @@ public class mainFrame extends javax.swing.JFrame {
     {
         try
         {
-            FileInputStream fileIn = new FileInputStream("saves/InitialState.ser");
+            FileInputStream fileIn = new FileInputStream("N-Team_Simulatheure_Saves/InitialState.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             controller = (Simulation) in.readObject();
 
@@ -1136,8 +1136,6 @@ public class mainFrame extends javax.swing.JFrame {
         public double getZoom() { 
             return zoom; 
         }
-        
-        
     } 
     
     public void handleDrag(JPanel panel){

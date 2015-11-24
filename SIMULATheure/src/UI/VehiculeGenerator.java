@@ -15,6 +15,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 /**
  *
  * @author Élise
@@ -181,46 +184,36 @@ public class VehiculeGenerator extends javax.swing.JFrame
         });
         lblName.setText("Nom:");
         
-        if(generator == null)
+        if (generator != null)
         {
-            for(int i = 0; i < controller.getListTrip().size(); i++)
-            {
-                this.cmbTrip.addItem(controller.getListTrip().get(i).getName());
-            }
-        }
-        else
-        {
+            btnDelete.setVisible(true);
+            this.txtStartTime.setText(String.valueOf(generator.getTimeBeginGeneration().getTimeStringNoSecond()));
+            this.txtEndTime.setText(String.valueOf(generator.getTimeEndGeneration().getTimeStringNoSecond()));
             this.txtName.setText(generator.getName());
+            this.txtMinTime.setText(String.valueOf(generator.getDistribution().getMinimum()));
+            this.txtMaxTime.setText(String.valueOf(generator.getDistribution().getMaximum()));
+            this.txtModeTime.setText(String.valueOf(generator.getDistribution().getMode()));
+            
             for(int i = 0; i < controller.getListTrip().size(); i++)
             {
                 this.cmbTrip.addItem(controller.getListTrip().get(i).getName());
             }
             this.cmbTrip.setSelectedItem(generator.getTrip().getName());       
-
             this.cmbOriginStop.setSelectedItem(generator.getSpawnSegment().getOriginNode().getName());
-        }
-        if (generator != null)
-        {
-            this.txtMinTime.setText(String.valueOf(generator.getDistribution().getMinimum()));
-            this.txtMaxTime.setText(String.valueOf(generator.getDistribution().getMaximum()));
-            this.txtModeTime.setText(String.valueOf(generator.getDistribution().getMode()));
+        
         }
         else
         {
+            this.btnDelete.setVisible(false);
             this.txtMinTime.setText(String.valueOf(15));
             this.txtMaxTime.setText(String.valueOf(15));
             this.txtModeTime.setText(String.valueOf(15)); 
+            
+            for(int i = 0; i < controller.getListTrip().size(); i++)
+            {
+                this.cmbTrip.addItem(controller.getListTrip().get(i).getName());
+            }
         }
-        
-        if (generator != null)
-            this.txtStartTime.setText(String.valueOf(generator.getTimeBeginGeneration().getTimeStringNoSecond()));
-
-        if (generator != null)
-            this.txtEndTime.setText(String.valueOf(generator.getTimeEndGeneration().getTimeStringNoSecond()));
-        if(generator != null)
-            this.txtName.setText(generator.getName());
-        if(generator == null)
-            this.btnDelete.setVisible(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -315,7 +308,8 @@ public class VehiculeGenerator extends javax.swing.JFrame
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
         if(!(txtMaxTime.getText().isEmpty()|| txtMinTime.getText().isEmpty() || txtModeTime.getText().isEmpty()
-                || txtEndTime.getText().isEmpty() || txtStartTime.getText().isEmpty() || txtName.getText().isEmpty()))
+                || txtEndTime.getText().isEmpty() || txtStartTime.getText().isEmpty() || txtName.getText().isEmpty()) 
+           && validateTimeFormat())
         {
             if (generator == null)
             {
@@ -421,7 +415,7 @@ public class VehiculeGenerator extends javax.swing.JFrame
             }
             dispose();
         }else{
-            JOptionPane.showMessageDialog(this, "Assurez-vous d'avoir rempli tous les champs avant \nla création ou la modification du générateur de véhicule.");
+            JOptionPane.showMessageDialog(this, "Assurez-vous d'avoir rempli tous les champs dans le bon format \navant la création ou la modification du générateur de véhicule.");
         }
     }//GEN-LAST:event_btnOkActionPerformed
 
@@ -434,7 +428,16 @@ public class VehiculeGenerator extends javax.swing.JFrame
             dispose();
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
- 
+    
+    private boolean validateTimeFormat()
+    { 
+        String timePattern = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
+        Pattern pattern = Pattern.compile(timePattern);
+        Matcher matcherStartTime = pattern.matcher(txtStartTime.getText());
+        Matcher matcherEndTime = pattern.matcher(txtEndTime.getText());
+        
+        return matcherStartTime.matches() && matcherEndTime.matches();
+    }        
     /**
      * @param args the command line arguments
      */

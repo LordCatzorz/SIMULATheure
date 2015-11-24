@@ -165,7 +165,13 @@ public class Simulation implements java.io.Serializable
         this.isSimulationStarted = false;
         try
         {
-            FileOutputStream outFile = new FileOutputStream("saves/InitialState.ser");
+            File directory = new File("N-Team_Simulatheure_Saves");
+
+            if (!directory.exists())
+            {
+                directory.mkdir();
+            }
+            FileOutputStream outFile = new FileOutputStream("N-Team_Simulatheure_Saves/InitialState.ser");
             ObjectOutputStream out = new ObjectOutputStream(outFile);
             out.writeObject(this);
             
