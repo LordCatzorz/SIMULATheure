@@ -829,6 +829,7 @@ public class mainFrame extends javax.swing.JFrame {
         if(this.controller.getIsSimuationStarted())
         {
             this.stopSimulation();
+            lblTime.setText("");
         }
     }
     
@@ -996,7 +997,7 @@ public class mainFrame extends javax.swing.JFrame {
     {
         try
         {
-            FileInputStream fileIn = new FileInputStream("saves/Simulation.ser");
+            FileInputStream fileIn = new FileInputStream("saves/InitialState.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             controller = (Simulation) in.readObject();
 

@@ -120,14 +120,6 @@ public class Simulation implements java.io.Serializable
         this.setIsSimulationPaused(true);
     }
     
-    public void reset()
-    {
-        this.setIsSimulationPaused(false);
-        this.setIsSimulationStarted(false);
-        this.SetSpeedMultiplier(1);
-        //this.LoadSimulation(name);
-    }
-    
     public void updateSimulation()
     {
         this.currentTime.setTime(this.currentTime.getTime() + (2 * this.speedMultiplier));
@@ -175,7 +167,7 @@ public class Simulation implements java.io.Serializable
         this.isSimulationStarted = false;
         try
         {
-            FileOutputStream outFile = new FileOutputStream("saves/Simulation.ser");
+            FileOutputStream outFile = new FileOutputStream("saves/InitialState.ser");
             ObjectOutputStream out = new ObjectOutputStream(outFile);
             out.writeObject(this);
             
@@ -193,7 +185,7 @@ public class Simulation implements java.io.Serializable
     {
         /*try
         {
-            FileInputStream fileIn = new FileInputStream("saves/Simulation.ser");
+            FileInputStream fileIn = new FileInputStream("saves/InitialState.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             this = (Simulation)in.readObject(); CANNOT DO THIS
             
