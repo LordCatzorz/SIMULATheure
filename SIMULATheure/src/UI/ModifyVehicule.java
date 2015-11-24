@@ -126,6 +126,19 @@ public class ModifyVehicule extends javax.swing.JFrame {
             }            
             this.cmbOriginStop.setSelectedItem(vehicule.getCurrentPosition().getCurrentSegment().getOriginNode().getName());
         }
+        
+        cmbTrip.addActionListener (new java.awt.event.ActionListener () 
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt) 
+            {
+                cmbOriginStop.removeAllItems();
+                for(int i = 0; i < controller.getListNodeByTrip(controller.getTripByName(cmbTrip.getSelectedItem().toString())).size(); i++)
+                {
+                    cmbOriginStop.addItem(controller.getListNodeByTrip(controller.getTripByName(cmbTrip.getSelectedItem().toString())).get(i).getName());
+                }
+            }
+        });
+        
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(

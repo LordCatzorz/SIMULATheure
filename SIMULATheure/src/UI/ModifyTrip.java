@@ -301,13 +301,13 @@ public class ModifyTrip extends javax.swing.JFrame {
                     break;
                 }
             }
-            if(this.trip != null)
-            {
+           
+           
                 if(name.equalsIgnoreCase(this.trip.getName()))
                 {
                     nameExists = false;
                 }
-            }
+            
                 if(!nameExists)
                 {
                     Boolean isCircular = false;   
