@@ -301,50 +301,58 @@ public class ModifyTrip extends javax.swing.JFrame {
                     break;
                 }
             }
-            if(!nameExists || name.equalsIgnoreCase(this.trip.getName()))
+            if(this.trip != null)
             {
-                Boolean isCircular = false;   
-                List<Segment> list = new LinkedList();
-                for(int i = 0; i < lstSegmentTrip.getModel().getSize(); i++)
+                if(name.equalsIgnoreCase(this.trip.getName()))
                 {
-                    String segmentFromList = lstSegmentTrip.getModel().getElementAt(i).toString();
-                    String origin = segmentFromList.substring(0, segmentFromList.indexOf('|') - 1);
-                    String destination = segmentFromList.substring(segmentFromList.indexOf('|') + 2, segmentFromList.length());
-                    for(int j = 0; j < this.controller.getListSegment().size(); j++){
-                        if(this.controller.getListSegment().get(j).getOriginNode().getName().equalsIgnoreCase(origin) && this.controller.getListSegment().get(j).getDestinationNode().getName().equalsIgnoreCase(destination))
-                        {
+                    nameExists = false;
+                }
+            }
+                if(!nameExists)
+                {
+                    Boolean isCircular = false;   
+                    List<Segment> list = new LinkedList();
+                    for(int i = 0; i < lstSegmentTrip.getModel().getSize(); i++)
+                    {
+                        String segmentFromList = lstSegmentTrip.getModel().getElementAt(i).toString();
+                        String origin = segmentFromList.substring(0, segmentFromList.indexOf('|') - 1);
+                        String destination = segmentFromList.substring(segmentFromList.indexOf('|') + 2, segmentFromList.length());
+                        for(int j = 0; j < this.controller.getListSegment().size(); j++){
+                            if(this.controller.getListSegment().get(j).getOriginNode().getName().equalsIgnoreCase(origin) && this.controller.getListSegment().get(j).getDestinationNode().getName().equalsIgnoreCase(destination))
+                            {
 
-                            Segment segment = this.controller.getListSegment().get(j);
-                            list.add(segment);
-                            break;
+                                Segment segment = this.controller.getListSegment().get(j);
+                                list.add(segment);
+                                break;
+                            }
                         }
                     }
-                }
-                String lastSegment = lstSegmentTrip.getModel().getElementAt(lstSegmentTrip.getModel().getSize() -1).toString();
-                String lastDestination = lastSegment.substring(lastSegment.indexOf('|') + 2, lastSegment.length());
-                String firstSegment = lstSegmentTrip.getModel().getElementAt(0).toString();
-                String firstOrigin = firstSegment.substring(0, firstSegment.indexOf('|') - 1);
+                    String lastSegment = lstSegmentTrip.getModel().getElementAt(lstSegmentTrip.getModel().getSize() -1).toString();
+                    String lastDestination = lastSegment.substring(lastSegment.indexOf('|') + 2, lastSegment.length());
+                    String firstSegment = lstSegmentTrip.getModel().getElementAt(0).toString();
+                    String firstOrigin = firstSegment.substring(0, firstSegment.indexOf('|') - 1);
 
-                if(firstOrigin.equalsIgnoreCase(lastDestination))
-                {
-                    isCircular = true;
-                }
-                int nbVehicule = Integer.parseInt(strNbVehicule);
-                if(this.trip == null)
-                {
-                    this.controller.addTrip(list, name,nbVehicule,isCircular);
+                    if(firstOrigin.equalsIgnoreCase(lastDestination))
+                    {
+                        isCircular = true;
+                    }
+                    int nbVehicule = Integer.parseInt(strNbVehicule);
+                    if(this.trip == null)
+                    {
+                        this.controller.addTrip(list, name,nbVehicule,isCircular);
+                    }else
+                    {
+                        trip.setName(name);
+                        trip.setAllSegments(list);
+                        trip.setMaxNumberVehicule(nbVehicule);
+                        trip.setIsCircular(isCircular);
+                    }
+                    dispose();
                 }else
                 {
-                    trip.setName(name);
-                    trip.setAllSegments(list);
-                    trip.setMaxNumberVehicule(nbVehicule);
-                    trip.setIsCircular(isCircular);
+                    JOptionPane.showMessageDialog(this, "Ce nom de trajet existe déjà, veuillez en sélectionner un nouveau.");
                 }
-                dispose();
-            }else
-            {
-                JOptionPane.showMessageDialog(this, "Ce nom de trajet existe déjà, veuillez en sélectionner un nouveau.");
-            }
+            
         }else{
             JOptionPane.showMessageDialog(this, "Assurez-vous d'avoir rempli tous les champs avant \nla création ou la modification du trajet.");
         }

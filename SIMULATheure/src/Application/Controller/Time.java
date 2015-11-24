@@ -12,28 +12,41 @@ public class Time {
     private double hour;
     private double minute;
     private double second;
+    private double day;
     public Time()
     {
+        day = 0;
         hour = 0;
         minute = 0;
         second = 0;
     }
-    public Time(double _hour, double _minute, double _second)
+    public Time(double _day, double _hour, double _minute, double _second)
     {
+        day = _day;
         hour = _hour;
         minute =_minute;
         second = _second;
     }
     public double getTime()
     {
-        return (int)second+(60*(int)minute)+(3600*(int)hour);
+        return (int)second+(60*(int)minute)+(3600*(int)hour) + (86400*(int)day);
     }
     public void setTime(double _time)
     {
-        hour =  _time / 3600;
-        double remainder = _time - ((int)hour * 3600);
+        day = _time / 86400;
+        double remainder = _time - ((int)day * 86400);
+        hour =  (int) remainder / 3600;
+        remainder = remainder - ((int)hour * 3600);
         minute = (int)remainder / 60;
         second = remainder - ((int)minute * 60);
+    }
+    public double getDay()
+    {
+        return day;
+    }
+    public void setDay(double _day)
+    {
+        this.day = _day;
     }
     public double getHour()
     {
@@ -50,7 +63,8 @@ public class Time {
     public void setMinute(double _minute)
     {
         this.minute = _minute;
-    }public double getSecond()
+    }
+    public double getSecond()
     {
         return second;
     }
@@ -62,10 +76,6 @@ public class Time {
     {
         String timeString="";       
         int hourAmount = (int) Math.floor(hour);
-        if(hourAmount >= 24)
-        {
-            hourAmount = hourAmount - 24;
-        }
         if(!(hour < 10))
         {
             timeString+= hourAmount+ ":";
@@ -80,5 +90,4 @@ public class Time {
         }
         return timeString;
     }
-    
 }

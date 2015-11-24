@@ -124,38 +124,51 @@ public class Simulation
     {
         this.setIsSimulationPaused(false);
         this.setIsSimulationStarted(false);
+        this.SetSpeedMultiplier(1);
         //this.LoadSimulation(name);
     }
     
     public void updateSimulation()
     {
         this.currentTime.setTime(this.currentTime.getTime() + (2 * this.speedMultiplier));
+        if(this.currentTime.getTime() < this.endTime.getTime())
+        {
+        /*if(this.currentTime.getHour() >= 24)
+        {
+            this.currentTime.setHour(0);
+        }*/
+        
+    
         /*for(int i = 0; i < this.listClientGenerator.size(); i++)
         {
             this.listClientGenerator.get(i).awakeGenerator(this.currentTime);
         }*/
         
-        for(int i = 0; i < this.listVehiculeGenerator.size(); i++)
-        {
-            int amountVehicule = 0;
-            Trip vehiculeTrip = this.listVehiculeGenerator.get(i).getTrip();
-            for(int j= 0; j < this.listVehicule.size();j++)
+            for(int i = 0; i < this.listVehiculeGenerator.size(); i++)
             {
-                if(this.listVehicule.get(j).getTrip() == vehiculeTrip)
+                int amountVehicule = 0;
+                Trip vehiculeTrip = this.listVehiculeGenerator.get(i).getTrip();
+                for(int j= 0; j < this.listVehicule.size();j++)
                 {
-                    amountVehicule++;
+                    if(this.listVehicule.get(j).getTrip() == vehiculeTrip)
+                    {
+                        amountVehicule++;
+                    }
+                }
+                if(amountVehicule < this.listVehiculeGenerator.get(i).getTrip().getMaxNumberVehicule())
+                {
+                    Vehicule newVehicule = this.listVehiculeGenerator.get(i).awakeGenerator(this.currentTime);
+                    if(newVehicule != null)
+                    {
+                        this.listVehicule.add(newVehicule);
+                    }
                 }
             }
-            if(amountVehicule < this.listVehiculeGenerator.get(i).getTrip().getMaxNumberVehicule())
-            {
-                Vehicule newVehicule = this.listVehiculeGenerator.get(i).awakeGenerator(this.currentTime);
-                if(newVehicule != null)
-                {
-                    this.listVehicule.add(newVehicule);
-                }
-            }
+            this.updateVehiculePositions();
+        }else{
+            this.setIsSimulationStarted(false);
+            this.setIsSimulationPaused(true);
         }
-        this.updateVehiculePositions();
     }
     public void saveInitialState()
     {
@@ -715,12 +728,12 @@ public class Simulation
                     if(vehicule.getTrip().getNextSegment(destinationNode) != null)
                     {
                         vehicule.getCurrentPosition().setCurrentSegment(vehicule.getTrip().getNextSegment(destinationNode));
-                        vehicule.getCurrentPosition().setTimeStartSegment(new Time(this.currentTime.getHour(), this.currentTime.getMinute(), this.currentTime.getSecond()));
+                        vehicule.getCurrentPosition().setTimeStartSegment(new Time(this.currentTime.getDay(), this.currentTime.getHour(), this.currentTime.getMinute(), this.currentTime.getSecond()));
                     }else{
                         if(vehicule.getTrip().getIsCircular())
                         {
                             vehicule.getCurrentPosition().setCurrentSegment(vehicule.getTrip().getAllSegments().get(0));
-                            vehicule.getCurrentPosition().setTimeStartSegment(new Time(this.currentTime.getHour(), this.currentTime.getMinute(), this.currentTime.getSecond()));
+                            vehicule.getCurrentPosition().setTimeStartSegment(new Time(this.currentTime.getDay(), this.currentTime.getHour(), this.currentTime.getMinute(), this.currentTime.getSecond()));
                         }else{
                             this.listVehicule.remove(vehicule);
                         }
@@ -768,7 +781,15 @@ public class Simulation
     private boolean isSegmentCompleted(Vehicule _vehicule)
     {
         double timeSegmentStarted = _vehicule.getCurrentPosition().getTimeSegmentStart().getTime();
-        double ellapsedTime = currentTime.getTime() - timeSegmentStarted;
+        double ellapsedTime;
+        if(currentTime.getTime() == new Time().getTime() && timeSegmentStarted < 86400)
+        {
+            Time fakeCurrentTime = new Time();
+            fakeCurrentTime.setTime(currentTime.getTime() + (24*3600));
+            ellapsedTime = fakeCurrentTime.getTime() - timeSegmentStarted;
+        }else{
+            ellapsedTime = currentTime.getTime() - timeSegmentStarted;
+        }
         double totalTime = (_vehicule.getCurrentPosition().getCurrentSegment().getDurationTime())*60;
         double percentageCompleted =  (100 - ((totalTime - ellapsedTime)/totalTime)*100)/100;
         return (percentageCompleted >= 1);

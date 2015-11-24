@@ -262,7 +262,8 @@ public class mainFrame extends javax.swing.JFrame {
                         formTrip.setVisible(true);
                         break;
                     case VEHICULE:
-                        String selectedVehicule = lstToolItems.getSelectedValue().toString();
+                        String selectedVehiculeAndTrip = lstToolItems.getSelectedValue().toString();
+                        String selectedVehicule = selectedVehiculeAndTrip.substring(0, selectedVehiculeAndTrip.indexOf('|') - 1);
                         Domain.Vehicule.Vehicule vehicule = null;
                         for (int i = 0; i < controller.getListVehicule().size(); i++)
                         {
@@ -285,7 +286,8 @@ public class mainFrame extends javax.swing.JFrame {
                     case CLIENT_GENERATOR:
                         break;
                     case VEHICULE_GENERATOR:
-                        String selectedGenerator = lstToolItems.getSelectedValue().toString();
+                        String selectedGeneratorAndTrip = lstToolItems.getSelectedValue().toString();
+                        String selectedGenerator = selectedGeneratorAndTrip.substring(0, selectedGeneratorAndTrip.indexOf('|') - 1);
                         Domain.Generation.VehiculeGenerator vehiculeGenerator;
                         for (int i = 0; i < controller.getListVehiculeGenerator().size(); i++)
                         {
@@ -1171,7 +1173,7 @@ public class mainFrame extends javax.swing.JFrame {
         listModel = new DefaultListModel();
         for (int i = 0; i < controller.getListVehicule().size(); i++)
         {
-            listModel.addElement(controller.getListVehicule().get(i).getName());
+            listModel.addElement(controller.getListVehicule().get(i).getName() + " | " + controller.getListVehicule().get(i).getTrip().getName());
         }
         lstToolItems.setModel(listModel);
     }
@@ -1201,7 +1203,7 @@ public class mainFrame extends javax.swing.JFrame {
         listModel = new DefaultListModel();
         for (int i = 0; i < controller.getListVehiculeGenerator().size(); i++)
         {
-            listModel.addElement(controller.getListVehiculeGenerator().get(i).getName());
+            listModel.addElement(controller.getListVehiculeGenerator().get(i).getName() + " | " + controller.getListVehiculeGenerator().get(i).getTrip().getName());
         }
         lstToolItems.setModel(listModel);
     }

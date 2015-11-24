@@ -327,13 +327,19 @@ public class VehiculeGenerator extends javax.swing.JFrame
                 String strMinuteTimeStart = strTimeStart.substring(strTimeStart.indexOf(':') + 1, strTimeStart.length());
                 double hourTimeStart = Float.parseFloat(strHourTimeStart);
                 double minuteTimeStart = Float.parseFloat(strMinuteTimeStart);
-                Time timeStart = new Time(hourTimeStart, minuteTimeStart, 0);
+                Time timeStart = new Time(0, hourTimeStart, minuteTimeStart, 0);
                 String strTimeEnd = txtEndTime.getText();
                 String strHourTimeEnd = strTimeEnd.substring(0, strTimeEnd.indexOf(':'));
                 String strMinuteTimeEnd = strTimeEnd.substring(strTimeEnd.indexOf(':') + 1, strTimeEnd.length());
                 double hourTimeEnd = Float.parseFloat(strHourTimeEnd);
                 double minuteTimeEnd = Float.parseFloat(strMinuteTimeEnd);
-                Time timeEnd = new Time(hourTimeEnd, minuteTimeEnd, 0);
+                Time timeEnd = null;
+                if(hourTimeEnd < hourTimeStart)
+                {
+                    timeEnd = new Time(1, hourTimeEnd, minuteTimeEnd, 0);
+                }else{
+                    timeEnd = new Time(0, hourTimeEnd, minuteTimeEnd, 0);
+                }
                 String selectedTripName = cmbTrip.getSelectedItem().toString();
                 Trip trip = null;
                 for(int i=0; i < controller.getListTrip().size(); i++)
@@ -383,13 +389,19 @@ public class VehiculeGenerator extends javax.swing.JFrame
                     String strMinuteTimeStart = strTimeStart.substring(strTimeStart.indexOf(':') + 1, strTimeStart.length());
                     double hourTimeStart = Float.parseFloat(strHourTimeStart);
                     double minuteTimeStart = Float.parseFloat(strMinuteTimeStart);
-                    Time timeStart = new Time(hourTimeStart, minuteTimeStart, 0);
+                    Time timeStart = new Time(0, hourTimeStart, minuteTimeStart, 0);
                     String strTimeEnd = txtEndTime.getText();
                     String strHourTimeEnd = strTimeEnd.substring(0, strTimeEnd.indexOf(':'));
                     String strMinuteTimeEnd = strTimeEnd.substring(strTimeEnd.indexOf(':') + 1, strTimeEnd.length());
                     double hourTimeEnd = Float.parseFloat(strHourTimeEnd);
                     double minuteTimeEnd = Float.parseFloat(strMinuteTimeEnd);
-                    Time timeEnd = new Time(hourTimeEnd, minuteTimeEnd, 0);
+                    Time timeEnd = null;
+                    if(hourTimeEnd < hourTimeStart)
+                    {
+                        timeEnd = new Time(1, hourTimeEnd, minuteTimeEnd, 0);
+                    }else{
+                        timeEnd = new Time(0, hourTimeEnd, minuteTimeEnd, 0);
+                    }
                     String selectedNodeName = cmbOriginStop.getSelectedItem().toString();
                     
                     Segment spawnSegment = null;
