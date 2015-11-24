@@ -302,10 +302,12 @@ public class ModifyTrip extends javax.swing.JFrame {
                 }
             }
            
-           
-                if(name.equalsIgnoreCase(this.trip.getName()))
-                {
-                    nameExists = false;
+                if(this.trip != null)
+                { 
+                    if(name.equalsIgnoreCase(this.trip.getName()))
+                    {
+                        nameExists = false;
+                    }
                 }
             
                 if(!nameExists)
