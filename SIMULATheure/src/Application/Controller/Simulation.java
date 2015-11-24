@@ -26,7 +26,6 @@ public class Simulation implements java.io.Serializable
 {
     private String name;
     private Tool currentTool;
-    private Image background;
     private Time currentTime;
     private Time startTime;
     private Time endTime;
@@ -41,7 +40,6 @@ public class Simulation implements java.io.Serializable
     private List<Client> listClient;
     private boolean isSimulationStarted;
     private boolean isSimulationPaused;
-    
     private int nodeMargin = 5;
     
     public Simulation()

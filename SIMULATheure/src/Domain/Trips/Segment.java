@@ -7,7 +7,6 @@ package Domain.Trips;
 
 import Domain.Node.Node;
 import Domain.Generation.TriangularDistribution;
-import Domain.Positions.GeographicPosition;
 /**
  *
  * @author Raphael
@@ -79,10 +78,6 @@ public class Segment implements java.io.Serializable
     {
         this.name =_name;
     }
-   
-    public boolean isPartOfSegment(GeographicPosition _position)
-    {
-        return false;
-    }
+ 
   
 }

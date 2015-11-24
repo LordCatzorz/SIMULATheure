@@ -30,6 +30,7 @@ import Application.Controller.Simulation;
 import Domain.Trips.Trip;
 
 import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
@@ -37,6 +38,7 @@ import java.io.ObjectInputStream;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneLayout;
 /*import Domain.Node.*;
 import Domain.Client.*;
 import Domain.Generation.*;
@@ -110,14 +112,8 @@ public class mainFrame extends javax.swing.JFrame {
                 } else {
                     scaleFactor = zp.getZoom() / 1.1;
                 }  
-                
-                try { 
-                    zp.setZoom(scaleFactor); 
-                } catch (PropertyVetoException ex) { 
-                    JOptionPane.showMessageDialog 
-                        ((Component) e.getSource(), 
-                        "Zoom minimal atteint"); 
-                }
+                zp.setZoom(scaleFactor); 
+               
         } 
         });
         
@@ -364,10 +360,16 @@ public class mainFrame extends javax.swing.JFrame {
         menuItemAbout = new javax.swing.JMenuItem();
 
         zp = new ZoomPanel(1.0);		
-        //handleDrag(zp);		
-        //pnlBackground.add(new JScrollPane(zp), BorderLayout.CENTER);		
-        //pnlScroll = new JScrollPane(zp);		
+        //handleDrag(zp);				
+        //pnlScroll = new JScrollPane(zp);
+        
         pnlBackground.add(zp, BorderLayout.CENTER);
+        //pnlBackground.setPreferredSize(new Dimension(1082,802));
+        //pnlBackground.setViewportView(zp);
+        //pnlScroll.setWheelScrollingEnabled(true);
+        //pnlScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        //pnlScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        //pnlBackground.add(pnlScroll, BorderLayout.CENTER);
         
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SimulatHEURE");
@@ -1050,7 +1052,7 @@ public class mainFrame extends javax.swing.JFrame {
     public class ZoomPanel extends JPanel{ 
         protected double zoom; 
         public ZoomPanel(double initialZoom) { 
-            super(new FlowLayout()); 
+            super(new GridLayout()); 
             zoom = initialZoom; 
         } 
         @Override
@@ -1108,14 +1110,9 @@ public class mainFrame extends javax.swing.JFrame {
                             (int)controller.getListVehicule().get(i).getCurrentPosition().getGeographicPosition().getYPosition() - (width /2), 
                             width, width);
             }
-            
-
             g2.setTransform(backup);
         } 
-        @Override
-        public boolean isOptimizedDrawingEnabled() { 
-            return false; 
-        }
+
         @Override
         public Dimension getPreferredSize() { 
             Dimension unzoomed 
@@ -1127,23 +1124,10 @@ public class mainFrame extends javax.swing.JFrame {
         }
          
         public void setZoom(double newZoom)
-            throws PropertyVetoException { 
-            if (newZoom <= 0.0) { 
-                throw new PropertyVetoException 
-                    ("Zoom minimal atteint", 
-                     new PropertyChangeEvent(this, 
-                                             "zoom", 
-                                             new Double(zoom), 
-                                             new Double(newZoom))); 
-            } 
+        {
             double oldZoom = zoom; 
             if (newZoom != oldZoom) { 
-                Dimension oldSize = getPreferredSize(); 
                 zoom = newZoom; 
-                Dimension newSize = getPreferredSize(); 
-                firePropertyChange("zoom", oldZoom, newZoom); 
-                firePropertyChange("preferredSize", 
-                                   oldSize, newSize); 
                 revalidate(); 
                 repaint(); 
             } 
