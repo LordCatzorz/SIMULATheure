@@ -32,6 +32,8 @@ import Domain.Trips.Trip;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
@@ -604,11 +606,23 @@ public class mainFrame extends javax.swing.JFrame {
         menuItemOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         menuItemOpen.setText("Ouvrir");
         menuFile.add(menuItemOpen);
-
+        
+        menuItemOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadInitialState();
+            }
+        });
+        
         menuItemSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         menuItemSave.setText("Sauvegarder");
         menuFile.add(menuItemSave);
 
+        menuItemSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                controller.saveInitialState();
+            }
+        });
+        
         menuItemSaveAs.setText("Sauvegarder en tant que");
         menuFile.add(menuItemSaveAs);
 
@@ -805,16 +819,16 @@ public class mainFrame extends javax.swing.JFrame {
     private void btnRestartActionPerformed(java.awt.event.ActionEvent evt) {
         if(this.controller.getIsSimuationStarted())
         {
-            ticker.stop();
-            controller.reset();
+            this.stopSimulation();
+            controller.play();
+            ticker.start();
         }
     }
     
     private void btnStopSimuActionPerformed(java.awt.event.ActionEvent evt) {
         if(this.controller.getIsSimuationStarted())
         {
-            ticker.stop();
-            controller.reset();
+            this.stopSimulation();
         }
     }
     
@@ -969,6 +983,35 @@ public class mainFrame extends javax.swing.JFrame {
         }
     }
     
+    private void stopSimulation()
+    {
+        ticker.stop();
+        this.loadInitialState();
+        this.controller.setIsSimulationStarted(false);
+        this.controller.setIsSimulationPaused(false);
+        zp.repaint();
+    }
+    
+    private void loadInitialState()
+    {
+        try
+        {
+            FileInputStream fileIn = new FileInputStream("saves/Simulation.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            controller = (Simulation) in.readObject();
+
+            in.close();
+            fileIn.close();
+        }
+        catch(IOException i)
+        {
+            i.printStackTrace();
+        }
+        catch(ClassNotFoundException c)
+        {
+           System.out.println(c.getClass() + " class not found");
+        } 
+    }
 
     /**
      * @param args the command line arguments

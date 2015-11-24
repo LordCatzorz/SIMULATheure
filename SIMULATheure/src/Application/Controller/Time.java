@@ -8,7 +8,7 @@ package Application.Controller;
  *
  * @author Pierre
  */
-public class Time {
+public class Time implements java.io.Serializable{
     private double hour;
     private double minute;
     private double second;

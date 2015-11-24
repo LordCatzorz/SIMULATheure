@@ -22,7 +22,7 @@ import Application.Controller.Tool;
  *
  * @author N-Team
  */
-public class Simulation 
+public class Simulation implements java.io.Serializable
 {
     private String name;
     private Tool currentTool;
@@ -110,7 +110,7 @@ public class Simulation
     
     public void play()
     {
-        //this.saveInitialState();
+        this.saveInitialState();
         this.setSegmentsDuration();
         //this.speedMultiplier = 1;        
     }
@@ -172,114 +172,33 @@ public class Simulation
     }
     public void saveInitialState()
     {
+        this.isSimulationStarted = false;
         try
         {
-            FileOutputStream outFile = new FileOutputStream("saves/" + this.name + "vehicules.ser");
+            FileOutputStream outFile = new FileOutputStream("saves/Simulation.ser");
             ObjectOutputStream out = new ObjectOutputStream(outFile);
-            /*for(int i =0; i < this.listVehicule.size(); i++)
-            {
-                out.writeObject(this.listVehicule.get(i));
-            }
-            
-            outFile = new FileOutputStream("saves/" + this.name + "segments.ser");
-            out = new ObjectOutputStream(outFile);
-            for(int i =0; i < this.listSegment.size(); i++)
-            {
-                out.writeObject(this.listSegment.get(i));
-            }
-                                    
-            outFile = new FileOutputStream("saves/" + this.name + "clients.ser");
-            out = new ObjectOutputStream(outFile);
-            for(int i =0; i < this.listClient.size(); i++)
-            {
-                out.writeObject(this.listClient.get(i));
-            }
-                                    
-            outFile = new FileOutputStream("saves/" + this.name + "clientGenerators.ser");
-            out = new ObjectOutputStream(outFile);
-            for(int i =0; i < this.listClientGenerator.size(); i++)
-            {
-                out.writeObject(this.listClientGenerator.get(i));
-            }
-                                    
-            outFile = new FileOutputStream("saves/" + this.name + "clientProfiles.ser");
-            out = new ObjectOutputStream(outFile);
-            for(int i =0; i < this.listClientProfile.size(); i++)
-            {
-                out.writeObject(this.listClientProfile.get(i));
-            }
-                                    
-            outFile = new FileOutputStream("saves/" + this.name + "nodes.ser");
-            out = new ObjectOutputStream(outFile);
-            for(int i =0; i < this.listNode.size(); i++)
-            {
-                out.writeObject(this.listNode.get(i));
-            }
-                                    
-            outFile = new FileOutputStream("saves/" + this.name + "trips.ser");
-            out = new ObjectOutputStream(outFile);
-            for(int i =0; i < this.listTrip.size(); i++)
-            {
-                out.writeObject(this.listTrip.get(i));
-            }
-                                    
-            outFile = new FileOutputStream("saves/" + this.name + "vehiculeGenerators.ser");
-            out = new ObjectOutputStream(outFile);
-            for(int i =0; i < this.listVehiculeGenerator.size(); i++)
-            {
-                out.writeObject(this.listVehiculeGenerator.get(i));
-            }*/
-            outFile = new FileOutputStream("saves/" + this.name + "Simulation.ser");
-            out = new ObjectOutputStream(outFile);
-            out.writeObject(this); //À essayer
+            out.writeObject(this);
             
             out.close();
             outFile.close();
         }
         catch(IOException i)
         {
-            
+            i.printStackTrace();
         }  
+        this.isSimulationStarted = true;
     }
     
     public void LoadSimulation(String _folderPath)
     {
-        try
+        /*try
         {
-            FileInputStream fileIn = new FileInputStream(_folderPath + "vehicules");
+            FileInputStream fileIn = new FileInputStream("saves/Simulation.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            this.listVehicule = (List<Vehicule>) in.readObject();
+            this = (Simulation)in.readObject(); CANNOT DO THIS
             
-            fileIn = new FileInputStream(_folderPath + "segments.ser");
-            in = new ObjectInputStream(fileIn);
-            this.listSegment = (List<Segment>) in.readObject();
-            
-            fileIn = new FileInputStream(_folderPath + "clents.ser");
-            in = new ObjectInputStream(fileIn);
-            this.listClient = (List<Client>) in.readObject();
-            
-            fileIn = new FileInputStream(_folderPath + "clientGenerators.ser");
-            in = new ObjectInputStream(fileIn);
-            this.listClientGenerator = (List<ClientGenerator>) in.readObject();                        
-            
-            fileIn = new FileInputStream(_folderPath + "clientProfiles.ser");
-            in = new ObjectInputStream(fileIn);
-            this.listClientProfile = (List<ClientProfile>) in.readObject();
-            
-            fileIn = new FileInputStream(_folderPath + "nodes.ser");
-            in = new ObjectInputStream(fileIn);
-            this.listNode = (List<Node>) in.readObject();
-            
-            fileIn = new FileInputStream(_folderPath + "trips.ser");
-            in = new ObjectInputStream(fileIn);
-            this.listTrip = (List<Trip>) in.readObject();                        
-            
-            fileIn = new FileInputStream(_folderPath + "vehiculeGenerators.ser");
-            in = new ObjectInputStream(fileIn);
-            this.listVehiculeGenerator = (List<VehiculeGenerator>) in.readObject();
-           
-           in.close();
-           fileIn.close();
+            in.close();
+            fileIn.close();
         }
         catch(IOException i)
         {
@@ -288,7 +207,7 @@ public class Simulation
         catch(ClassNotFoundException c)
         {
            System.out.println(c.getClass() + " class not found");
-        } 
+        } */
     }
     
     public Tool getCurrentTool()
