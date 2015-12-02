@@ -37,8 +37,7 @@ public class VehiculeGenerator implements java.io.Serializable
         this.trip = _trip;
         this.name = _name;
         this.distribution = new TriangularDistribution(_min,_max,_mode);
-        double triangle = this.distribution.calculate();
-        double nextTime = _startTime.getTime() + Math.round(triangle)*60;
+        double nextTime = _startTime.getTime();
         this.nextDepartureTime = new Time();
         this.nextDepartureTime.setTime(nextTime);
 

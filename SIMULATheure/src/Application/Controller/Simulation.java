@@ -578,6 +578,8 @@ public class Simulation implements java.io.Serializable
         }
         for(int i = 0; i < listTripToDelete.size(); i++)
         {
+            deleteVehiculeGeneratorsWithTrip(listTripToDelete.get(i));
+            deleteVehiculeWithTrip(listTripToDelete.get(i));
             this.listTrip.remove(listTripToDelete.get(i));
         }
     }
@@ -684,34 +686,6 @@ public class Simulation implements java.io.Serializable
     private void moveVehicule(Vehicule _vehicule)
     {
         _vehicule.getCurrentPosition().update(currentTime);
-        
-        /*Segment segment = _vehicule.getCurrentPosition().getCurrentSegment();
-        GeographicPosition originPosition = segment.getOriginNode().getGeographicPosition();
-        GeographicPosition destinationPosition = segment.getDestinationNode().getGeographicPosition();
-        
-        float angle = originPosition.getAngle(destinationPosition);
-        float xPercentage;
-        float yPercentage;
-        
-        //Initialiser le pourcentage du mouvement horizontale vs verticale
-        if(angle <=180)
-        {
-            xPercentage = ((90 - angle)/90);
-            yPercentage = 1;//Le véhicule va vers le haut
-        }
-        else //if(angle <= 360)
-        {
-            xPercentage = ((angle - 270)/90);
-            yPercentage = -1; //Le véhicule va vers le bas
-        }
-        yPercentage = (1 - java.lang.Math.abs(xPercentage)) * yPercentage;
-        
-        float x = _vehicule.getGeographicPosition().getXPosition() + ((_vehicule.getSpeed() * this.speedMultiplier) * xPercentage);
-        float y = _vehicule.getGeographicPosition().getYPosition() + ((_vehicule.getSpeed() * this.speedMultiplier) * yPercentage);
-        
-        VehiculePosition position = _vehicule.getCurrentPosition();
-        position.setGeographicPosition(new GeographicPosition(x, y));
-        _vehicule.setCurrentPosition(position);*/
     }
     
     private boolean isSegmentCompleted(Vehicule _vehicule)
