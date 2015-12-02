@@ -5,14 +5,17 @@
  */
 package UI;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.DefaultListModel;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import Application.Controller.Simulation;
+import Application.Controller.Time;
 
 /**
  *
@@ -72,11 +75,11 @@ public class ClientGenerator extends javax.swing.JFrame
         lblTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblTitle.setText("Générer des clients");
 
-        lstItinary.setModel(new javax.swing.AbstractListModel() {
+        /*lstItinary.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
-        });
+        });*/
         scrollPaneItinary.setViewportView(lstItinary);
 
         btnAddItinary.setText("Ajouter un itinéraire");
@@ -192,26 +195,18 @@ public class ClientGenerator extends javax.swing.JFrame
             this.txtMaxTime.setText(String.valueOf(generator.getTimeDistribution().getMaximum()));
             this.txtModeTime.setText(String.valueOf(generator.getTimeDistribution().getMode()));
             
-            for(int i = 0; i < controller.getListClientProfile().size(); i++)
-            {
-                for(int j = 0; j < controller.getListClientProfile().get(i).getItinary().size(); j++)
-                {
-                    DefaultListModel<String> model = new DefaultListModel<>();
-                    model.addElement(controller.getListClientProfile().get(i).getItinary().get(i).getTrip().getName());
-                    this.lstItinary.setModel(model);
-                }
-            }             
-        }
-        else
-        {
-            this.btnDelete.setVisible(false);
-            this.lstItinary.removeAll();
-            /*for(int i = 0; i < controller.getListTrip().size(); i++)
+            for(int i = 0; i < generator.getClientProfile().getItinary().size(); i++)
             {
                 DefaultListModel<String> model = new DefaultListModel<>();
                 model.addElement(generator.getClientProfile().getItinary().get(i).getTrip().getName());
                 this.lstItinary.setModel(model);
-            }*/
+            }            
+        }
+        else
+        {
+            this.btnDelete.setVisible(false);
+            DefaultListModel<String> model = new DefaultListModel<>();
+            this.lstItinary.setModel(model);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -331,7 +326,113 @@ public class ClientGenerator extends javax.swing.JFrame
     }
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-        // TODO add your handling code here:
+        
+        if(!(txtMaxTime.getText().isEmpty()|| txtMinTime.getText().isEmpty() || txtModeTime.getText().isEmpty()
+                || txtEndTime.getText().isEmpty() || txtStartTime.getText().isEmpty() || txtMinNb.getText().isEmpty()
+                || txtMaxNb.getText().isEmpty() || txtModeNb.getText().isEmpty() || lstItinary.getModel().getSize() <= 0 ) 
+           && validateTimeFormat())
+        {
+            if(generator != null)
+            {
+                double minTime = Float.parseFloat(txtMinTime.getText());
+                double maxTime = Float.parseFloat(txtMaxTime.getText());
+                double modeTime = Float.parseFloat(txtModeTime.getText());
+                
+                double minNb = Float.parseFloat(txtMinNb.getText());
+                double maxNb = Float.parseFloat(txtMaxNb.getText());
+                double modeNb = Float.parseFloat(txtModeNb.getText());
+                
+                String strTimeStart = txtStartTime.getText();
+                String strHourTimeStart = strTimeStart.substring(0, strTimeStart.indexOf(':'));
+                String strMinuteTimeStart = strTimeStart.substring(strTimeStart.indexOf(':') + 1, strTimeStart.length());
+                double hourTimeStart = Float.parseFloat(strHourTimeStart);
+                double minuteTimeStart = Float.parseFloat(strMinuteTimeStart);
+                Time startTime = new Time(0, hourTimeStart, minuteTimeStart, 0);
+                String strTimeEnd = txtEndTime.getText();
+                String strHourTimeEnd = strTimeEnd.substring(0, strTimeEnd.indexOf(':'));
+                String strMinuteTimeEnd = strTimeEnd.substring(strTimeEnd.indexOf(':') + 1, strTimeEnd.length());
+                double hourTimeEnd = Float.parseFloat(strHourTimeEnd);
+                double minuteTimeEnd = Float.parseFloat(strMinuteTimeEnd);
+                Time endTime = null;
+                if(hourTimeEnd < hourTimeStart)
+                {
+                    endTime = new Time(1, hourTimeEnd, minuteTimeEnd, 0);
+                }
+                else
+                {
+                    endTime = new Time(0, hourTimeEnd, minuteTimeEnd, 0);
+                }
+                
+                List<Domain.Client.Itinary> itinaries = new ArrayList();
+                for(int i = 0; i < lstItinary.getModel().getSize(); i++)
+                {
+                    String element = lstItinary.getModel().getElementAt(i).toString();
+                    String tripName = element.substring(0, element.indexOf(" "));
+                    String originNodeName = element.substring(element.indexOf(" ") + 1, element.indexOf("|"));
+                    String destinationNodeName = element.substring(element.indexOf("|") + 1);
+                    
+                    Domain.Client.Itinary itinary = new Domain.Client.Itinary((Domain.Node.Stop)controller.getNodeByName(originNodeName),
+                                                                              (Domain.Node.Stop)controller.getNodeByName(destinationNodeName),
+                                                                              controller.getTripByName(tripName));
+                    itinaries.add(itinary);
+                }
+                
+                controller.changeClientGeneratorInfo(generator, itinaries, minTime, maxTime, modeTime, 
+                                                     minNb, maxNb, modeNb, startTime, endTime, null);
+            }
+            else
+            {
+                double minTime = Float.parseFloat(txtMinTime.getText());
+                double maxTime = Float.parseFloat(txtMaxTime.getText());
+                double modeTime = Float.parseFloat(txtModeTime.getText());
+                
+                double minNb = Float.parseFloat(txtMinNb.getText());
+                double maxNb = Float.parseFloat(txtMaxNb.getText());
+                double modeNb = Float.parseFloat(txtModeNb.getText());
+                
+                String strTimeStart = txtStartTime.getText();
+                String strHourTimeStart = strTimeStart.substring(0, strTimeStart.indexOf(':'));
+                String strMinuteTimeStart = strTimeStart.substring(strTimeStart.indexOf(':') + 1, strTimeStart.length());
+                double hourTimeStart = Float.parseFloat(strHourTimeStart);
+                double minuteTimeStart = Float.parseFloat(strMinuteTimeStart);
+                Time startTime = new Time(0, hourTimeStart, minuteTimeStart, 0);
+                String strTimeEnd = txtEndTime.getText();
+                String strHourTimeEnd = strTimeEnd.substring(0, strTimeEnd.indexOf(':'));
+                String strMinuteTimeEnd = strTimeEnd.substring(strTimeEnd.indexOf(':') + 1, strTimeEnd.length());
+                double hourTimeEnd = Float.parseFloat(strHourTimeEnd);
+                double minuteTimeEnd = Float.parseFloat(strMinuteTimeEnd);
+                Time endTime = null;
+                if(hourTimeEnd < hourTimeStart)
+                {
+                    endTime = new Time(1, hourTimeEnd, minuteTimeEnd, 0);
+                }
+                else
+                {
+                    endTime = new Time(0, hourTimeEnd, minuteTimeEnd, 0);
+                }
+                
+                List<Domain.Client.Itinary> itinaries = new ArrayList();
+                for(int i = 0; i < lstItinary.getModel().getSize(); i++)
+                {
+                    String element = lstItinary.getModel().getElementAt(i).toString();
+                    String tripName = element.substring(0, element.indexOf(" "));
+                    String originNodeName = element.substring(element.indexOf(" ") + 1, element.indexOf("|"));
+                    String destinationNodeName = element.substring(element.indexOf("|") + 1);
+                    
+                    Domain.Client.Itinary itinary = new Domain.Client.Itinary((Domain.Node.Stop)controller.getNodeByName(originNodeName),
+                                                                              (Domain.Node.Stop)controller.getNodeByName(destinationNodeName),
+                                                                              controller.getTripByName(tripName));
+                    itinaries.add(itinary);
+                }
+                
+                controller.addClientGenerator(itinaries, minTime, maxTime, modeTime, 
+                                              minNb, maxNb, modeNb, startTime, endTime, null);
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Assurez-vous d'avoir rempli tous les champs dans le bon format \navant la création ou la modification du générateur de client.");
+        }
     }//GEN-LAST:event_btnOkActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -339,9 +440,28 @@ public class ClientGenerator extends javax.swing.JFrame
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnAddItinaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddItinaryActionPerformed
-        //ModifyItinary form = new ModifyItinary(controller);
+        ModifyItinary form = new ModifyItinary(controller, null);
+        form.addWindowListener(new java.awt.event.WindowAdapter ()
+        {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent e)
+            {
+                //controller.a
+            }
+        });
+        form.setVisible(true);
     }//GEN-LAST:event_btnAddItinaryActionPerformed
 
+    private boolean validateTimeFormat()
+    { 
+        String timePattern = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
+        Pattern pattern = Pattern.compile(timePattern);
+        Matcher matcherStartTime = pattern.matcher(txtStartTime.getText());
+        Matcher matcherEndTime = pattern.matcher(txtEndTime.getText());
+        
+        return matcherStartTime.matches() && matcherEndTime.matches();
+    }     
+    
     /**
      * @param args the command line arguments
      */

@@ -248,9 +248,13 @@ public class Simulation implements java.io.Serializable
         return this.listTrip.add(trip);
     }
     
-    public boolean addClientGenerator(ClientProfile _clientProfile)
+    public boolean addClientGenerator(List<Itinary> _itinaries, double _minTime, double _maxTime, double _modeTime,
+                                      double _minNb, double _maxNb, double _modeNb, Time _startTime, Time _endTime, String _name)
     {
-        return this.listClientGenerator.add(new ClientGenerator(_clientProfile));
+        ClientProfile profile = new ClientProfile();
+        profile.setItinary(_itinaries);
+        return this.listClientGenerator.add(new ClientGenerator(profile, _minTime, _maxTime, _modeTime,
+                                            _minNb, _maxNb, _modeNb, _startTime, _endTime, _name));
     }
     
     public boolean addVehiculeGenerator(Segment _spawnSegment, Trip _trip, double _min, double _max, double _mode, Time _startTime, Time _endTime, String _name)
@@ -357,6 +361,16 @@ public class Simulation implements java.io.Serializable
         return null;
     }  
     
+    public Node getNodeByName(String _name)
+    {
+        for(Node node : this.listNode)
+        {
+            if(node.getName().equals(_name))
+                return node;
+        }
+        return null;
+    }
+    
     public Trip getTripByName(String _tripName)
     {
         for(Trip trip: this.listTrip)
@@ -432,6 +446,23 @@ public class Simulation implements java.io.Serializable
             }
         }
         return false;
+    }
+    
+    public void changeClientGeneratorInfo(ClientGenerator _generator, List<Itinary> _itinaries, double _minTime, double _maxTime, double _modeTime,
+                                          double _minNb, double _maxNb, double _modeNb, Time _startTime, Time _endTime, String _name)
+    {
+        for(ClientGenerator generator : this.listClientGenerator)
+        {
+            if(generator == _generator)
+            {
+                generator.setTimeBeginGeneration(_startTime);
+                generator.setTimeEndGeneration(_endTime);
+                generator.setClientProfile(_itinaries);
+                generator.setTimeDistribution(_minTime, _maxTime, _modeTime);
+                generator.setClientNumberDistribution(_minNb, _maxNb, _modeNb);
+                break;
+            }
+        }
     }
     
     public void changeVehiculeGeneratorInfo(VehiculeGenerator _generator, Segment _spawnSegment, Trip _trip,
@@ -608,16 +639,6 @@ public class Simulation implements java.io.Serializable
     /******************************************
     ****** Private functions below ************
     *******************************************/
-    
-    private Node getNodeByName(String _name)
-    {
-        for(Node node : this.listNode)
-        {
-            if(node.getName().equals(_name))
-                return node;
-        }
-        return null;
-    }
     
     private void updateVehiculePositions()
     {

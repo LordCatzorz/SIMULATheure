@@ -189,7 +189,6 @@ public class mainFrame extends javax.swing.JFrame {
                         updateListClient();
                         break;
                     case CLIENT_GENERATOR:
-                        controller.addClientGenerator(null);
                         updateListClientGenerator();
                         break;
                     case VEHICULE_GENERATOR:
