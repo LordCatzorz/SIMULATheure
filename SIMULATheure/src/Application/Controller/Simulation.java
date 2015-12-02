@@ -355,7 +355,7 @@ public class Simulation implements java.io.Serializable
                 return segment;
         }
         return null;
-    }
+    }  
     
     public Trip getTripByName(String _tripName)
     {

@@ -26,7 +26,7 @@ public class ClientGenerator implements java.io.Serializable
         //this.generationTimeDistribution = new TriangularDistribution();
     }
     
-    public TriangularDistribution getGenerationTimeDistribution()
+    public TriangularDistribution getTimeDistribution()
     {
         return this.generationTimeDistribution;
     }
@@ -59,6 +59,11 @@ public class ClientGenerator implements java.io.Serializable
     public void setTimeEndGeneration(Time _timeEndGeneration)
     {
         this.timeEndGeneration = _timeEndGeneration;
+    }
+    
+    public ClientProfile getClientProfile()
+    {
+        return this.clientProfile;
     }
     
     public Client awakeGenerator(Time _currentTime)

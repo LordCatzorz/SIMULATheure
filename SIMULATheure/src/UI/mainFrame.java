@@ -282,6 +282,8 @@ public class mainFrame extends javax.swing.JFrame {
                     case CLIENT:
                         break;
                     case CLIENT_GENERATOR:
+                        ClientGenerator formClientGenerator = new ClientGenerator(controller, null);
+                        formClientGenerator.setVisible(true);
                         break;
                     case VEHICULE_GENERATOR:
                         String selectedGeneratorAndTrip = lstToolItems.getSelectedValue().toString();
@@ -963,6 +965,8 @@ public class mainFrame extends javax.swing.JFrame {
             case CLIENT:
                 break;
             case CLIENT_GENERATOR:
+                ClientGenerator formClientGenerator = new ClientGenerator(controller, null);
+                formClientGenerator.setVisible(true);
                 break;
             case VEHICULE_GENERATOR:
                 if(this.controller.getListTrip().size() > 0)
