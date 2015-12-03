@@ -709,13 +709,30 @@ public class Simulation implements java.io.Serializable
                     }
                     if(vehicule.getTrip().getNextSegment(destinationNode) != null)
                     {
-                        vehicule.getCurrentPosition().setCurrentSegment(vehicule.getTrip().getNextSegment(destinationNode));
-                        vehicule.getCurrentPosition().setTimeStartSegment(new Time(this.currentTime.getDay(), this.currentTime.getHour(), this.currentTime.getMinute(), this.currentTime.getSecond()));
+                        Time endChecker = new Time(0, endTime.getHour(), endTime.getMinute(), endTime.getSecond());
+                        Time currentChecker = new Time(0, currentTime.getHour(), currentTime.getMinute(), currentTime.getSecond());
+                        Time startChecker = new Time(0, startTime.getHour(), startTime.getMinute(), startTime.getSecond());
+
+                        if(startChecker.getTime() > currentChecker.getTime())
+                        {
+                            currentChecker.setDay(1);
+                        }
+                        if(endChecker.getTime() < startChecker.getTime())
+                        {
+                            endChecker.setDay(1);
+                        }
+                        if(currentChecker.getTime() > endChecker.getTime())
+                        {
+                            toRemove.add(vehicule);
+                        }else{
+                            vehicule.getCurrentPosition().setCurrentSegment(vehicule.getTrip().getNextSegment(destinationNode));
+                            vehicule.getCurrentPosition().setTimeStartSegment(new Time(this.currentTime.getDay(), this.currentTime.getHour(), this.currentTime.getMinute(), this.currentTime.getSecond()));
+                        }
                     }else{
                         if(vehicule.getTrip().getIsCircular())
                         {
                             vehicule.getCurrentPosition().setCurrentSegment(vehicule.getTrip().getAllSegments().get(0));
-                            vehicule.getCurrentPosition().setTimeStartSegment(new Time(this.currentTime.getDay(), this.currentTime.getHour(), this.currentTime.getMinute(), this.currentTime.getSecond()));
+                            vehicule.getCurrentPosition().setTimeStartSegment(new Time(this.currentTime.getDay(), this.currentTime.getHour(), this.currentTime.getMinute(), this.currentTime.getSecond()));  
                         }else{
                             toRemove.add(vehicule);
                         }
@@ -740,6 +757,7 @@ public class Simulation implements java.io.Serializable
     {
         Time timeSegmentStarted = new Time();
         timeSegmentStarted.setTime(_vehicule.getCurrentPosition().getTimeSegmentStart().getTime());
+        timeSegmentStarted.setDay(0);
         Time currentChecker = new Time(0, currentTime.getHour(), currentTime.getMinute(), currentTime.getSecond());
         if(currentChecker.getTime() < timeSegmentStarted.getTime())
         {
