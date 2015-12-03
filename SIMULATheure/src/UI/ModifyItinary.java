@@ -6,6 +6,8 @@
 package UI;
 
 import Application.Controller.Simulation;
+import javax.swing.JOptionPane;
+import javax.swing.ComboBoxModel;
 /**
  *
  * @author Élise
@@ -26,6 +28,10 @@ public class ModifyItinary extends javax.swing.JFrame
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
     }
 
+    public Domain.Client.Itinary getItinary()
+    {
+        return this.itinary;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,13 +42,13 @@ public class ModifyItinary extends javax.swing.JFrame
 
         lblTitle = new javax.swing.JLabel();
         lblTrip = new javax.swing.JLabel();
-        txtTrip = new javax.swing.JTextField();
         lblOriginStop = new javax.swing.JLabel();
         lblDestiStop = new javax.swing.JLabel();
-        txtOriginStop = new javax.swing.JTextField();
-        txtDestiStop = new javax.swing.JTextField();
         btnOk = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
+        cmbTrip = new javax.swing.JComboBox();
+        cmbOriginStop = new javax.swing.JComboBox();
+        cmbDestStop = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,15 +57,9 @@ public class ModifyItinary extends javax.swing.JFrame
 
         lblTrip.setText("Trajet: ");
 
-        txtTrip.setText("Trajet1");
-
         lblOriginStop.setText("Arrêt d'origine: ");
 
         lblDestiStop.setText("Arrêt de destination:");
-
-        txtOriginStop.setText("Arrêt1");
-
-        txtDestiStop.setText("Arrêt2");
 
         btnOk.setText("Ok");
         btnOk.addActionListener(new java.awt.event.ActionListener() {
@@ -68,22 +68,36 @@ public class ModifyItinary extends javax.swing.JFrame
             }
         });
 
-        btnDelete.setText("Supprimer");
-        btnOk.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
+        btnDelete.setText("Supprimer");        
+        
+        cmbTrip.addActionListener (new java.awt.event.ActionListener () 
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt) 
+            {
+                cmbOriginStop.removeAll();
+                cmbDestStop.removeAll();
+                for(int i = 0; i < controller.getListOriginNodeByTrip(controller.getTripByName(cmbTrip.getSelectedItem().toString())).size(); i++)
+                {
+                    cmbOriginStop.addItem(controller.getListOriginNodeByTrip(controller.getTripByName(cmbTrip.getSelectedItem().toString())).get(i).getName());
+                }
+                for(int i = 0; i < controller.getListDestinationNodeByTrip(controller.getTripByName(cmbTrip.getSelectedItem().toString())).size(); i++)
+                {
+                    cmbDestStop.addItem(controller.getListDestinationNodeByTrip(controller.getTripByName(cmbTrip.getSelectedItem().toString())).get(i).getName());
+                }
             }
         });
         
-        if(itinary != null)
+        for(int i = 0; i < controller.getListTrip().size(); i++)
         {
-            
-        }
-        else
-        {
-            
+            cmbTrip.addItem(controller.getListTrip().get(i).getName());
         }
         
+        /*cmbTrip.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        cmbOriginStop.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        cmbDestStop.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));*/
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -91,28 +105,28 @@ public class ModifyItinary extends javax.swing.JFrame
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblDestiStop)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cmbDestStop, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblOriginStop)
+                                    .addComponent(lblTrip))
+                                .addGap(35, 35, 35)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cmbOriginStop, 0, 128, Short.MAX_VALUE)
+                                    .addComponent(cmbTrip, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(69, 69, 69)
                         .addComponent(btnOk)
                         .addGap(54, 54, 54)
                         .addComponent(btnDelete))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(lblTitle))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblDestiStop)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtDestiStop, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblOriginStop)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtOriginStop, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblTrip)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtTrip, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(lblTitle)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -123,20 +137,20 @@ public class ModifyItinary extends javax.swing.JFrame
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTrip)
-                    .addComponent(txtTrip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(cmbTrip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblOriginStop)
-                    .addComponent(txtOriginStop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(cmbOriginStop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDestiStop)
-                    .addComponent(txtDestiStop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbDestStop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnOk)
                     .addComponent(btnDelete))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
@@ -144,7 +158,27 @@ public class ModifyItinary extends javax.swing.JFrame
     
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) 
     {
-    
+        if(!(cmbTrip.getItemCount() == 0 || cmbOriginStop.getItemCount() == 0 || cmbDestStop.getItemCount() == 0))
+        {
+            if (itinary != null)
+            {
+                itinary.setTrip(controller.getTripByName(cmbTrip.getSelectedItem().toString()));
+                itinary.setOriginStop((Domain.Node.Stop)controller.getNodeByName(cmbOriginStop.getSelectedItem().toString()));
+                itinary.setDestinationStop((Domain.Node.Stop)controller.getNodeByName(cmbDestStop.getSelectedItem().toString()));
+            }
+            else
+            {
+                Domain.Node.Stop stop = (Domain.Node.Stop)controller.getNodeByName(cmbOriginStop.getSelectedItem().toString());
+                itinary = new Domain.Client.Itinary((Domain.Node.Stop)controller.getNodeByName(cmbOriginStop.getSelectedItem().toString()), 
+                                                    (Domain.Node.Stop)controller.getNodeByName(cmbDestStop.getSelectedItem().toString()), 
+                                                    controller.getTripByName(cmbTrip.getSelectedItem().toString()));
+            }
+            dispose();
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Assurez-vous d'avoir sélectionné des valeurs pour tous les champs");
+        }
     }
     
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) 
@@ -190,12 +224,12 @@ public class ModifyItinary extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnOk;
+    private javax.swing.JComboBox cmbDestStop;
+    private javax.swing.JComboBox cmbOriginStop;
+    private javax.swing.JComboBox cmbTrip;
     private javax.swing.JLabel lblDestiStop;
     private javax.swing.JLabel lblOriginStop;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblTrip;
-    private javax.swing.JTextField txtDestiStop;
-    private javax.swing.JTextField txtOriginStop;
-    private javax.swing.JTextField txtTrip;
     // End of variables declaration//GEN-END:variables
 }

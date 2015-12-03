@@ -38,6 +38,7 @@ public class Simulation implements java.io.Serializable
     private List<VehiculeGenerator> listVehiculeGenerator;
     private List<ClientProfile> listClientProfile;
     private List<Client> listClient;
+    private Itinary currentItinary;
     private boolean isSimulationStarted;
     private boolean isSimulationPaused;
     private int nodeMargin = 5;
@@ -241,6 +242,7 @@ public class Simulation implements java.io.Serializable
     {
         Trip trip = new Trip();
         List<Segment> list = new LinkedList<>(_listSegment);
+        convertNodeToStop(list);
         trip.setAllSegments(list);
         trip.setName(_name);
         trip.setMaxNumberVehicule(_number);
@@ -316,19 +318,30 @@ public class Simulation implements java.io.Serializable
         return this.listClient;
     }
     
-    public List<Node> getListNodeByTrip(Trip _trip)
+    public List<Node> getListOriginNodeByTrip(Trip _trip)
     {
         List<Node> listNode = new ArrayList<Node>();
         for(int i = 0; i < _trip.getAllSegments().size(); i++)
         {
             if(!listNode.contains(_trip.getAllSegments().get(i).getOriginNode()))
                 listNode.add(_trip.getAllSegments().get(i).getOriginNode());
-            //if(!listNode.contains(_trip.getAllSegments().get(i).getDestinationNode()))
-            //    listNode.add(_trip.getAllSegments().get(i).getDestinationNode());
             
         }
         return listNode;
     }
+    
+    public List<Node> getListDestinationNodeByTrip(Trip _trip)
+    {
+        List<Node> listNode = new ArrayList<Node>();
+        for(int i = 0; i < _trip.getAllSegments().size(); i++)
+        {
+            if(!listNode.contains(_trip.getAllSegments().get(i).getDestinationNode()))
+                listNode.add(_trip.getAllSegments().get(i).getDestinationNode());
+            
+        }
+        return listNode;
+    }
+    
     
     public Node getNodeAtPostion(float _x, float _y)
     {
@@ -703,5 +716,31 @@ public class Simulation implements java.io.Serializable
         double totalTime = (_vehicule.getCurrentPosition().getCurrentSegment().getDurationTime())*60;
         double percentageCompleted =  (100 - ((totalTime - ellapsedTime)/totalTime)*100)/100;
         return (percentageCompleted >= 1);
+    }
+    
+    private void convertNodeToStop(List<Segment> _segments)
+    {
+        List<Node> nodes = new ArrayList();
+        for(Segment segment : _segments)
+        {
+            if(!nodes.contains(segment.getOriginNode()))
+                nodes.add(segment.getOriginNode());
+            
+            if(!nodes.contains(segment.getDestinationNode()))
+                nodes.add(segment.getDestinationNode());
+        }
+        for(int i = 0; i< nodes.size(); i++)
+        {
+            int j = 0;
+            for(Node node : this.listNode)
+            {
+                if(node == listNode.get(i))
+                {
+                    this.listNode.set(j, new Stop(node.getGeographicPosition(), node.getName()));
+                    break;
+                }
+                j++;
+            }
+        }
     }
 }

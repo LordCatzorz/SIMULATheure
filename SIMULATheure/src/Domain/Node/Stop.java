@@ -20,10 +20,10 @@ public class Stop extends Node implements java.io.Serializable
     private List<Client> waitingClients;
     private String name;
     
-    public Stop(GeographicPosition _geographicPosition)
+    public Stop(GeographicPosition _geographicPosition, String _name)
     {
        super(_geographicPosition);
-       this.name = "Arrêt";
+       this.name = _name;
        this.waitingClients = new ArrayList<>();
     }
     

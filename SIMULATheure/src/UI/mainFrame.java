@@ -964,8 +964,15 @@ public class mainFrame extends javax.swing.JFrame {
             case CLIENT:
                 break;
             case CLIENT_GENERATOR:
-                ClientGenerator formClientGenerator = new ClientGenerator(controller, null);
-                formClientGenerator.setVisible(true);
+                if(this.controller.getListTrip().size() > 0)
+                {
+                    ClientGenerator formClientGenerator = new ClientGenerator(controller, null);
+                    formClientGenerator.setVisible(true);
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "Il n'y a pas de trajets existant pour créer un générateur de vehicule.");
+                }
                 break;
             case VEHICULE_GENERATOR:
                 if(this.controller.getListTrip().size() > 0)

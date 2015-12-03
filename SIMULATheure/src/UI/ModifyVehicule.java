@@ -6,7 +6,6 @@
 package UI;
 
 import Application.Controller.Simulation;
-import Application.Controller.Time;
 import Domain.Trips.Segment;
 import Domain.Trips.Trip;
 import Domain.Vehicule.Vehicule;
@@ -134,9 +133,9 @@ public class ModifyVehicule extends javax.swing.JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) 
             {
                 cmbOriginStop.removeAllItems();
-                for(int i = 0; i < controller.getListNodeByTrip(controller.getTripByName(cmbTrip.getSelectedItem().toString())).size(); i++)
+                for(int i = 0; i < controller.getListOriginNodeByTrip(controller.getTripByName(cmbTrip.getSelectedItem().toString())).size(); i++)
                 {
-                    cmbOriginStop.addItem(controller.getListNodeByTrip(controller.getTripByName(cmbTrip.getSelectedItem().toString())).get(i).getName());
+                    cmbOriginStop.addItem(controller.getListOriginNodeByTrip(controller.getTripByName(cmbTrip.getSelectedItem().toString())).get(i).getName());
                 }
             }
         });

@@ -5,7 +5,6 @@
  */
 package UI;
 
-import Domain.Node.Node;
 import Application.Controller.Simulation;
 import Application.Controller.Time;
 import Domain.Trips.Segment;
@@ -176,9 +175,9 @@ public class VehiculeGenerator extends javax.swing.JFrame
             public void actionPerformed(ActionEvent e) 
             {
                 cmbOriginStop.removeAllItems();
-                for(int i = 0; i < controller.getListNodeByTrip(controller.getTripByName(cmbTrip.getSelectedItem().toString())).size(); i++)
+                for(int i = 0; i < controller.getListOriginNodeByTrip(controller.getTripByName(cmbTrip.getSelectedItem().toString())).size(); i++)
                 {
-                    cmbOriginStop.addItem(controller.getListNodeByTrip(controller.getTripByName(cmbTrip.getSelectedItem().toString())).get(i).getName());
+                    cmbOriginStop.addItem(controller.getListOriginNodeByTrip(controller.getTripByName(cmbTrip.getSelectedItem().toString())).get(i).getName());
                 }
             }
         });
