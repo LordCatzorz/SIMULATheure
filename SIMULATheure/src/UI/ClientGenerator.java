@@ -14,6 +14,8 @@ import java.util.regex.Pattern;
 
 import Application.Controller.Simulation;
 import Application.Controller.Time;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -87,6 +89,66 @@ public class ClientGenerator extends javax.swing.JFrame
         btnAddItinary.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddItinaryActionPerformed(evt);
+            }
+        });
+        
+        
+        txtEndTime.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+              checkTimePressed(e);
+            }
+        });
+        txtStartTime.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+              checkTimePressed(e);
+            }
+        });
+        
+        txtMaxTime.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) 
+            {
+              checkNumberPressed(e);
+            }
+        });
+        txtMinTime.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) 
+            {
+              checkNumberPressed(e);
+            }
+        });
+        txtModeTime.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) 
+            {
+              checkNumberPressed(e);
+            }
+        });
+        
+        txtMinNb.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) 
+            {
+              checkNumberPressed(e);
+            }
+        });
+        
+        txtMaxNb.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) 
+            {
+              checkNumberPressed(e);
+            }
+        });
+        
+        txtModeNb.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) 
+            {
+              checkNumberPressed(e);
             }
         });
 
@@ -253,7 +315,7 @@ public class ClientGenerator extends javax.swing.JFrame
         );
 
         pack();
-    }
+    } 
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
         
@@ -346,7 +408,7 @@ public class ClientGenerator extends javax.swing.JFrame
                 {
                     String element = lstItinary.getModel().getElementAt(i).toString();
                     String tripName = element.substring(0, element.indexOf(":"));
-                    String originNodeName = element.substring(element.indexOf(":") + 2, element.indexOf("|"));
+                    String originNodeName = element.substring(element.indexOf(":") + 2, element.indexOf("|") - 1);
                     String destinationNodeName = element.substring(element.indexOf("|") + 2);
                     
                     Domain.Client.Itinary itinary = new Domain.Client.Itinary((Domain.Node.Stop)controller.getNodeByName(originNodeName),
@@ -358,6 +420,7 @@ public class ClientGenerator extends javax.swing.JFrame
                 controller.addClientGenerator(itinaries, minTime, maxTime, modeTime, 
                                               minNb, maxNb, modeNb, startTime, endTime, null);
             }
+            dispose();
         }
         else
         {
@@ -388,6 +451,26 @@ public class ClientGenerator extends javax.swing.JFrame
         form.setVisible(true);
     }//GEN-LAST:event_btnAddItinaryActionPerformed
 
+    private void checkNumberPressed(KeyEvent e)
+    {
+        char c = e.getKeyChar();
+        if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) 
+        {
+          getToolkit().beep();
+          e.consume();
+        }
+    }
+    
+    private void checkTimePressed(KeyEvent e)
+    {
+        char c = e.getKeyChar();
+        if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE) || c == ':')) 
+        {
+          getToolkit().beep();
+          e.consume();
+        }
+    }
+    
     private boolean validateTimeFormat()
     { 
         String timePattern = "([01]?[0-9]|2[0-3]):[0-5][0-9]";

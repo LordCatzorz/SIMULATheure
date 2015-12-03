@@ -281,8 +281,21 @@ public class mainFrame extends javax.swing.JFrame {
                     case CLIENT:
                         break;
                     case CLIENT_GENERATOR:
-                        ClientGenerator formClientGenerator = new ClientGenerator(controller, null);
-                        formClientGenerator.setVisible(true);
+                        if(controller.getListTrip().size() > 0)
+                        {
+                            ClientGenerator formClientGenerator = new ClientGenerator(controller, null);
+                            formClientGenerator.addWindowListener(new java.awt.event.WindowAdapter (){
+                                @Override
+                                public void windowClosed(java.awt.event.WindowEvent e){
+                                    updateListClientGenerator();
+                                }
+                            });
+                            formClientGenerator.setVisible(true);
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(mainFrame.this, "Il n'y a pas de trajets existant pour créer un générateur de vehicule.");
+                        }
                         break;
                     case VEHICULE_GENERATOR:
                         String selectedGeneratorAndTrip = lstToolItems.getSelectedValue().toString();
@@ -967,6 +980,12 @@ public class mainFrame extends javax.swing.JFrame {
                 if(this.controller.getListTrip().size() > 0)
                 {
                     ClientGenerator formClientGenerator = new ClientGenerator(controller, null);
+                    formClientGenerator.addWindowListener(new java.awt.event.WindowAdapter (){
+                        @Override
+                        public void windowClosed(java.awt.event.WindowEvent e){
+                            updateListClientGenerator();
+                        }
+                    });
                     formClientGenerator.setVisible(true);
                 }
                 else
@@ -1246,7 +1265,7 @@ public class mainFrame extends javax.swing.JFrame {
     public void updateListClientGenerator()
     {
         listModel = new DefaultListModel();
-        for (int i = 0; i < controller.getListClientGenerator().size(); i++)
+        for (int i = 1; i <= controller.getListClientGenerator().size(); i++)
         {
             listModel.addElement("Générateur de clients " + i);
         }
