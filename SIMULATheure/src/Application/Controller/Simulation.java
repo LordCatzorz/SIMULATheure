@@ -41,6 +41,7 @@ public class Simulation implements java.io.Serializable
     private Itinary currentItinary;
     private boolean isSimulationStarted;
     private boolean isSimulationPaused;
+    private boolean dayChanged;
     private int nodeMargin = 5;
     
     public Simulation()
@@ -59,6 +60,7 @@ public class Simulation implements java.io.Serializable
         this.endTime = new Time();
         this.isSimulationStarted = false;
         this.isSimulationPaused = false;
+        this.dayChanged = false;
     }
             
     public float getSpeedMultiplier()
@@ -124,16 +126,44 @@ public class Simulation implements java.io.Serializable
         this.currentTime.setTime(this.currentTime.getTime() + (2 * this.speedMultiplier));
         if(this.currentTime.getTime() < this.endTime.getTime())
         {
-        /*if(this.currentTime.getHour() >= 24)
-        {
-            this.currentTime.setHour(0);
-        }*/
-        
-    
-        /*for(int i = 0; i < this.listClientGenerator.size(); i++)
-        {
-            this.listClientGenerator.get(i).awakeGenerator(this.currentTime);
-        }*/
+            //Resets the time segment duration when the day changes
+            if(!this.dayChanged)
+            {
+                Time endChecker = new Time(0, endTime.getHour(),endTime.getMinute(), endTime.getSecond());
+                Time startChecker = new Time(0, startTime.getHour(), startTime.getMinute(), startTime.getSecond());
+                Time dayChecker = new Time(0, currentTime.getHour(), currentTime.getMinute(), currentTime.getSecond());
+                if(dayChecker.getTime() < startChecker.getTime())
+                {
+                    dayChecker.setDay(1);
+                    if(endChecker.getTime() < startChecker.getTime())
+                    {
+                        endChecker.setDay(1);
+                        startChecker.setDay(1);
+                        if(dayChecker.getTime() < startChecker.getTime() && dayChecker.getTime() > endChecker.getTime())
+                        {
+                            this.dayChanged = true;
+                        }
+                    }
+                }else{
+                    if(endChecker.getTime() > startChecker.getTime())
+                    {
+                        if(dayChecker.getTime() > endChecker.getTime())
+                        {
+                            this.dayChanged = true;
+                        }
+                    }
+                }
+            }else
+            {
+                Time startChecker = new Time(0, startTime.getHour(), startTime.getMinute(), startTime.getSecond());
+                Time dayChecker = new Time(0, currentTime.getHour(), currentTime.getMinute(), currentTime.getSecond());
+                if(dayChecker.getTime() >= startChecker.getTime())
+                {
+                    dayChanged = false;
+                    this.setSegmentsDuration();
+                }
+            }
+            //End of reset
         
             for(int i = 0; i < this.listVehiculeGenerator.size(); i++)
             {
@@ -659,6 +689,7 @@ public class Simulation implements java.io.Serializable
     {
         if(this.getListVehicule().size()>0)
         {
+            List<Vehicule> toRemove = new ArrayList<Vehicule>();
             for(int i = 0; i < this.getListVehicule().size(); i++)
             {
                 Vehicule vehicule = this.getListVehicule().get(i);
@@ -686,12 +717,16 @@ public class Simulation implements java.io.Serializable
                             vehicule.getCurrentPosition().setCurrentSegment(vehicule.getTrip().getAllSegments().get(0));
                             vehicule.getCurrentPosition().setTimeStartSegment(new Time(this.currentTime.getDay(), this.currentTime.getHour(), this.currentTime.getMinute(), this.currentTime.getSecond()));
                         }else{
-                            this.listVehicule.remove(vehicule);
+                            toRemove.add(vehicule);
                         }
                     }
                 }else{
                     this.moveVehicule(vehicule);
                 }
+            }
+            for(int i = 0; i < toRemove.size(); i++)
+            {
+                this.listVehicule.remove(toRemove.get(i));
             }
         }
     }
@@ -703,16 +738,14 @@ public class Simulation implements java.io.Serializable
     
     private boolean isSegmentCompleted(Vehicule _vehicule)
     {
-        double timeSegmentStarted = _vehicule.getCurrentPosition().getTimeSegmentStart().getTime();
-        double ellapsedTime;
-        if(currentTime.getTime() == new Time().getTime() && timeSegmentStarted < 86400)
+        Time timeSegmentStarted = new Time();
+        timeSegmentStarted.setTime(_vehicule.getCurrentPosition().getTimeSegmentStart().getTime());
+        Time currentChecker = new Time(0, currentTime.getHour(), currentTime.getMinute(), currentTime.getSecond());
+        if(currentChecker.getTime() < timeSegmentStarted.getTime())
         {
-            Time fakeCurrentTime = new Time();
-            fakeCurrentTime.setTime(currentTime.getTime() + (24*3600));
-            ellapsedTime = fakeCurrentTime.getTime() - timeSegmentStarted;
-        }else{
-            ellapsedTime = currentTime.getTime() - timeSegmentStarted;
+            currentChecker.setDay(1);
         }
+        double ellapsedTime = currentChecker.getTime() - timeSegmentStarted.getTime();
         double totalTime = (_vehicule.getCurrentPosition().getCurrentSegment().getDurationTime())*60;
         double percentageCompleted =  (100 - ((totalTime - ellapsedTime)/totalTime)*100)/100;
         return (percentageCompleted >= 1);

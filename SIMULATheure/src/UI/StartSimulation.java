@@ -37,10 +37,12 @@ public class StartSimulation extends javax.swing.JFrame {
     private void initComponents() {
 
         lblTitle = new javax.swing.JLabel();
+        lblDays = new javax.swing.JLabel();
         lblStartTime = new javax.swing.JLabel();
         lblEndTime = new javax.swing.JLabel();
         txtStartTime = new javax.swing.JTextField();
         txtEndTime = new javax.swing.JTextField();
+        txtDays = new javax.swing.JTextField();
         btnOk = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
 
@@ -104,6 +106,20 @@ public class StartSimulation extends javax.swing.JFrame {
             }
           });
 
+        lblDays.setText("Nombre de jours à simuler :");
+        txtDays.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+              char c = e.getKeyChar();
+              if (!((c >= '0') && (c <= '9') ||
+                 (c == KeyEvent.VK_BACK_SPACE) ||
+                 (c == KeyEvent.VK_DELETE))) {
+                getToolkit().beep();
+                e.consume();
+              }
+            }
+          });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -115,15 +131,18 @@ public class StartSimulation extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblStartTime)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(btnOk)
-                                .addComponent(lblEndTime)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(62, 62, 62)
+                                .addComponent(btnOk))
+                            .addComponent(lblDays)
+                            .addComponent(lblEndTime))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtEndTime, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                                .addComponent(txtStartTime))
-                            .addComponent(btnCancel))
+                            .addComponent(btnCancel)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtDays, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtEndTime, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                                .addComponent(txtStartTime, javax.swing.GroupLayout.Alignment.LEADING)))
                         .addGap(0, 52, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -137,10 +156,14 @@ public class StartSimulation extends javax.swing.JFrame {
                     .addComponent(lblStartTime)
                     .addComponent(txtStartTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtEndTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblEndTime))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEndTime)
-                    .addComponent(txtEndTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                    .addComponent(lblDays)
+                    .addComponent(txtDays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnOk)
                     .addComponent(btnCancel))
@@ -152,7 +175,7 @@ public class StartSimulation extends javax.swing.JFrame {
     
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) 
     {   
-        if(txtEndTime.getText().isEmpty() || txtStartTime.getText().isEmpty() || !validateTimeFormat())
+        if(txtEndTime.getText().isEmpty() || txtStartTime.getText().isEmpty() || txtDays.getText().isEmpty() || !validateTimeFormat())
         {
             JOptionPane.showMessageDialog(this, "Assurez-vous d'avoir rempli tous les champs dans le bon format \navant la création ou la modification du générateur de véhicule.");
         }else{
@@ -162,21 +185,26 @@ public class StartSimulation extends javax.swing.JFrame {
             double hourTimeStart = Float.parseFloat(strHourTimeStart);
             double minuteTimeStart = Float.parseFloat(strMinuteTimeStart);
             Time timeStart = new Time(0, hourTimeStart, minuteTimeStart, 0);
+            Time currentTime = new Time(0, hourTimeStart, minuteTimeStart, 0);
             String strTimeEnd = txtEndTime.getText();
             String strHourTimeEnd = strTimeEnd.substring(0, strTimeEnd.indexOf(':'));
             String strMinuteTimeEnd = strTimeEnd.substring(strTimeEnd.indexOf(':') + 1, strTimeEnd.length());
             double hourTimeEnd = Float.parseFloat(strHourTimeEnd);
             double minuteTimeEnd = Float.parseFloat(strMinuteTimeEnd);
             Time timeEnd = null;
-            if(hourTimeEnd < hourTimeStart)
-            {
-                timeEnd = new Time(1, hourTimeEnd, minuteTimeEnd, 0);
+            double days = Float.parseFloat(txtDays.getText());
+            if(days > 1){
+                timeEnd = new Time(days, hourTimeEnd, minuteTimeEnd, 0);
             }else{
-                timeEnd = new Time(0, hourTimeEnd, minuteTimeEnd, 0);
+                if(hourTimeEnd <= hourTimeStart)
+                {
+                    timeEnd = new Time(1, hourTimeEnd, minuteTimeEnd, 0);
+                }else{
+                    timeEnd = new Time(0, hourTimeEnd, minuteTimeEnd, 0);
+                }
             }
-            
             controller.setStartTime(timeStart);
-            controller.setCurrentTime(timeStart);
+            controller.setCurrentTime(currentTime);
             controller.setEndTime(timeEnd);
             controller.setIsSimulationStarted(true);
             for(int i = 0; i < controller.getListVehicule().size(); i++)
@@ -205,7 +233,6 @@ public class StartSimulation extends javax.swing.JFrame {
         return matcherStartTime.matches() && matcherEndTime.matches();
     }
     
-
     private javax.swing.JButton btnOk;
     private javax.swing.JButton btnCancel;
     private javax.swing.JLabel lblTitle;
@@ -213,4 +240,6 @@ public class StartSimulation extends javax.swing.JFrame {
     private javax.swing.JLabel lblEndTime;
     private javax.swing.JTextField txtStartTime;
     private javax.swing.JTextField txtEndTime;
+    private javax.swing.JLabel lblDays;
+    private javax.swing.JTextField txtDays;
 }

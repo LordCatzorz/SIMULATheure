@@ -123,50 +123,57 @@ public class VehiculeGenerator implements java.io.Serializable
                 this.nextDepartureTime.setHour(this.nextDepartureTime.getHour() - 24);
             }
         }*/
-        if(this.nextDepartureTime.getTime() <= _currentTime.getTime())
+        Time nextChecker = new Time(0, nextDepartureTime.getHour(), nextDepartureTime.getMinute(), nextDepartureTime.getSecond());
+        Time endChecker = new Time(0, timeEndGeneration.getHour(),timeEndGeneration.getMinute(), timeEndGeneration.getSecond());
+        Time startChecker = new Time(0, timeBeginGeneration.getHour(),timeBeginGeneration.getMinute(), timeBeginGeneration.getSecond());
+        Time currentChecker = new Time(0, _currentTime.getHour(), _currentTime.getMinute(), _currentTime.getSecond());
+        if(nextChecker.getTime() <= currentChecker.getTime())
         {
             double triangle = this.distribution.calculate();
-            double nextTime = _currentTime.getTime() + Math.round(triangle)*60;
+            double nextTime = currentChecker.getTime() + Math.round(triangle)*60;
             
-            if(_currentTime.getTime() < this.timeEndGeneration.getTime())
+            boolean isSecondDay = false;
+            if(currentChecker.getTime() < startChecker.getTime())
             {
-                this.nextDepartureTime = new Time();
-                this.nextDepartureTime.setTime(nextTime);
-                generatedCounter++;
-                Vehicule newVehicule = new Vehicule(this.trip, this.spawnSegment, this.name + " " + generatedCounter);
-                Time newTime = new Time();
-                newTime.setTime(_currentTime.getTime());
-                newVehicule.getCurrentPosition().setTimeStartSegment(newTime);
-                return newVehicule;
-                /*if(timeEndGeneration.getTime() <= timeBeginGeneration.getTime())
-                {
-                    
-                }else{
-                    nextTime = this.timeBeginGeneration.getTime() + Math.round(triangle)*60;
-                    if(nextTime < timeEndGeneration.getTime())
-                    {
-                        this.nextDepartureTime = new Time();
-                        this.nextDepartureTime.setTime(nextTime);
-                        generatedCounter++;
-                        Vehicule newVehicule = new Vehicule(this.trip, this.spawnSegment, this.name + " " + generatedCounter);
-                        Time newTime = new Time();
-                        newTime.setTime(_currentTime.getTime());
-                        newVehicule.getCurrentPosition().setTimeStartSegment(newTime);
-                        return newVehicule;
-                    }
-                }*/
+                currentChecker.setDay(1);
+                isSecondDay = true;
             }
-            /*if(nextTime < timeEndGeneration.getTime())
+            if(endChecker.getTime() < startChecker.getTime())
+            {
+                endChecker.setDay(1);
+            }
+            
+            if(currentChecker.getTime() < endChecker.getTime())
             {
                 this.nextDepartureTime = new Time();
                 this.nextDepartureTime.setTime(nextTime);
+                if(nextDepartureTime.getDay() > 1)
+                {
+                    nextDepartureTime.setDay(0);
+                }
                 generatedCounter++;
                 Vehicule newVehicule = new Vehicule(this.trip, this.spawnSegment, this.name + " " + generatedCounter);
                 Time newTime = new Time();
-                newTime.setTime(_currentTime.getTime());
+                newTime.setTime(currentChecker.getTime());
+                newTime.setDay(0);
                 newVehicule.getCurrentPosition().setTimeStartSegment(newTime);
                 return newVehicule;
-            }*/
+
+            }else{
+                if(isSecondDay)
+                {
+                    startChecker.setDay(1);
+                    if(currentChecker.getTime() < startChecker.getTime() && currentChecker.getTime() > endChecker.getTime())
+                    {
+                        this.nextDepartureTime = new Time(0, startChecker.getHour(), startChecker.getMinute(), startChecker.getSecond());
+                    }
+                }else{
+                     if(currentChecker.getTime() > endChecker.getTime())
+                     {
+                         this.nextDepartureTime = new Time(0, startChecker.getHour(), startChecker.getMinute(), startChecker.getSecond());
+                     }
+                }
+            }
         }
         return null;
     }

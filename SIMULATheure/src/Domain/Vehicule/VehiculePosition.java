@@ -57,9 +57,20 @@ public class VehiculePosition implements java.io.Serializable
     
     public void update(Time _currentTime)
     {
-        double currentTime = _currentTime.getTime();
-        double startTime = this.timeSegmentStart.getTime();
-        double ellapsedTime = currentTime - startTime;
+        Time currentChecker = new Time();
+        currentChecker.setTime(_currentTime.getTime());
+        currentChecker.setDay(0);
+        
+        Time startTime = new Time();
+        startTime.setTime(this.timeSegmentStart.getTime());
+        startTime.setDay(0);
+        
+        if(startTime.getTime() > currentChecker.getTime())
+        {
+            currentChecker.setDay(1);
+        }
+        
+        double ellapsedTime = currentChecker.getTime() - startTime.getTime();
         double totalTime = (this.getCurrentSegment().getDurationTime())*60;
         double percentageCompleted =  (100 - ((totalTime - ellapsedTime)/totalTime)*100)/100;
         float xDifference = (this.currentSegment.getDestinationNode().getGeographicPosition().getXPosition()) - (this.currentSegment.getOriginNode().getGeographicPosition().getXPosition());
