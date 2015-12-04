@@ -624,15 +624,22 @@ public class Simulation implements java.io.Serializable
 
     public void deleteTrip(Trip _trip)
     {
+        List<Trip> listTripToDelete = new ArrayList<>();
         String tripName = _trip.getName();
         for(int i = 0; i < this.getListTrip().size(); i++)
         {
             Trip trip = this.getListTrip().get(i);
             if (trip.getName().equalsIgnoreCase(tripName))
             {
-                this.listTrip.remove(trip);
-                break;
+                listTripToDelete.add(trip);
             }
+        }
+        for(int i = 0; i < listTripToDelete.size(); i++)
+        {
+            deleteClientProfileWithTrip(listTripToDelete.get(i).getName());
+            deleteVehiculeGeneratorsWithTrip(listTripToDelete.get(i));
+            deleteVehiculeWithTrip(listTripToDelete.get(i));
+            this.listTrip.remove(listTripToDelete.get(i));
         }
     }
     public void deleteTripsWithSegment(Segment _segment)
@@ -657,11 +664,34 @@ public class Simulation implements java.io.Serializable
         }
         for(int i = 0; i < listTripToDelete.size(); i++)
         {
+            deleteClientProfileWithTrip(listTripToDelete.get(i).getName());
             deleteVehiculeGeneratorsWithTrip(listTripToDelete.get(i));
             deleteVehiculeWithTrip(listTripToDelete.get(i));
             this.listTrip.remove(listTripToDelete.get(i));
         }
     }
+    
+    public void deleteClientProfileWithTrip(String _tripName)
+    {
+        List<ClientProfile> toRemove = new ArrayList<ClientProfile>();
+        for(int i = 0; i < this.listClientProfile.size(); i++)
+        {
+            for(int j = 0; j < this.listClientProfile.get(i).getItinary().size(); j++)
+            {
+                if(this.listClientProfile.get(i).getItinary().get(j).getTrip().getName().equalsIgnoreCase(_tripName))
+                {
+                    toRemove.add(this.listClientProfile.get(i));
+                    break;
+                }
+            }
+        }
+        for(int i = 0; i < toRemove.size(); i++)
+        {
+            deleteClientGeneratorByProfile(toRemove.get(i));
+            this.listClientProfile.remove(toRemove.get(i));
+        }
+    }
+    
     public void deleteTripsWithNode(String _nodeName)
     {
         List<Trip> listTripToDelete = new ArrayList<>();
@@ -672,7 +702,8 @@ public class Simulation implements java.io.Serializable
             for( j = 0; j < trip.getAllSegments().size(); j++)
             {
                 Node origin = trip.getAllSegments().get(j).getOriginNode();
-                if(origin.getName().equalsIgnoreCase(_nodeName))
+                Node destination = trip.getAllSegments().get(j).getDestinationNode();
+                if(origin.getName().equalsIgnoreCase(_nodeName) || destination.getName().equalsIgnoreCase(_nodeName))
                 {
                     if(!listTripToDelete.contains(trip))
                     {
@@ -681,16 +712,10 @@ public class Simulation implements java.io.Serializable
                     }
                 }
             }
-            if(trip.getAllSegments().get(j).getDestinationNode().getName().equalsIgnoreCase(_nodeName))
-            {                
-                if(!listTripToDelete.contains(trip))
-                {
-                    listTripToDelete.add(trip);            
-                }
-            }
         }
         for(int i = 0; i < listTripToDelete.size(); i++)
         {
+            deleteClientProfileWithTrip(listTripToDelete.get(i).getName());
             deleteVehiculeGeneratorsWithTrip(listTripToDelete.get(i));
             deleteVehiculeWithTrip(listTripToDelete.get(i));
             this.listTrip.remove(listTripToDelete.get(i));
