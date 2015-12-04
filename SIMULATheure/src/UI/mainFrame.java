@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JFileChooser;
 
 import Application.Controller.Tool;
 import Domain.Node.Node;
@@ -88,13 +89,12 @@ public class mainFrame extends javax.swing.JFrame {
                     }
                     lines.add((int)(e.getX() / zp.getZoom()));
                     lines.add((int)(e.getY() / zp.getZoom()));
-                    zp.repaint();
                 }
                 else
                 {
                     lines.removeAll(lines);
-                    zp.repaint();
                 }
+                zp.repaint();
             }
         });
         zp.addMouseWheelListener(new java.awt.event.MouseAdapter() {
@@ -641,7 +641,7 @@ public class mainFrame extends javax.swing.JFrame {
         
         menuItemOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loadInitialState();
+                menuItemOpenActionPerformed(evt);
             }
         });
         
@@ -651,12 +651,19 @@ public class mainFrame extends javax.swing.JFrame {
 
         menuItemSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                controller.saveInitialState();
+                menuItemSaveActionPerformed(evt);
             }
         });
         
         menuItemSaveAs.setText("Sauvegarder en tant que");
         menuFile.add(menuItemSaveAs);
+        
+        
+        menuItemSaveAs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemSaveAsActionPerformed(evt);
+            }
+        });
 
         menuItemQuit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.CTRL_MASK));
         menuItemQuit.setText("Quitter");
@@ -953,6 +960,50 @@ public class mainFrame extends javax.swing.JFrame {
             }
     }
     
+    private void menuItemOpenActionPerformed(java.awt.event.ActionEvent evt) 
+    {
+        if((controller.getIsSimuationStarted() && this.controller.getIsSimuationPaused()) || !controller.getIsSimuationStarted())
+        {
+            JFileChooser fileChooser = new JFileChooser();
+            if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) 
+            {
+                File file = fileChooser.getSelectedFile();
+                String path = file.getPath();
+                String hggh = path.substring(path.length() - 4, path.length());
+                if(!file.exists())
+                    JOptionPane.showMessageDialog(this, "Le fichier n'existe pas.");
+                else if(!path.substring(path.length() - 4, path.length()).equals(".ser"))
+                    JOptionPane.showMessageDialog(this, "Le fichier doit avoir l'extension '.ser'.");
+                else                
+                    loadFile(path);
+                
+            }
+        }
+    }
+            
+    private void menuItemSaveAsActionPerformed(java.awt.event.ActionEvent evt) 
+    {
+        if((controller.getIsSimuationStarted() && this.controller.getIsSimuationPaused()) || !controller.getIsSimuationStarted())
+        {
+            saveDialog();
+        }        
+    }
+    
+    private void menuItemSaveActionPerformed(java.awt.event.ActionEvent evt) 
+    {
+        if((controller.getIsSimuationStarted() && this.controller.getIsSimuationPaused()) || !controller.getIsSimuationStarted())
+        {
+            if(controller.getCurrentFilePath() == null)
+            {
+                saveDialog();
+            }
+            else
+            {
+                controller.saveFile(controller.getCurrentFilePath());
+            }
+        }        
+    }
+    
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {
         switch(controller.getCurrentTool())
         {
@@ -1046,6 +1097,7 @@ public class mainFrame extends javax.swing.JFrame {
         }
     }
     
+    
     private void stopSimulation()
     {
         ticker.stop();
@@ -1053,6 +1105,44 @@ public class mainFrame extends javax.swing.JFrame {
         this.controller.setIsSimulationStarted(false);
         this.controller.setIsSimulationPaused(false);
         zp.repaint();
+    }
+    
+    private void saveDialog()
+    {
+        JFileChooser fileChooser = new JFileChooser();
+        if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) 
+        {
+            String path = fileChooser.getSelectedFile().getPath();
+            if(!path.substring(path.length() - 4, path.length()).equals(".ser"))
+                JOptionPane.showMessageDialog(this, "Le fichier doit avoir l'extension '.ser'.");
+            else            
+            {
+                controller.saveFile(path);
+                JOptionPane.showMessageDialog(this, "Le fichier a été enregistré avec succès.");
+            }
+        }
+    }
+    
+    private void loadFile(String _path)
+    {
+        try
+        {
+            FileInputStream fileIn = new FileInputStream(_path);
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            controller = (Simulation) in.readObject();
+
+            in.close();
+            fileIn.close();
+        }
+        catch(IOException i)
+        {
+            i.printStackTrace();
+        }
+        catch(ClassNotFoundException c)
+        {
+           System.out.println(c.getClass() + " class not found");
+        } 
+        controller.setCurrentFilePath(_path);
     }
     
     private void loadInitialState()

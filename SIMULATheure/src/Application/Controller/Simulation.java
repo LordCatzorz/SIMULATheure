@@ -42,6 +42,7 @@ public class Simulation implements java.io.Serializable
     private boolean isSimulationPaused;
     private boolean dayChanged;
     private int nodeMargin = 5;
+    private String currentFilePath;
     
     public Simulation()
     {
@@ -106,6 +107,14 @@ public class Simulation implements java.io.Serializable
     public void setEndTime(Time _endTime)
     {
         this.endTime =_endTime;
+    }
+    public String getCurrentFilePath()
+    {
+        return this.currentFilePath;
+    }
+    public void setCurrentFilePath(String _path)
+    {
+        this.currentFilePath = _path;
     }
     
     public void play()
@@ -241,6 +250,24 @@ public class Simulation implements java.io.Serializable
         this.isSimulationStarted = true;
     }
     
+    public void saveFile(String _path)
+    {
+        this.currentFilePath = _path;
+        try
+        {
+            FileOutputStream outFile = new FileOutputStream(_path);
+            ObjectOutputStream out = new ObjectOutputStream(outFile);
+            out.writeObject(this);
+            
+            out.close();
+            outFile.close();
+        }
+        catch(IOException i)
+        {
+            i.printStackTrace();
+        }  
+    }
+    
     public void LoadSimulation(String _folderPath)
     {
         /*try
@@ -259,7 +286,7 @@ public class Simulation implements java.io.Serializable
         catch(ClassNotFoundException c)
         {
            System.out.println(c.getClass() + " class not found");
-        } */
+        }*/
     }
     
     public Tool getCurrentTool()
