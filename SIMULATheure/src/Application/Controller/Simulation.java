@@ -278,7 +278,8 @@ public class Simulation implements java.io.Serializable
     
     public boolean addNode(float _x, float _y)
     {
-        Node node  = new Stop(new GeographicPosition(_x, _y), "Arrêt" + (this.listNode.size() + 1));
+        Node node  = new Node(new GeographicPosition(_x, _y));
+        node.setName("Arrêt" + (this.listNode.size() + 1));
         return this.listNode.add(node);
     }
     
