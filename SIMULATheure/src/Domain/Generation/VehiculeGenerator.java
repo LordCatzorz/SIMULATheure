@@ -146,7 +146,6 @@ public class VehiculeGenerator implements java.io.Serializable
             double triangle = this.distribution.calculate();
             double nextTime = currentChecker.getTime() + Math.round(triangle)*60;
             
-            
             if(currentChecker.getTime() < endChecker.getTime())
             {
                 this.nextDepartureTime = new Time();

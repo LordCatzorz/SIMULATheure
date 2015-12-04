@@ -24,10 +24,9 @@ public class Vehicule implements java.io.Serializable
     private Trip trip;
     private List<Client> inboardClients;
     private VehiculePosition position;
-    private float speed = 2;
     private String name;
     private int width = 16;
-    
+    private int capacity = 30;
     
     public Vehicule(Trip _trip, Segment _segmentToSpawn, String _name)
     {
@@ -44,7 +43,19 @@ public class Vehicule implements java.io.Serializable
     
     public List<Client> disembarkClient(Stop _currentStop)
     {
-        return null;
+        List<Client> clients = new ArrayList();
+        for(int i = 0; i < this.inboardClients.size(); i++)
+        {
+            if(this.inboardClients.get(i).getCurrentItinary().getDestinationStop() == _currentStop)
+            {
+                if(this.inboardClients.get(i).nextItinary())
+                    clients.add(this.inboardClients.get(i));
+                    
+                this.inboardClients.remove(i);
+                i--;
+            }
+        }
+        return clients;
     }
     
     public List<Client>  disembarkClient(Stop _currentStop, Client _client)
@@ -57,6 +68,10 @@ public class Vehicule implements java.io.Serializable
         return this.inboardClients;
     }
     
+    public int getCapacity()
+    {
+        return this.capacity;
+    }
     
     public VehiculePosition getCurrentPosition()
     {
@@ -86,11 +101,6 @@ public class Vehicule implements java.io.Serializable
     public void setPosition(Time _time)
     {
         this.position.update(_time);
-    }
-    
-    public float getSpeed()
-    {
-        return this.speed;
     }
     
     public String getName()

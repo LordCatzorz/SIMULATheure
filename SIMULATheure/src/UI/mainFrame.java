@@ -1131,10 +1131,15 @@ public class mainFrame extends javax.swing.JFrame {
                 int clientNumber = controller.getListVehicule().get(i).getInboardClients().size();
                 if(clientNumber > 0)
                 {
-                    g2.setColor(Color.white);                        
-                    g2.drawChars(String.valueOf(clientNumber).toCharArray(), 0, String.valueOf(clientNumber).length(),
-                                Math.round(controller.getListNode().get(i).getGeographicPosition().getXPosition()) - (width/4), 
-                                Math.round(controller.getListNode().get(i).getGeographicPosition().getYPosition()) + (width/2));
+                    int x = Math.round(controller.getListVehicule().get(i).getGeographicPosition().getXPosition()) - (width/4);
+                    int y = Math.round(controller.getListVehicule().get(i).getGeographicPosition().getYPosition()) + (width/3);
+                    
+                    if(clientNumber >=10)
+                        x = Math.round(controller.getListNode().get(i).getGeographicPosition().getXPosition() - (width/3));
+                    
+                    g2.setColor(Color.white);
+                    g2.setFont(g.getFont().deriveFont(g.getFont().getSize() * 0.9F));//Reduce font size
+                    g2.drawChars(String.valueOf(clientNumber).toCharArray(), 0, String.valueOf(clientNumber).length(), x, y);
                 }
             }
             
@@ -1156,7 +1161,7 @@ public class mainFrame extends javax.swing.JFrame {
                             x = Math.round(controller.getListNode().get(i).getGeographicPosition().getXPosition() - (diameter/3));
                         
                         g2.setColor(Color.white);
-                        g.setFont(g.getFont().deriveFont(g.getFont().getSize() * 0.9F));//Reduce font size
+                        g2.setFont(g.getFont().deriveFont(g.getFont().getSize() * 0.9F));//Reduce font size
                         g2.drawChars(String.valueOf(clientNumber).toCharArray(), 0, String.valueOf(clientNumber).length(), x, y);
                         
                     }

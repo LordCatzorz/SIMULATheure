@@ -174,8 +174,6 @@ public class Simulation implements java.io.Serializable
                 }
             }
             
-            
-            
             for(int i = 0; i < this.listVehiculeGenerator.size(); i++)
             {
                 int amountVehicule = 0;
@@ -193,6 +191,22 @@ public class Simulation implements java.io.Serializable
                     if(newVehicule != null)
                     {
                         this.listVehicule.add(newVehicule);
+                        
+                        for(Node node : this.listNode)
+                        {
+                            if (node.getGeographicPosition() == this.listVehicule.get(this.listVehicule.size() - 1).getCurrentPosition().getCurrentSegment().getOriginNode().getGeographicPosition())
+                            {
+                                if(((Stop)node).getClients().size() != 0)
+                                {
+                                    ((Stop)node).addClient(this.listVehicule.get(this.listVehicule.size() - 1).disembarkClient((Stop)node));
+                                    this.listVehicule.get(this.listVehicule.size() - 1).embarkClient(((Stop)node).requestEmbarkmentClient(this.listVehicule.get(this.listVehicule.size() - 1).getTrip(), 
+                                                            this.listVehicule.get(this.listVehicule.size() - 1).getCapacity() - 
+                                                            this.listVehicule.get(this.listVehicule.size() - 1).getInboardClients().size()));
+                                }
+                                break;
+                            }
+                        }
+                        
                     }
                 }
             }
@@ -707,14 +721,16 @@ public class Simulation implements java.io.Serializable
                 if(this.isSegmentCompleted(vehicule))
                 {
                     Node destinationNode = vehicule.getCurrentPosition().getCurrentSegment().getDestinationNode();
+                    Node originNode = vehicule.getCurrentPosition().getCurrentSegment().getOriginNode();
                     if(destinationNode instanceof Stop)
                     {
                         for(Node stop: this.listNode) 
                         {
-                            if(stop.equals(destinationNode))
+                            if(stop.getGeographicPosition() == destinationNode.getGeographicPosition())
                             {
-                                //((Stop)stop).addClient(vehicule.disembarkClient((Stop)stop));
-                                //vehicule.embarkClient(((Stop)stop).requestEmbarkmentClient(vehicule.getTrip(), capacity));
+                                ((Stop)stop).addClient(vehicule.disembarkClient((Stop)stop));
+                                vehicule.embarkClient(((Stop)stop).requestEmbarkmentClient(vehicule.getTrip(), 
+                                                                                           vehicule.getCapacity() - vehicule.getInboardClients().size()));
                             }
                         }
                     }
@@ -749,6 +765,7 @@ public class Simulation implements java.io.Serializable
                         }
                     }
                 }else{
+                    
                     this.moveVehicule(vehicule);
                 }
             }
@@ -786,10 +803,16 @@ public class Simulation implements java.io.Serializable
         for(Segment segment : _segments)
         {
             if(!nodes.contains(segment.getOriginNode()))
+            {
                 nodes.add(segment.getOriginNode());
+                segment.setOriginNode(new Stop(segment.getOriginNode().getGeographicPosition(), segment.getOriginNode().getName()));
+            }
             
             if(!nodes.contains(segment.getDestinationNode()))
+            {
                 nodes.add(segment.getDestinationNode());
+                segment.setDestinationNode(new Stop(segment.getDestinationNode().getGeographicPosition(), segment.getDestinationNode().getName()));
+            }
         }
         for(int i = 0; i< nodes.size(); i++)
         {
