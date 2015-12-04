@@ -5,36 +5,21 @@
  */
 package UI;
 
-import javax.swing.JOptionPane;
-import javax.swing.DefaultListModel;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import Application.Controller.Simulation;
-import Application.Controller.Time;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 /**
  *
- * @author Élise
+ * @author Proprietaire
  */
-
-public class ClientGenerator extends javax.swing.JFrame 
-{
-
-    private Simulation controller;
-    private Domain.Generation.ClientGenerator generator;
-    private DefaultListModel listModel;
+public class ClientGenerator extends javax.swing.JFrame {
+    public Simulation controller;
+    public Domain.Generation.ClientGenerator generator;
     /**
-     * Creates new form ClientGenerator
+     * Creates new form ModifyClientGenerator
      */
-    public ClientGenerator(Simulation _controller, Domain.Generation.ClientGenerator _generator) 
-    {
-        this.controller = _controller;
-        this.generator = _generator;
+    public ClientGenerator(Simulation _controller, Domain.Generation.ClientGenerator _generator) {
+        controller = _controller;
+        generator = _generator;
         initComponents();
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
     }
@@ -48,519 +33,164 @@ public class ClientGenerator extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblTitle = new javax.swing.JLabel();
-        scrollPaneItinary = new javax.swing.JScrollPane();
-        lstItinary = new javax.swing.JList();
-        btnAddItinary = new javax.swing.JButton();
-        lblMinTime = new javax.swing.JLabel();
-        lblMaxTime = new javax.swing.JLabel();
-        lblModeTime = new javax.swing.JLabel();
-        lblStartTime = new javax.swing.JLabel();
-        lblEndTime = new javax.swing.JLabel();
-        lblMinNb = new javax.swing.JLabel();
-        lblMaxNb = new javax.swing.JLabel();
-        lblModeNb = new javax.swing.JLabel();
-        btnOk = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
-        txtMinTime = new javax.swing.JTextField();
-        txtEndTime = new javax.swing.JTextField();
-        txtMinNb = new javax.swing.JTextField();
-        txtMaxNb = new javax.swing.JTextField();
-        txtModeNb = new javax.swing.JTextField();
-        txtModeTime = new javax.swing.JTextField();
-        txtMaxTime = new javax.swing.JTextField();
-        txtStartTime = new javax.swing.JTextField();
-        lblItinary = new javax.swing.JLabel();
-        lblName = new javax.swing.JLabel();
-        txtName = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox();
+        jLabel4 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jTextField4 = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jTextField6 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lblTitle.setText("Générer des clients");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setText("Générateur de client");
+        jLabel1.setName("lblTitle"); // NOI18N
 
-        lstItinary.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        scrollPaneItinary.setViewportView(lstItinary);
+        jLabel2.setText("Nom : ");
+        jLabel2.setName("lblName"); // NOI18N
 
-        btnAddItinary.setText("Ajouter un itinéraire");
-        btnAddItinary.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddItinaryActionPerformed(evt);
-            }
-        });
-        
-        
-        txtEndTime.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-              checkTimePressed(e);
-            }
-        });
-        txtStartTime.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-              checkTimePressed(e);
-            }
-        });
-        
-        txtMaxTime.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) 
-            {
-              checkNumberPressed(e);
-            }
-        });
-        txtMinTime.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) 
-            {
-              checkNumberPressed(e);
-            }
-        });
-        txtModeTime.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) 
-            {
-              checkNumberPressed(e);
-            }
-        });
-        
-        txtMinNb.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) 
-            {
-              checkNumberPressed(e);
-            }
-        });
-        
-        txtMaxNb.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) 
-            {
-              checkNumberPressed(e);
-            }
-        });
-        
-        txtModeNb.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) 
-            {
-              checkNumberPressed(e);
-            }
-        });
+        jTextField1.setName("txtName"); // NOI18N
 
-        lblMinTime.setText("Temps minimal: ");
+        jLabel3.setText("Profil des clients : ");
+        jLabel3.setName("lblProfile"); // NOI18N
 
-        lblMaxTime.setText("Temps maximal:");
+        jComboBox1.setName("cmbProfile"); // NOI18N
 
-        lblModeTime.setText("Temps mode: ");
+        jLabel4.setText("Temps minimal : ");
+        jLabel4.setName("lblTimeMin"); // NOI18N
 
-        lblStartTime.setText("Heure départ: ");
+        jTextField2.setName("txtTimeMine"); // NOI18N
 
-        lblEndTime.setText("Heure fin: ");
+        jLabel5.setText("Temps maximal :");
+        jLabel5.setName("lblTimeMax"); // NOI18N
 
-        lblMinNb.setText("Nombre minimal: ");
+        jTextField3.setName("txtTimeMax"); // NOI18N
 
-        lblMaxNb.setText("Nombre maximal: ");
+        jLabel6.setText("Temps modal : ");
+        jLabel6.setName("lblTimeMode"); // NOI18N
 
-        lblModeNb.setText("Nombre mode: ");
+        jTextField4.setName("txtTimeMode"); // NOI18N
 
-        btnOk.setText("Ok");
-        btnOk.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOkActionPerformed(evt);
-            }
-        });
+        jLabel7.setText("Heure du début de la génération :");
+        jLabel7.setName("lblTimeBegin"); // NOI18N
 
-        btnDelete.setText("Supprimer");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
+        jTextField5.setName("txtTimeBegin"); // NOI18N
 
-        lblItinary.setText("Itinéraires: ");
+        jLabel8.setText("Heure de la fin de la génération : ");
+        jLabel8.setName("lblTimeEnd"); // NOI18N
 
-        lblName.setText("Nom:   ");
+        jTextField6.setName("txtTimeEnd"); // NOI18N
 
-        listModel = new DefaultListModel();
-        lstItinary.setModel(listModel);
-        listModel.removeAllElements();
-        if(generator != null)
-        {
-            for(int i = 0; i < generator.getClientProfile().getItinary().size(); i++)
-            {
-                String itinaryText = generator.getClientProfile().getItinary().get(i).getTrip().getName() + ": ";
-                itinaryText += generator.getClientProfile().getItinary().get(i).getOriginStop().getName() + " | ";
-                itinaryText += generator.getClientProfile().getItinary().get(i).getDestinationStop().getName();
-                listModel.addElement(itinaryText);
-            }
-            this.txtStartTime.setText(generator.getTimeBeginGeneration().getTimeStringNoSecond());
-            this.txtEndTime.setText(generator.getTimeEndGeneration().getTimeStringNoSecond());
-            this.txtMinTime.setText(String.valueOf(generator.getTimeDistribution().getMinimum()));
-            this.txtMaxTime.setText(String.valueOf(generator.getTimeDistribution().getMaximum()));
-            this.txtModeTime.setText(String.valueOf(generator.getTimeDistribution().getMode()));
-            this.txtMinNb.setText(String.valueOf(generator.getClientNumberDistribution().getMinimum()));
-            this.txtMaxNb.setText(String.valueOf(generator.getClientNumberDistribution().getMaximum()));
-            this.txtModeNb.setText(String.valueOf(generator.getClientNumberDistribution().getMode()));
-            this.txtName.setText(generator.getName());
-        }
+        jButton1.setText("Confirmer");
+        jButton1.setName("btnOk"); // NOI18N
+
+        jButton2.setText("Annuler");
+        jButton2.setName("btnCancel"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblTitle)
-                .addGap(122, 122, 122))
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(scrollPaneItinary, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnAddItinary))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblMinTime)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtMinTime, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(lblName)
-                                    .addGap(61, 61, 61)
-                                    .addComponent(txtName))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(lblMaxTime)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(txtMaxTime, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(lblModeTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lblStartTime, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGap(18, 18, Short.MAX_VALUE)
-                                            .addComponent(txtModeTime, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGap(18, 18, 18)
-                                            .addComponent(txtStartTime))))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblMinNb)
-                                        .addComponent(lblEndTime))
-                                    .addGap(13, 13, 13)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(txtEndTime, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
-                                        .addComponent(txtMinNb)))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblMaxNb)
-                                        .addComponent(lblModeNb))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(txtModeNb, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                                        .addComponent(txtMaxNb))))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)
+                            .addComponent(jButton1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextField1)
+                            .addComponent(jComboBox1, 0, 122, Short.MAX_VALUE)
+                            .addComponent(jTextField2)
+                            .addComponent(jTextField3)
+                            .addComponent(jTextField4)
+                            .addComponent(jTextField5)
+                            .addComponent(jTextField6)
+                            .addComponent(jButton2)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addComponent(btnOk)
-                        .addGap(80, 80, 80)
-                        .addComponent(btnDelete))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblItinary)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                        .addGap(76, 76, 76)
+                        .addComponent(jLabel1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblTitle)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(lblItinary)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(scrollPaneItinary, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addComponent(btnAddItinary)))
+                .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblMinTime)
-                    .addComponent(txtMinTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblMaxTime)
-                    .addComponent(txtMaxTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblModeTime)
-                    .addComponent(txtModeTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblStartTime)
-                    .addComponent(txtStartTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEndTime)
-                    .addComponent(txtEndTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblMinNb)
-                    .addComponent(txtMinNb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblMaxNb)
-                    .addComponent(txtMaxNb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblModeNb)
-                    .addComponent(txtModeNb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblName)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnOk)
-                    .addComponent(btnDelete))
+                    .addComponent(jLabel3)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents 
+    }// </editor-fold>//GEN-END:initComponents
 
-    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-        
-        if(!(txtMaxTime.getText().isEmpty()|| txtMinTime.getText().isEmpty() || txtModeTime.getText().isEmpty()
-                || txtEndTime.getText().isEmpty() || txtStartTime.getText().isEmpty() || txtMinNb.getText().isEmpty()
-                || txtMaxNb.getText().isEmpty() || txtModeNb.getText().isEmpty() || lstItinary.getModel().getSize() <= 0 ) 
-           && validateTimeFormat())
-        {
-            if(generator != null)
-            {
-                double minTime = Float.parseFloat(txtMinTime.getText());
-                double maxTime = Float.parseFloat(txtMaxTime.getText());
-                double modeTime = Float.parseFloat(txtModeTime.getText());
-                
-                double minNb = Float.parseFloat(txtMinNb.getText());
-                double maxNb = Float.parseFloat(txtMaxNb.getText());
-                double modeNb = Float.parseFloat(txtModeNb.getText());
-                
-                String strTimeStart = txtStartTime.getText();
-                String strHourTimeStart = strTimeStart.substring(0, strTimeStart.indexOf(':'));
-                String strMinuteTimeStart = strTimeStart.substring(strTimeStart.indexOf(':') + 1, strTimeStart.length());
-                double hourTimeStart = Float.parseFloat(strHourTimeStart);
-                double minuteTimeStart = Float.parseFloat(strMinuteTimeStart);
-                Time startTime = new Time(0, hourTimeStart, minuteTimeStart, 0);
-                String strTimeEnd = txtEndTime.getText();
-                String strHourTimeEnd = strTimeEnd.substring(0, strTimeEnd.indexOf(':'));
-                String strMinuteTimeEnd = strTimeEnd.substring(strTimeEnd.indexOf(':') + 1, strTimeEnd.length());
-                double hourTimeEnd = Float.parseFloat(strHourTimeEnd);
-                double minuteTimeEnd = Float.parseFloat(strMinuteTimeEnd);
-                Time endTime = null;
-                if(hourTimeEnd < hourTimeStart)
-                {
-                    endTime = new Time(1, hourTimeEnd, minuteTimeEnd, 0);
-                }
-                else
-                {
-                    endTime = new Time(0, hourTimeEnd, minuteTimeEnd, 0);
-                }
-                
-                List<Domain.Client.Itinary> itinaries = new ArrayList();
-                for(int i = 0; i < lstItinary.getModel().getSize(); i++)
-                {
-                    String element = lstItinary.getModel().getElementAt(i).toString();
-                    String tripName = element.substring(0, element.indexOf(" "));
-                    String originNodeName = element.substring(element.indexOf(" ") + 1, element.indexOf("|"));
-                    String destinationNodeName = element.substring(element.indexOf("|") + 1);
-                    
-                    Domain.Client.Itinary itinary = new Domain.Client.Itinary((Domain.Node.Stop)controller.getNodeByName(originNodeName),
-                                                                              (Domain.Node.Stop)controller.getNodeByName(destinationNodeName),
-                                                                              controller.getTripByName(tripName));
-                    itinaries.add(itinary);
-                }
-                
-                controller.changeClientGeneratorInfo(generator, itinaries, minTime, maxTime, modeTime, 
-                                                     minNb, maxNb, modeNb, startTime, endTime, txtName.getText());
-            }
-            else
-            {
-                double minTime = Float.parseFloat(txtMinTime.getText());
-                double maxTime = Float.parseFloat(txtMaxTime.getText());
-                double modeTime = Float.parseFloat(txtModeTime.getText());
-                
-                double minNb = Float.parseFloat(txtMinNb.getText());
-                double maxNb = Float.parseFloat(txtMaxNb.getText());
-                double modeNb = Float.parseFloat(txtModeNb.getText());
-                
-                String strTimeStart = txtStartTime.getText();
-                String strHourTimeStart = strTimeStart.substring(0, strTimeStart.indexOf(':'));
-                String strMinuteTimeStart = strTimeStart.substring(strTimeStart.indexOf(':') + 1, strTimeStart.length());
-                double hourTimeStart = Float.parseFloat(strHourTimeStart);
-                double minuteTimeStart = Float.parseFloat(strMinuteTimeStart);
-                Time startTime = new Time(0, hourTimeStart, minuteTimeStart, 0);
-                String strTimeEnd = txtEndTime.getText();
-                String strHourTimeEnd = strTimeEnd.substring(0, strTimeEnd.indexOf(':'));
-                String strMinuteTimeEnd = strTimeEnd.substring(strTimeEnd.indexOf(':') + 1, strTimeEnd.length());
-                double hourTimeEnd = Float.parseFloat(strHourTimeEnd);
-                double minuteTimeEnd = Float.parseFloat(strMinuteTimeEnd);
-                Time endTime = null;
-                if(hourTimeEnd < hourTimeStart)
-                {
-                    endTime = new Time(1, hourTimeEnd, minuteTimeEnd, 0);
-                }
-                else
-                {
-                    endTime = new Time(0, hourTimeEnd, minuteTimeEnd, 0);
-                }
-                
-                List<Domain.Client.Itinary> itinaries = new ArrayList();
-                for(int i = 0; i < lstItinary.getModel().getSize(); i++)
-                {
-                    String element = lstItinary.getModel().getElementAt(i).toString();
-                    String tripName = element.substring(0, element.indexOf(":"));
-                    String originNodeName = element.substring(element.indexOf(":") + 2, element.indexOf("|") - 1);
-                    String destinationNodeName = element.substring(element.indexOf("|") + 2);
-                    
-                    Domain.Client.Itinary itinary = new Domain.Client.Itinary((Domain.Node.Stop)controller.getNodeByName(originNodeName),
-                                                                              (Domain.Node.Stop)controller.getNodeByName(destinationNodeName),
-                                                                              controller.getTripByName(tripName));
-                    itinaries.add(itinary);
-                }
-                
-                controller.addClientGenerator(itinaries, minTime, maxTime, modeTime, 
-                                              minNb, maxNb, modeNb, startTime, endTime, txtName.getText());
-            }
-            dispose();
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(this, "Assurez-vous d'avoir rempli tous les champs dans le bon format \navant la création ou la modification du générateur de client.");
-        }
-    }//GEN-LAST:event_btnOkActionPerformed
-
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDeleteActionPerformed
-
-    private void btnAddItinaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddItinaryActionPerformed
-        ModifyItinary form = new ModifyItinary(controller, null);
-        form.addWindowListener(new java.awt.event.WindowAdapter ()
-        {
-            @Override
-            public void windowClosed(java.awt.event.WindowEvent e)
-            {
-                if(form.getItinary() != null)
-                {
-                    String itinaryText = form.getItinary().getTrip().getName() + ": ";
-                    itinaryText += form.getItinary().getOriginStop().getName() + " | ";
-                    itinaryText += form.getItinary().getDestinationStop().getName();
-                    listModel.addElement(itinaryText);
-                }
-            }
-        });
-        form.setVisible(true);
-    }//GEN-LAST:event_btnAddItinaryActionPerformed
-
-    private void checkNumberPressed(KeyEvent e)
-    {
-        char c = e.getKeyChar();
-        if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) 
-        {
-          getToolkit().beep();
-          e.consume();
-        }
-    }
-    
-    private void checkTimePressed(KeyEvent e)
-    {
-        char c = e.getKeyChar();
-        if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE) || c == ':')) 
-        {
-          getToolkit().beep();
-          e.consume();
-        }
-    }
-    
-    private boolean validateTimeFormat()
-    { 
-        String timePattern = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
-        Pattern pattern = Pattern.compile(timePattern);
-        Matcher matcherStartTime = pattern.matcher(txtStartTime.getText());
-        Matcher matcherEndTime = pattern.matcher(txtEndTime.getText());
-        
-        return matcherStartTime.matches() && matcherEndTime.matches();
-    }     
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ClientGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ClientGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ClientGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ClientGenerator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                //new ClientGenerator().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddItinary;
-    private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnOk;
-    private javax.swing.JLabel lblEndTime;
-    private javax.swing.JLabel lblItinary;
-    private javax.swing.JLabel lblMaxNb;
-    private javax.swing.JLabel lblMaxTime;
-    private javax.swing.JLabel lblMinNb;
-    private javax.swing.JLabel lblMinTime;
-    private javax.swing.JLabel lblModeNb;
-    private javax.swing.JLabel lblModeTime;
-    private javax.swing.JLabel lblName;
-    private javax.swing.JLabel lblStartTime;
-    private javax.swing.JLabel lblTitle;
-    private javax.swing.JList lstItinary;
-    private javax.swing.JScrollPane scrollPaneItinary;
-    private javax.swing.JTextField txtEndTime;
-    private javax.swing.JTextField txtMaxNb;
-    private javax.swing.JTextField txtMaxTime;
-    private javax.swing.JTextField txtMinNb;
-    private javax.swing.JTextField txtMinTime;
-    private javax.swing.JTextField txtModeNb;
-    private javax.swing.JTextField txtModeTime;
-    private javax.swing.JTextField txtName;
-    private javax.swing.JTextField txtStartTime;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
     // End of variables declaration//GEN-END:variables
 }

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class ClientGenerator implements java.io.Serializable
 {
     private TriangularDistribution generationTimeDistribution;
-    private TriangularDistribution generationClientNumberDistribution;
+    //private TriangularDistribution generationClientNumberDistribution;
     private Time nextGenerationTime;
     private Time timeBeginGeneration;
     private Time timeEndGeneration;
@@ -24,15 +24,15 @@ public class ClientGenerator implements java.io.Serializable
     private String name;
     
     public ClientGenerator(ClientProfile _clientProfile, double _minTime, double _maxTime, double _modeTime,
-                           double _minNb, double _maxNb, double _modeNb, Time _startTime, Time _endTime, String _name)
+                           /*double _minNb, double _maxNb, double _modeNb,*/ Time _startTime, Time _endTime, String _name)
     {
         this.clientProfile = _clientProfile;
         this.generationTimeDistribution = new TriangularDistribution(_minTime, _maxTime, _modeTime);
-        this.generationClientNumberDistribution = new TriangularDistribution(_minNb, _maxNb, _modeNb);
+        //this.generationClientNumberDistribution = new TriangularDistribution(_minNb, _maxNb, _modeNb);
         this.timeBeginGeneration = new Time(_startTime.getDay(), _startTime.getHour(), _startTime.getMinute(), _startTime.getSecond());
         this.timeEndGeneration = new Time(_endTime.getDay(), _endTime.getHour(), _endTime.getMinute(), _endTime.getSecond());
         this.name = _name;
-        double triangle = this.generationTimeDistribution.calculate();
+        //double triangle = this.generationTimeDistribution.calculate();
         double nextTime = _startTime.getTime();
         this.nextGenerationTime = new Time();
         this.nextGenerationTime.setTime(nextTime);
@@ -58,7 +58,7 @@ public class ClientGenerator implements java.io.Serializable
         this.generationTimeDistribution = new TriangularDistribution(_minTime, _maxTime, _modeTime);
     }
     
-    public TriangularDistribution getClientNumberDistribution()
+    /*public TriangularDistribution getClientNumberDistribution()
     {
         return this.generationClientNumberDistribution;
     }
@@ -66,7 +66,7 @@ public class ClientGenerator implements java.io.Serializable
     public void setClientNumberDistribution(double _minNb, double _maxNb, double _modeNb)
     {
         this.generationClientNumberDistribution = new TriangularDistribution(_minNb, _maxNb, _modeNb);
-    }
+    }*/
     
     public Time getNextGenerationTime()
     {
@@ -113,17 +113,17 @@ public class ClientGenerator implements java.io.Serializable
         if(_currentTime.getTime() >= this.nextGenerationTime.getTime())
         {
             double timeTriangular = this.generationTimeDistribution.calculate();
-            double numberTriangular = this.generationClientNumberDistribution.calculate();
+            //double numberTriangular = this.generationClientNumberDistribution.calculate();
             
             long time = Math.round(timeTriangular);
             double nextTime = _currentTime.getTime() + Math.round(time)*60;
-            long number = Math.round(numberTriangular);
+            //long number = Math.round(numberTriangular);
             
             List<Client> clients = new ArrayList();
-            for (int i = 0; i < number; i++) 
-            {
+           /* for (int i = 0; i < number; i++) 
+            {*/
                 clients.add(new Client(this.clientProfile));
-            }
+            //}
             this.nextGenerationTime.setTime(nextTime);
             return clients;
         }

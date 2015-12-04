@@ -3,17 +3,13 @@ package UI;
 
 import java.awt.BorderLayout;
 import java.awt.BasicStroke;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.geom.AffineTransform;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyVetoException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,7 +34,6 @@ import java.io.ObjectInputStream;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneLayout;
 /*import Domain.Node.*;
 import Domain.Client.*;
 import Domain.Generation.*;
@@ -324,6 +319,21 @@ public class mainFrame extends javax.swing.JFrame {
                         }
                         break;
                     case CLIENT_PROFILE:
+                        
+                        for(int i = 0; i < controller.getListClientProfile().size(); i++)
+                        {
+                            if (controller.getListClientProfile().get(i).getName().equalsIgnoreCase(lstToolItems.getSelectedValue().toString()))
+                            {
+                                ModifyClientProfile formClientProfile = new ModifyClientProfile(controller, controller.getListClientProfile().get(i));
+                                formClientProfile.addWindowListener(new java.awt.event.WindowAdapter (){
+                                    @Override
+                                    public void windowClosed(java.awt.event.WindowEvent e){
+                                        updateListClientProfile();
+                                    }
+                                });
+                                formClientProfile.setVisible(true);
+                            }
+                        }
                         break;
                     default:
                         break;
@@ -858,7 +868,7 @@ public class mainFrame extends javax.swing.JFrame {
     private void btnClientProfileActionPerformed(java.awt.event.ActionEvent evt) {
         lblToolName.setText("Profil client");
         lblToolName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnAdd.setVisible(false);
+        btnAdd.setVisible(true);
         scrollPaneTool.setVisible(true);
         updateListClientProfile();
         controller.setCurrentTool(Tool.CLIENT_PROFILE);
@@ -983,7 +993,7 @@ public class mainFrame extends javax.swing.JFrame {
             case CLIENT:
                 break;
             case CLIENT_GENERATOR:
-                if(this.controller.getListTrip().size() > 0)
+                if(this.controller.getListClientProfile().size() > 0)
                 {
                     ClientGenerator formClientGenerator = new ClientGenerator(controller, null);
                     formClientGenerator.addWindowListener(new java.awt.event.WindowAdapter (){
@@ -996,7 +1006,7 @@ public class mainFrame extends javax.swing.JFrame {
                 }
                 else
                 {
-                    JOptionPane.showMessageDialog(this, "Il n'y a pas de trajets existant pour créer un générateur de vehicule.");
+                    JOptionPane.showMessageDialog(this, "Il n'y a pas de trajets existant pour créer un générateur de clients.");
                 }
                 break;
             case VEHICULE_GENERATOR:
@@ -1011,10 +1021,25 @@ public class mainFrame extends javax.swing.JFrame {
                     });
                     formVehiculeGenerator.setVisible(true);
                 }else{
-                    JOptionPane.showMessageDialog(this, "Il n'y a pas de trajets existant pour créer un générateur de vehicule.");
+                    JOptionPane.showMessageDialog(this, "Il n'y a pas de trajets existant pour créer un générateur de véhicules.");
                 }
                 break;
-            case CLIENT_PROFILE:  
+            case CLIENT_PROFILE:
+                if(this.controller.getListTrip().size() > 0)
+                {
+                    ModifyClientProfile formClientProfile = new ModifyClientProfile(controller);
+                    formClientProfile.addWindowListener(new java.awt.event.WindowAdapter (){
+                        @Override
+                        public void windowClosed(java.awt.event.WindowEvent e){
+                            updateListClientProfile();
+                        }
+                    });
+                    formClientProfile.setVisible(true);
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "Il n'y a pas de trajets existant pour créer un profil de client.");
+                }
                 break;
             default:
                 break;
@@ -1243,7 +1268,7 @@ public class mainFrame extends javax.swing.JFrame {
         listModel = new DefaultListModel();
         for (int i = 0; i < controller.getListClientProfile().size(); i++)
         {
-            listModel.addElement("Profil client " + i);
+            listModel.addElement(controller.getListClientProfile().get(i).getName());
         }
         lstToolItems.setModel(listModel);
     }

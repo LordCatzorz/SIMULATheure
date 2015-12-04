@@ -278,8 +278,7 @@ public class Simulation implements java.io.Serializable
     
     public boolean addNode(float _x, float _y)
     {
-        Node node  = new Node(new GeographicPosition(_x, _y));
-        node.setName("Arrêt" + (this.listNode.size() + 1));
+        Node node  = new Stop(new GeographicPosition(_x, _y), "Arrêt" + (this.listNode.size() + 1));
         return this.listNode.add(node);
     }
     
@@ -324,11 +323,9 @@ public class Simulation implements java.io.Serializable
         return this.listVehiculeGenerator.add(new VehiculeGenerator(_timeBeginGeneration, _timeEndGeneration, _spawnSegment, _trip, _name, _vehiculeKind));
     }*/
     
-    public boolean addClientProfile(List<Itinary> _itinary)
+    public boolean addClientProfile(ClientProfile _profile)
     {
-        ClientProfile profile = new ClientProfile();
-        profile.setItinary(_itinary);
-        return this.listClientProfile.add(profile);
+        return this.listClientProfile.add(_profile);
     }
     
     public boolean addClient(Client _client)
@@ -703,6 +700,27 @@ public class Simulation implements java.io.Serializable
             {
                 this.listVehicule.remove(this.getListVehicule().get(i));
             }
+        }
+    }
+    
+    public void deleteClientProfile(ClientProfile _profile)
+    {
+        deleteClientGeneratorByProfile(_profile);
+        this.listClientProfile.remove(_profile);
+    }
+    private void deleteClientGeneratorByProfile(ClientProfile _profile)
+    {
+        List<ClientGenerator> toRemove = new ArrayList<ClientGenerator>();
+        for(int i = 0; i < this.listClientGenerator.size(); i++)
+        {
+            if(this.listClientGenerator.get(i).getClientProfile() == _profile)
+            {
+                toRemove.add(this.listClientGenerator.get(i));
+            }
+        }
+        for(int i = 0; i < toRemove.size(); i++)
+        {
+            this.listClientGenerator.remove(toRemove.get(i));
         }
     }
     

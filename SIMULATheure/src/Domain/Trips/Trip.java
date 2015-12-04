@@ -6,8 +6,6 @@
 package Domain.Trips;
 
 import java.util.LinkedList;
-import java.sql.Time;
-
 import Domain.Node.Node;
 import java.util.List;
 /**
@@ -84,4 +82,17 @@ public class Trip implements java.io.Serializable
     {
         isCircular = _isCircular;
     }
+    public boolean containsNode(String _nodeName)
+    {
+        for(int i = 0; i < this.getAllSegments().size(); i++)
+        {
+            Segment segment = this.getAllSegments().get(i);
+            if(segment.getOriginNode().getName().equalsIgnoreCase(_nodeName))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    
 }

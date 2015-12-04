@@ -19,6 +19,7 @@ public class ClientProfile implements java.io.Serializable
     private Time maxRecordedPassageDuration;
     private Time averageRecordedPassageDuration;
     private int totalNumberRecords;
+    private String name;
     
     public ClientProfile()
     {
@@ -80,6 +81,12 @@ public class ClientProfile implements java.io.Serializable
     {
         this.averageRecordedPassageDuration = _time;
     }
-    
+    public String getName(){
+        return this.name;
+    }
+    public void setName(String _name)
+    {
+        this.name = _name;
+    }
     
 }

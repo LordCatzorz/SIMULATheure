@@ -17,13 +17,14 @@ public class ModifyItinary extends javax.swing.JFrame
 
     private Simulation controller;
     private Domain.Client.Itinary itinary;
+    private String previousItinary;
     /**
      * Creates new form ModifyItinary
      */
-    public ModifyItinary(Simulation _controller, Domain.Client.Itinary _itinary) 
+    public ModifyItinary(Simulation _controller, String _previousItinary) 
     {
         this.controller = _controller;
-        this.itinary = _itinary;
+        this.previousItinary = _previousItinary;
         initComponents();
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
     }
@@ -68,7 +69,12 @@ public class ModifyItinary extends javax.swing.JFrame
             }
         });
 
-        btnDelete.setText("Supprimer");        
+        btnDelete.setText("Annuler");        
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
         
         cmbTrip.addActionListener (new java.awt.event.ActionListener () 
         {
@@ -87,10 +93,24 @@ public class ModifyItinary extends javax.swing.JFrame
                 }
             }
         });
-        
-        for(int i = 0; i < controller.getListTrip().size(); i++)
+        if(previousItinary == null)
         {
-            cmbTrip.addItem(controller.getListTrip().get(i).getName());
+            for(int i = 0; i < controller.getListTrip().size(); i++)
+            {
+                cmbTrip.addItem(controller.getListTrip().get(i).getName());
+            }
+        }else{
+            for(int i = 0; i < controller.getListTrip().size(); i++)
+            {
+                if(controller.getListTrip().get(i).containsNode(previousItinary))
+                {
+                    cmbTrip.addItem(controller.getListTrip().get(i).getName());
+                }
+            }
+            if(cmbTrip.getModel().getSize() == 0)
+            {
+                JOptionPane.showMessageDialog(this, "Il n'y a aucun trajet partant du point où le client serait présentement.");
+            }
         }
         
         /*cmbTrip.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -182,9 +202,9 @@ public class ModifyItinary extends javax.swing.JFrame
         }
     }
     
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) 
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) 
     {
-    
+        dispose();
     }
     
     /**
