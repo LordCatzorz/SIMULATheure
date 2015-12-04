@@ -127,21 +127,25 @@ public class VehiculeGenerator implements java.io.Serializable
         Time endChecker = new Time(0, timeEndGeneration.getHour(),timeEndGeneration.getMinute(), timeEndGeneration.getSecond());
         Time startChecker = new Time(0, timeBeginGeneration.getHour(),timeBeginGeneration.getMinute(), timeBeginGeneration.getSecond());
         Time currentChecker = new Time(0, _currentTime.getHour(), _currentTime.getMinute(), _currentTime.getSecond());
+        boolean isSecondDay = false;
+        if(currentChecker.getTime() < startChecker.getTime())
+        {
+            currentChecker.setDay(1);
+            isSecondDay = true;
+        }
+        if(nextChecker.getTime() < startChecker.getTime())
+        {
+            nextChecker.setDay(1);
+        }    
+        if(endChecker.getTime() < startChecker.getTime())
+        {
+            endChecker.setDay(1);
+        }
         if(nextChecker.getTime() <= currentChecker.getTime())
         {
             double triangle = this.distribution.calculate();
             double nextTime = currentChecker.getTime() + Math.round(triangle)*60;
             
-            boolean isSecondDay = false;
-            if(currentChecker.getTime() < startChecker.getTime())
-            {
-                currentChecker.setDay(1);
-                isSecondDay = true;
-            }
-            if(endChecker.getTime() < startChecker.getTime())
-            {
-                endChecker.setDay(1);
-            }
             
             if(currentChecker.getTime() < endChecker.getTime())
             {
