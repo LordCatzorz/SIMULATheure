@@ -14,7 +14,7 @@ import Domain.Positions.GeographicPosition;
 public class Node implements java.io.Serializable
 {
     private GeographicPosition geographicPosition;
-    private int diameter = 11;
+    private int diameter = 18;
     private String name;
 
     public Node(GeographicPosition _geographicPosition)

@@ -74,8 +74,9 @@ public class ModifyItinary extends javax.swing.JFrame
         {
             public void actionPerformed(java.awt.event.ActionEvent evt) 
             {
-                cmbOriginStop.removeAll();
-                cmbDestStop.removeAll();
+                cmbOriginStop.removeAllItems();
+                cmbDestStop.removeAllItems();
+                
                 for(int i = 0; i < controller.getListOriginNodeByTrip(controller.getTripByName(cmbTrip.getSelectedItem().toString())).size(); i++)
                 {
                     cmbOriginStop.addItem(controller.getListOriginNodeByTrip(controller.getTripByName(cmbTrip.getSelectedItem().toString())).get(i).getName());
@@ -138,7 +139,7 @@ public class ModifyItinary extends javax.swing.JFrame
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTrip)
                     .addComponent(cmbTrip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblOriginStop)
                     .addComponent(cmbOriginStop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))

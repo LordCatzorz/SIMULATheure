@@ -38,7 +38,6 @@ public class Simulation implements java.io.Serializable
     private List<VehiculeGenerator> listVehiculeGenerator;
     private List<ClientProfile> listClientProfile;
     private List<Client> listClient;
-    private Itinary currentItinary;
     private boolean isSimulationStarted;
     private boolean isSimulationPaused;
     private boolean dayChanged;
@@ -164,7 +163,19 @@ public class Simulation implements java.io.Serializable
                 }
             }
             //End of reset
-        
+            
+            for(int i = 0; i < this.listClientGenerator.size(); i++)
+            {
+                List<Client> clients = this.listClientGenerator.get(i).awakeGenerator(this.currentTime);
+                if(clients !=null && clients.size() > 0)
+                {
+                    this.listClient.addAll(clients);
+                    this.SpawnClients(clients);
+                }
+            }
+            
+            
+            
             for(int i = 0; i < this.listVehiculeGenerator.size(); i++)
             {
                 int amountVehicule = 0;
@@ -776,4 +787,20 @@ public class Simulation implements java.io.Serializable
             }
         }
     }
+    
+    private void SpawnClients(List<Client> _clients)
+    {
+        for(int i = 0 ; i < _clients.size(); i++)
+        {
+            Node clientNode = _clients.get(i).getProfile().getItinary().get(0).getOriginStop();
+            for(Node node: this.listNode)
+            {
+                if(node == clientNode)
+                {
+                    ((Stop)node).addClient(_clients.get(i));
+                }
+            }
+        }
+    }
+    
 }

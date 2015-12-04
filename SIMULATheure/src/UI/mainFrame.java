@@ -283,14 +283,20 @@ public class mainFrame extends javax.swing.JFrame {
                     case CLIENT_GENERATOR:
                         if(controller.getListTrip().size() > 0)
                         {
-                            ClientGenerator formClientGenerator = new ClientGenerator(controller, null);
-                            formClientGenerator.addWindowListener(new java.awt.event.WindowAdapter (){
-                                @Override
-                                public void windowClosed(java.awt.event.WindowEvent e){
-                                    updateListClientGenerator();
+                            for(int i = 0; i < controller.getListClientGenerator().size(); i++)
+                            {
+                                if (controller.getListClientGenerator().get(i).getName().equalsIgnoreCase(lstToolItems.getSelectedValue().toString()))
+                                {
+                                    ClientGenerator formClientGenerator = new ClientGenerator(controller, controller.getListClientGenerator().get(i));
+                                    formClientGenerator.addWindowListener(new java.awt.event.WindowAdapter (){
+                                        @Override
+                                        public void windowClosed(java.awt.event.WindowEvent e){
+                                            updateListClientGenerator();
+                                        }
+                                    });
+                                    formClientGenerator.setVisible(true);
                                 }
-                            });
-                            formClientGenerator.setVisible(true);
+                            }
                         }
                         else
                         {
@@ -1098,14 +1104,6 @@ public class mainFrame extends javax.swing.JFrame {
                 Logger.getLogger(mainFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            for (int i = 0; i < controller.getListNode().size(); i++) {
-                int diameter = controller.getListNode().get(i).getDiameter();
-                g2.setColor(java.awt.Color.BLACK);
-                g2.fillOval((int)controller.getListNode().get(i).getGeographicPosition().getXPosition() - (diameter/2), 
-                            (int)controller.getListNode().get(i).getGeographicPosition().getYPosition() - (diameter/2),
-                            diameter, diameter);
-            }
-            
             if(lines.size() == 4) 
             {
                 g2.setColor(java.awt.Color.BLACK);
@@ -1123,15 +1121,6 @@ public class mainFrame extends javax.swing.JFrame {
                             (int)controller.getListSegment().get(i).getDestinationNode().getGeographicPosition().getYPosition());
             }
             
-            for(int i = 0; i < controller.getListVehiculeGenerator().size(); i++)
-            {
-                int diameter = controller.getListNode().get(i).getDiameter();
-                g2.setColor(Color.GRAY);
-                g2.fillOval((int)controller.getListVehiculeGenerator().get(i).getSpawnSegment().getOriginNode().getGeographicPosition().getXPosition() - (diameter / 2),
-                            (int)controller.getListVehiculeGenerator().get(i).getSpawnSegment().getOriginNode().getGeographicPosition().getYPosition() - (diameter / 2), 
-                            diameter, diameter);   
-            }
-            
             for(int i = 0; i < controller.getListVehicule().size(); i++)
             {
                 int width = controller.getListVehicule().get(i).getWidth();
@@ -1139,7 +1128,49 @@ public class mainFrame extends javax.swing.JFrame {
                 g2.fillOval((int)controller.getListVehicule().get(i).getCurrentPosition().getGeographicPosition().getXPosition() - (width /2), 
                             (int)controller.getListVehicule().get(i).getCurrentPosition().getGeographicPosition().getYPosition() - (width /2), 
                             width, width);
+                int clientNumber = controller.getListVehicule().get(i).getInboardClients().size();
+                if(clientNumber > 0)
+                {
+                    g2.setColor(Color.white);                        
+                    g2.drawChars(String.valueOf(clientNumber).toCharArray(), 0, String.valueOf(clientNumber).length(),
+                                Math.round(controller.getListNode().get(i).getGeographicPosition().getXPosition()) - (width/4), 
+                                Math.round(controller.getListNode().get(i).getGeographicPosition().getYPosition()) + (width/2));
+                }
             }
+            
+            for (int i = 0; i < controller.getListNode().size(); i++) 
+            {
+                int diameter = controller.getListNode().get(i).getDiameter();
+                g2.setColor(java.awt.Color.BLACK);
+                g2.fillOval((int)controller.getListNode().get(i).getGeographicPosition().getXPosition() - (diameter/2), 
+                            (int)controller.getListNode().get(i).getGeographicPosition().getYPosition() - (diameter/2),
+                            diameter, diameter);
+                if(controller.getListNode().get(i) instanceof Domain.Node.Stop)
+                {
+                    int clientNumber = ((Domain.Node.Stop)controller.getListNode().get(i)).getClients().size();
+                    if(clientNumber > 0)
+                    {
+                        int x = Math.round(controller.getListNode().get(i).getGeographicPosition().getXPosition()) - (diameter/4);
+                        int y = Math.round(controller.getListNode().get(i).getGeographicPosition().getYPosition()) + (diameter/4);
+                        if(clientNumber >=10)
+                            x = Math.round(controller.getListNode().get(i).getGeographicPosition().getXPosition() - (diameter/3));
+                        
+                        g2.setColor(Color.white);
+                        g.setFont(g.getFont().deriveFont(g.getFont().getSize() * 0.9F));//Reduce font size
+                        g2.drawChars(String.valueOf(clientNumber).toCharArray(), 0, String.valueOf(clientNumber).length(), x, y);
+                        
+                    }
+                }
+            }
+            
+            /*for(int i = 0; i < controller.getListVehiculeGenerator().size(); i++)
+            {
+                int diameter = controller.getListNode().get(i).getDiameter();
+                g2.setColor(Color.GRAY);
+                g2.fillOval((int)controller.getListVehiculeGenerator().get(i).getSpawnSegment().getOriginNode().getGeographicPosition().getXPosition() - (diameter / 2),
+                            (int)controller.getListVehiculeGenerator().get(i).getSpawnSegment().getOriginNode().getGeographicPosition().getYPosition() - (diameter / 2), 
+                            diameter, diameter);   
+            }*/
             g2.setTransform(backup);
         } 
 
@@ -1265,9 +1296,9 @@ public class mainFrame extends javax.swing.JFrame {
     public void updateListClientGenerator()
     {
         listModel = new DefaultListModel();
-        for (int i = 1; i <= controller.getListClientGenerator().size(); i++)
+        for (int i = 0; i < controller.getListClientGenerator().size(); i++)
         {
-            listModel.addElement("Générateur de clients " + i);
+            listModel.addElement(controller.getListClientGenerator().get(i).getName());
         }
         lstToolItems.setModel(listModel);
     }

@@ -7,9 +7,13 @@ package Domain.Vehicule;
 
 import Domain.Trips.Segment;
 import Domain.Trips.Trip;
-//import Domain.Client.Client;
+import Domain.Client.Client;
+import Domain.Node.Stop;
+
 import Domain.Positions.GeographicPosition;
 import Application.Controller.Time;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -18,22 +22,22 @@ import Application.Controller.Time;
 public class Vehicule implements java.io.Serializable
 {
     private Trip trip;
-    //private List<Client> inboardClients;
+    private List<Client> inboardClients;
     private VehiculePosition position;
     private float speed = 2;
     private String name;
-    private int width = 8;
+    private int width = 16;
     
     
     public Vehicule(Trip _trip, Segment _segmentToSpawn, String _name)
     {
         this.position = new VehiculePosition(_segmentToSpawn, new Time());
-        //this.inboardClients = new ArrayList<>();
+        this.inboardClients = new ArrayList<>();
         this.trip = _trip;
         this.name = _name;
     }
     
-    /*public void embarkClient(List<Client> _newPassengers)
+    public void embarkClient(List<Client> _newPassengers)
     {
         this.inboardClients.addAll(_newPassengers);
     }
@@ -47,7 +51,13 @@ public class Vehicule implements java.io.Serializable
     {
         return null;
     }
-    */    
+    
+    public List<Client> getInboardClients()
+    {
+        return this.inboardClients;
+    }
+    
+    
     public VehiculePosition getCurrentPosition()
     {
         return this.position;

@@ -18,6 +18,7 @@ public class Client implements java.io.Serializable
     private Itinary itinary;
     private Time creationTime;
     
+    
     public Client(ClientProfile _profile)
     {
         this.profile = _profile;
