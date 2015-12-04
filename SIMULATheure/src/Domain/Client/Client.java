@@ -18,6 +18,7 @@ public class Client implements java.io.Serializable
     private Itinary itinary;
     private Time creationTime;
     
+    
     public Client(ClientProfile _profile)
     {
         this.profile = _profile;
@@ -50,6 +51,26 @@ public class Client implements java.io.Serializable
     public void setCurrentItinary(Itinary _itinary)
     {
         this.itinary = _itinary;
+    }
+    
+    public boolean nextItinary()
+    {
+        for(int i = 0; i < this.profile.getItinary().size(); i++)
+        {
+            if(this.profile.getItinary().get(i) == this.itinary)
+            {
+                if(i == this.profile.getItinary().size() - 1)//Last itinary
+                {
+                    return false;
+                }
+                else
+                {
+                    this.itinary = this.profile.getItinary().get(i+1);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
     
     public Time getCreationTime()

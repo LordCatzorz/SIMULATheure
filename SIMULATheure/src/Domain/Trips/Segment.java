@@ -5,7 +5,7 @@
  */
 package Domain.Trips;
 
-import Domain.Node.Node;
+import Domain.Node.*;
 import Domain.Generation.TriangularDistribution;
 /**
  *
@@ -33,6 +33,11 @@ public class Segment implements java.io.Serializable
     }
     
     public void setOriginNode(Node _originNode)
+    {
+        this.originNode = _originNode;
+    }
+    
+    public void setOriginNode(Stop _originNode)
     {
         this.originNode = _originNode;
     }

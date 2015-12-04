@@ -8,6 +8,7 @@ package Domain.Generation;
 import Domain.Client.*;
 import Application.Controller.Time;
 import java.util.List;
+import java.util.ArrayList;
 /**
  *
  * @author Raphael
@@ -32,7 +33,7 @@ public class ClientGenerator implements java.io.Serializable
         this.timeEndGeneration = new Time(_endTime.getDay(), _endTime.getHour(), _endTime.getMinute(), _endTime.getSecond());
         this.name = _name;
         double triangle = this.generationTimeDistribution.calculate();
-        double nextTime = _startTime.getTime() + Math.round(triangle)*60;
+        double nextTime = _startTime.getTime();
         this.nextGenerationTime = new Time();
         this.nextGenerationTime.setTime(nextTime);
     }
@@ -107,14 +108,24 @@ public class ClientGenerator implements java.io.Serializable
         this.clientProfile.setItinary(_itinaries);
     }
     
-    public Client awakeGenerator(Time _currentTime)
+    public List<Client> awakeGenerator(Time _currentTime)
     {
         if(_currentTime.getTime() >= this.nextGenerationTime.getTime())
         {
-            double triangular = this.generationTimeDistribution.calculate();
-            long time = Math.round(triangular);
-            this.nextGenerationTime.setTime(_currentTime.getTime() + time);
-            return new Client(this.clientProfile);
+            double timeTriangular = this.generationTimeDistribution.calculate();
+            double numberTriangular = this.generationClientNumberDistribution.calculate();
+            
+            long time = Math.round(timeTriangular);
+            double nextTime = _currentTime.getTime() + Math.round(time)*60;
+            long number = Math.round(numberTriangular);
+            
+            List<Client> clients = new ArrayList();
+            for (int i = 0; i < number; i++) 
+            {
+                clients.add(new Client(this.clientProfile));
+            }
+            this.nextGenerationTime.setTime(nextTime);
+            return clients;
         }
         else
             return null;
