@@ -1006,7 +1006,7 @@ public class mainFrame extends javax.swing.JFrame {
                 }
                 else
                 {
-                    JOptionPane.showMessageDialog(this, "Il n'y a pas de trajets existant pour créer un générateur de clients.");
+                    JOptionPane.showMessageDialog(this, "Il n'y a pas de profils de clients existant pour créer un générateur de clients.");
                 }
                 break;
             case VEHICULE_GENERATOR:

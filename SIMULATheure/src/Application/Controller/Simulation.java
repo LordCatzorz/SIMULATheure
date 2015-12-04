@@ -304,12 +304,11 @@ public class Simulation implements java.io.Serializable
         return this.listTrip.add(trip);
     }
     
-    public boolean addClientGenerator(List<Itinary> _itinaries, double _minTime, double _maxTime, double _modeTime,
+    public boolean addClientGenerator(ClientProfile _profile, double _minTime, double _maxTime, double _modeTime,
                                       double _minNb, double _maxNb, double _modeNb, Time _startTime, Time _endTime, String _name)
     {
-        ClientProfile profile = new ClientProfile();
-        profile.setItinary(_itinaries);
-        return this.listClientGenerator.add(new ClientGenerator(profile, _minTime, _maxTime, _modeTime,
+
+        return this.listClientGenerator.add(new ClientGenerator(_profile, _minTime, _maxTime, _modeTime,
                                             _minNb, _maxNb, _modeNb, _startTime, _endTime, _name));
     }
     
@@ -446,6 +445,16 @@ public class Simulation implements java.io.Serializable
         return null;
     }
     
+    public ClientProfile getClientProfileByName(String _name)
+    {  
+       for(ClientProfile profile : this.listClientProfile)
+       {
+           if(profile.getName().equals(_name))
+               return profile;
+       }
+       return null;
+    }
+    
     /*public VehiculeGenerator getVehiculeGeneratorAtPosition(float _x, float _y)
     {
         for(VehiculeGenerator generator: this.listVehiculeGenerator)
@@ -513,7 +522,7 @@ public class Simulation implements java.io.Serializable
         return false;
     }
     
-    public void changeClientGeneratorInfo(ClientGenerator _generator, List<Itinary> _itinaries, double _minTime, double _maxTime, double _modeTime,
+    public void changeClientGeneratorInfo(ClientGenerator _generator, ClientProfile _profile, double _minTime, double _maxTime, double _modeTime,
                                           double _minNb, double _maxNb, double _modeNb, Time _startTime, Time _endTime, String _name)
     {
         for(ClientGenerator generator : this.listClientGenerator)
@@ -522,8 +531,8 @@ public class Simulation implements java.io.Serializable
             {
                 generator.setTimeBeginGeneration(_startTime);
                 generator.setTimeEndGeneration(_endTime);
-                generator.setClientProfile(_itinaries);
-                generator.setTimeDistribution(_minTime, _maxTime, _modeTime);
+                generator.setClientProfile(_profile);
+                generator.setGenerationTimeDistribution(_minTime, _maxTime, _modeTime);
                 generator.setClientNumberDistribution(_minNb, _maxNb, _modeNb);
                 break;
             }
@@ -599,8 +608,12 @@ public class Simulation implements java.io.Serializable
                 break;
             }
         }
-    }
+    }  
     
+    public void deleteClientGenerator(ClientGenerator _clientGenerator)
+    {
+        this.listClientGenerator.remove(_clientGenerator);
+    }
     
     public void deleteVehiculeGenerator(VehiculeGenerator _vehiculeGenerator)
     {
@@ -837,7 +850,7 @@ public class Simulation implements java.io.Serializable
             int j = 0;
             for(Node node : this.listNode)
             {
-                if(node == listNode.get(i))
+                if(node == nodes.get(i))
                 {
                     this.listNode.set(j, new Stop(node.getGeographicPosition(), node.getName()));
                     break;

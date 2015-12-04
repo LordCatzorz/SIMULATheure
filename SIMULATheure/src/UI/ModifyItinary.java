@@ -110,6 +110,7 @@ public class ModifyItinary extends javax.swing.JFrame
             if(cmbTrip.getModel().getSize() == 0)
             {
                 JOptionPane.showMessageDialog(this, "Il n'y a aucun trajet partant du point où le client serait présentement.");
+                dispose();
             }
         }
         

@@ -323,7 +323,6 @@ public class ModifyTrip extends javax.swing.JFrame {
                         for(int j = 0; j < this.controller.getListSegment().size(); j++){
                             if(this.controller.getListSegment().get(j).getOriginNode().getName().equalsIgnoreCase(origin) && this.controller.getListSegment().get(j).getDestinationNode().getName().equalsIgnoreCase(destination))
                             {
-
                                 Segment segment = this.controller.getListSegment().get(j);
                                 list.add(segment);
                                 break;
