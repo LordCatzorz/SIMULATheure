@@ -108,6 +108,8 @@ public class mainFrame extends javax.swing.JFrame {
                     scaleFactor = zp.getZoom() / 1.1;
                 }  
                 zp.setZoom(scaleFactor); 
+                System.out.println(zp.getSize());
+                System.out.println(zp.getPreferredSize());
                
         } 
         });
@@ -389,17 +391,10 @@ public class mainFrame extends javax.swing.JFrame {
         menuItemHelp = new javax.swing.JMenuItem();
         menuItemAbout = new javax.swing.JMenuItem();
 
-        zp = new ZoomPanel(1.0);		
-        //handleDrag(zp);				
-        //pnlScroll = new JScrollPane(zp);
-        
-        pnlBackground.add(zp, BorderLayout.CENTER);
-        //pnlBackground.setPreferredSize(new Dimension(1082,802));
-        //pnlBackground.setViewportView(zp);
-        //pnlScroll.setWheelScrollingEnabled(true);
-        //pnlScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        //pnlScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        //pnlBackground.add(pnlScroll, BorderLayout.CENTER);
+        zp = new ZoomPanel(1.0);				
+        JScrollPane pnlScroll = new JScrollPane(zp);
+        pnlScroll.setViewportView(zp);
+        pnlBackground.add(pnlScroll, BorderLayout.CENTER);
         
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SimulatHEURE");
@@ -1296,11 +1291,11 @@ public class mainFrame extends javax.swing.JFrame {
 
         @Override
         public Dimension getPreferredSize() { 
-            Dimension unzoomed 
-              = getLayout().preferredLayoutSize(this); 
+            Dimension unzoomed = new Dimension(1082,702);
             Dimension zoomed 
               = new Dimension((int) ((double) unzoomed.width*zoom), 
                               (int) ((double) unzoomed.height*zoom));
+            System.out.println(zoomed);
             return zoomed; 
         }
          
