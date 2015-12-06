@@ -108,9 +108,7 @@ public class mainFrame extends javax.swing.JFrame {
                     scaleFactor = zp.getZoom() / 1.1;
                 }  
                 zp.setZoom(scaleFactor); 
-                System.out.println(zp.getSize());
-                System.out.println(zp.getPreferredSize());
-               
+             
         } 
         });
         
