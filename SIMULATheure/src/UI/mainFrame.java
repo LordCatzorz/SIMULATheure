@@ -29,12 +29,14 @@ import Domain.Trips.Trip;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
+import java.nio.file.*;
 /*import Domain.Node.*;
 import Domain.Client.*;
 import Domain.Generation.*;
@@ -74,6 +76,12 @@ public class mainFrame extends javax.swing.JFrame {
         scrollPaneTool.setVisible(false);
         
         this.controller = new Simulation();
+        
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+        public void windowClosing(WindowEvent winEvt) {
+            controller.deleteIniialSaves();
+        }
+    });
         
         zp.addMouseMotionListener(new java.awt.event.MouseAdapter() {
         @Override
@@ -129,6 +137,7 @@ public class mainFrame extends javax.swing.JFrame {
                                 @Override
                                 public void windowClosed(java.awt.event.WindowEvent e){
                                     updateListStop();
+                                    doAction();
                                 }
                             });
                             form.setVisible(true);
@@ -139,6 +148,7 @@ public class mainFrame extends javax.swing.JFrame {
                             double zoom = zp.getZoom();
                             controller.addNode((float)(e.getX() / zoom), (float)(e.getY() / zoom));
                             updateListStop();
+                            doAction();
                             zp.repaint();
                         }
                         break;
@@ -154,6 +164,7 @@ public class mainFrame extends javax.swing.JFrame {
                             nodeSelectedForSegment = false;
                             controller.addSegment(controller.getNodeAtPostion(lines.get(0), lines.get(1)), controller.getNodeAtPostion((float)(e.getX()/zp.getZoom()), (float)(e.getY()/zp.getZoom())));
                             updateListSegment();
+                            doAction();
                         }
                         else if (controller.getNodeAtPostion((float)(e.getX() / zp.getZoom()), (float)(e.getY() / zp.getZoom())) != null)
                         {
@@ -168,6 +179,7 @@ public class mainFrame extends javax.swing.JFrame {
                                 @Override
                                 public void windowClosed(java.awt.event.WindowEvent e){
                                     updateListSegment();
+                                    doAction();
                                 }
                             });
                             form.setVisible(true);
@@ -216,6 +228,12 @@ public class mainFrame extends javax.swing.JFrame {
                             }
                         }
                         ModifyStop formStop = new ModifyStop(controller, lstToolItems.getSelectedValue().toString(), x, y);
+                        formStop.addWindowListener(new java.awt.event.WindowAdapter (){
+                                        @Override
+                                        public void windowClosed(java.awt.event.WindowEvent e){
+                                            doAction();
+                                        }
+                        });
                         formStop.setVisible(true);
                         break;
                     case SEGMENT:
@@ -232,6 +250,12 @@ public class mainFrame extends javax.swing.JFrame {
                             }
                         }
                         ModifySegment formSegment = new ModifySegment(controller, originNode, destinationNode);
+                        formSegment.addWindowListener(new java.awt.event.WindowAdapter (){
+                                        @Override
+                                        public void windowClosed(java.awt.event.WindowEvent e){
+                                            doAction();
+                                        }
+                        });
                         formSegment.setVisible(true);
                         break;
                     case TRIP:
@@ -249,6 +273,7 @@ public class mainFrame extends javax.swing.JFrame {
                                 @Override
                                 public void windowClosed(java.awt.event.WindowEvent e){
                                     updateListTrip();
+                                    doAction();
                                 }
                             });
                         formTrip.setVisible(true);
@@ -269,6 +294,7 @@ public class mainFrame extends javax.swing.JFrame {
                             @Override
                             public void windowClosed(java.awt.event.WindowEvent e){
                                 updateListVehicule();
+                                doAction();
                             }
                         });
                         formVehicule.setVisible(true);
@@ -287,6 +313,7 @@ public class mainFrame extends javax.swing.JFrame {
                                         @Override
                                         public void windowClosed(java.awt.event.WindowEvent e){
                                             updateListClientGenerator();
+                                            doAction();
                                         }
                                     });
                                     formClientGenerator.setVisible(true);
@@ -312,6 +339,7 @@ public class mainFrame extends javax.swing.JFrame {
                                     @Override
                                     public void windowClosed(java.awt.event.WindowEvent e){
                                         updateListVehiculeGenerator();
+                                        doAction();
                                     }
                                 });
                                 formVehiculeGenerator.setVisible(true);
@@ -329,6 +357,7 @@ public class mainFrame extends javax.swing.JFrame {
                                     @Override
                                     public void windowClosed(java.awt.event.WindowEvent e){
                                         updateListClientProfile();
+                                        doAction();
                                     }
                                 });
                                 formClientProfile.setVisible(true);
@@ -682,6 +711,11 @@ public class mainFrame extends javax.swing.JFrame {
         menuItemCancel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
         menuItemCancel.setText("Annuler");
         menuEdit.add(menuItemCancel);
+        menuItemCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemCancelActionPerformed(evt);
+            }
+        });
 
         menuItemRedo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
         menuItemRedo.setText("Refaire");
@@ -783,7 +817,68 @@ public class mainFrame extends javax.swing.JFrame {
         this.controller.setCurrentTool(Tool.STOP);
     }
 
-    private void menuItemRedoActionPerformed(java.awt.event.ActionEvent evt) {
+    private void menuItemRedoActionPerformed(java.awt.event.ActionEvent evt) 
+    {
+        Redo();
+        switch(controller.getCurrentTool())
+        {
+            case STOP:
+                updateListStop();
+                break;
+            case SEGMENT:
+                updateListSegment();
+                break;
+            case TRIP:
+                updateListTrip();
+                break;
+            case VEHICULE:
+                updateListVehicule();
+                break;
+            case CLIENT:
+                updateListClient();
+                break;
+            case VEHICULE_GENERATOR:
+                updateListVehiculeGenerator();
+                break;
+            case CLIENT_GENERATOR:
+                updateListClientGenerator();
+                break;
+            case CLIENT_PROFILE:
+                updateListClientProfile();
+                break;
+        }
+    }
+    
+    private void menuItemCancelActionPerformed(java.awt.event.ActionEvent evt) 
+    {
+        Undo();
+        switch(controller.getCurrentTool())
+        {
+            case STOP:
+                updateListStop();
+                break;
+            case SEGMENT:
+                updateListSegment();
+                break;
+            case TRIP:
+                updateListTrip();
+                break;
+            case VEHICULE:
+                updateListVehicule();
+                break;
+            case CLIENT:
+                updateListClient();
+                break;
+            case VEHICULE_GENERATOR:
+                updateListVehiculeGenerator();
+                break;
+            case CLIENT_GENERATOR:
+                updateListClientGenerator();
+                break;
+            case CLIENT_PROFILE:
+                updateListClientProfile();
+                break;
+        }
     }
 
     private void menuItemQuitActionPerformed(java.awt.event.ActionEvent evt) {
@@ -1012,6 +1107,7 @@ public class mainFrame extends javax.swing.JFrame {
                         @Override
                         public void windowClosed(java.awt.event.WindowEvent e){
                             updateListTrip();
+                            doAction();
                         }
                     });
                     form.setVisible(true);
@@ -1027,6 +1123,7 @@ public class mainFrame extends javax.swing.JFrame {
                         @Override
                         public void windowClosed(java.awt.event.WindowEvent e){
                             updateListVehicule();
+                            doAction();
                         }
                     });
                     formVehicule.setVisible(true);
@@ -1044,6 +1141,7 @@ public class mainFrame extends javax.swing.JFrame {
                         @Override
                         public void windowClosed(java.awt.event.WindowEvent e){
                             updateListClientGenerator();
+                            doAction();
                         }
                     });
                     formClientGenerator.setVisible(true);
@@ -1061,6 +1159,7 @@ public class mainFrame extends javax.swing.JFrame {
                         @Override
                         public void windowClosed(java.awt.event.WindowEvent e){
                             updateListVehiculeGenerator();
+                            doAction();
                         }
                     });
                     formVehiculeGenerator.setVisible(true);
@@ -1076,6 +1175,7 @@ public class mainFrame extends javax.swing.JFrame {
                         @Override
                         public void windowClosed(java.awt.event.WindowEvent e){
                             updateListClientProfile();
+                            doAction();
                         }
                     });
                     formClientProfile.setVisible(true);
@@ -1091,73 +1191,7 @@ public class mainFrame extends javax.swing.JFrame {
     }
     
     
-    private void stopSimulation()
-    {
-        ticker.stop();
-        this.loadInitialState();
-        this.controller.setIsSimulationStarted(false);
-        this.controller.setIsSimulationPaused(false);
-        zp.repaint();
-    }
     
-    private void saveDialog()
-    {
-        JFileChooser fileChooser = new JFileChooser();
-        if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) 
-        {
-            String path = fileChooser.getSelectedFile().getPath();
-            if(!path.substring(path.length() - 4, path.length()).equals(".ser"))
-                JOptionPane.showMessageDialog(this, "Le fichier doit avoir l'extension '.ser'.");
-            else            
-            {
-                controller.saveFile(path);
-                JOptionPane.showMessageDialog(this, "Le fichier a été enregistré avec succès.");
-            }
-        }
-    }
-    
-    private void loadFile(String _path)
-    {
-        try
-        {
-            FileInputStream fileIn = new FileInputStream(_path);
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            controller = (Simulation) in.readObject();
-
-            in.close();
-            fileIn.close();
-        }
-        catch(IOException i)
-        {
-            i.printStackTrace();
-        }
-        catch(ClassNotFoundException c)
-        {
-           System.out.println(c.getClass() + " class not found");
-        } 
-        controller.setCurrentFilePath(_path);
-    }
-    
-    private void loadInitialState()
-    {
-        try
-        {
-            FileInputStream fileIn = new FileInputStream("N-Team_Simulatheure_Saves/InitialState.ser");
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            controller = (Simulation) in.readObject();
-
-            in.close();
-            fileIn.close();
-        }
-        catch(IOException i)
-        {
-            i.printStackTrace();
-        }
-        catch(ClassNotFoundException c)
-        {
-           System.out.println(c.getClass() + " class not found");
-        } 
-    }
 
     /**
      * @param args the command line arguments
@@ -1415,7 +1449,148 @@ public class mainFrame extends javax.swing.JFrame {
         }
         lstToolItems.setModel(listModel);
     }
- 
+    
+    private void stopSimulation()
+    {
+        ticker.stop();
+        this.loadInitialState();
+        this.controller.setIsSimulationStarted(false);
+        this.controller.setIsSimulationPaused(false);
+        zp.repaint();
+    }
+    
+    private void saveDialog()
+    {
+        JFileChooser fileChooser = new JFileChooser();
+        if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) 
+        {
+            String path = fileChooser.getSelectedFile().getPath();
+            if(!path.substring(path.length() - 4, path.length()).equals(".ser"))
+                JOptionPane.showMessageDialog(this, "Le fichier doit avoir l'extension '.ser'.");
+            else            
+            {
+                controller.saveFile(path);
+                JOptionPane.showMessageDialog(this, "Le fichier a été enregistré avec succès.");
+            }
+        }
+    }
+    
+    private void loadFile(String _path)
+    {
+        try
+        {
+            FileInputStream fileIn = new FileInputStream(_path);
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            controller = (Simulation) in.readObject();
+
+            in.close();
+            fileIn.close();
+            controller.deleteIniialSaves();
+            controller.setCurrentFilePath(_path);
+            controller.setNbActionSaved(0);
+        }
+        catch(IOException i)
+        {
+            i.printStackTrace();
+        }
+        catch(ClassNotFoundException c)
+        {
+           System.out.println(c.getClass() + " class not found");
+        } 
+    }
+    
+    private void loadInitialState()
+    {
+        try
+        {
+            FileInputStream fileIn = new FileInputStream("N-Team_Simulatheure_Saves/InitialState.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            controller = (Simulation) in.readObject();
+
+            in.close();
+            fileIn.close();
+        }
+        catch(IOException i)
+        {
+            i.printStackTrace();
+        }
+        catch(ClassNotFoundException c)
+        {
+           System.out.println(c.getClass() + " class not found");
+        } 
+    }
+    
+    private void Undo()
+    {
+        if(controller.getNbActionSaved() > 0)
+        {
+            try
+            {
+                if(controller.getNbActionSaved() == 1)
+                {
+                    controller.getListNode().clear();
+                }
+                else
+                {
+                    controller.setNbActionSaved(controller.getNbActionSaved() - 1);
+                    FileInputStream fileIn = new FileInputStream("N-Team_Simulatheure_Saves/ActionSave" + 
+                                                                 controller.getNbActionSaved() + ".ser");
+                    ObjectInputStream in = new ObjectInputStream(fileIn);
+                    controller = (Simulation) in.readObject();
+
+                    in.close();
+                    fileIn.close();
+                }
+            }
+            catch(IOException i)
+            {
+                i.printStackTrace();
+            }
+            catch(ClassNotFoundException c)
+            {
+               System.out.println(c.getClass() + " class not found");
+            } 
+        }
+    }
+    
+    private void Redo()
+    {
+        if(controller.getNbActionSaved() > 0)
+        {
+            File file = new File(("N-Team_Simulatheure_Saves/ActionSave" + (controller.getNbActionSaved() + 1) + ".ser"));
+
+            if (file.exists())
+            {
+                try
+                {
+                    controller.setNbActionSaved(controller.getNbActionSaved() + 1);
+                    FileInputStream fileIn = new FileInputStream("N-Team_Simulatheure_Saves/ActionSave" + 
+                                                                 controller.getNbActionSaved() + ".ser");
+                    ObjectInputStream in = new ObjectInputStream(fileIn);
+                    controller = (Simulation) in.readObject();
+
+                    in.close();
+                    fileIn.close();
+                }
+                catch(IOException i)
+                {
+                    i.printStackTrace();
+                }
+                catch(ClassNotFoundException c)
+                {
+                   System.out.println(c.getClass() + " class not found");
+                }
+            }
+        }
+    }
+    
+    private void doAction()
+    {
+        controller.saveAction();
+        //Path path = FileSystems.getDefault().getPath("/j","sa");
+        //Files.setAttribute(path, "dos:hidden", true);
+    }
+    
     private int x;
     private int y;
     private int xDrag = 0;

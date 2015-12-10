@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.awt.Image;
 import java.io.*;
+import java.nio.file.*;
 
 import Domain.Node.*;
 import Domain.Vehicule.*;
@@ -43,6 +44,7 @@ public class Simulation implements java.io.Serializable
     private boolean dayChanged;
     private int nodeMargin = 5;
     private String currentFilePath;
+    private int nbActionSaved;
     
     public Simulation()
     {
@@ -61,6 +63,7 @@ public class Simulation implements java.io.Serializable
         this.isSimulationStarted = false;
         this.isSimulationPaused = false;
         this.dayChanged = false;
+        this.nbActionSaved = 0;
     }
             
     public float getSpeedMultiplier()
@@ -115,6 +118,16 @@ public class Simulation implements java.io.Serializable
     public void setCurrentFilePath(String _path)
     {
         this.currentFilePath = _path;
+    }
+    
+    public int getNbActionSaved()
+    {
+        return this.nbActionSaved;
+    }
+    
+    public void setNbActionSaved(int _nbActionSaved)
+    {
+        this.nbActionSaved = _nbActionSaved;
     }
     
     public void play()
@@ -225,17 +238,50 @@ public class Simulation implements java.io.Serializable
             this.setIsSimulationPaused(true);
         }
     }
-    public void saveInitialState()
+    
+    public void saveAction()
     {
-        this.isSimulationStarted = false;
         try
         {
+            this.nbActionSaved++;
+                        
             File directory = new File("N-Team_Simulatheure_Saves");
 
             if (!directory.exists())
             {
                 directory.mkdir();
             }
+            Path path = FileSystems.getDefault().getPath(new java.io.File( "." ).getCanonicalPath() + "/N-Team_Simulatheure_Saves");
+            Files.setAttribute(path, "dos:hidden", true);
+            
+            FileOutputStream outFile = new FileOutputStream("N-Team_Simulatheure_Saves/ActionSave" + nbActionSaved + ".ser");
+            ObjectOutputStream out = new ObjectOutputStream(outFile);
+            out.writeObject(this);
+            
+            out.close();
+            outFile.close();
+        }
+        catch(IOException i)
+        {
+            i.printStackTrace();
+        }  
+    }
+    
+    public void saveInitialState()
+    {
+        this.isSimulationStarted = false;
+        try
+        {
+            
+            File directory = new File("N-Team_Simulatheure_Saves");
+
+            if (!directory.exists())
+            {
+                directory.mkdir();
+            }
+            Path path = FileSystems.getDefault().getPath(new java.io.File( "." ).getCanonicalPath() + "/N-Team_Simulatheure_Saves");
+            Files.setAttribute(path, "dos:hidden", true);
+            
             FileOutputStream outFile = new FileOutputStream("N-Team_Simulatheure_Saves/InitialState.ser");
             ObjectOutputStream out = new ObjectOutputStream(outFile);
             out.writeObject(this);
@@ -254,7 +300,10 @@ public class Simulation implements java.io.Serializable
     {
         this.currentFilePath = _path;
         try
-        {
+        {           
+            //Path path = FileSystems.getDefault().getPath(_path);
+            //Files.setAttribute(path, "dos:hidden", false);
+            
             FileOutputStream outFile = new FileOutputStream(_path);
             ObjectOutputStream out = new ObjectOutputStream(outFile);
             out.writeObject(this);
@@ -268,25 +317,18 @@ public class Simulation implements java.io.Serializable
         }  
     }
     
-    public void LoadSimulation(String _folderPath)
+    public void deleteIniialSaves()
     {
-        /*try
+        File directory = new File("N-Team_Simulatheure_Saves");
+
+        if (directory.exists())
         {
-            FileInputStream fileIn = new FileInputStream("saves/InitialState.ser");
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            this = (Simulation)in.readObject(); CANNOT DO THIS
-            
-            in.close();
-            fileIn.close();
+            for(File file: directory.listFiles()) 
+            {
+                file.delete();
+            }
+            directory.delete();
         }
-        catch(IOException i)
-        {
-            i.printStackTrace();
-        }
-        catch(ClassNotFoundException c)
-        {
-           System.out.println(c.getClass() + " class not found");
-        }*/
     }
     
     public Tool getCurrentTool()
