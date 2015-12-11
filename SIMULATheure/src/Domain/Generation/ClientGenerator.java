@@ -164,7 +164,7 @@ public class ClientGenerator implements java.io.Serializable
                 {
                     nextGenerationTime.setDay(0);
                 }
-                Client newClient = new Client(this.clientProfile);
+                Client newClient = new Client(this.clientProfile, _currentTime);
                 Time newTime = new Time();
                 newTime.setTime(currentChecker.getTime());
                 newTime.setDay(0);

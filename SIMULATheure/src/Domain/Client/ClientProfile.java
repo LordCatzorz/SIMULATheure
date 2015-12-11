@@ -7,7 +7,9 @@ package Domain.Client;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.sql.Time;
+import java.util.Collections;
+
+import Application.Controller.Time;
 /**
  *
  * @author Raphael
@@ -15,15 +17,17 @@ import java.sql.Time;
 public class ClientProfile implements java.io.Serializable
 {
     private List<Itinary> itinary;
-    private Time minRecordedPassageDuration;
-    private Time maxRecordedPassageDuration;
-    private Time averageRecordedPassageDuration;
+    //private Time minRecordedPassageDuration;
+    //private Time maxRecordedPassageDuration;
+    //private Time averageRecordedPassageDuration;
+    private List<Time> recordedPassageDurations;
     private int totalNumberRecords;
     private String name;
     
     public ClientProfile()
     {
         this.itinary = new ArrayList<>();
+        this.recordedPassageDurations = new ArrayList<>();
         this.totalNumberRecords = 0;
     }
     
@@ -52,7 +56,42 @@ public class ClientProfile implements java.io.Serializable
         return this.itinary.remove(this.itinary.size() - 1) != null;
     }
     
-    public Time getMinRecordedPassageDuration()
+    public void addPassageDuration(Time _passageDuration)
+    {
+       this.recordedPassageDurations.add(_passageDuration);
+       this.totalNumberRecords++;
+    }
+    
+    public List<Time> getRecordedPassageDuration()
+    {
+        return this.recordedPassageDurations;
+    }
+    
+    public Time getMinPassageDuration()
+    {
+        return Collections.min(this.recordedPassageDurations, null);
+    }
+    
+    public Time getMaxPassageDuration()
+    {
+        return Collections.max(this.recordedPassageDurations, null);
+    }
+    
+    public Time getAveragePassageDuration()
+    {
+        double sum = 0;
+        for(int i = 0; i < this.totalNumberRecords; i++)
+        {
+            sum +=this.recordedPassageDurations.get(i).getTime();
+        }
+        sum = sum/this.totalNumberRecords;
+        
+        Time time  = new Time();
+        time.setTime(sum);
+        return time;
+    }
+    
+    /*public Time getMinRecordedPassageDuration()
     {
         return this.minRecordedPassageDuration;
     }
@@ -80,7 +119,8 @@ public class ClientProfile implements java.io.Serializable
     public void setAverageRecordedPassageDuration(Time _time)
     {
         this.averageRecordedPassageDuration = _time;
-    }
+    }*/
+    
     public String getName(){
         return this.name;
     }

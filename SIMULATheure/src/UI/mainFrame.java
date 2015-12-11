@@ -1491,6 +1491,7 @@ public class mainFrame extends javax.swing.JFrame {
         }
         catch(IOException i)
         {
+            JOptionPane.showMessageDialog(this, "Il y a eu une erreur lors du chargment, le fichier peut être corrompu.");
             i.printStackTrace();
         }
         catch(ClassNotFoundException c)
