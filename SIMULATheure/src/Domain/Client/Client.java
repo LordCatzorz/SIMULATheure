@@ -5,9 +5,10 @@
  */
 package Domain.Client;
 
-import java.sql.Time;
 import java.util.Date;
 import java.text.*;
+
+import Application.Controller.Time;
 /**
  *
  * @author Raphael
@@ -19,18 +20,11 @@ public class Client implements java.io.Serializable
     private Time creationTime;
     
     
-    public Client(ClientProfile _profile)
+    public Client(ClientProfile _profile, Time _currentTime)
     {
         this.profile = _profile;
-        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-        this.creationTime = Time.valueOf(dateFormat.format(new Date()));
+        this.creationTime = new Time(_currentTime.getDay(), _currentTime.getHour(), _currentTime.getMinute(), _currentTime.getSecond());
         this.itinary = _profile.getItinary().get(0);
-    }
-    
-    public Client()
-    {
-        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-        this.creationTime = Time.valueOf(dateFormat.format(new Date()));
     }
     
     public ClientProfile getProfile()
@@ -53,7 +47,7 @@ public class Client implements java.io.Serializable
         this.itinary = _itinary;
     }
     
-    public boolean nextItinary()
+    public boolean nextItinary(Time _currentTime)
     {
         for(int i = 0; i < this.profile.getItinary().size(); i++)
         {
@@ -61,6 +55,7 @@ public class Client implements java.io.Serializable
             {
                 if(i == this.profile.getItinary().size() - 1)//Last itinary
                 {
+                    this.profile.addPassageDuration(_currentTime);
                     return false;
                 }
                 else
