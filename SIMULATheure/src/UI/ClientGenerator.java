@@ -83,18 +83,22 @@ public class ClientGenerator extends javax.swing.JFrame {
 
         lblMinTime.setText("Temps minimal : ");
         lblMinTime.setName("lblTimeMin"); // NOI18N
+        
 
         txtMinTime.setName("txtTimeMine"); // NOI18N
-
+        txtMinTime.setText("0");
+        
         lblMaxTime.setText("Temps maximal :");
         lblMaxTime.setName("lblTimeMax"); // NOI18N
 
         txtMaxTime.setName("txtTimeMax"); // NOI18N
+        txtMaxTime.setText("5");
 
         lblModeTime.setText("Temps modal : ");
         lblModeTime.setName("lblTimeMode"); // NOI18N
 
         txtModeTime.setName("txtTimeMode"); // NOI18N
+        txtModeTime.setText("1");
 
         lblStartTime.setText("Heure du début de la génération :");
         lblStartTime.setName("lblTimeBegin"); // NOI18N

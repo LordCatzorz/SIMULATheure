@@ -23,7 +23,7 @@ public class Segment implements java.io.Serializable
     {
         this.originNode = _originNode;
         this.destinationNode = _destinationNode;
-        this.durationDistribution = new TriangularDistribution(5.0,5.0,5.0);
+        this.durationDistribution = new TriangularDistribution(3.0,10.0,5.0);
         this.durationTime = this.durationDistribution.calculate();
     }
     
