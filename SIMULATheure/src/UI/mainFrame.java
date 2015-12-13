@@ -1254,7 +1254,7 @@ public class mainFrame extends javax.swing.JFrame {
                     int y = Math.round(controller.getListVehicule().get(i).getGeographicPosition().getYPosition()) + (width/3);
                     
                     if(clientNumber >=10)
-                        x = Math.round(controller.getListNode().get(i).getGeographicPosition().getXPosition() - (width/3));
+                        x = Math.round(controller.getListVehicule().get(i).getGeographicPosition().getXPosition()) - (width/3);
                     
                     g2.setColor(Color.white);
                     g2.setFont(g.getFont().deriveFont(g.getFont().getSize() * 0.9F));//Reduce font size

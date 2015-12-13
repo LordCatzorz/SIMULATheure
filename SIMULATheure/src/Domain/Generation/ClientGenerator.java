@@ -168,8 +168,12 @@ public class ClientGenerator implements java.io.Serializable
                 Time newTime = new Time();
                 newTime.setTime(currentChecker.getTime());
                 newTime.setDay(0);
+                double nbClient = generationClientNumberDistribution.calculate();
                 List<Client> clients = new ArrayList();
-                clients.add(newClient);
+                for(int i = 0; i < nbClient; i++)
+                {
+                    clients.add(newClient);
+                }
                 return clients;
 
             }else{

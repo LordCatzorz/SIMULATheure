@@ -56,7 +56,7 @@ public class Stop extends Node implements java.io.Serializable
         List<Client> clients = new ArrayList();
         for(int i = 0; i < this.waitingClients.size(); i++)
         {
-            if(this.waitingClients.get(i).getCurrentItinary().getTrip() == _vehiculeTrip && clients.size() <= maxClientAmount)
+            if(this.waitingClients.get(i).getCurrentItinary().getTrip() == _vehiculeTrip && clients.size() < maxClientAmount)
             {
                 clients.add(this.waitingClients.get(i));
                 this.waitingClients.remove(i);

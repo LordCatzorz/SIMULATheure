@@ -24,37 +24,60 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="86" pref="86" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="lblName" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblProfile" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblMinTime" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblMaxTime" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblModeTime" alignment="1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="txtName" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="cmbProfile" alignment="0" pref="122" max="32767" attributes="0"/>
+                                  <Component id="txtMinTime" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtMaxTime" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtModeTime" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="lblMinTime1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblMaxTime1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblModeTime1" alignment="1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="txtModeNb" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <Component id="txtMaxNb" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <Component id="txtMinNb" min="-2" pref="120" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="0" pref="6" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="lblName" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblProfile" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblMinTime" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblMaxTime" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblModeTime" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="lblStartTime" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="lblEndTime" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="btnOk" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="txtName" max="32767" attributes="0"/>
-                          <Component id="cmbProfile" pref="122" max="32767" attributes="0"/>
-                          <Component id="txtMinTime" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtMaxTime" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtModeTime" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtStartTime" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtEndTime" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btnDelete" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnDelete" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  </Group>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -90,6 +113,21 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblMinTime1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtMinNb" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblMaxTime1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtMaxNb" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblModeTime1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtModeNb" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="17" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblStartTime" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtStartTime" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -103,66 +141,12 @@
                   <Component id="btnOk" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnDelete" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="jLabel1">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Tahoma" size="18" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="G&#xe9;n&#xe9;rateur de client"/>
-        <Property name="name" type="java.lang.String" value="lblTitle" noResource="true"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblName">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Nom : "/>
-        <Property name="name" type="java.lang.String" value="lblName" noResource="true"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtName">
-      <Properties>
-        <Property name="name" type="java.lang.String" value="txtName" noResource="true"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblProfile">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Profil des clients : "/>
-        <Property name="name" type="java.lang.String" value="lblProfile" noResource="true"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="cmbProfile">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="0"/>
-        </Property>
-        <Property name="name" type="java.lang.String" value="cmbProfile" noResource="true"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbProfileActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblMinTime">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Temps minimal : "/>
-        <Property name="name" type="java.lang.String" value="lblTimeMin" noResource="true"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtMinTime">
-      <Properties>
-        <Property name="name" type="java.lang.String" value="txtTimeMine" noResource="true"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lblMaxTime">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Temps maximal :"/>
-        <Property name="name" type="java.lang.String" value="lblTimeMax" noResource="true"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JTextField" name="txtMaxTime">
       <Properties>
         <Property name="name" type="java.lang.String" value="txtTimeMax" noResource="true"/>
@@ -218,6 +202,93 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="18" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="G&#xe9;n&#xe9;rateur de client"/>
+        <Property name="name" type="java.lang.String" value="lblTitle" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblName">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Nom : "/>
+        <Property name="name" type="java.lang.String" value="lblName" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtName">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="txtName" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblProfile">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Profil des clients : "/>
+        <Property name="name" type="java.lang.String" value="lblProfile" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cmbProfile">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+        <Property name="name" type="java.lang.String" value="cmbProfile" noResource="true"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbProfileActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblMinTime">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Temps minimal : "/>
+        <Property name="name" type="java.lang.String" value="lblTimeMin" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtMinTime">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="txtTimeMine" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblMaxTime">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Temps maximal :"/>
+        <Property name="name" type="java.lang.String" value="lblTimeMax" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblModeTime1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Nombre modal :"/>
+        <Property name="name" type="java.lang.String" value="lblTimeMode" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtModeNb">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="txtTimeMode" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblMinTime1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Nombre minimal : "/>
+        <Property name="name" type="java.lang.String" value="lblTimeMin" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtMinNb">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="txtTimeMine" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblMaxTime1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Nombre maximal :"/>
+        <Property name="name" type="java.lang.String" value="lblTimeMax" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtMaxNb">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="txtTimeMax" noResource="true"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
