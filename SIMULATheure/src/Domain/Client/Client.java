@@ -55,7 +55,9 @@ public class Client implements java.io.Serializable
             {
                 if(i == this.profile.getItinary().size() - 1)//Last itinary
                 {
-                    this.profile.addPassageDuration(_currentTime);
+                    Time time = new Time();
+                    time.setTime(_currentTime.getTime() - this.creationTime.getTime());
+                    this.profile.addPassageDuration(time, (int)_currentTime.getDay());
                     return false;
                 }
                 else
