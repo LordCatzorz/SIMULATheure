@@ -43,8 +43,7 @@ public class VehiculeGenerator extends javax.swing.JFrame
     {
         this.controller = _controller;
         initComponents();
-        setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
-               
+        setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);  
     }
     
     /**
