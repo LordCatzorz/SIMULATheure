@@ -385,7 +385,6 @@ public class mainFrame extends javax.swing.JFrame {
         btnSegment = new javax.swing.JButton();
         btnTrip = new javax.swing.JButton();
         btnVehicule = new javax.swing.JButton();
-        btnClient = new javax.swing.JButton();
         btnClientGenerator = new javax.swing.JButton();
         btnVehiculeGenerator = new javax.swing.JButton();
         btnClientProfile = new javax.swing.JButton();
@@ -484,17 +483,6 @@ public class mainFrame extends javax.swing.JFrame {
         });
         tlbTools.add(btnVehicule);
 
-        btnClient.setText("Client");
-        btnClient.setFocusable(false);
-        btnClient.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnClient.setPreferredSize(new java.awt.Dimension(59, 59));
-        btnClient.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnClient.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClientActionPerformed(evt);
-            }
-        });
-        tlbTools.add(btnClient);
 
         btnClientGenerator.setText("Générateur de clients");
         btnClientGenerator.setFocusable(false);
@@ -1000,17 +988,6 @@ public class mainFrame extends javax.swing.JFrame {
         scrollPaneTool.setVisible(true);
         
         controller.setCurrentTool(Tool.VEHICULE);
-    }
-
-    private void btnClientActionPerformed(java.awt.event.ActionEvent evt) {
-        lblToolName.setText("Client");
-        lblToolName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnAdd.setVisible(true);
-        lstToolItems.setVisible(true);
-        updateListClient();
-        scrollPaneTool.setVisible(true);
-        
-        controller.setCurrentTool(Tool.CLIENT);
     }
 
     private void btnClientGeneratorActionPerformed(java.awt.event.ActionEvent evt) {
@@ -1603,7 +1580,6 @@ public class mainFrame extends javax.swing.JFrame {
     private File backgroundFile = new File("src/Resources/image/grid.jpg");
     private javax.swing.JButton btnAccelerate;
     private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnClient;
     private javax.swing.JButton btnClientGenerator;
     private javax.swing.JButton btnClientProfile;
     private javax.swing.JButton btnPause;
