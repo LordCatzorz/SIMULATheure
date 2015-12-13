@@ -42,7 +42,7 @@ public class Simulation implements java.io.Serializable
     private boolean isSimulationStarted;
     private boolean isSimulationPaused;
     private boolean dayChanged;
-    private int nodeMargin = 5;
+    private int nodeMargin;
     private String currentFilePath;
     private int nbActionSaved;
     
@@ -64,6 +64,7 @@ public class Simulation implements java.io.Serializable
         this.isSimulationPaused = false;
         this.dayChanged = false;
         this.nbActionSaved = 0;
+        this.nodeMargin = 8;
     }
             
     public float getSpeedMultiplier()
