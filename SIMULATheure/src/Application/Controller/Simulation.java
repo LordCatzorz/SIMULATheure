@@ -222,9 +222,7 @@ public class Simulation implements java.io.Serializable
                                 if(((Stop)node).getClients().size() != 0)
                                 {
                                     ((Stop)node).addClient(this.listVehicule.get(this.listVehicule.size() - 1).disembarkClient((Stop)node, this.currentTime));
-                                    this.listVehicule.get(this.listVehicule.size() - 1).embarkClient(((Stop)node).requestEmbarkmentClient(this.listVehicule.get(this.listVehicule.size() - 1).getTrip(), 
-                                                            this.listVehicule.get(this.listVehicule.size() - 1).getCapacity() - 
-                                                            this.listVehicule.get(this.listVehicule.size() - 1).getInboardClients().size()));
+                                    this.listVehicule.get(this.listVehicule.size() - 1).embarkClient(((Stop)node).requestEmbarkmentClient(this.listVehicule.get(this.listVehicule.size() - 1).getTrip()));
                                 }
                                 break;
                             }
@@ -348,8 +346,7 @@ public class Simulation implements java.io.Serializable
     
     public boolean addNode(float _x, float _y)
     {
-        Node node  = new Node(new GeographicPosition(_x, _y));
-        node.setName("Arrêt" + (this.listNode.size() + 1));
+        Node node  = new Stop(new GeographicPosition(_x, _y), "Arrêt" + (this.listNode.size() + 1));
         return this.listNode.add(node);
     }
     
@@ -855,8 +852,7 @@ public class Simulation implements java.io.Serializable
                             if(stop.getGeographicPosition() == destinationNode.getGeographicPosition())
                             {
                                 ((Stop)stop).addClient(vehicule.disembarkClient((Stop)stop, this.currentTime));
-                                vehicule.embarkClient(((Stop)stop).requestEmbarkmentClient(vehicule.getTrip(), 
-                                                                                           vehicule.getCapacity() - vehicule.getInboardClients().size()));
+                                vehicule.embarkClient(((Stop)stop).requestEmbarkmentClient(vehicule.getTrip()));
                             }
                         }
                     }

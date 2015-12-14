@@ -625,10 +625,22 @@ public class mainFrame extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent evt) {		
                 if(!mainFrame.this.controller.getIsSimuationPaused())		
                 {		
-                    mainFrame.this.controller.updateSimulation();		
-                    lblTime.setText("Heure: " + controller.getCurrentTime().getTimeStringNoSecond());		
-                    mainFrame.this.updateListVehicule();		
-                    mainFrame.this.zp.repaint();		
+                    mainFrame.this.controller.updateSimulation();
+                    lblTime.setText("Heure: " + controller.getCurrentTime().getTimeStringNoSecond());
+                    if(mainFrame.this.controller.getIsSimuationStarted() == false)
+                    {
+                        StatisticsSimulation form = new StatisticsSimulation(mainFrame.this.controller);
+                        form.addWindowListener(new java.awt.event.WindowAdapter (){
+                            @Override
+                            public void windowClosed(java.awt.event.WindowEvent e){
+                                
+                            }
+                        });
+                        form.setVisible(true);
+                    }else{	
+                        mainFrame.this.updateListVehicule();		
+                        mainFrame.this.zp.repaint();
+                    }
                 }		
             }		
         };		

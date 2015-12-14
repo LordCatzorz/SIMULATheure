@@ -91,13 +91,13 @@ public class StatisticsSimulation extends javax.swing.JFrame {
 
                 lblMaxPassageDuration.setText(profile.getMaxPassageDuration(dayInt).getTimeStringNoSecond());
                 
-                lblSimulationNbClient.setText("TODO");
+                lblSimulationNbClient.setText("" + profile.getRecordedClientAmount(dayInt));
             }
         });
         lblDay.setText("Jour:");
 
         cmbDay.setModel(new javax.swing.DefaultComboBoxModel());
-        for(int i = 0; i < controller.getStartTime().getDay(); i++)
+        for(int i = 0; i < controller.getEndTime().getDay(); i++)
         {
             cmbDay.addItem(i);
         }
@@ -124,9 +124,29 @@ public class StatisticsSimulation extends javax.swing.JFrame {
 
                 lblMaxPassageDuration.setText(profile.getMaxPassageDuration(dayInt).getTimeStringNoSecond());
                 
-                lblSimulationNbClient.setText("TODO");
+                lblSimulationNbClient.setText("" + profile.getRecordedClientAmount(dayInt));
             }
-        });                
+        });
+        String value = StatisticsSimulation.this.cmbClientProfile.getSelectedItem().toString();
+        ClientProfile profile = new ClientProfile();
+        for(int i = 0; i < StatisticsSimulation.this.controller.getListClientProfile().size(); i++)
+        {
+            if(StatisticsSimulation.this.controller.getListClientProfile().get(i).getName().equalsIgnoreCase(value))
+            {
+                profile = StatisticsSimulation.this.controller.getListClientProfile().get(i);
+                break;
+            }
+        }
+        String day = StatisticsSimulation.this.cmbDay.getSelectedItem().toString();
+        int dayInt = Integer.parseInt(day);
+
+        lblMinPassageDuration.setText(profile.getMinPassageDuration(dayInt).getTimeStringNoSecond());
+
+        lblAveragePassageDuration.setText(profile.getAveragePassageDuration(dayInt).getTimeStringNoSecond());
+
+        lblMaxPassageDuration.setText(profile.getMaxPassageDuration(dayInt).getTimeStringNoSecond());
+
+        lblSimulationNbClient.setText("" + profile.getRecordedClientAmount(dayInt));
 
         lblNbClient.setText("Nombre de client:");
 

@@ -39,11 +39,12 @@ public class Stop extends Node implements java.io.Serializable
     
     public boolean addClient(List<Client> _clients)
     {
-        if(this.waitingClients.size() <= 0 )
+        if(this.waitingClients.isEmpty())
         {
-            return false;
+            return this.waitingClients.addAll(0, _clients);
+        }else{
+            return this.waitingClients.addAll(this.waitingClients.size() - 1, _clients);
         }
-        return this.waitingClients.addAll(this.waitingClients.size() - 1, _clients);
     }
     
     public boolean removeClient(Client _client)
@@ -51,12 +52,12 @@ public class Stop extends Node implements java.io.Serializable
         return this.waitingClients.remove(_client);
     }
     
-    public List<Client> requestEmbarkmentClient(Trip _vehiculeTrip, int maxClientAmount)
+    public List<Client> requestEmbarkmentClient(Trip _vehiculeTrip)
     {
         List<Client> clients = new ArrayList();
         for(int i = 0; i < this.waitingClients.size(); i++)
         {
-            if(this.waitingClients.get(i).getCurrentItinary().getTrip() == _vehiculeTrip && clients.size() < maxClientAmount)
+            if(this.waitingClients.get(i).getCurrentItinary().getTrip() == _vehiculeTrip)
             {
                 clients.add(this.waitingClients.get(i));
                 this.waitingClients.remove(i);

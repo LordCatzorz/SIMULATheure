@@ -44,16 +44,22 @@ public class Vehicule implements java.io.Serializable
     public List<Client> disembarkClient(Stop _currentStop, Time _currentTime)
     {
         List<Client> clients = new ArrayList();
+        List<Client> toRemove = new ArrayList();
         for(int i = 0; i < this.inboardClients.size(); i++)
         {
             if(this.inboardClients.get(i).getCurrentItinary().getDestinationStop() == _currentStop)
             {
                 if(this.inboardClients.get(i).nextItinary(_currentTime))
+                {
                     clients.add(this.inboardClients.get(i));
+                }
                     
-                this.inboardClients.remove(i);
-                i--;
+                toRemove.add(this.inboardClients.get(i));
             }
+        }
+        for(int i = 0; i < toRemove.size(); i++)
+        {
+            this.inboardClients.remove(toRemove.get(i));
         }
         return clients;
     }

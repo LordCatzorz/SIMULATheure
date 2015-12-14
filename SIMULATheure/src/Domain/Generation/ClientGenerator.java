@@ -172,7 +172,8 @@ public class ClientGenerator implements java.io.Serializable
                 List<Client> clients = new ArrayList();
                 for(int i = 0; i < nbClient; i++)
                 {
-                    clients.add(newClient);
+                    Client c = new Client(newClient);
+                    clients.add(c);
                 }
                 return clients;
 

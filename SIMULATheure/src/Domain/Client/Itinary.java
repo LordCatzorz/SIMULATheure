@@ -23,6 +23,12 @@ public class Itinary implements java.io.Serializable
         this.destinationStop = _destinationStop;
         this.trip = _trip;
     }
+
+    Itinary(Itinary _itinary) {
+        this.originStop = _itinary.getOriginStop();
+        this.destinationStop = _itinary.getDestinationStop();
+        this.trip = _itinary.getTrip();
+    }
     
     public Stop getOriginStop()
     {

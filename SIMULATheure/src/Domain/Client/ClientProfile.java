@@ -74,22 +74,40 @@ public class ClientProfile implements java.io.Serializable
     
     public Time getMinPassageDuration(int _day)
     {
-        return Collections.min(this.recordedPassageDurations.get(_day), null);
+        Time min = new Time();
+        min.setTime(this.recordedPassageDurations.get(_day).get(0).getTime());
+         for(int i = 0; i < this.recordedPassageDurations.get(_day).size(); i++)
+        {
+           if(this.recordedPassageDurations.get(_day).get(i).getTime() < min.getTime())
+           {
+               min.setTime(this.recordedPassageDurations.get(_day).get(i).getTime());
+           }
+        }
+        return min;
     }
     
     public Time getMaxPassageDuration(int _day)
     {
-        return Collections.max(this.recordedPassageDurations.get(_day), null);
+        Time max = new Time();
+         max.setTime(this.recordedPassageDurations.get(_day).get(0).getTime());
+         for(int i = 0; i < this.recordedPassageDurations.get(_day).size(); i++)
+        {
+           if(this.recordedPassageDurations.get(_day).get(i).getTime() > max.getTime())
+           {
+               max.setTime(this.recordedPassageDurations.get(_day).get(i).getTime());
+           }
+        }
+        return max;
     }
     
     public Time getAveragePassageDuration(int _day)
     {
         double sum = 0;
-        for(int i = 0; i < this.numberRecordsPassageDuration; i++)
+        for(int i = 0; i < this.recordedPassageDurations.get(_day).size(); i++)
         {
             sum +=this.recordedPassageDurations.get(_day).get(i).getTime();
         }
-        sum = sum/this.numberRecordsPassageDuration;
+        sum = sum/this.getRecordedClientAmount(_day);
         
         Time time  = new Time();
         time.setTime(sum);
@@ -105,7 +123,13 @@ public class ClientProfile implements java.io.Serializable
         this.recordedClientNumberGenerated.get(_day).add(_number);
         this.numberRecordsClient++;
     }
-    
+    public int getRecordedClientAmount(int _day)
+    {
+        int sum = 0;
+        sum +=this.recordedClientNumberGenerated.get(_day).size();
+        
+        return sum;
+    }
     public List<Integer> getRecordedClientNumberGenerated(int _day)
     {
         return this.recordedClientNumberGenerated.get(_day);
@@ -113,12 +137,28 @@ public class ClientProfile implements java.io.Serializable
     
     public Integer getMinClientNumber(int _day)
     {
-        return Collections.min(this.recordedClientNumberGenerated.get(_day), null);
+        int min = this.recordedClientNumberGenerated.get(_day).get(0);
+         for(int i = 0; i < this.recordedClientNumberGenerated.get(_day).size(); i++)
+        {
+           if(this.recordedClientNumberGenerated.get(_day).get(i)< min)
+           {
+               min = this.recordedClientNumberGenerated.get(_day).get(i);
+           }
+        }
+        return min;
     }
     
     public Integer getMaxClientNumber(int _day)
     {
-        return Collections.max(this.recordedClientNumberGenerated.get(_day), null);
+        int max = 0;
+         for(int i = 0; i < this.recordedClientNumberGenerated.get(_day).size(); i++)
+        {
+           if(this.recordedClientNumberGenerated.get(_day).get(i) > max)
+           {
+               max = this.recordedClientNumberGenerated.get(_day).get(i);
+           }
+        }
+        return max;
     }
     
     public Integer getAverageClientNumber(int _day)
@@ -128,7 +168,7 @@ public class ClientProfile implements java.io.Serializable
         {
             sum +=this.recordedClientNumberGenerated.get(_day).get(i);
         }
-        return (sum/this.numberRecordsClient);
+        return (sum/this.getRecordedClientAmount(_day));
     }
     
     public int getNumberRecordsClient()

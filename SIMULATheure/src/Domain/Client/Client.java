@@ -24,7 +24,13 @@ public class Client implements java.io.Serializable
     {
         this.profile = _profile;
         this.creationTime = new Time(_currentTime.getDay(), _currentTime.getHour(), _currentTime.getMinute(), _currentTime.getSecond());
-        this.itinary = _profile.getItinary().get(0);
+        this.itinary = new Itinary(_profile.getItinary().get(0));
+    }
+    public Client(Client _client)
+    {
+        this.creationTime = _client.creationTime;
+        this.itinary = _client.itinary;
+        this.profile = _client.profile;
     }
     
     public ClientProfile getProfile()
@@ -51,13 +57,16 @@ public class Client implements java.io.Serializable
     {
         for(int i = 0; i < this.profile.getItinary().size(); i++)
         {
-            if(this.profile.getItinary().get(i) == this.itinary)
+            if(this.profile.getItinary().get(i).getOriginStop() == this.itinary.getOriginStop() &&
+                    this.profile.getItinary().get(i).getDestinationStop() == this.itinary.getDestinationStop() &&
+                    this.profile.getItinary().get(i).getTrip()== this.itinary.getTrip())
             {
                 if(i == this.profile.getItinary().size() - 1)//Last itinary
                 {
                     Time time = new Time();
                     time.setTime(_currentTime.getTime() - this.creationTime.getTime());
                     this.profile.addPassageDuration(time, (int)_currentTime.getDay());
+                    this.profile.addClientNumber(1, (int)_currentTime.getDay());
                     return false;
                 }
                 else
